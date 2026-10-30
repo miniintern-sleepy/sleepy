@@ -24,7 +24,7 @@ npm run format       # Prettier로 형식 맞춤
 npm run build        # 배포용 빌드
 ```
 
-검사는 직접 돌리지 않아도 된다. 커밋할 때 훅이 바뀐 파일의 형식(Prettier), 린트(ESLint), 비밀 키(secretlint), 커밋 메시지 규칙을 자동으로 검사한다. 훅이 실패하면 원인을 고친 뒤 다시 커밋한다. `--no-verify`로 건너뛰지 않는다. 빌드 검사는 PR에서 CI가 한다(CI는 설정 예정).
+검사는 직접 돌리지 않아도 된다. 커밋할 때 훅이 바뀐 파일의 형식(Prettier), 린트(ESLint), 비밀 키(secretlint), 커밋 메시지 규칙을 자동으로 검사한다. 훅이 실패하면 원인을 고친 뒤 다시 커밋한다. `--no-verify`로 건너뛰지 않는다. 빌드 검사는 PR에서 CI가 한다.
 
 ## 폴더 구조와 작업 범위
 
@@ -116,7 +116,8 @@ export async function getFaqs(): Promise<Faq[]> {}
 1. **이슈**: 모든 작업에는 이슈가 있어야 한다. 이슈가 없으면 이슈 템플릿으로 초안을 만들어 보여 주고, 확인받은 뒤 `gh issue create`로 만든다. 먼저 작업했다면 커밋하기 전에 이슈를 만든다.
 2. **브랜치**: `dev`에서 `타입/이슈번호-설명`으로 만든다. 예: `feat/12-contact-form`. 이슈를 나중에 만들었다면 푸시 전에 `git branch -m`으로 이름을 바꾼다.
 3. **커밋**: `타입: 작업 내용 #이슈번호`. 예: `feat: 문의 폼 서버 검증 추가 #12`. 이슈 번호가 없으면 커밋 훅이 막는다(머지 커밋은 예외).
-4. **PR**: 대상은 `dev`. 본문에 `Closes #이슈번호`를 적는다. 없으면 CI가 막는다.
+4. **PR**: 대상은 `dev`. 제목은 커밋과 같은 `타입: 작업 내용 #이슈번호`, 본문에 `Closes #이슈번호`를 적는다. 없으면 CI가 막는다. PR 템플릿(`.github/pull_request_template.md`)을 채운다.
+5. **배포 PR**: `dev` → `main`만 허용. 제목은 `release: v버전 내용`. `release`는 커밋 타입이 아니다.
 
 - 타입: feat, fix, docs, style, refactor, test, chore
 - 커밋 메시지와 PR 본문에 `Co-Authored-By:` 줄과 AI 도구의 자동 서명("Generated with ..." 등)을 **절대 넣지 않는다**. 훅과 PR 검사에서 막힌다.

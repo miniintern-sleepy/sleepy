@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+    # edited: PR 제목·본문만 고쳐도 규칙 검사를 다시 돌린다.
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  pr-rules:
+    name: PR 규칙
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # PR에 들어간 모든 커밋 메시지를 검사하려면 기록 전체가 필요하다.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: 제목·브랜치·본문·커밋 검사
+        # PR 제목·본문은 사용자가 쓴 값이라 스크립트에 직접 넣지 않고 환경 변수로 넘긴다.
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/ci/check-pr.mjs
+
+  build:
+    name: 형식·린트·비밀 키·빌드
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run secretlint
+      - run: npm run build
