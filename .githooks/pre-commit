@@ -1,0 +1,3 @@
+#!/bin/sh
+# 바뀐 파일만 형식·린트·비밀 키를 검사한다. 설정은 package.json의 lint-staged.
+npx --no-install lint-staged

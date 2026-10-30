@@ -1,0 +1,12 @@
+# 윈도우·맥 줄바꿈 차이로 생기는 변경을 막기 위해 저장소에는 항상 LF로 저장한다.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary

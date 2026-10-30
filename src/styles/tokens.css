@@ -1,0 +1,103 @@
+/*
+ * 슬리피 디자인 토큰. 피그마 "공통 컴포넌트 > Sleepy 공통 스타일 v1"에서 옮겼다(2026-10-30).
+ *
+ * 디자인 값이 바뀌면 이 파일만 고친다. 화면 코드에서는 아래 이름의 클래스만 쓰고
+ * #3f2867, text-[15px] 같은 값을 직접 쓰지 않는다.
+ *
+ * Tailwind 클래스 이름은 한글을 쓸 수 없어서 영어로 지었다. 각 줄 옆에 피그마 이름을 적었다.
+ *
+ * 주의: 기본 색·글자 크기(bg-red-500, text-xl 등)는 꺼 두었다. 디자인에 없는 값이 섞이지
+ * 않게 하려는 것이다. 필요한 토큰이 없으면 여기에 추가한다.
+ */
+
+@theme {
+  --color-*: initial;
+  --text-*: initial;
+
+  /* 글자 */
+  --color-fg: #1d1b24; /* 글자/기본 */
+  --color-fg-muted: #5c5a66; /* 글자/보조 */
+  --color-fg-subtle: #9a96a6; /* 글자/흐림 */
+
+  /* 선 */
+  --color-line: #dddae4; /* 선/기본 */
+  --color-line-image: #c9c5d3; /* 선/이미지 자리 */
+  --color-line-on-dark: #8e7cb0; /* 선/어두운 배경 */
+
+  /* 배경 */
+  --color-surface: #ffffff; /* 배경/흰색 */
+  --color-surface-muted: #f7f6fa; /* 배경/면 */
+  --color-surface-image: #e9e7ee; /* 배경/이미지 자리 */
+  --color-surface-dark: #15131b; /* 배경/어두움 */
+  --color-surface-dark-2: #2a2733; /* 배경/어두움 2 */
+
+  /* 브랜드 */
+  --color-brand-deep: #3f2867; /* 브랜드/진보라 */
+  --color-brand: #6f4f9a; /* 브랜드/보라 */
+  --color-brand-soft: #c2a3e9; /* 브랜드/연보라 */
+  --color-brand-lavender: #e6e0f2; /* 브랜드/라벤더 */
+  --color-brand-pale: #eee9f6; /* 브랜드/옅은 보라 */
+
+  /* 글자 스타일: 크기 · 줄 높이 · 굵기를 한 클래스로 쓴다 (예: text-h2) */
+  --text-display: 4rem; /* Sleepy/Display 64 Bold */
+  --text-display--line-height: 1.2;
+  --text-display--font-weight: 700;
+
+  --text-h1: 3rem; /* Sleepy/Heading 1 48 Bold */
+  --text-h1--line-height: 1.3;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 2.25rem; /* Sleepy/Heading 2 36 Bold */
+  --text-h2--line-height: 1.4;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.5rem; /* Sleepy/Heading 3 24 Bold */
+  --text-h3--line-height: 1.4;
+  --text-h3--font-weight: 700;
+
+  --text-title: 1.25rem; /* Sleepy/Title 20 Bold */
+  --text-title--line-height: 1.4;
+  --text-title--font-weight: 700;
+
+  --text-body-lg: 1.125rem; /* Sleepy/Body L 18 Regular */
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-body: 1rem; /* Sleepy/Body 16 Regular */
+  --text-body--line-height: 1.6;
+  --text-body--font-weight: 400;
+
+  --text-body-sm: 0.875rem; /* Sleepy/Body S 14 Regular */
+  --text-body-sm--line-height: 1.6;
+  --text-body-sm--font-weight: 400;
+
+  --text-caption: 0.75rem; /* Sleepy/Caption 12 Medium */
+  --text-caption--line-height: 1.5;
+  --text-caption--font-weight: 500;
+
+  --text-eyebrow: 0.875rem; /* Sleepy/Eyebrow 14 Bold */
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.09375rem; /* 1.5px (피그마 확인 2026-10-30) */
+  --text-eyebrow--font-weight: 700;
+
+  --text-label: 0.875rem; /* Sleepy/Label 14 Bold */
+  --text-label--line-height: 1.4;
+  --text-label--font-weight: 700;
+
+  --text-button: 1rem; /* Sleepy/Button 16 Bold */
+  --text-button--line-height: 1;
+  --text-button--font-weight: 700;
+
+  --text-tab: 1.0625rem; /* Sleepy/Tab 17 Bold (선택된 탭) */
+  --text-tab--line-height: 1.4;
+  --text-tab--font-weight: 700;
+
+  --text-tab-base: 1.0625rem; /* Sleepy/Tab 기본 17 Medium (선택 안 된 탭) */
+  --text-tab-base--line-height: 1.4;
+  --text-tab-base--font-weight: 500;
+}
+
+/* next/font가 만든 글꼴 변수를 연결한다. inline이어야 변수 값이 그대로 들어간다. */
+@theme inline {
+  --font-sans: var(--font-noto-sans-kr);
+}
