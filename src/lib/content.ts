@@ -1,5 +1,9 @@
 import { cacheLife, cacheTag } from "next/cache";
 
+import { companyCopy } from "@/content/ko/company";
+import { homeCopy } from "@/content/ko/home";
+import { productCopy } from "@/content/ko/product";
+import { technologyCopy } from "@/content/ko/technology";
 import { createReadClient } from "@/lib/supabase/server";
 import type {
   Faq,
@@ -133,4 +137,27 @@ function toNewsArticle(row: NewsRow): NewsArticle {
     publishedAt: row.published_at,
     isFeatured: row.is_featured,
   };
+}
+
+// 긴 소개 문구는 코드 안 파일에 둔다(D-30). 나중에 Supabase로 옮겨도 화면 코드를 고치지 않도록
+// 지금부터 async로 두고 화면은 await로 부른다.
+
+/** 메인 화면 문구를 가져온다. */
+export async function getHomeCopy() {
+  return homeCopy;
+}
+
+/** 회사 소개 화면 문구를 가져온다. */
+export async function getCompanyCopy() {
+  return companyCopy;
+}
+
+/** 기술 화면 문구를 가져온다. */
+export async function getTechnologyCopy() {
+  return technologyCopy;
+}
+
+/** 제품 화면 문구를 가져온다. 사양은 `getProductSpecs()`로 따로 읽는다. */
+export async function getProductCopy() {
+  return productCopy;
 }
