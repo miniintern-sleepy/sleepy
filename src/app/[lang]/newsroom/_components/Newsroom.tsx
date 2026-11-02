@@ -10,7 +10,9 @@ import {
 } from "@/types/content";
 
 import ArticleImage from "./ArticleImage";
+import Megaphone from "./Megaphone";
 import { categoryLabels, formatDate, imageUrl } from "./news";
+import NoticeList from "./NoticeList";
 
 export default function Newsroom({
   articles,
@@ -120,11 +122,13 @@ export default function Newsroom({
               </button>
             )}
           </div>
+        ) : category === "notice" ? (
+          <NoticeList articles={filtered} lang={lang} />
         ) : (
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {ordered.map((article, index) => {
               const src = imageUrl(article.thumbnailUrl);
-              const notice = article.category === "notice" && !src;
+              const notice = article.category === "notice";
               return (
                 <li
                   key={article.id}
@@ -156,6 +160,7 @@ export default function Newsroom({
                       <div
                         className={`relative z-1 flex flex-1 flex-col px-5 pt-3 pb-6 ${notice ? "justify-center pb-24" : ""}`}
                       >
+                        {category === "all" && notice && <Megaphone />}
                         <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-sm">
                           <span className="rounded bg-brand-pale px-3 text-label text-brand">
                             {categoryLabels[article.category]}
