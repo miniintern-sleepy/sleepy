@@ -25,7 +25,12 @@ export default function AlgorithmSection({
   lang: string;
 }) {
   return (
-    <section aria-labelledby="product-algorithm" data-product-algorithm>
+    <section aria-labelledby="product-algorithm" className="relative">
+      <div
+        aria-hidden="true"
+        data-product-algorithm-band
+        className="pointer-events-none absolute inset-x-0 -top-28.25 -bottom-25 -z-10"
+      />
       <div className="relative mx-auto max-w-360 px-6 pt-16 md:px-10 lg:min-h-180 lg:px-20 lg:pt-50">
         <Reveal className="relative z-1">
           <h2

@@ -5,10 +5,17 @@ import Reveal from "@/components/ui/Reveal";
 import type { ProductCopy } from "./types";
 
 const images = [
-  { src: "/images/product/case-cutout.png", alt: "닫힌 슬리비 충전 케이스" },
+  {
+    src: "/images/product/case-cutout.png",
+    alt: "닫힌 슬리비 충전 케이스",
+    background: "bg-linear-to-r from-product-shade to-product-case-end",
+    outerEdge: "left-0 bg-linear-to-r",
+  },
   {
     src: "/images/product/hand-holding.png",
     alt: "손으로 슬리비 귀마개를 꺼내는 모습",
+    background: "",
+    outerEdge: "right-0 bg-linear-to-l",
   },
 ];
 
@@ -34,7 +41,9 @@ export default function FeaturesSection({
         {copy.items.map((item, index) => (
           <Reveal key={item.title}>
             {images[index] && (
-              <div className="relative aspect-4/3">
+              <div
+                className={`relative aspect-4/3 ${images[index].background}`}
+              >
                 <Image
                   src={images[index].src}
                   alt={images[index].alt}
@@ -44,7 +53,15 @@ export default function FeaturesSection({
                 />
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-linear-to-b from-product-surface via-product-surface/0 via-25% to-product-surface"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-product-surface to-product-surface/0 lg:h-20"
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-b from-product-surface/0 to-product-surface lg:h-20"
+                />
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-y-0 hidden w-35 from-product-surface to-product-surface/0 min-[90.0625rem]:block ${images[index].outerEdge}`}
                 />
               </div>
             )}

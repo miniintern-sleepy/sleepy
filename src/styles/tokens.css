@@ -214,6 +214,8 @@
 @theme {
   --color-product-surface: #f6f6f8;
   --color-product-gradient: #dfe0e4;
+  --color-product-shade: #d8d8da;
+  --color-product-case-end: #f2f2f2;
   --text-product-hero: 3.75rem;
   --text-product-hero--line-height: 1.24;
   --text-product-hero--font-weight: 500;

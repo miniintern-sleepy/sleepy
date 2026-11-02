@@ -38,13 +38,6 @@ export default function KitSection({
           sizes="(min-width: 1440px) 720px, (min-width: 768px) 50vw, 100vw"
           className="aspect-3/2 w-full object-cover"
         />
-        <div
-          aria-hidden="true"
-          className="flex h-11 items-center justify-center gap-4"
-        >
-          <span className="size-2 rounded-full bg-fg" />
-          <span className="size-2 rounded-full bg-line" />
-        </div>
       </Reveal>
       <Reveal className="px-6 md:px-10 lg:px-20 lg:pt-5">
         <h2
