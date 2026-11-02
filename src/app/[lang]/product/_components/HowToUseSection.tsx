@@ -44,7 +44,8 @@ export default function HowToUseSection({
             <figure className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1">
               {images[index] && (
                 <Image
-                  {...images[index]}
+                  src={images[index].src}
+                  alt={images[index].alt}
                   width={416}
                   height={300}
                   sizes="(min-width: 1440px) 416px, (min-width: 768px) 32vw, 100vw"

@@ -36,7 +36,8 @@ export default function FeaturesSection({
             {images[index] && (
               <div className="relative aspect-4/3">
                 <Image
-                  {...images[index]}
+                  src={images[index].src}
+                  alt={images[index].alt}
                   fill
                   sizes="(min-width: 1440px) 720px, (min-width: 768px) 50vw, 100vw"
                   className="object-contain"
