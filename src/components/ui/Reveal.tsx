@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import "./Reveal.css";
 
-/** 내용은 기본으로 보이며, 화면에 처음 들어올 때만 살짝 떠오른다. */
+/** 화면에 처음 들어올 때 한 번 살짝 떠오르며 나타난다. */
 export default function Reveal({
   children,
   className = "",
