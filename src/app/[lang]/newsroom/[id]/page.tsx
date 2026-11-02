@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { getNewsArticle } from "@/lib/content";
-
 import ArticleImage from "../_components/ArticleImage";
+import { loadNewsroom } from "../_components/load-news";
+import PreviewNotice from "../_components/PreviewNotice";
 import {
   categoryLabels,
   formatDate,
@@ -18,13 +18,15 @@ export const metadata: Metadata = { title: "뉴스 상세" };
 async function Article({ params }: PageProps<"/[lang]/newsroom/[id]">) {
   const { id, lang } = await params;
   if (!/^[1-9]\d*$/.test(id)) notFound();
-  const article = await getNewsArticle(Number(id));
+  const { articles, isPreview } = await loadNewsroom();
+  const article = articles.find((item) => item.id === Number(id));
   if (!article) notFound();
   const image = imageUrl(article.thumbnailUrl);
   const source = sourceUrl(article.sourceUrl);
 
   return (
     <article>
+      {isPreview && <PreviewNotice />}
       <Link
         href={`/${lang}/newsroom`}
         className="inline-flex min-h-11 items-center text-label text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"

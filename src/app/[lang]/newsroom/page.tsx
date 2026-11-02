@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
-import { getNewsList } from "@/lib/content";
-
+import { loadNewsroom } from "./_components/load-news";
 import Newsroom from "./_components/Newsroom";
+import PreviewNotice from "./_components/PreviewNotice";
 
 export const metadata: Metadata = {
   title: "뉴스룸",
@@ -11,8 +11,13 @@ export const metadata: Metadata = {
 };
 
 async function NewsList({ lang }: { lang: string }) {
-  const articles = await getNewsList();
-  return <Newsroom articles={articles} lang={lang} />;
+  const { articles, isPreview } = await loadNewsroom();
+  return (
+    <>
+      {isPreview && <PreviewNotice />}
+      <Newsroom articles={articles} lang={lang} />
+    </>
+  );
 }
 
 export default async function NewsroomPage({
