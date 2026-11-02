@@ -194,6 +194,11 @@
   --text-tech-detail--font-weight: 400;
   --text-tech-detail--letter-spacing: -0.005em;
 
+  --text-tech-note: 0.8125rem;
+  --text-tech-note--line-height: 1.65;
+  --text-tech-note--font-weight: 400;
+  --text-tech-note--letter-spacing: -0.005em;
+
   --text-tech-spectrum-en: 0.875rem;
   --text-tech-spectrum-en--line-height: 1.3;
   --text-tech-spectrum-en--font-weight: 400;

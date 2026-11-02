@@ -1,4 +1,5 @@
 // 기술 · 시안 01(224:7736)의 원문. 브라우저에서 문구를 읽어 옮겼다(2026-11-02).
+// 주의: 효능·안전성 문구는 대표님이 확인한 것만 배포한다(F-10).
 export const technologyCopy = {
   intro: {
     title: "중추신경계 억제",
@@ -46,7 +47,7 @@ export const technologyCopy = {
     title: "양이성 음향이 마취에 미치는 영향에 관한 임상연구",
     metric: {
       label: "전신마취 유도 시\n프로포폴 요구량",
-      value: "약 20% ↓",
+      value: "약 20%↓",
     },
     studies: [
       { title: "프로포폴 마취 유도 용량", status: "발표" },
