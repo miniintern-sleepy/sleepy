@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import type { getTechnologyCopy } from "@/lib/content";
 
-import Reveal from "./Reveal";
+import Reveal from "@/components/ui/Reveal";
 
 type Copy = Awaited<ReturnType<typeof getTechnologyCopy>>["patents"];
 
