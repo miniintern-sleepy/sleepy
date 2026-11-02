@@ -34,7 +34,7 @@ src/app/[lang]/<화면>/_components/    그 화면에서만 쓰는 섹션
 src/components/layout/                헤더, 푸터
 src/components/ui/                    여러 화면이 같이 쓰는 UI (피그마 공통 컴포넌트)
 src/lib/                              콘텐츠 읽기, Supabase, 메타데이터, 지표 같은 공통 기능
-src/content/ko/                       페이지 문구, FAQ, 뉴스룸 기사
+src/content/ko/                       메인·회사·기술·제품 소개 문구 (FAQ·뉴스 등은 Supabase, D-41)
 src/styles/tokens.css                 색·글자 스타일 토큰
 supabase/migrations/                  테이블·RLS 변경 SQL
 ```
@@ -102,11 +102,11 @@ supabase/migrations/                  테이블·RLS 변경 SQL
 
 ```ts
 /**
- * 공개된 FAQ를 노출 순서대로 가져온다.
+ * 구매 페이지 주소를 가져온다.
  *
- * 지금은 content/ko 파일을 읽고, 관리 화면이 생기면 Supabase 조회로 바뀐다.
+ * @returns 비어 있거나 `https://`로 시작하지 않으면 `null`. 화면은 "출시 예정"을 보여 준다(F-06).
  */
-export async function getFaqs(): Promise<Faq[]> {}
+export async function getPurchaseUrl(): Promise<string | null> {}
 ```
 
 ## Git
