@@ -16,10 +16,12 @@ export default async function TechnologyPage() {
   const copy = await getTechnologyCopy();
 
   return (
-    <main className="overflow-x-clip break-keep">
+    <main className="break-keep">
       {/* 스크립트가 꺼져 있어도 내용은 보이게 한다. */}
       <noscript>
-        <style>{"[data-reveal]{opacity:1;translate:none}"}</style>
+        <style>
+          {"[data-reveal],[data-reveal] *{opacity:1;translate:none;scale:none}"}
+        </style>
       </noscript>
       <IntroSection copy={copy.intro} />
       <PrinciplesSection copy={copy.principles} />

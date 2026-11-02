@@ -34,7 +34,7 @@ export default function Reveal({
       ref={ref}
       data-reveal
       data-visible={isVisible}
-      className={`group transition duration-700 ease-out motion-safe:translate-y-4 motion-safe:opacity-0 motion-safe:data-[visible=true]:translate-y-0 motion-safe:data-[visible=true]:opacity-100 ${className}`}
+      className={`group transition duration-700 ease-out motion-safe:translate-y-4 motion-safe:opacity-0 motion-safe:data-[visible=true]:translate-y-0 motion-safe:data-[visible=true]:opacity-100 print:translate-y-0 print:opacity-100 ${className}`}
     >
       {children}
     </div>

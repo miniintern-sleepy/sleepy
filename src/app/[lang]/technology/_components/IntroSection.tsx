@@ -45,7 +45,7 @@ export default function IntroSection({ copy }: { copy: Copy }) {
             </li>
           ))}
         </ul>
-        <div className="h-12 origin-left bg-linear-to-r from-tech-spectrum-start via-tech-spectrum-middle to-tech-spectrum-end transition-transform delay-200 duration-1000 ease-out motion-safe:scale-x-0 motion-safe:group-data-[visible=true]:scale-x-100 md:h-18" />
+        <div className="h-12 origin-left bg-linear-to-r from-tech-spectrum-start via-tech-spectrum-middle to-tech-spectrum-end transition-transform delay-200 duration-1000 ease-out motion-safe:scale-x-0 motion-safe:group-data-[visible=true]:scale-x-100 md:h-18 print:scale-x-100" />
 
         <div className="flex flex-col items-center md:ml-15 md:flex-row md:items-start">
           {/* 두 이미지는 투명 여백이 커서 피그마처럼 겹쳐 놓고, 글자는 그 위에 얹는다. */}

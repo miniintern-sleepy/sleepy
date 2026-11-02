@@ -59,10 +59,10 @@ export default function PatentsSection({ copy }: { copy: Copy }) {
         <Reveal className="mt-10 xl:mt-0">
           <Image
             src="/images/technology/certificates.png"
-            alt="특허와 상표 등록증 5장. 개인정보는 흐리게 가려져 있다."
+            alt="특허와 상표 등록증 5장"
             width={560}
             height={640}
-            sizes="(min-width: 1280px) 560px, 100vw"
+            sizes="(min-width: 640px) 560px, 100vw"
             className="mx-auto h-auto w-full max-w-140"
           />
         </Reveal>

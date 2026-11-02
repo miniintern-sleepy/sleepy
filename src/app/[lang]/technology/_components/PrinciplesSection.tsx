@@ -47,7 +47,7 @@ function Waveform() {
       height={height}
       rx={10}
       style={{ transitionDelay: `${Math.abs(x - 264) / 2}ms` }}
-      className={`origin-center transition-transform duration-700 ease-out transform-fill motion-safe:scale-y-50 motion-safe:group-data-[visible=true]:scale-y-100 ${fill}`}
+      className={`origin-center transition-transform duration-700 ease-out transform-fill motion-safe:scale-y-50 motion-safe:group-data-[visible=true]:scale-y-100 print:scale-y-100 ${fill}`}
     />
   );
 
@@ -109,7 +109,7 @@ export default function PrinciplesSection({ copy }: { copy: Copy }) {
             alt="왼쪽 귀에 208Hz, 오른쪽 귀에 200Hz를 들려주면 8Hz 양이성 음향이 생기는 원리 도식"
             width={550}
             height={295}
-            sizes="(min-width: 1024px) 550px, 100vw"
+            sizes="(min-width: 1440px) 550px, (min-width: 1024px) 45vw, 100vw"
             className="h-auto w-full"
           />
           <p className="mt-3.75 text-tech-note text-fg-muted">
@@ -141,7 +141,7 @@ export default function PrinciplesSection({ copy }: { copy: Copy }) {
               alt="이어폰을 끼고 침대에서 잠든 사람"
               width={550}
               height={367}
-              sizes="(min-width: 1024px) 550px, 100vw"
+              sizes="(min-width: 1440px) 550px, (min-width: 1024px) 45vw, 100vw"
               className="h-auto w-full transition-transform duration-500 ease-out motion-safe:hover:scale-102"
             />
           </div>

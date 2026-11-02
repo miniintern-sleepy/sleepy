@@ -16,7 +16,7 @@ export default function ClinicalSection({ copy }: { copy: Copy }) {
             alt="수술실에서 의료진이 환자의 마취를 돕는 연구 현장"
             width={540}
             height={700}
-            sizes="(min-width: 1024px) 540px, 100vw"
+            sizes="(min-width: 1440px) 540px, (min-width: 1024px) 40vw, 100vw"
             className="h-auto w-full transition-transform duration-500 ease-out motion-safe:hover:scale-102"
           />
         </div>
@@ -51,9 +51,7 @@ export default function ClinicalSection({ copy }: { copy: Copy }) {
           ))}
         </ul>
         {/* 연결할 자료가 아직 없어 링크가 아닌 글자로 둔다. */}
-        <p className="mt-5.5 text-tech-label text-fg underline underline-offset-4">
-          {copy.moreLabel}
-        </p>
+        <p className="mt-5.5 text-tech-label text-fg">{copy.moreLabel}</p>
       </Reveal>
     </section>
   );
