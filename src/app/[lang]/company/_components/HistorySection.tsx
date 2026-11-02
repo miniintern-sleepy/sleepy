@@ -12,7 +12,7 @@ export default function HistorySection({ copy }: { copy: Copy }) {
       <Reveal>
         <h2
           id="company-history"
-          className="text-center text-h3 text-fg md:text-h2"
+          className="text-center text-h3 text-brand-deep md:text-tech-heading"
         >
           {copy.title}
         </h2>
@@ -44,10 +44,10 @@ export default function HistorySection({ copy }: { copy: Copy }) {
                       : "md:col-start-1 md:flex-row-reverse"
                   }`}
                 >
-                  <span className="min-w-14 text-label text-brand md:min-w-0">
+                  <span className="min-w-16 text-h3 text-brand md:min-w-0">
                     {date}
                   </span>
-                  <span className="text-body text-fg">{text}</span>
+                  <span className="text-tech-list text-fg">{text}</span>
                 </p>
               </li>
             );

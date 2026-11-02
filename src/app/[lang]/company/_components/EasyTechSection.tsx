@@ -1,7 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import Reveal from "@/components/ui/Reveal";
 import type { getCompanyCopy } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["easyTech"];
 
@@ -30,14 +32,23 @@ function Ear({
   );
 }
 
-export default function EasyTechSection({ copy }: { copy: Copy }) {
+export default function EasyTechSection({
+  copy,
+  lang,
+}: {
+  copy: Copy;
+  lang: Locale;
+}) {
   return (
     <section
       aria-labelledby="company-tech"
-      className="bg-surface-muted px-6 py-16 md:px-10 md:py-24"
+      className="px-6 py-16 md:px-10 md:py-24"
     >
       <Reveal className="mx-auto max-w-360 text-center">
-        <h2 id="company-tech" className="text-h3 text-fg md:text-h2">
+        <h2
+          id="company-tech"
+          className="text-h3 text-brand-deep md:text-tech-heading"
+        >
           {copy.title}
         </h2>
 
@@ -88,6 +99,12 @@ export default function EasyTechSection({ copy }: { copy: Copy }) {
         <p className="mt-8 text-body whitespace-pre-line text-fg-muted md:mt-10">
           {copy.description}
         </p>
+        <Link
+          href={`/${lang}/technology`}
+          className="mt-4 inline-flex min-h-11 items-center text-tech-label underline underline-offset-4 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors"
+        >
+          {copy.link}
+        </Link>
       </Reveal>
     </section>
   );
