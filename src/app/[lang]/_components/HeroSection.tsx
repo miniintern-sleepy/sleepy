@@ -43,18 +43,15 @@ export default function HeroSection({
   purchaseUrl: string | null;
 }) {
   return (
-    <section
-      aria-labelledby="home-title"
-      className="bg-linear-to-b from-brand-pale to-surface pt-16 pb-12 text-center md:pt-24 md:pb-20"
-    >
-      <Reveal className="mx-auto max-w-360 px-6 md:px-10 lg:px-20">
+    <section aria-labelledby="home-title" className="text-center">
+      <Reveal className="mx-auto max-w-360 bg-linear-to-b from-surface-muted to-surface px-6 pt-16 pb-10 md:px-10 md:pt-24 md:pb-14 lg:px-20">
         <h1
           id="home-title"
-          className="text-h2 whitespace-pre-line text-fg md:text-h1 lg:text-display"
+          className="text-h2 whitespace-pre-line text-fg md:text-tech-heading lg:text-tech-hero"
         >
           {copy.title}
         </h1>
-        <p className="mt-5 text-body text-fg-muted md:mt-6 md:text-title">
+        <p className="mt-5 text-body text-fg-muted md:mt-6 md:text-tech-intro">
           {copy.subtitle}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 md:mt-9">
@@ -67,15 +64,24 @@ export default function HeroSection({
           <PurchaseButton url={purchaseUrl} copy={copy} />
         </div>
       </Reveal>
-      <Reveal className="mx-auto mt-10 max-w-280 px-6 md:mt-14 md:px-10">
+      {/* 사진의 위아래 끝을 흰 배경으로 흐리게 해서 앞뒤 구간과 자연스럽게 이어 준다. */}
+      <Reveal className="relative mx-auto max-w-360">
         <Image
           src="/images/home/hero.webp"
           alt={copy.imageAlt}
           width={2000}
           height={1333}
-          sizes="(min-width: 1280px) 1120px, 100vw"
+          sizes="(min-width: 1440px) 1440px, 100vw"
           loading="eager"
-          className="aspect-4/3 w-full rounded-3xl object-cover shadow-xl md:aspect-2/1"
+          className="aspect-4/3 w-full object-cover md:aspect-9/4"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-surface to-surface/0 md:h-24"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-t from-surface to-surface/0 md:h-24"
         />
       </Reveal>
     </section>
