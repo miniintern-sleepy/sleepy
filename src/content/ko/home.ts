@@ -4,7 +4,7 @@ export const homeCopy = {
   hero: {
     title: "잠들기 어려운 밤,\n귀에 꽂기만 하세요",
     subtitle: "스마트폰 연결 없이 쓰는 디지털 귀마개, 슬리비",
-    imageAlt: "슬리비 제품 패키지와 구성품",
+    imageAlt: "슬리비 패키지, 충전 케이스, 이어폰과 구성품",
     productButton: "제품 보기",
     purchaseButton: "구매하러 가기",
     comingSoon: "출시 예정",
@@ -15,19 +15,23 @@ export const homeCopy = {
       {
         title: "스마트폰 없이 혼자 작동",
         description: "앱이나 블루투스 연결 없이 기기 자체로 작동합니다.",
+        imageAlt: "충전 케이스에 담긴 슬리비 이어폰",
       },
       {
         title: "한쪽 약 1.5g 초경량",
         description: "작고 가벼워 귀에 부담이 적습니다.",
+        imageAlt: "손가락으로 집은 슬리비 이어폰",
       },
       {
         title: "옆으로 누워도 편하게",
         description:
           "본체가 귓바퀴 안쪽에 자리 잡아 옆으로 누워도 이물감이 덜합니다.",
+        imageAlt: "귀에 착용한 슬리비 이어폰의 옆모습",
       },
       {
         title: "연구에서 출발한 제품",
         description: "마취 분야의 양이성 음향 연구를 바탕으로 설계했습니다.",
+        imageAlt: "슬리피 대표 서정화",
       },
     ],
   },

@@ -69,13 +69,13 @@ export default function HeroSection({
       </Reveal>
       <Reveal className="mx-auto mt-10 max-w-280 px-6 md:mt-14 md:px-10">
         <Image
-          src="/images/home/hero.jpg"
+          src="/images/home/hero.webp"
           alt={copy.imageAlt}
-          width={2400}
-          height={1600}
+          width={2000}
+          height={1333}
           sizes="(min-width: 1280px) 1120px, 100vw"
           loading="eager"
-          className="aspect-4/3 w-full rounded-3xl object-cover shadow-xl md:aspect-1120/440"
+          className="aspect-4/3 w-full rounded-3xl object-cover shadow-xl md:aspect-2/1"
         />
       </Reveal>
     </section>
