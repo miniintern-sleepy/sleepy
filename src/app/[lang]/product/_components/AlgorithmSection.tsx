@@ -62,9 +62,10 @@ export default function AlgorithmSection({
             <Image
               src="/images/product/earbuds-cutout.png"
               alt=""
-              fill
-              sizes="1000px"
-              className="object-cover"
+              width={900}
+              height={1000}
+              sizes="900px"
+              className="absolute top-1.25 left-1.25 h-250 w-225 max-w-none object-contain"
             />
           </div>
         </div>

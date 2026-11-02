@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import "./product.css";
+
 import { getProductCopy, getProductSpecs, getPurchaseUrl } from "@/lib/content";
 
 import AlgorithmSection from "./_components/AlgorithmSection";
@@ -29,7 +31,10 @@ export default async function ProductPage({
   ]);
 
   return (
-    <main className="relative isolate overflow-clip bg-product-surface break-keep">
+    <main
+      data-product-page
+      className="relative isolate overflow-clip bg-product-surface break-keep"
+    >
       <IntroSection copy={copy.intro} purchaseUrl={purchaseUrl} />
       <FeaturesSection copy={copy.features} />
       <MomentsSection copy={copy.moments} />

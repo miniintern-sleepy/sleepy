@@ -22,6 +22,7 @@ export default function IntroSection({
     >
       <div
         aria-hidden="true"
+        data-product-hero-glow
         className="pointer-events-none absolute top-24 -left-20 -z-10 size-160 rounded-full"
       />
       <div className="relative mx-auto max-w-360 px-6 pt-16 md:px-10 lg:px-20 lg:pt-50">
@@ -46,7 +47,7 @@ export default function IntroSection({
           </div>
         </Reveal>
       </div>
-      <div className="relative mt-8 ml-auto h-96 w-full max-w-175 md:h-140 lg:absolute lg:top-0 lg:right-0 lg:-z-10 lg:mt-0 lg:h-180">
+      <div className="relative mt-8 ml-auto aspect-[35/36] w-full max-w-175 lg:absolute lg:top-0 lg:right-0 lg:-z-10 lg:mt-0 lg:h-180">
         <Image
           src="/images/product/main1.png"
           alt="슬리비 귀마개와 열린 충전 케이스"
