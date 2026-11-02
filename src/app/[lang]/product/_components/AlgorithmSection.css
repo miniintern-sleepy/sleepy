@@ -1,0 +1,16 @@
+[data-product-algorithm] {
+  background: linear-gradient(
+    var(--color-product-surface),
+    var(--color-product-gradient) 22%,
+    var(--color-product-gradient) 76%,
+    var(--color-product-surface)
+  );
+}
+
+[data-product-algorithm-glow] {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-brand-soft) 55%, transparent),
+    transparent
+  );
+}

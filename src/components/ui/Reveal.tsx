@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-import styles from "./Reveal.module.css";
+import "./Reveal.css";
 
 /** 내용은 기본으로 보이며, 화면에 처음 들어올 때만 살짝 떠오른다. */
 export default function Reveal({
@@ -36,7 +36,7 @@ export default function Reveal({
       ref={ref}
       data-reveal
       data-visible={isVisible}
-      className={`group ${styles.reveal} ${className}`}
+      className={`group ${className}`}
     >
       {children}
     </div>

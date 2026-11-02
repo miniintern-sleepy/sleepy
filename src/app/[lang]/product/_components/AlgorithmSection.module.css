@@ -1,8 +1,0 @@
-.section {
-  background: linear-gradient(
-    var(--color-product-surface),
-    var(--color-product-gradient) 22%,
-    var(--color-product-gradient) 76%,
-    var(--color-product-surface)
-  );
-}

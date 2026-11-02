@@ -6,6 +6,8 @@ import Reveal from "@/components/ui/Reveal";
 import PurchaseButton from "./PurchaseButton";
 import type { ProductCopy } from "./types";
 
+import "./IntroSection.css";
+
 export default function IntroSection({
   copy,
   purchaseUrl,
@@ -16,11 +18,11 @@ export default function IntroSection({
   return (
     <section
       aria-labelledby="product-title"
-      className="relative isolate lg:min-h-180"
+      className="relative isolate mx-auto max-w-360 lg:min-h-180"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-24 -left-20 -z-10 size-160 rounded-full bg-radial from-brand-soft/35 to-brand-soft/0"
+        className="pointer-events-none absolute top-24 -left-20 -z-10 size-160 rounded-full"
       />
       <div className="relative mx-auto max-w-360 px-6 pt-16 md:px-10 lg:px-20 lg:pt-50">
         <Reveal className="relative z-1">

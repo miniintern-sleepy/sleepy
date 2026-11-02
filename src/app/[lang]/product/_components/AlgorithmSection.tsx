@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Reveal from "@/components/ui/Reveal";
 
-import styles from "./AlgorithmSection.module.css";
+import "./AlgorithmSection.css";
 import type { ProductCopy } from "./types";
 
 const waves = [
@@ -25,7 +25,7 @@ export default function AlgorithmSection({
   lang: string;
 }) {
   return (
-    <section aria-labelledby="product-algorithm" className={styles.section}>
+    <section aria-labelledby="product-algorithm" data-product-algorithm>
       <div className="relative mx-auto max-w-360 px-6 pt-16 md:px-10 lg:min-h-180 lg:px-20 lg:pt-50">
         <Reveal className="relative z-1">
           <h2
@@ -49,7 +49,10 @@ export default function AlgorithmSection({
           className="pointer-events-none relative h-112 md:h-140 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2"
         >
           <div className="absolute top-1/2 left-1/2 size-252.5 -translate-x-1/2 -translate-y-1/2 scale-60 md:scale-80 lg:-ml-10 lg:scale-100">
-            <div className="absolute top-1/2 left-1/2 size-180 -translate-x-1/2 -translate-y-1/2 rounded-full bg-radial from-brand-soft/55 to-brand-soft/0" />
+            <div
+              data-product-algorithm-glow
+              className="absolute top-1/2 left-1/2 size-180 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            />
             {waves.map((wave) => (
               <div
                 key={wave}
