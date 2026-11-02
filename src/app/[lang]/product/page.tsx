@@ -1,7 +1,47 @@
-// 제품 (/ko/product) — 피그마 "디자인 초안 > 04 제품"
-// 섹션: 1. 상단 소개(구매하기·사용 방법)  2. 탭: 제품 소개 · 특징 · 사용 방법 · 제품 정보  3. 구매 배너
-// 탭별 주소 분리는 마지막 단계에서 검토한다(D-20). 지금은 한 페이지 안의 섹션으로 둔다.
-// 이 화면에서만 쓰는 섹션은 ./_components/ 에 둔다.
-export default function ProductPage() {
-  return null;
+import type { Metadata } from "next";
+
+import "./product.css";
+
+import { getProductCopy, getProductSpecs, getPurchaseUrl } from "@/lib/content";
+
+import AlgorithmSection from "./_components/AlgorithmSection";
+import FeaturesSection from "./_components/FeaturesSection";
+import HowToUseSection from "./_components/HowToUseSection";
+import IntroSection from "./_components/IntroSection";
+import KitSection from "./_components/KitSection";
+import MomentsSection from "./_components/MomentsSection";
+import SpecsSection from "./_components/SpecsSection";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const copy = await getProductCopy();
+  return { title: "제품", description: copy.intro.description };
+}
+
+// D2에는 F-03의 탭·하단 구매 배너가 없다. 사양·구매 동작은 F-03·F-06과 DB를 따른다(#27).
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const [copy, specs, purchaseUrl, { lang }] = await Promise.all([
+    getProductCopy(),
+    getProductSpecs(),
+    getPurchaseUrl(),
+    params,
+  ]);
+
+  return (
+    <main
+      data-product-page
+      className="relative isolate overflow-clip bg-product-surface break-keep"
+    >
+      <IntroSection copy={copy.intro} purchaseUrl={purchaseUrl} />
+      <FeaturesSection copy={copy.features} />
+      <MomentsSection copy={copy.moments} />
+      <AlgorithmSection copy={copy.algorithm} lang={lang} />
+      <HowToUseSection copy={copy.howToUse} />
+      <KitSection copy={copy.kit} specs={specs} />
+      <SpecsSection specs={specs} />
+    </main>
+  );
 }

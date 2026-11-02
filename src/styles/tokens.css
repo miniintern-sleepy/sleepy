@@ -209,3 +209,60 @@
   --text-tech-category-en--font-weight: 400;
   --text-tech-category-en--letter-spacing: 0em;
 }
+
+/* 제품 · 디자인 초안 D2에서 브라우저로 확인한 누락값(#27, 2026-11-03). */
+@theme {
+  --color-product-surface: #f6f6f8;
+  --color-product-gradient: #dfe0e4;
+  --color-product-shade: #d8d8da;
+  --color-product-case-end: #f2f2f2;
+  --text-product-hero: 3.75rem;
+  --text-product-hero--line-height: 1.24;
+  --text-product-hero--font-weight: 500;
+  --text-product-hero--letter-spacing: -0.025em;
+
+  --text-product-heading: 3.5rem;
+  --text-product-heading--line-height: 1.24;
+  --text-product-heading--font-weight: 500;
+  --text-product-heading--letter-spacing: -0.025em;
+
+  --text-product-feature: 2.25rem;
+  --text-product-feature--line-height: 1.24;
+  --text-product-feature--font-weight: 500;
+  --text-product-feature--letter-spacing: -0.025em;
+
+  --text-product-kit-title: 2.5rem;
+  --text-product-kit-title--line-height: 1.24;
+  --text-product-kit-title--font-weight: 500;
+  --text-product-kit-title--letter-spacing: -0.025em;
+
+  --text-product-metric: 2.5rem;
+  --text-product-metric--line-height: 1.24;
+  --text-product-metric--font-weight: 300;
+  --text-product-metric--letter-spacing: -0.025em;
+
+  --text-product-step: 1.375rem;
+  --text-product-step--line-height: 1.45;
+  --text-product-step--font-weight: 500;
+  --text-product-step--letter-spacing: -0.005em;
+
+  --text-product-body: 1.0625rem;
+  --text-product-body--line-height: 1.65;
+  --text-product-body--font-weight: 400;
+  --text-product-body--letter-spacing: -0.005em;
+
+  --text-product-detail: 0.9375rem;
+  --text-product-detail--line-height: 1.65;
+  --text-product-detail--font-weight: 400;
+  --text-product-detail--letter-spacing: -0.005em;
+
+  --text-product-kit-item: 1.125rem;
+  --text-product-kit-item--line-height: 1.4;
+  --text-product-kit-item--font-weight: 400;
+  --text-product-kit-item--letter-spacing: -0.005em;
+
+  --text-product-metric-label: 0.8125rem;
+  --text-product-metric-label--line-height: 1.4;
+  --text-product-metric-label--font-weight: 400;
+  --text-product-metric-label--letter-spacing: -0.005em;
+}

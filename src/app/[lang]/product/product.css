@@ -1,0 +1,8 @@
+@media print {
+  [data-product-page] {
+    overflow: visible;
+  }
+  [data-product-page] [aria-hidden="true"] {
+    display: none;
+  }
+}
