@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import { notFound } from "next/navigation";
 
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { isLocale, locales } from "@/lib/i18n";
 
 import "@/styles/globals.css";
@@ -33,10 +35,10 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} className={notoSansKr.variable}>
-      <body>
-        {/* TODO: 헤더 (src/components/layout/Header.tsx) */}
-        {children}
-        {/* TODO: 푸터 (src/components/layout/Footer.tsx) */}
+      <body className="flex min-h-dvh flex-col">
+        <Header lang={lang} />
+        <div className="flex-1">{children}</div>
+        <Footer lang={lang} />
       </body>
     </html>
   );
