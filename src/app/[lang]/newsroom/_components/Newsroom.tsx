@@ -10,7 +10,7 @@ import {
 } from "@/types/content";
 
 import ArticleImage from "./ArticleImage";
-import Megaphone from "./Megaphone";
+import NoticeCard from "./NoticeCard";
 import { categoryLabels, formatDate, imageUrl } from "./news";
 import NoticeList from "./NoticeList";
 
@@ -128,7 +128,13 @@ export default function Newsroom({
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {ordered.map((article, index) => {
               const src = imageUrl(article.thumbnailUrl);
-              const notice = article.category === "notice";
+              if (article.category === "notice") {
+                return (
+                  <li key={article.id} className="self-start">
+                    <NoticeCard article={article} lang={lang} />
+                  </li>
+                );
+              }
               return (
                 <li
                   key={article.id}
@@ -137,7 +143,7 @@ export default function Newsroom({
                   <article className="h-full">
                     <Link
                       href={`/${lang}/newsroom/${article.id}`}
-                      className={`group relative flex h-full min-h-96 flex-col overflow-hidden rounded-2xl border border-line transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand ${notice ? "bg-brand-pale" : "bg-surface"}`}
+                      className={`group relative flex h-full min-h-96 flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand`}
                     >
                       {src ? (
                         <div
@@ -150,17 +156,14 @@ export default function Newsroom({
                             priority={index === 0}
                           />
                         </div>
-                      ) : !notice ? (
+                      ) : (
                         <div
                           className={`flex shrink-0 items-center justify-center rounded-2xl bg-surface-image text-body-sm text-fg-muted ${index < 2 ? "h-60 lg:h-72" : "h-60"}`}
                         >
                           이미지 준비 중
                         </div>
-                      ) : null}
-                      <div
-                        className={`relative z-1 flex flex-1 flex-col px-5 pt-3 pb-6 ${notice ? "justify-center pb-24" : ""}`}
-                      >
-                        {category === "all" && notice && <Megaphone />}
+                      )}
+                      <div className="relative z-1 flex flex-1 flex-col px-5 pt-3 pb-6">
                         <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-body-sm">
                           <span className="rounded bg-brand-pale px-3 text-label text-brand">
                             {categoryLabels[article.category]}
@@ -177,18 +180,12 @@ export default function Newsroom({
                         >
                           {article.title}
                         </h2>
-                        {(index === 0 || notice) && article.summary && (
+                        {index === 0 && article.summary && (
                           <p className="mt-4 line-clamp-2 text-body-sm text-fg-muted">
                             {article.summary}
                           </p>
                         )}
                       </div>
-                      {notice && (
-                        <span
-                          aria-hidden="true"
-                          className="absolute -right-16 bottom-16 h-20 w-full -rotate-3 rounded-t-full bg-brand-lavender"
-                        />
-                      )}
                     </Link>
                   </article>
                 </li>
