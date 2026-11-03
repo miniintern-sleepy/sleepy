@@ -45,4 +45,15 @@ jobs:
       - run: npm run format:check
       - run: npm run lint
       - run: npm run secretlint
-      - run: npm run build
+      - name: Supabase 환경 변수 확인 및 빌드
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          for name in NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::저장소 Settings > Secrets and variables > Actions에 $name 값을 등록해 주세요."
+              exit 1
+            fi
+          done
+          npm run build
