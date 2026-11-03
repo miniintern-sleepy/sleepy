@@ -1,8 +1,8 @@
 export default function PreviewNotice() {
   return (
     <p className="mb-6 rounded-xl bg-brand-pale px-4 py-3 text-body-sm text-brand-deep">
-      디자인 미리보기용 예시 기사입니다. 실제 소식이 아니며, 공개 기사가
-      등록되면 실제 데이터로 바뀝니다.
+      미리보기: 기사 원문을 참고한 구성입니다. 공지사항은 예시이며, 공개
+      콘텐츠가 등록되면 등록된 소식을 보여드립니다.
     </p>
   );
 }
