@@ -14,19 +14,15 @@ export default function ArticleImage({
 }) {
   const [failed, setFailed] = useState(false);
   if (failed)
-    return (
-      <span className="flex h-full items-center justify-center px-6 text-center text-body-sm text-fg-muted">
-        {title} 이미지가 준비되지 않았습니다.
-      </span>
-    );
+    return <span aria-hidden="true" className="block h-full bg-brand-pale" />;
   return (
     <Image
       src={src}
       alt={title}
       fill
       unoptimized
-      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 66vw"
-      className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-105"
+      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+      className={`object-cover transition-transform duration-300 motion-reduce:transition-none ${src === "/images/newsroom/proposal.webp" ? "scale-110 object-left" : "motion-safe:group-hover:scale-105"}`}
       loading={priority ? "eager" : "lazy"}
       onError={() => setFailed(true)}
     />
