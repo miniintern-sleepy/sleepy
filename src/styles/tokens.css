@@ -216,10 +216,18 @@
   --color-product-gradient: #dfe0e4;
   --color-product-shade: #d8d8da;
   --color-product-case-end: #f2f2f2;
-  --text-product-hero: 3.75rem;
-  --text-product-hero--line-height: 1.24;
-  --text-product-hero--font-weight: 500;
-  --text-product-hero--letter-spacing: -0.025em;
+  --color-product-button: #09090b;
+
+  /* 시안은 1440px 기준 177px·25px다. 사진과 겹치지 않게 그보다 좁으면 함께 줄인다(#39). */
+  --text-product-wordmark: clamp(5.5rem, 12.29vw, 11.0625rem);
+  --text-product-wordmark--line-height: 1;
+  --text-product-wordmark--font-weight: 500;
+  --text-product-wordmark--letter-spacing: -0.05em;
+
+  --text-product-tagline: clamp(1.125rem, 1.736vw, 1.5625rem);
+  --text-product-tagline--line-height: 1.5;
+  --text-product-tagline--font-weight: 400;
+  --text-product-tagline--letter-spacing: -0.005em;
 
   --text-product-heading: 3.5rem;
   --text-product-heading--line-height: 1.24;

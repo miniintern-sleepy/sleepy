@@ -1,12 +1,9 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import Reveal from "@/components/ui/Reveal";
 
 import PurchaseButton from "./PurchaseButton";
 import type { ProductCopy } from "./types";
-
-import "./IntroSection.css";
 
 export default function IntroSection({
   copy,
@@ -17,40 +14,30 @@ export default function IntroSection({
 }) {
   return (
     <section aria-labelledby="product-title" className="relative">
-      <div className="relative mx-auto max-w-360 lg:min-h-180 lg:bg-linear-to-r lg:from-product-surface lg:to-product-shade lg:to-51%">
-        <div
-          aria-hidden="true"
-          data-product-hero-glow
-          className="pointer-events-none absolute top-0 -left-20 size-80 rounded-full lg:top-20 lg:size-160"
-        />
-        <div className="relative px-6 pt-16 md:px-10 lg:px-20 lg:pt-50">
+      {/* 1024~1440px에서는 시안(1440×860) 비율을 유지하려고 간격을 vw로 줄인다(#39). */}
+      <div className="relative mx-auto max-w-360 lg:min-h-[min(59.72vw,53.75rem)] lg:bg-linear-to-r lg:from-product-surface lg:to-product-shade lg:to-[51.39%]">
+        <div className="relative px-6 pt-16 md:px-10 lg:px-0 lg:pt-[min(19.72vw,17.75rem)] lg:pl-[min(7.36vw,6.625rem)]">
           <Reveal className="relative z-1">
             <h1
               id="product-title"
-              className="text-product-feature whitespace-pre-line md:text-tech-heading lg:text-product-hero"
+              className="text-product-wordmark text-brand lg:ml-[min(2.15vw,1.9375rem)]"
             >
               {copy.title}
             </h1>
-            <p className="mt-5 text-tech-body text-fg-muted">
-              {copy.description}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-6">
-              <PurchaseButton url={purchaseUrl} copy={copy} />
-              <Link
-                href="#how-to-use"
-                className="inline-flex min-h-11 items-center text-tech-label underline underline-offset-4 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors"
-              >
-                {copy.guideButton}
-              </Link>
+            <div className="mt-5 flex w-fit flex-col">
+              <p className="text-product-tagline text-fg">{copy.description}</p>
+              <div className="mt-10 self-end lg:mt-[min(8.26vw,7.4375rem)]">
+                <PurchaseButton url={purchaseUrl} copy={copy} />
+              </div>
             </div>
           </Reveal>
         </div>
-        <div className="relative mt-8 ml-auto aspect-[35/36] w-full max-w-175 lg:absolute lg:top-0 lg:right-0 lg:mt-0 lg:h-180">
+        <div className="relative mt-8 ml-auto aspect-35/43 w-full max-w-175 lg:absolute lg:top-0 lg:right-0 lg:mt-0 lg:aspect-auto lg:h-full lg:w-[48.61%] lg:max-w-none">
           <Image
             src="/images/product/main1.png"
             alt="슬리비 귀마개와 열린 충전 케이스"
             fill
-            sizes="(min-width: 1024px) 700px, 100vw"
+            sizes="(min-width: 1440px) 700px, (min-width: 1024px) 49vw, 100vw"
             loading="eager"
             className="object-cover"
           />
