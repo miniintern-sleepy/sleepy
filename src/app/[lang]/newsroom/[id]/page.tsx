@@ -26,7 +26,7 @@ async function Article({ params }: PageProps<"/[lang]/newsroom/[id]">) {
 
   return (
     <article>
-      {isPreview && <PreviewNotice />}
+      {isPreview && article.category !== "notice" && <PreviewNotice />}
       {article.category === "notice" && (
         <header className="mb-12 bg-surface-muted px-6 py-16 text-center">
           <h1 className="text-h1 text-brand-deep sm:text-display">공지사항</h1>

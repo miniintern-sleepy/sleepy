@@ -15,15 +15,18 @@ import ArticleImage from "./ArticleImage";
 import NoticeCard from "./NoticeCard";
 import { categoryLabels, formatDate, imageUrl, sourceUrl } from "./news";
 import NoticeList from "./NoticeList";
+import PreviewNotice from "./PreviewNotice";
 
 export default function Newsroom({
   articles,
   lang,
   initialCategory = "all",
+  isPreview = false,
 }: {
   articles: NewsArticle[];
   lang: string;
   initialCategory?: NewsCategory | "all";
+  isPreview?: boolean;
 }) {
   const [category, setCategory] = useState<NewsCategory | "all">(
     initialCategory,
@@ -62,6 +65,7 @@ export default function Newsroom({
 
   return (
     <>
+      {isPreview && category !== "notice" && <PreviewNotice />}
       <div
         className="mb-4 flex flex-wrap justify-center gap-2"
         role="group"
@@ -237,7 +241,7 @@ export default function Newsroom({
                       alt=""
                       fill
                       sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
+                      className="object-cover transition-transform duration-300 ease-out motion-safe:group-focus-within:scale-105 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
                     />
                     <span className="relative text-title text-brand-deep">
                       당신의 편안한 수면
