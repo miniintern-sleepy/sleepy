@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import Reveal from "@/components/ui/Reveal";
 import {
   newsCategories,
   type NewsArticle,
@@ -50,6 +51,13 @@ export default function Newsroom({
   function selectCategory(value: NewsCategory | "all") {
     setCategory(value);
     setPage(1);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  function changePage(value: number) {
+    if (value === currentPage) return;
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: "instant" });
   }
 
   return (
@@ -191,48 +199,52 @@ export default function Newsroom({
                 "group flex h-100 flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-shadow hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand";
               return (
                 <li key={article.id}>
-                  <article>
-                    {source ? (
-                      <a
-                        href={source}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={className}
-                      >
-                        {content}
-                      </a>
-                    ) : (
-                      <Link
-                        href={`/${lang}/newsroom/${article.id}`}
-                        className={className}
-                      >
-                        {content}
-                      </Link>
-                    )}
-                  </article>
+                  <Reveal>
+                    <article>
+                      {source ? (
+                        <a
+                          href={source}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={className}
+                        >
+                          {content}
+                        </a>
+                      ) : (
+                        <Link
+                          href={`/${lang}/newsroom/${article.id}`}
+                          className={className}
+                        >
+                          {content}
+                        </Link>
+                      )}
+                    </article>
+                  </Reveal>
                 </li>
               );
             })}
             <li>
-              {category === "all" ? (
-                <NoticeCard onClick={() => selectCategory("notice")} />
-              ) : (
-                <Link
-                  href={`/${lang}/product`}
-                  className="group relative flex h-100 flex-col justify-center overflow-hidden rounded-2xl bg-brand-pale p-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
-                >
-                  <Image
-                    src="/images/product/main1.png"
-                    alt=""
-                    fill
-                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
-                  />
-                  <span className="relative text-title text-brand-deep">
-                    당신의 편안한 수면
-                  </span>
-                </Link>
-              )}
+              <Reveal key={`${category}-${currentPage}`}>
+                {category === "all" ? (
+                  <NoticeCard onClick={() => selectCategory("notice")} />
+                ) : (
+                  <Link
+                    href={`/${lang}/product`}
+                    className="group relative flex h-100 flex-col justify-center overflow-hidden rounded-2xl bg-brand-pale p-6 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+                  >
+                    <Image
+                      src="/images/product/main1.png"
+                      alt=""
+                      fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
+                    />
+                    <span className="relative text-title text-brand-deep">
+                      당신의 편안한 수면
+                    </span>
+                  </Link>
+                )}
+              </Reveal>
             </li>
           </ul>
         )}
@@ -245,7 +257,7 @@ export default function Newsroom({
           <button
             type="button"
             disabled={currentPage === 1}
-            onClick={() => setPage(currentPage - 1)}
+            onClick={() => changePage(currentPage - 1)}
             aria-label="이전 페이지"
             className="inline-flex size-11 cursor-pointer items-center justify-center text-body text-fg-muted transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-default disabled:opacity-30"
           >
@@ -256,7 +268,7 @@ export default function Newsroom({
               <button
                 key={number}
                 type="button"
-                onClick={() => setPage(number)}
+                onClick={() => changePage(number)}
                 aria-label={`${number}페이지`}
                 aria-current={currentPage === number ? "page" : undefined}
                 aria-controls="news-results"
@@ -269,7 +281,7 @@ export default function Newsroom({
           <button
             type="button"
             disabled={currentPage === pageCount}
-            onClick={() => setPage(currentPage + 1)}
+            onClick={() => changePage(currentPage + 1)}
             aria-label="다음 페이지"
             className="inline-flex size-11 cursor-pointer items-center justify-center text-body text-fg-muted transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-default disabled:opacity-30"
           >

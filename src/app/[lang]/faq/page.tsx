@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import Reveal from "@/components/ui/Reveal";
 import { getFaqs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -23,25 +24,26 @@ async function Questions() {
   return (
     <div className="border-t border-line">
       {faqs.map((faq, index) => (
-        <details
-          key={faq.id}
-          open={index === 1}
-          className="group border-b border-line"
-        >
-          <summary className="flex min-h-19 cursor-pointer list-none items-center gap-4 px-4 py-5 text-body-lg text-fg transition-colors hover:bg-surface-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand sm:px-6 [&::-webkit-details-marker]:hidden">
-            <span aria-hidden="true" className="shrink-0 text-label text-brand">
-              Q
-            </span>
-            <span className="flex-1 break-keep">{faq.question}</span>
-            <span aria-hidden="true" className="shrink-0 text-h3 text-brand">
-              <span className="group-open:hidden">+</span>
-              <span className="hidden group-open:inline">−</span>
-            </span>
-          </summary>
-          <div className="bg-brand-pale px-6 py-5 text-body whitespace-pre-line text-fg-muted sm:pr-12 sm:pl-16">
-            {faq.answer}
-          </div>
-        </details>
+        <Reveal key={faq.id}>
+          <details open={index === 1} className="group border-b border-line">
+            <summary className="flex min-h-19 cursor-pointer list-none items-center gap-4 px-4 py-5 text-body-lg text-fg transition-colors hover:bg-surface-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand sm:px-6 [&::-webkit-details-marker]:hidden">
+              <span
+                aria-hidden="true"
+                className="shrink-0 text-label text-brand"
+              >
+                Q
+              </span>
+              <span className="flex-1 break-keep">{faq.question}</span>
+              <span aria-hidden="true" className="shrink-0 text-h3 text-brand">
+                <span className="group-open:hidden">+</span>
+                <span className="hidden group-open:inline">−</span>
+              </span>
+            </summary>
+            <div className="bg-brand-pale px-6 py-5 text-body whitespace-pre-line text-fg-muted sm:pr-12 sm:pl-16">
+              {faq.answer}
+            </div>
+          </details>
+        </Reveal>
       ))}
     </div>
   );
