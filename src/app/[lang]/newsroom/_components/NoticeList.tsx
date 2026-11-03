@@ -33,7 +33,7 @@ export default function NoticeList({
                 </h2>
                 {article.summary && (
                   <p className="mt-3 text-body text-fg-muted">
-                    {article.summary}
+                    {article.summary.split("\n\n")[0]}
                   </p>
                 )}
               </Link>

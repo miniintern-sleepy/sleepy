@@ -13,7 +13,7 @@ export default function NoticeCard({ onClick }: { onClick: () => void }) {
         aria-hidden="true"
         width={320}
         height={320}
-        className="pointer-events-none absolute -right-10 bottom-0 size-80 object-contain opacity-60 transition-transform duration-300 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
+        className="pointer-events-none absolute -right-10 bottom-0 size-80 object-contain opacity-60 transition-transform duration-300 ease-out motion-safe:group-focus-within:scale-105 motion-safe:group-hover:scale-105 motion-reduce:transition-none"
       />
       <span className="relative mt-10 rounded bg-brand-lavender px-2 py-1 text-label text-brand">
         공지사항

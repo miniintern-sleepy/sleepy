@@ -5,7 +5,6 @@ import { newsCategories } from "@/types/content";
 
 import { loadNewsroom } from "./_components/load-news";
 import Newsroom from "./_components/Newsroom";
-import PreviewNotice from "./_components/PreviewNotice";
 
 export const metadata: Metadata = {
   title: "뉴스룸",
@@ -24,15 +23,13 @@ async function NewsList({
     newsCategories.find((category) => category === query.category) ?? "all";
   const { articles, isPreview } = await loadNewsroom();
   return (
-    <>
-      {isPreview && <PreviewNotice />}
-      <Newsroom
-        key={initialCategory}
-        articles={articles}
-        lang={lang}
-        initialCategory={initialCategory}
-      />
-    </>
+    <Newsroom
+      key={initialCategory}
+      articles={articles}
+      lang={lang}
+      initialCategory={initialCategory}
+      isPreview={isPreview}
+    />
   );
 }
 

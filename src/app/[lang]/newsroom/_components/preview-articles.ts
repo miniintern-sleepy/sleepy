@@ -1,6 +1,6 @@
 import type { NewsArticle } from "@/types/content";
 
-// 공개 데이터가 비어 있을 때만 쓰는 시안 참고 자료. 공지사항은 실제 운영 공지가 아니다.
+// 공개 데이터가 비어 있을 때만 쓰는 기사 원문 참고 목록.
 export const previewArticles: NewsArticle[] = [
   {
     id: 900000001,
@@ -178,17 +178,5 @@ export const previewArticles: NewsArticle[] = [
     isFeatured: false,
     sourceName: "서울신문",
     sourceUrl: "https://www.seoul.co.kr/news/society/2023/06/19/20230619500132",
-  },
-  {
-    id: 900000017,
-    category: "notice",
-    title: "서비스 점검 안내",
-    summary:
-      "안정적인 서비스 제공을 위한 정기 점검을 안내드립니다. 점검 일정과 이용에 영향을 주는 항목은 확정 후 본 공지에서 안내드리겠습니다.",
-    publishedAt: "2026-04-22",
-    thumbnailUrl: null,
-    isFeatured: false,
-    sourceName: null,
-    sourceUrl: null,
   },
 ];
