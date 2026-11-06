@@ -45,6 +45,7 @@ jobs:
       - run: npm run format:check
       - run: npm run lint
       - run: npm run secretlint
+      - run: npm test
       - name: Supabase 환경 변수 확인 및 빌드
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL }}

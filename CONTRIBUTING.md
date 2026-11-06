@@ -89,7 +89,7 @@ npm run dev    # 개발 서버
 - `main`으로는 `dev`에서만 PR을 올린다.
 - **리뷰어 (관례)**: 가능하면 팀원 1명을 리뷰어로 지정해 확인받는다. 시스템으로 강제하지는 않는다. 리뷰를 기다리느라 작업이 밀리면 PR 검사가 통과한 뒤 머지해도 된다.
 - **rebase 지양**: 커밋 기록을 남기기 위해 `rebase` 대신 일반 병합(`merge`)을 한다.
-- PR 검사(GitHub Actions, `.github/workflows/ci.yml`)는 두 가지다. ① PR 규칙: 제목, 브랜치 이름, 본문 `Closes`, PR에 들어간 모든 커밋 메시지(Co-Authored-By 포함). ② 형식·린트·비밀 키·빌드. 모두 통과해야 머지할 수 있다.
+- PR 검사(GitHub Actions, `.github/workflows/ci.yml`)는 두 가지다. ① PR 규칙: 제목, 브랜치 이름, 본문 `Closes`, PR에 들어간 모든 커밋 메시지(Co-Authored-By 포함). ② 형식·린트·비밀 키·테스트·빌드(`npm test` 포함, 테스트 목록은 `docs/testing.md`). 모두 통과해야 머지할 수 있다.
 
 ### PR 체크리스트 (머지 전 확인)
 

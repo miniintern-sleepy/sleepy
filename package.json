@@ -10,6 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "secretlint": "secretlint --no-gitignore \"**/*\"",
+    "test": "node --test",
     "prepare": "node scripts/hooks/install.mjs"
   },
   "dependencies": {
