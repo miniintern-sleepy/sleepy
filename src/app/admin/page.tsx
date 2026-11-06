@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import LoginForm from "./_components/LoginForm";
 import LogoutForm from "./_components/LogoutForm";
+import AdminNav from "./_components/AdminNav";
 import { requireAdmin } from "./_lib/auth";
 
 export default function AdminPage() {
@@ -52,9 +53,11 @@ async function AdminContent() {
       </div>
       <div className="border-t border-line pt-6">
         <h2 className="text-title">콘텐츠 관리</h2>
+        <div className="mt-4">
+          <AdminNav active="/admin" />
+        </div>
         <p className="mt-3 text-body text-fg-muted">
-          FAQ, 제품 사양, 구매 주소, 뉴스 기사와 문의를 관리할 공간입니다. 편집
-          기능은 준비 중입니다.
+          FAQ, 제품 사양·구매 주소와 뉴스 기사를 관리할 수 있습니다.
         </p>
       </div>
     </section>

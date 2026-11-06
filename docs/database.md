@@ -1,6 +1,6 @@
 # 테이블 설계
 
-> 이 파일이 원본이다(D-40). 마지막 반영일: 2026-11-01
+> 이 파일이 원본이다(D-40). 마지막 반영일: 2026-11-06
 
 ## 1. 핵심 엔티티 도출
 
@@ -181,7 +181,30 @@ erDiagram
 
 ## 5. 이미지
 
-제품·뉴스 이미지는 처음엔 저장소 `public/`에 둔다. 관리 화면에서 올리게 되면 Supabase Storage 공개 버킷을 쓴다(C-01).
+제품의 기존 이미지는 저장소 `public/`에 유지한다. 관리자 뉴스 썸네일은 Supabase Storage 공개 버킷 `news-thumbnails`를 쓴다(#44). 테이블 구조는 바꾸지 않고 공개 URL을 기존 `news_articles.thumbnail_url`에 저장한다.
+
+| 항목      | 설정                                                                                                                   |
+| --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 버킷      | `news-thumbnails`, public                                                                                              |
+| 파일 경로 | `news/<UUID>.<jpg 또는 png 또는 webp>`                                                                                 |
+| 허용 MIME | `image/jpeg`, `image/png`, `image/webp`                                                                                |
+| 최대 크기 | 900KB = 921,600바이트 (`file_size_limit`)                                                                              |
+| 접근 정책 | `storage.objects`의 해당 버킷·news 폴더에 `authenticated`이고 `public.is_admin()`인 사용자만 SELECT·INSERT·DELETE 허용 |
+| 덮어쓰기  | 하지 않음. 새 UUID를 사용하며 UPDATE 정책은 없음                                                                       |
+
+- 공개 URL 다운로드는 로그인 없이 가능하다. 기사 비공개 여부와 별개로 이미지 URL은 공개된다. 목록 조회·업로드·삭제에는 위 정책이 적용된다.
+- 업로드는 관리 Server Action에서 사용자 세션으로만 수행한다. 버킷 이름과 객체 경로를 서버가 정하고, 교체·삭제 시 다른 기사의 참조가 없는 자체 버킷 파일만 정리한다.
+- `faqs.updated_at`, `site_settings.updated_at`은 트리거 없이 Action에서 현재 시각을 넣어 갱신한다.
+- 마이그레이션: `supabase/migrations/20261106060000_news_thumbnails.sql`. 테이블·컬럼 변경 없이 버킷과 정책만 추가한다.
+
+### 원격 적용 방법
+
+1. Supabase 대시보드에서 대상 프로젝트를 확인하고 SQL Editor를 연다.
+2. 위 마이그레이션 파일 전체를 새 쿼리에 붙여 넣고 실행한다. 트랜잭션으로 적용되며 이미 적용한 파일을 반복 실행하지 않는다.
+3. Storage에서 `news-thumbnails`가 Public, 최대 921,600바이트, 허용 MIME 3개인지 확인한다. Storage 정책의 관리자 조건도 확인한다.
+4. 적용 완료 후 관리자 계정으로 뉴스 업로드를 검증한다. 코드를 작성한 에이전트는 원격 SQL을 실행하지 않고 담당자의 적용 완료 응답을 기다린다.
+
+근거: [Supabase 버킷·파일 제한](https://supabase.com/docs/guides/storage/buckets/creating-buckets), [Storage RLS](https://supabase.com/docs/guides/storage/security/access-control), [공개 버킷 접근 모델](https://supabase.com/docs/guides/storage/buckets/fundamentals).
 
 ## 6. 확인이 필요한 것
 
