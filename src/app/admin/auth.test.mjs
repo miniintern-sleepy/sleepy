@@ -4,6 +4,11 @@ import { after, beforeEach, test } from "node:test";
 
 const hooks = registerHooks({
   resolve(specifier, context, nextResolve) {
+    if (specifier === "next/server")
+      return {
+        url: "data:text/javascript,export async function connection(){}",
+        shortCircuit: true,
+      };
     if (specifier === "server-only")
       return { url: "data:text/javascript,export {}", shortCircuit: true };
     if (specifier === "./supabase" || specifier === "./_lib/supabase")

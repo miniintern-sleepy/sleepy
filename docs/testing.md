@@ -2,8 +2,8 @@
 
 자동화된 단위 테스트의 전체 목록이다. 테스트를 추가·수정·삭제하면 이 표도 함께 고친다.
 
-- 마지막 반영일: 2026-11-06 (#47)
-- 테스트 수: 23개 (파일 3개)
+- 마지막 반영일: 2026-11-06 (#44)
+- 테스트 수: 46개 (파일 5개)
 
 ## 실행 방법
 
@@ -22,11 +22,12 @@ node --test 'src/app/\[lang\]/contact/actions.test.mjs'    # 경로에 [lang]이
 - 테스트 이름은 "무엇이 어떻게 동작한다"는 한국어 문장으로 쓴다. `npm test` 출력에 이 이름이 그대로 나온다.
 - ID는 기능 접두어와 번호다. 번호는 다시 쓰지 않고, 테스트를 지우면 그 줄을 지운다.
 
-| 접두어 | 기능        |
-| ------ | ----------- |
-| `ADM`  | 관리자 인증 |
-| `INQ`  | 문의 저장   |
-| `NEWS` | 뉴스룸 공지 |
+| 접두어 | 기능               |
+| ------ | ------------------ |
+| `ADM`  | 관리자 인증        |
+| `INQ`  | 문의 저장          |
+| `NEWS` | 뉴스룸 공지        |
+| `ACM`  | 관리자 콘텐츠 관리 |
 
 ## 관리자 인증 (`ADM`)
 
@@ -65,3 +66,50 @@ node --test 'src/app/\[lang\]/contact/actions.test.mjs'    # 경로에 [lang]이
 | NEWS-002 | `src/app/[lang]/newsroom/_components/announcement.test.mjs` | DB 기사는 유지하고 새 공지를 최신순에 배치한다         | DB에 기존 공지 1건                    | 2건. 새단장 공지가 맨 앞. 원래 목록은 바뀌지 않음               |      |
 | NEWS-003 | `src/app/[lang]/newsroom/_components/announcement.test.mjs` | DB에 같은 공지가 있으면 DB 내용과 번호를 우선 사용한다 | DB에 내용을 고친 같은 공지가 있음     | DB의 내용과 번호를 그대로 사용                                  |      |
 | NEWS-004 | `src/app/[lang]/newsroom/_components/announcement.test.mjs` | 참고 기사 16건은 유지하고 예시 점검 공지는 제거한다    | 참고 기사 목록(`preview-articles.ts`) | 참고 기사 16건, 공지 분류 없음. 새단장 공지를 합치면 공지는 1건 |      |
+
+## 관리자 콘텐츠 관리 (`ACM`)
+
+| ID      | 파일 경로                                | 테스트 이름                                                                      | 테스트 케이스                                               | 기대 결과                                                        | 비고 |
+| ------- | ---------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------- | ---- |
+| ACM-001 | `src/app/admin/content-actions.test.mjs` | 모든 관리 Action은 입력보다 먼저 권한을 확인하고 거부 시 외부 접근을 하지 않는다 | 인증 실패 3종 × 모든 관리 Action, 입력 접근 시 오류인 폼    | 권한 확인만 실행. 입력·DB·Storage·캐시 접근 없음                 | #44  |
+| ACM-002 | `src/app/admin/content-actions.test.mjs` | FAQ 추가는 공백을 정리하고 현재 시각과 함께 저장한 뒤 캐시를 갱신한다            | 정상 FAQ 추가                                               | 공백 제거, updated_at 현재 시각, 저장 후 faqs 갱신               | #44  |
+| ACM-003 | `src/app/admin/content-actions.test.mjs` | FAQ 수정은 updated_at을 현재 시각으로 바꾸고 없는 대상은 추가하지 않는다         | 정상 수정·없는 ID                                           | update와 현재 시각 저장, 없는 항목은 notFound·추가 금지          | #44  |
+| ACM-004 | `src/app/admin/content-actions.test.mjs` | FAQ는 필수 값과 길이·순서·공개 여부의 경계값을 검증한다                          | 필수·길이·순서·공개 값의 경계                               | 잘못된 입력은 invalid, 유효한 최대값은 저장                      | #44  |
+| ACM-005 | `src/app/admin/content-actions.test.mjs` | FAQ 삭제는 유효한 ID와 삭제된 행을 확인한 뒤 캐시를 갱신한다                     | 잘못된 ID·정상 삭제·없는 대상                               | 삭제 확인 후 faqs 갱신, 실패 시 갱신 없음                        | #44  |
+| ACM-006 | `src/app/admin/content-actions.test.mjs` | 제품 사양 추가·수정은 같은 사용자 세션으로 저장한 뒤 캐시를 갱신한다             | 제품 사양 추가·수정                                         | insert/update 후 product_specs 갱신                              | #44  |
+| ACM-007 | `src/app/admin/content-actions.test.mjs` | 제품 사양은 필수 값과 길이·순서·공개 여부를 검증한다                             | 사양 필수·길이·순서·공개 값                                 | 검증 실패 시 저장 없음                                           | #44  |
+| ACM-008 | `src/app/admin/content-actions.test.mjs` | 제품 사양 삭제는 잘못된 ID와 없는 대상을 거부하고 성공 후 캐시를 갱신한다        | 안전하지 않은 ID·없는 대상·정상 삭제                        | 실패 거부, 정상 삭제 후 product_specs 갱신                       | #44  |
+| ACM-009 | `src/app/admin/content-actions.test.mjs` | 구매 주소는 정해진 키와 현재 시각을 저장하고 빈 값은 null로 초기화한다           | HTTPS 주소·빈 값·임의 key                                   | purchase_url만 저장, 빈 값 null, updated_at 현재 시각, 태그 갱신 | #44  |
+| ACM-010 | `src/app/admin/content-actions.test.mjs` | 구매 주소는 HTTPS 이외의 주소와 인증정보·과도한 길이를 거부한다                  | 비 HTTPS·잘못된 URL·가상 인증정보·길이 초과                 | invalid, 저장·캐시 갱신 없음                                     | #44  |
+| ACM-011 | `src/app/admin/content-actions.test.mjs` | 뉴스 추가·수정은 기존 summary에 요약을 저장하고 캐시를 갱신한다                  | 뉴스 추가·수정                                              | summary에 요약 저장, 본문 컬럼 없음, news_articles 갱신          | #44  |
+| ACM-012 | `src/app/admin/content-actions.test.mjs` | 뉴스는 분류·실제 날짜·주소·텍스트 길이·선택 값을 검증한다                        | 분류·윤년 날짜·주소·길이·선택 값                            | 잘못된 값 거부, 유효한 윤년 날짜 허용                            | #44  |
+| ACM-013 | `src/app/admin/content-actions.test.mjs` | 썸네일을 선택하지 않으면 기존 URL을 유지하고 명시적으로 제거할 수 있다           | 파일 미선택·명시적 제거·파일과 제거 동시 선택               | 유지/null 저장, 동시 선택 거부                                   | #44  |
+| ACM-014 | `src/app/admin/content-actions.test.mjs` | 썸네일은 형식·시작 바이트·900KB 경계값을 검증하고 다른 입력과 함께 저장한다      | MIME·시작 바이트·빈 파일·900KB 경계와 CRLF를 포함한 긴 요약 | 잘못된 파일 거부, 921600바이트 파일과 10000자 요약 저장          | #44  |
+| ACM-015 | `src/app/admin/content-actions.test.mjs` | 업로드 실패 시 기사 저장과 캐시 갱신을 하지 않는다                               | Storage 업로드 오류                                         | DB 저장·캐시 갱신 없음                                           | #44  |
+| ACM-016 | `src/app/admin/content-actions.test.mjs` | 기사 저장 실패 시 새로 업로드한 파일만 정리한다                                  | 업로드 후 DB 오류·저장 응답 유실                            | 미참조 새 파일만 정리, 저장된 파일 보호, 캐시 갱신 없음          | #44  |
+| ACM-017 | `src/app/admin/content-actions.test.mjs` | 이미지 교체 후 참조가 없는 기존 관리 파일만 정리한다                             | 기존 관리 파일 교체·다른 기사 참조                          | 미참조 자체 파일만 정리                                          | #44  |
+| ACM-018 | `src/app/admin/content-actions.test.mjs` | 기사 삭제 후 관리 이미지와 캐시를 정리하고 외부 이미지는 삭제하지 않는다         | 관리 이미지·외부 URL·public 이미지·잘못된 경로              | 자체 관리 파일만 삭제 후 태그 갱신                               | #44  |
+| ACM-019 | `src/app/admin/content-actions.test.mjs` | 이미지 정리 실패는 저장 성공과 구분해서 안내하고 캐시는 갱신한다                 | 교체·삭제 후 Storage 정리 오류                              | DB 성공 유지와 경고 반환, 태그 갱신                              | #44  |
+| ACM-020 | `src/app/admin/content-actions.test.mjs` | DB 실패와 변경된 행 없음은 성공으로 표시하거나 캐시를 갱신하지 않는다            | 모든 Action의 DB 오류·변경 행 없음                          | 실패 반환, 성공 안내·캐시 갱신 없음                              | #44  |
+| ACM-021 | `src/app/admin/_lib/content.test.mjs`    | 관리용 읽기는 관리자 확인에 실패하면 DB에 접근하지 않는다                        | 관리용 읽기에서 인증 실패 3종                               | 권한 확인 전 DB 접근 금지                                        | #44  |
+| ACM-022 | `src/app/admin/_lib/content.test.mjs`    | 관리용 읽기는 비공개 항목과 구매 주소를 포함하고 정렬 조건을 적용한다            | 비공개 데이터·구매 주소와 정렬                              | 전체 항목 반환, 사양·FAQ 순서 및 기사 최신순 적용                | #44  |
+| ACM-023 | `src/app/admin/_lib/content.test.mjs`    | 관리용 조회 오류는 빈 목록으로 숨기지 않고 실패를 반환한다                       | 관리용 DB 조회 오류                                         | 빈 목록 대신 server 반환                                         | #44  |
+
+단위 테스트는 가짜 Storage를 사용하므로 실제 업로드 성공을 대신하지 않는다. 실제 요청 검증 결과는 아래에 별도로 기록한다.
+
+관리자 인증 테스트는 `connection()`을 가짜 요청 경계로 대체한다(#44). 실제 관리자 확인 로직의 기존 ADM-001~ADM-010 기대 결과는 유지한다.
+
+## 수동 확인 기록 (#44, 2026-11-06)
+
+- `npm test`: 전체 46개 통과(기존 23개 + ACM-001~ACM-023).
+- `npm run lint`: 오류 0개. 기존 인증 Action의 미사용 `_previous` 인자 경고 1개는 남아 있다.
+- `npm run build`: 통과. 빌드한 서버(`next start`, localhost:3044)에서 공개 화면 캐시가 있는 상태로 검증했다.
+- 마이그레이션은 사용자가 SQL Editor로 직접 적용하고 버킷 설정 확인을 완료했다. 관리자 로그인과 파일 선택도 사용자가 직접 수행했다.
+- FAQ: 추가·수정 후 `/ko/faq`를 새로고침해 질문·수정한 답변 반영을 확인했다.
+- 제품: 사양 추가 후 `/ko/product` 반영을 확인했다. 구매 주소 저장 후 메인·제품의 구매 링크가 함께 바뀌고, 원래 빈 값으로 복원하면 출시 예정으로 돌아오는 것을 확인했다.
+- 뉴스: 정확히 921,600바이트인 PNG와 줄바꿈을 포함한 10,000자 요약·기사 날짜·공개 여부·언론사명·원문 주소를 같은 폼으로 실제 저장했다. 공개 목록·상세에 기사와 이미지·10,000자 요약이 반영됐다. Storage 공개 이미지 응답은 200, image/png, Content-Length 921600이었다. Server Action 요청 한도는 기본 1MB를 유지했다.
+- 실제 multipart의 CRLF 변환으로 최대 길이 요약이 한 글자 초과하는 문제를 발견해, 서버에서 줄바꿈을 LF로 통일하도록 수정했다. 해당 경계값은 ACM-014에도 포함했다.
+- 세 관리 목록 모두 375px에서 제목·공개·수정·삭제만 표시하고 페이지 가로 넘침이 없었다.
+- 삭제 대화상자에서 대상 표시, 취소 버튼 초기 초점과 Escape 취소를 확인했다. 사용자가 삭제 대상을 승인한 뒤 검증용 FAQ·사양·기사 3개와 이미지를 정리했고, 공개 화면에서도 제거됨을 확인했다.
+- **실제 배포 전 결정 필요:** 공개 기사가 0건이면 예시 기사와 별도 고정 공지가 다시 표시되는 기존 공개 화면 동작은 유지한다.
+- 이번 수동 확인에 포함하지 않은 것: 일반 계정으로 새 Action을 직접 호출하는 원격 요청, Storage 정책의 일반 계정 직접 요청, 실제 Storage 장애 상황, Vercel 미리보기. 권한 거부·외부 장애·파일 교체 실패는 단위 테스트의 가짜 응답과 SQL 정책 검토로 확인했다.

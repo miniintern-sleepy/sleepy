@@ -1,5 +1,7 @@
 import "server-only";
 
+import { connection } from "next/server";
+
 import { createAdminClient } from "./supabase";
 
 type AdminClient = Awaited<ReturnType<typeof createAdminClient>>;
@@ -15,6 +17,8 @@ type AdminAccess =
 export async function requireAdmin(
   existingClient?: AdminClient,
 ): Promise<AdminAccess> {
+  // Auth SDK는 토큰 만료 확인에 현재 시각을 쓰므로 실제 요청에서만 실행한다(#44).
+  await connection();
   try {
     const client = existingClient ?? (await createAdminClient());
     const {
