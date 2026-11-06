@@ -136,6 +136,9 @@ npm run dev
 | `npm run format`       | Prettier 포맷 적용 |
 | `npm run format:check` | Prettier 포맷 검사 |
 | `npm run secretlint`   | 비밀 키 검사       |
+| `npm test`             | 단위 테스트 실행   |
+
+테스트 목록과 파일 하나만 실행하는 방법은 [docs/testing.md](./docs/testing.md)에 있습니다.
 
 `npm run secretlint`는 Git 무시 파일까지 검사하므로, 로컬에 실제 값이 든 `.env.local`이 있으면 실패할 수 있습니다.
 
@@ -180,7 +183,8 @@ feat: 문의 폼 서버 검증 추가 #12
 | 2    | `npm run format:check` | Prettier 포맷 검사      |
 | 3    | `npm run lint`         | ESLint 검사             |
 | 4    | `npm run secretlint`   | 비밀 키 검사            |
-| 5    | `npm run build`        | 프로덕션 빌드           |
+| 5    | `npm test`             | 단위 테스트             |
+| 6    | `npm run build`        | 프로덕션 빌드           |
 
 ### 배포 (Vercel)
 

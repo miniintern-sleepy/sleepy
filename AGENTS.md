@@ -11,7 +11,7 @@
 - 별도 백엔드 서버는 없다. 서버 일은 Server Action이 맡는다.
 - 화면 작업을 요청할 때는 피그마 캡처나 링크를 함께 준다. 받은 자료를 기준으로 만들고, 자료에 없거나 애매한 부분은 추측하지 말고 묻는다. 링크를 열 수 없으면 캡처를 요청한다.
 - 설계 문서는 `docs/`에 있다. 작업 전에 관련 문서를 먼저 읽는다. 작업 지시에 함께 준 이슈나 피그마 자료가 `docs/`보다 최신이면 그것을 따르고, 서로 다른 부분은 알린다.
-  - `docs/decisions.md` 결정 기록 · `docs/features.md` 기능 명세 · `docs/api.md` API 명세 · `docs/database.md` 테이블 설계
+  - `docs/decisions.md` 결정 기록 · `docs/features.md` 기능 명세 · `docs/api.md` API 명세 · `docs/database.md` 테이블 설계 · `docs/testing.md` 테스트 목록
 
 ## 명령어
 
@@ -21,10 +21,11 @@ npm ci               # 잠금 파일 그대로 설치 (라이브러리를 추가
 npm run dev          # 개발 서버
 npm run lint         # ESLint
 npm run format       # Prettier로 형식 맞춤
+npm test             # 단위 테스트 전체 실행
 npm run build        # 배포용 빌드
 ```
 
-검사는 직접 돌리지 않아도 된다. 커밋할 때 훅이 바뀐 파일의 형식(Prettier), 린트(ESLint), 비밀 키(secretlint), 커밋 메시지 규칙을 자동으로 검사한다. 훅이 실패하면 원인을 고친 뒤 다시 커밋한다. `--no-verify`로 건너뛰지 않는다. 빌드 검사는 PR에서 CI가 한다.
+검사는 직접 돌리지 않아도 된다. 커밋할 때 훅이 바뀐 파일의 형식(Prettier), 린트(ESLint), 비밀 키(secretlint), 커밋 메시지 규칙을 자동으로 검사한다. 훅이 실패하면 원인을 고친 뒤 다시 커밋한다. `--no-verify`로 건너뛰지 않는다. 테스트와 빌드 검사는 PR에서 CI가 한다.
 
 ## 폴더 구조와 작업 범위
 
@@ -109,6 +110,13 @@ supabase/migrations/                  테이블·RLS 변경 SQL
 export async function getPurchaseUrl(): Promise<string | null> {}
 ```
 
+## 테스트
+
+- 단위 테스트는 대상 코드 옆에 `이름.test.mjs`로 두고 `node:test`로 쓴다. 외부 서비스(Supabase, Turnstile 등)는 가짜 응답으로 바꿔 끼운다.
+- 테스트 이름은 "무엇이 어떻게 동작한다"는 한국어 문장으로 쓴다.
+- 테스트를 추가·수정·삭제하면 `docs/testing.md` 목록의 해당 줄도 같은 작업에서 고친다. 이 문서는 묻지 않고 고쳐도 된다.
+- PR에서 CI가 `npm test`를 실행하고, 실패하면 머지할 수 없다.
+
 ## Git
 
 브랜치, 커밋, 이슈, PR 규칙은 `CONTRIBUTING.md`를 따른다. 요약하면 다음 순서다.
@@ -128,7 +136,7 @@ export async function getPurchaseUrl(): Promise<string | null> {}
 
 - 요청 범위 밖의 파일을 고치거나 리팩토링하지 않는다.
 - 새 라이브러리를 사람에게 묻지 않고 추가하지 않는다.
-- `docs/` 문서를 사람에게 묻지 않고 바꾸지 않는다. 코드가 문서와 다르면 알린다.
+- `docs/` 문서를 사람에게 묻지 않고 바꾸지 않는다(`docs/testing.md`는 예외, 위 "테스트" 참고). 코드가 문서와 다르면 알린다.
 - 확인하지 않은 동작을 됐다고 보고하지 않는다. 실행해 본 것과 실행하지 못한 것을 나눠 말한다.
 
 <!-- BEGIN:nextjs-agent-rules -->
