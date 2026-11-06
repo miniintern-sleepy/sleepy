@@ -12,13 +12,13 @@
 | `MAIL_NOTIFY_TO`          | 새 문의 알림을 받을 담당자 이메일 주소 하나                                                              |
 | `MAIL_NOTIFY_TEMPLATE_ID` | Publish한 담당자 알림 템플릿 ID                                                                          |
 | `MAIL_REPLY_TEMPLATE_ID`  | Publish한 문의자 답변 템플릿 ID                                                                          |
-| `MAIL_SITE_URL`           | 관리자 링크를 만들 사이트 원점. HTTPS, 경로·쿼리·인증정보 없음. 로컬 시험은 `http://localhost:3045` 가능 |
+| `MAIL_SITE_URL`           | 관리자 링크를 만들 사이트 원점. HTTPS, 경로·쿼리·인증정보 없음. 로컬 시험은 `http://localhost:3000` 사용 |
 
 주소에는 표시 이름을 붙이거나 여러 주소를 넣지 않는다. 환경 변수 변경 후 실행 서버를 재시작하고 Vercel은 재배포한다. API 키와 이메일 주소 값은 사용자만 입력한다. `MAIL_SITE_URL`은 요청 Host와 무관하며 실제 관리 화면을 열 수 있는 배포 주소로 설정한다.
 
 ## Resend 템플릿
 
-두 템플릿의 변수를 모두 `string`으로 정의하고 아래 HTML을 본문으로 사용한 뒤 **Publish**한다. API 발송에 템플릿을 지정하면 `html`·`text`·`react` 본문을 함께 보내지 않는다.
+두 템플릿의 변수를 모두 `string`으로 정의하고 아래 HTML을 본문으로 사용한 뒤 **Publish**한다. 아래 디자인 HTML은 2026-11-07 사용자가 제공하고 Publish한 버전이다. API 발송에 템플릿을 지정하면 `html`·`text`·`react` 본문을 함께 보내지 않는다.
 
 - 서버가 이름·문의 요약·답변의 `&`, `<`, `>`, 큰따옴표·작은따옴표를 엔티티로 변환하고 줄바꿈을 `<br>`로 바꾼다. 템플릿에서 다시 HTML 이스케이프하지 않도록 본문에는 `{{{변수}}}`를 사용한다. 신뢰되지 않은 원문을 삼중 중괄호에 직접 전달하지 않는다.
 - 근거: Resend [Working with Variables](https://resend.com/docs/dashboard/templates/template-variables)의 HTML 생성 예시는 `{{{PRODUCT}}}` 형태다. 편집기에서 `{{`를 입력하는 것은 변수 추가 UI를 여는 설명이다. 문서가 두 문법의 이스케이프 차이를 명시적으로 보장하지는 않으므로, 삼중 중괄호 사용은 공식 HTML 예시에 맞춘 선택이다. 최종 동작은 실제 시험 메일의 특수문자·줄바꿈·이중 이스케이프 여부로 확인한다.
@@ -32,13 +32,124 @@
 변수: `CUSTOMER_NAME`, `INQUIRY_TYPE`, `RECEIVED_AT`, `INQUIRY_PREVIEW_HTML`, `ADMIN_URL`.
 
 ```html
-<h1>새 문의가 접수되었습니다</h1>
-<p>이름: {{{CUSTOMER_NAME}}}</p>
-<p>유형: {{{INQUIRY_TYPE}}}</p>
-<p>접수 시각: {{{RECEIVED_AT}}}</p>
-<h2>문의 요약</h2>
-<div>{{{INQUIRY_PREVIEW_HTML}}}</div>
-<p><a href="{{{ADMIN_URL}}}">관리자 화면에서 문의 확인하기</a></p>
+<table
+  role="presentation"
+  width="100%"
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+  style="background:#f7f6fa;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;"
+>
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+      <table
+        role="presentation"
+        width="100%"
+        cellpadding="0"
+        cellspacing="0"
+        border="0"
+        style="max-width:600px;background:#ffffff;border:1px solid #dddae4;border-radius:12px;overflow:hidden;"
+      >
+        <tr>
+          <td
+            style="background:#3f2867;padding:20px 32px;color:#ffffff;font-size:20px;font-weight:700;letter-spacing:-0.02em;"
+          >
+            슬리피
+          </td>
+        </tr>
+        <tr>
+          <td
+            style="padding:32px;color:#1d1b24;font-size:16px;line-height:1.6;"
+          >
+            <h1
+              style="margin:0 0 8px;font-size:22px;line-height:1.4;color:#1d1b24;"
+            >
+              새 문의가 접수되었습니다
+            </h1>
+            <p style="margin:0 0 24px;color:#5c5a66;font-size:14px;">
+              관리자 화면에서 내용을 확인하고 답변해 주세요.
+            </p>
+            <table
+              role="presentation"
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="border-top:1px solid #dddae4;font-size:15px;"
+            >
+              <tr>
+                <td
+                  style="padding:12px 0;width:96px;color:#5c5a66;border-bottom:1px solid #dddae4;"
+                >
+                  이름
+                </td>
+                <td
+                  style="padding:12px 0;border-bottom:1px solid #dddae4;word-break:break-word;"
+                >
+                  {{{CUSTOMER_NAME}}}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:12px 0;width:96px;color:#5c5a66;border-bottom:1px solid #dddae4;"
+                >
+                  유형
+                </td>
+                <td style="padding:12px 0;border-bottom:1px solid #dddae4;">
+                  {{{INQUIRY_TYPE}}}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style="padding:12px 0;width:96px;color:#5c5a66;border-bottom:1px solid #dddae4;"
+                >
+                  접수 시각
+                </td>
+                <td style="padding:12px 0;border-bottom:1px solid #dddae4;">
+                  {{{RECEIVED_AT}}}
+                </td>
+              </tr>
+            </table>
+            <p
+              style="margin:28px 0 8px;font-size:14px;font-weight:700;color:#3f2867;"
+            >
+              문의 요약
+            </p>
+            <div
+              style="background:#eee9f6;border-radius:8px;padding:16px;font-size:15px;line-height:1.7;word-break:break-word;"
+            >
+              {{{INQUIRY_PREVIEW_HTML}}}
+            </div>
+            <table
+              role="presentation"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="margin-top:28px;"
+            >
+              <tr>
+                <td style="background:#3f2867;border-radius:8px;">
+                  <a
+                    href="{{{ADMIN_URL}}}"
+                    style="display:inline-block;padding:14px 24px;color:#ffffff;font-size:15px;font-weight:700;text-decoration:none;"
+                    >관리자 화면에서 확인하기</a
+                  >
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style="padding:20px 32px;background:#f7f6fa;border-top:1px solid #dddae4;color:#5c5a66;font-size:12px;line-height:1.6;"
+          >
+            이 메일은 슬리피 홈페이지에 문의가 접수되면 자동으로 발송됩니다.<br />(주)슬리피
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 ```
 
 ### 문의자 답변 본문
@@ -46,13 +157,80 @@
 변수: `CUSTOMER_NAME`, `INQUIRY_PREVIEW_HTML`, `REPLY_HTML`.
 
 ```html
-<h1>문의에 답변드립니다</h1>
-<p>{{{CUSTOMER_NAME}}}님, 안녕하세요.</p>
-<h2>보내주신 문의 요약</h2>
-<div>{{{INQUIRY_PREVIEW_HTML}}}</div>
-<h2>답변</h2>
-<div>{{{REPLY_HTML}}}</div>
-<p>추가 질문은 이 메일에 답장해 주세요.</p>
+<table
+  role="presentation"
+  width="100%"
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+  style="background:#f7f6fa;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;"
+>
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+      <table
+        role="presentation"
+        width="100%"
+        cellpadding="0"
+        cellspacing="0"
+        border="0"
+        style="max-width:600px;background:#ffffff;border:1px solid #dddae4;border-radius:12px;overflow:hidden;"
+      >
+        <tr>
+          <td
+            style="background:#3f2867;padding:20px 32px;color:#ffffff;font-size:20px;font-weight:700;letter-spacing:-0.02em;"
+          >
+            슬리피
+          </td>
+        </tr>
+        <tr>
+          <td
+            style="padding:32px;color:#1d1b24;font-size:16px;line-height:1.7;"
+          >
+            <h1
+              style="margin:0 0 16px;font-size:22px;line-height:1.4;color:#1d1b24;"
+            >
+              문의에 답변드립니다
+            </h1>
+            <p style="margin:0 0 24px;">
+              {{{CUSTOMER_NAME}}}님, 안녕하세요. 슬리피에 문의해 주셔서
+              감사합니다.
+            </p>
+            <p
+              style="margin:0 0 8px;font-size:14px;font-weight:700;color:#3f2867;"
+            >
+              답변
+            </p>
+            <div
+              style="border-left:3px solid #6f4f9a;padding:4px 0 4px 16px;font-size:16px;line-height:1.8;word-break:break-word;"
+            >
+              {{{REPLY_HTML}}}
+            </div>
+            <p
+              style="margin:32px 0 8px;font-size:13px;font-weight:700;color:#5c5a66;"
+            >
+              보내주신 문의
+            </p>
+            <div
+              style="background:#f7f6fa;border:1px solid #dddae4;border-radius:8px;padding:14px 16px;color:#5c5a66;font-size:14px;line-height:1.7;word-break:break-word;"
+            >
+              {{{INQUIRY_PREVIEW_HTML}}}
+            </div>
+            <p style="margin:28px 0 0;font-size:15px;">
+              추가로 궁금한 점이 있으면 이 메일에 답장해 주세요.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style="padding:20px 32px;background:#f7f6fa;border-top:1px solid #dddae4;color:#5c5a66;font-size:12px;line-height:1.6;"
+          >
+            이 메일은 슬리피 홈페이지로 보내주신 문의에 대한 답변입니다.<br />(주)슬리피
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 ```
 
 ## DB 적용
@@ -80,15 +258,20 @@ Supabase 대시보드 → SQL Editor → New query에서 `supabase/migrations/20
 
 ## 확인 대기 목록 (2026-11-07)
 
-아래 항목은 아직 실행하지 않았다. 현재 확인 결과는 외부 서비스를 가짜로 대체한 로컬 검사와 단위 테스트에 한정된다.
+사용자 설정 완료 보고를 반영했다. 실제 원격 권한·메일 수신 결과는 아래 순서로 추가 확인한다.
 
-- [ ] 사용자가 원격 DB에 `20261107090000_inquiry_reply.sql`을 적용하고 기존 문의의 기본값·관리자 SELECT·UPDATE 권한을 확인한다.
-- [ ] 사용자가 담당자 알림·문의자 답변 템플릿을 Publish하고 템플릿 ID를 환경 변수에 설정한다.
-- [ ] 사용자가 `.env.local`과 Vercel에 메일 환경 변수 7개를 설정하고 정상 환경으로 다시 빌드·실행한다. 키·개인 주소 값은 공유하지 않는다.
-- [ ] 실제 시험 문의를 한 번 저장해 담당자 Gmail 알림 도착, 한국어 유형·한국 시간·300자 요약·관리 링크를 확인한다.
-- [ ] 실제 관리자 계정으로 답변을 보내 시험 메일함 수신, 새 문의 개수 감소, 답변 완료 이동·새로고침 후 유지·재발송 거부를 확인한다.
-- [ ] 두 메일의 이름·문의 요약·답변에서 `<`, `&`, 두 종류 따옴표·줄바꿈이 원문대로 보이고 이중 이스케이프가 없는지 확인한다. 두 메일의 Reply-To도 확인한다.
-- [ ] 실제 비로그인·일반 계정에서 문의 목록·상세·답변·수동 해제 접근이 거부되고 원격 RLS가 적용되는지 확인한다.
-- [ ] Vercel 미리보기에서 모바일·PC 화면과 응답 후 알림 실행을 확인한다.
+- [x] 사용자가 원격 DB에 `20261107090000_inquiry_reply.sql` 적용 완료를 보고했다.
+- [x] 실제 관리자 세션에서 시험 문의 SELECT·답변 저장 UPDATE를 확인했다. 시험 전 기존 문의가 0건이어서 기존 행의 기본값 확인 대상은 없었다. 시험 문의는 답변 전 새 문의, 답변 후 답변 완료로 표시됐다.
+- [x] 사용자가 담당자 알림·문의자 답변 템플릿 Publish와 로컬 템플릿 ID 설정 완료를 보고했다.
+- [x] 로컬 메일 환경 변수 7개 입력·형식과 `MAIL_SITE_URL`의 `http://localhost:3000` 일치를 값 출력 없이 확인하고 실제 설정의 개발 서버를 3000번 포트로 실행했다.
+- [x] 사용자가 로컬 `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` 설정 완료를 보고했다. 두 값의 존재만 확인하고 3000번 개발 서버를 재시작했다. 공개 문의 폼의 설정 대기 안내가 사라지고 입력 폼·전송 버튼이 표시됐으며, 실제 시험 문의는 Turnstile 서버 확인을 거쳐 저장됐다.
+- [x] 사용자가 시험 문의를 접수하고 담당자 알림 수신을 확인했다. 실제 선택한 유형은 일반이다. 한국어 유형·한국 시간·300자 요약·관리 링크는 사용자 확인 완료로 기록한다. 에이전트는 관리자 상세에서 문의 전문·끝의 END45 보존과 새 문의 1건을 확인했다.
+- [x] 사용자가 관리자 답변 발송과 시험 메일함 수신을 확인했다. 에이전트는 새 문의 0건, 저장된 답변·발송 시각·Resend ID 표시, 새로고침 후 답변 완료 유지·재발송 버튼 제거를 확인했다.
+- [x] 두 메일의 특수문자·줄바꿈·이중 이스케이프·Reply-To는 사용자 확인 완료로 기록한다. 연결된 브라우저에 해당 메일 탭이 없어 에이전트가 메일 본문·헤더를 직접 읽은 결과는 아니다.
+- [x] 비로그인 HTTP 요청에서 문의 목록·상세의 데이터 비노출과 답변·수동 해제 Action의 unauthenticated 거부를 확인했다. 실제 문의 내용을 바꾸는 요청은 실행하지 않았다.
+- [x] 사용자가 test-user1 계정의 관리자 로그인 거부를 확인했다. 로그인 거부 시 세션을 정리하는 구조여서 일반 계정 세션의 Action 직접 호출·원격 RLS 검증과는 구분한다.
+- [ ] 일반 계정 세션으로 Action·원격 RLS를 직접 호출하는 검증은 미실행이다. 관리 Action 권한 거부는 단위 테스트, 비로그인 직접 호출, 기존 관리자 RLS SQL 검토로 확인했다.
+- [ ] **추후 진행(2026-11-07 사용자 결정):** Vercel Preview에 메일 환경 변수 7개와 Turnstile 설정 2개를 입력하고 재배포한다. `MAIL_SITE_URL`은 미리보기 원점, Turnstile 허용 호스트는 해당 미리보기 호스트로 맞춘다. 키·개인 주소 값은 공유하지 않는다.
+- [ ] **추후 진행:** Vercel 미리보기에서 모바일·PC 화면과 응답 후 알림 실행을 확인한다. 로컬 검증 성공과 배포 검증 완료를 구분한다.
 
 발송 실패·동시 발송·같은 답변 재시도·수정 답변의 새 attempt·멈춘 sending의 수동 해제는 단위 테스트로 확인했다. 실제 Resend 장애·원격 DB 장애·24시간이 지난 중복 키의 동작은 실행하지 않았다.
