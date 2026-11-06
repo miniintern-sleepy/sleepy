@@ -233,7 +233,7 @@ export async function upsertNewsArticle(
     let warning: string | undefined;
     if (uploadedPath) {
       try {
-        // 통신 실패여도 DB에 저장됐을 수 있어 참조가 없는 파일만 정리한다(#44)。
+        // 통신 실패여도 DB에 저장됐을 수 있어 참조가 없는 파일만 정리한다(#44).
         const uploadedUrl = client.storage
           .from(thumbnailBucket)
           .getPublicUrl(uploadedPath).data.publicUrl;
