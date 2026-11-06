@@ -1,6 +1,9 @@
 import Link from "next/link";
 
-export default function AdminNav({ active }: { active?: string }) {
+import { readNewInquiryCount } from "../inquiries/_lib/queries";
+
+export default async function AdminNav({ active }: { active?: string }) {
+  const count = await readNewInquiryCount();
   return (
     <nav aria-label="관리 메뉴" className="mb-6 flex flex-wrap gap-2">
       {[
@@ -8,6 +11,10 @@ export default function AdminNav({ active }: { active?: string }) {
         ["/admin/faq", "FAQ"],
         ["/admin/product", "제품"],
         ["/admin/newsroom", "뉴스룸"],
+        [
+          "/admin/inquiries",
+          count.ok ? `문의 (새 문의 ${count.data}건)` : "문의 (집계 실패)",
+        ],
       ].map(([href, label]) => (
         <Link
           key={href}
