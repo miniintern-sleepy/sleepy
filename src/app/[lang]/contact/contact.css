@@ -48,8 +48,8 @@
 .contact-field label {
   display: block;
   margin-bottom: 12px;
-  font-size: var(--text-ui-input);
-  line-height: var(--text-ui-input--line-height);
+  font-size: var(--text-ui-label);
+  line-height: var(--text-ui-label--line-height);
 }
 .contact-input {
   width: 100%;
