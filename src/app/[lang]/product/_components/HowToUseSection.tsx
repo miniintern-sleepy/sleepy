@@ -28,42 +28,34 @@ export default function HowToUseSection({
     <section
       id="how-to-use"
       aria-labelledby="product-guide"
-      className="relative mx-auto max-w-360 scroll-mt-8 px-6 py-16 md:px-10 lg:px-20 lg:pt-22.5 lg:pb-39"
+      className="public-wrap product-guide"
     >
       <Reveal>
-        <h2
-          id="product-guide"
-          className="text-feature-heading md:text-detail-heading lg:text-detail-heading"
-        >
+        <h2 id="product-guide" className="text-detail-heading">
           {copy.title}
         </h2>
       </Reveal>
-      <div className="mt-10.25 grid gap-8 md:grid-cols-3 md:gap-4">
+      <div className="product-guide-steps">
         {copy.steps.map((step, index) => (
           <Reveal key={step}>
-            <figure className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1">
-              {images[index] && (
-                <Image
-                  src={images[index].src}
-                  alt={images[index].alt}
-                  width={416}
-                  height={300}
-                  sizes="(min-width: 1440px) 416px, (min-width: 768px) 32vw, 100vw"
-                  className="aspect-[416/300] w-full object-cover"
-                />
-              )}
-              <figcaption className="mt-5 text-guide-caption">
-                {step}
-              </figcaption>
+            <figure className="product-hover-card">
+              <Image
+                src={images[index].src}
+                alt={images[index].alt}
+                width={416}
+                height={300}
+                sizes="(max-width:767px) 100vw,33vw"
+              />
+              <figcaption className="text-guide-caption">{step}</figcaption>
             </figure>
           </Reveal>
         ))}
       </div>
-      <Reveal className="mt-9.5 grid gap-8 border-t border-rule pt-7.5 md:grid-cols-3 md:gap-4">
+      <Reveal className="product-guide-notes">
         {copy.notes.map((note) => (
           <div key={note.title}>
-            <h3 className="text-patent-item">{note.title}</h3>
-            <p className="mt-2 text-helper whitespace-pre-line text-muted">
+            <h3 className="text-guide-heading">{note.title}</h3>
+            <p className="text-guide-copy whitespace-pre-line text-muted">
               {note.description}
             </p>
           </div>

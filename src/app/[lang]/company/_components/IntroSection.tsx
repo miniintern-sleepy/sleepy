@@ -31,11 +31,11 @@ export default function IntroSection({
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-photo-scrim md:bg-linear-to-r md:from-ink/85 md:via-ink/70 md:to-ink/70"
       />
-      <div className="mx-auto flex min-h-136 max-w-360 flex-col justify-between gap-16 px-6 pt-16 pb-10 md:min-h-160 md:px-10 md:pt-28 md:pb-14 lg:px-20">
+      <div className="company-hero-inner flex min-h-136 flex-col justify-between gap-16 pt-16 pb-10 md:min-h-160 md:pt-28 md:pb-14">
         <Reveal>
           <h1
             id="company-title"
-            className="text-detail-heading md:text-detail-heading lg:text-science-title"
+            className="text-page-title whitespace-pre-line"
           >
             {copy.title}
           </h1>

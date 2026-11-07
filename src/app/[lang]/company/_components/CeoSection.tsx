@@ -7,10 +7,7 @@ type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["ceo"];
 
 export default function CeoSection({ copy }: { copy: Copy }) {
   return (
-    <section
-      aria-label="대표 소개"
-      className="mx-auto max-w-360 px-6 py-16 md:px-10 md:py-24 lg:px-20 lg:py-32"
-    >
+    <section aria-label="대표 소개" className="company-content company-section">
       <div
         className={`grid items-center gap-10 ${
           copy.photo

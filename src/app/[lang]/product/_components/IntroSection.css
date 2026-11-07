@@ -1,7 +1,0 @@
-[data-product-hero-glow] {
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--color-halftone) 40%, transparent),
-    transparent
-  );
-}

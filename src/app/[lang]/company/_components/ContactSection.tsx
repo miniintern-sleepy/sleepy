@@ -16,7 +16,7 @@ export default function ContactSection({
   return (
     <section
       aria-labelledby="company-contact"
-      className="bg-panel px-6 py-14 md:px-10 md:py-20"
+      className="company-contact bg-panel"
     >
       <Reveal className="mx-auto max-w-190 text-center">
         <h2
@@ -31,7 +31,7 @@ export default function ContactSection({
         {/* 문의 폼은 들어온 화면에 따라 유형을 미리 고른다. 회사 소개에서는 "일반"이다(F-02). */}
         <Link
           href={`/${lang}/contact?type=general`}
-          className="mt-7 inline-flex min-h-13 min-w-30 items-center justify-center rounded-full border border-violet bg-violet px-7.5 text-ui-button text-white hover:border-violet-strong hover:bg-violet-strong motion-safe:transition-colors motion-safe:duration-200"
+          className="mt-7 inline-flex min-h-13 min-w-30 items-center justify-center rounded-full border border-violet bg-violet-strong px-7.5 text-ui-button text-white hover:border-violet-strong hover:bg-violet motion-safe:transition-colors motion-safe:duration-200"
         >
           {copy.button}
         </Link>

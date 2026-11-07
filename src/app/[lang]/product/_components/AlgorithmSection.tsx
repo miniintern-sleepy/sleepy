@@ -1,22 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import Reveal from "@/components/ui/Reveal";
-
-import "./AlgorithmSection.css";
 import type { ProductCopy } from "./types";
-
-const waves = [
-  "size-60 opacity-55",
-  "size-87.5 opacity-50",
-  "size-115 opacity-45",
-  "size-142.5 opacity-40",
-  "size-170 opacity-35",
-  "size-197.5 opacity-30",
-  "size-225 opacity-25",
-  "size-252.5 opacity-20",
-];
-
+const rings = [240, 350, 460, 570, 680, 790, 900, 1010];
 export default function AlgorithmSection({
   copy,
   lang,
@@ -25,43 +11,34 @@ export default function AlgorithmSection({
   lang: string;
 }) {
   return (
-    <section aria-labelledby="product-algorithm" className="relative">
-      <div
-        aria-hidden="true"
-        data-product-algorithm-band
-        className="pointer-events-none absolute inset-x-0 -top-28.25 -bottom-25 -z-10"
-      />
-      <div className="relative mx-auto max-w-360 px-6 pt-16 md:px-10 lg:min-h-180 lg:px-20 lg:pt-50">
-        <Reveal className="relative z-1">
+    <section className="product-algorithm" aria-labelledby="product-algorithm">
+      <div className="public-wrap product-algorithm-inner">
+        <Reveal className="product-algorithm-copy">
           <h2
             id="product-algorithm"
-            className="text-feature-heading whitespace-pre-line md:text-detail-heading lg:text-detail-heading"
+            className="text-detail-heading whitespace-pre-line"
           >
             {copy.title}
           </h2>
-          <p className="mt-5.5 text-copy-large whitespace-pre-line text-muted">
+          <p className="text-copy-large whitespace-pre-line text-muted">
             {copy.description}
           </p>
-          <Link
-            href={`/${lang}/technology`}
-            className="mt-7.5 inline-flex min-h-11 items-center text-text-link underline underline-offset-4 hover:text-violet motion-safe:transition-colors"
-          >
+          <Link href={`/${lang}/technology`} className="text-copy">
             {copy.link}
           </Link>
         </Reveal>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none relative h-112 md:h-140 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2"
-        >
-          <div className="absolute top-1/2 left-1/2 size-252.5 -translate-x-1/2 -translate-y-1/2 scale-60 md:scale-80 lg:-ml-10 lg:scale-100">
-            <div
-              data-product-algorithm-glow
-              className="absolute top-1/2 left-1/2 size-180 -translate-x-1/2 -translate-y-1/2 rounded-full"
-            />
-            {waves.map((wave) => (
+        <div className="product-algorithm-visual" aria-hidden="true">
+          <div className="product-orbits">
+            <div className="product-orbit-glow" />
+            {rings.map((size, index) => (
               <div
-                key={wave}
-                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet ${wave}`}
+                key={size}
+                className="product-orbit-ring"
+                style={{
+                  width: size,
+                  height: size,
+                  opacity: 0.55 - index * 0.05,
+                }}
               />
             ))}
             <Image
@@ -70,7 +47,6 @@ export default function AlgorithmSection({
               width={900}
               height={1000}
               sizes="900px"
-              className="absolute top-1.25 left-1.25 h-250 w-225 max-w-none object-contain"
             />
           </div>
         </div>

@@ -9,7 +9,7 @@ export default function BeliefsSection({ copy }: { copy: Copy }) {
   return (
     <section
       aria-labelledby="company-beliefs"
-      className="mx-auto max-w-360 px-6 pb-16 md:px-10 md:pb-24 lg:px-20 lg:pb-28"
+      className="company-content company-beliefs"
     >
       <Reveal>
         <h2

@@ -13,8 +13,10 @@ import MomentsSection from "./_components/MomentsSection";
 import SpecsSection from "./_components/SpecsSection";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const copy = await getProductCopy();
-  return { title: "제품", description: copy.intro.description };
+  return {
+    title: "슬리비",
+    description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 제품",
+  };
 }
 
 // D2에는 F-03의 탭·하단 구매 배너가 없다. 사양·구매 동작은 F-03·F-06과 DB를 따른다(#27).
@@ -33,7 +35,8 @@ export default async function ProductPage({
   return (
     <main
       data-product-page
-      className="relative isolate overflow-clip bg-paper break-keep"
+      className="product-page relative isolate overflow-clip bg-paper break-keep"
+      id="main"
     >
       <IntroSection copy={copy.intro} purchaseUrl={purchaseUrl} />
       <FeaturesSection copy={copy.features} />

@@ -121,6 +121,9 @@
   --text-ui-input--font-weight: 400;
   --text-ui-input--line-height: normal;
   --text-ui-input--letter-spacing: 0;
+  --text-ui-glyph: 1.375rem;
+  --text-ui-glyph--font-weight: 400;
+  --text-ui-glyph--line-height: normal;
   --text-text-link: 0.9375rem;
   --text-text-link--font-weight: 400;
   --text-text-link--line-height: 1.5;
@@ -334,6 +337,65 @@
   --motion-card: 200ms;
   --motion-line: 1000ms;
   --motion-ping-once: 1000ms;
+  --mask-product-halftone: radial-gradient(
+    ellipse at 50% 50%,
+    var(--color-ink) 14%,
+    color-mix(in srgb, var(--color-ink) 60%, transparent) 40%,
+    transparent 70%
+  );
+}
+
+/* B에서 페이지별로 다른 도식·제품 링크의 활성 활자 규칙. */
+@theme {
+  --text-spectrum-label: 1.75rem;
+  --text-spectrum-label--font-weight: 400;
+  --text-spectrum-label--line-height: normal;
+  --text-spectrum-english: 0.8125rem;
+  --text-spectrum-english--font-weight: 400;
+  --text-spectrum-english--line-height: 1.5;
+  --text-product-hero-copy: 1.0625rem;
+  --text-product-hero-copy--font-weight: 400;
+  --text-product-hero-copy--line-height: 1.8;
+  --text-product-hero-link: 1.0625rem;
+  --text-product-hero-link--font-weight: 650;
+  --text-product-hero-link--line-height: normal;
+  --text-product-nav: 1.1875rem;
+  --text-product-nav--font-weight: 400;
+  --text-product-nav--line-height: 1.5;
+  --text-spec-value: 1.6875rem;
+  --text-spec-value--font-weight: 400;
+  --text-spec-value--line-height: 1.55;
+  --text-day-caption: 0.875rem;
+  --text-day-caption--font-weight: 400;
+  --text-day-caption--line-height: normal;
+  --text-guide-copy: 1rem;
+  --text-guide-copy--font-weight: 400;
+  --text-guide-copy--line-height: 1.9;
+  --text-research-more: 1rem;
+  --text-research-more--font-weight: 400;
+  --text-research-more--line-height: 1.9;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --text-product-hero-copy: 0.9375rem;
+    --text-product-nav: 1rem;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --text-spectrum-label: 1.3125rem;
+    --text-spectrum-english: 0.625rem;
+    --text-spectrum-english--line-height: 1.6;
+    --text-product-hero-copy: 1rem;
+    --text-product-nav: 0.875rem;
+  }
+}
+@media (max-width: 520px) {
+  :root {
+    --text-spectrum-label: 1.125rem;
+    --text-spectrum-english: 0.5625rem;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -354,6 +416,7 @@
 
 @media (max-width: 1023px) {
   :root {
+    --text-guide-copy: 0.9375rem;
     --text-feature-heading: 1.5625rem;
     --text-guide-caption: 1.25rem;
     --text-guide-heading: 1.1875rem;
@@ -375,7 +438,9 @@
     --text-latest-title: 1.0625rem;
     --text-cta-heading: 1.8125rem;
     --text-science-title: 2.875rem;
-    --text-science-subtitle: 1.125rem;
+    --text-science-subtitle: 1.25rem;
+    --text-guide-copy: 0.875rem;
+    --text-research-more: 0.875rem;
     --text-science-intro: 1rem;
     --text-device-word: 1.375rem;
     --text-science-note: 0.75rem;
@@ -409,6 +474,9 @@
 
 @media (max-width: 520px) {
   :root {
+    --text-day-caption: 0.75rem;
+    --text-guide-copy: 0.9375rem;
+    --text-science-subtitle: 1.125rem;
     --text-detail-heading: 1.875rem;
     --text-story-heading: 2.125rem;
     --text-founder-quote: 1.6875rem;

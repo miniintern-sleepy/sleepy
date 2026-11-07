@@ -1,27 +1,47 @@
-import { getHomeCopy, getPurchaseUrl } from "@/lib/content";
-import { isLocale } from "@/lib/i18n";
-
-import BenefitsSection from "./_components/BenefitsSection";
-import CompanyBannerSection from "./_components/CompanyBannerSection";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import ContactBanner from "@/components/ui/ContactBanner";
+import {
+  getHomeCopy,
+  getCompanyCopy,
+  getProductCopy,
+  getPurchaseUrl,
+} from "@/lib/content";
 import HeroSection from "./_components/HeroSection";
-import ScenesSection from "./_components/ScenesSection";
-
-// 메인 (/ko) — 피그마 "디자인 초안 > 01 메인", 기능 명세 F-01
-// 섹션: 1. 히어로(제품 보기·구매하러 가기)  2. 핵심 장점  3. 사용 상황  4. 회사 소개로 가는 배너
+import EverydayStorySection from "./_components/EverydayStorySection";
+import DayTriptychSection from "./_components/DayTriptychSection";
+import FounderStorySection from "./_components/FounderStorySection";
+import ProductStageSection from "./_components/ProductStageSection";
+import LatestNewsSection from "./_components/LatestNewsSection";
+import "./home.css";
+export const metadata: Metadata = {
+  title: { absolute: "슬리피 | 잠의 과학을, 생활의 언어로." },
+  description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 메인",
+};
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
-  const [copy, purchaseUrl, { lang }] = await Promise.all([
+  const [copy, company, product, purchaseUrl, { lang }] = await Promise.all([
     getHomeCopy(),
+    getCompanyCopy(),
+    getProductCopy(),
     getPurchaseUrl(),
     params,
   ]);
-  if (!isLocale(lang)) return null;
-
   return (
-    <main className="break-keep">
-      <HeroSection copy={copy.hero} lang={lang} purchaseUrl={purchaseUrl} />
-      <BenefitsSection copy={copy.benefits} />
-      <ScenesSection copy={copy.scenes} />
-      <CompanyBannerSection copy={copy.companyBanner} lang={lang} />
+    <main className="home-page" id="main">
+      <HeroSection copy={copy.hero} lang={lang} />
+      <EverydayStorySection copy={copy.everyday} />
+      <DayTriptychSection copy={copy.day} lang={lang} />
+      <FounderStorySection copy={copy.founder} company={company} lang={lang} />
+      <ProductStageSection
+        copy={copy.product}
+        lang={lang}
+        purchaseUrl={purchaseUrl}
+        purchaseCopy={product.intro}
+      />
+      <Suspense fallback={null}>
+        <LatestNewsSection lang={lang} />
+      </Suspense>
+      <ContactBanner lang={lang} copy={company.contact} />
     </main>
   );
 }

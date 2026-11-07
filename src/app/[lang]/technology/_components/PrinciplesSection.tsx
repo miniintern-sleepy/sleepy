@@ -47,7 +47,7 @@ function Waveform() {
       height={height}
       rx={10}
       style={{ transitionDelay: `${Math.abs(x - 264) / 2}ms` }}
-      className={`origin-center transition-transform duration-700 ease-out transform-fill motion-safe:scale-y-50 motion-safe:group-data-[visible=true]:scale-y-100 print:scale-y-100 ${fill}`}
+      className={`origin-center transition-transform duration-(--motion-reveal) ease-out transform-fill motion-safe:scale-y-50 motion-safe:group-data-[visible=true]:scale-y-100 print:scale-y-100 ${fill}`}
     />
   );
 
@@ -57,7 +57,7 @@ function Waveform() {
       aria-hidden="true"
       className="mx-auto h-auto w-full max-w-137 min-[90rem]:ml-1.5"
     >
-      {backBars.map((item) => bar(item, "fill-panel", `back-${item[0]}`))}
+      {backBars.map((item) => bar(item, "fill-wave-back", `back-${item[0]}`))}
       {frontBars.map((item) => bar(item, "fill-violet", `front-${item[0]}`))}
     </svg>
   );
@@ -66,85 +66,60 @@ function Waveform() {
 function Text({ title, paragraphs }: { title: string; paragraphs: string[] }) {
   return (
     <>
-      <h2 className="text-detail-heading text-ink lg:text-detail-heading">
-        {title}
-      </h2>
-      <div className="mt-5 flex flex-col gap-3 text-copy-large text-ink">
-        {paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-      </div>
+      <h2 className="text-detail-heading">{title}</h2>
+      {paragraphs.map((p) => (
+        <p key={p} className="text-copy-large">
+          {p}
+        </p>
+      ))}
     </>
   );
 }
-
-function Dot() {
-  return (
-    <span
-      aria-hidden="true"
-      className="absolute top-16.5 left-1/2 hidden size-5 -translate-x-1/2 rounded-full bg-violet lg:block"
-    />
-  );
-}
-
-const rowClassName =
-  "relative px-6 py-10 md:px-10 lg:grid lg:grid-cols-2 lg:gap-x-20 lg:py-0 lg:pt-12.5 min-[90rem]:gap-x-35 min-[90rem]:px-25";
-
 export default function PrinciplesSection({ copy }: { copy: Copy }) {
   return (
-    <div className="relative mx-auto max-w-360">
-      <span
-        aria-hidden="true"
-        className="absolute inset-y-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-violet lg:block"
-      />
-
-      <section className={`${rowClassName} lg:min-h-180`}>
-        <Dot />
-        <Reveal>
+    <div className="tech-principles public-wrap" id="principle">
+      <section className="tech-principle tech-binaural">
+        <span className="tech-dot" aria-hidden="true" />
+        <Reveal className="tech-principle-copy">
           <Text {...copy.binaural} />
         </Reveal>
-        <Reveal className="mt-8 lg:mt-10">
+        <Reveal className="tech-visual">
           <Image
             src="/images/technology/binaural.png"
             alt="왼쪽 귀에 208Hz, 오른쪽 귀에 200Hz를 들려주면 8Hz 양이성 음향이 생기는 원리 도식"
             width={550}
             height={295}
-            sizes="(min-width: 1440px) 550px, (min-width: 1024px) 45vw, 100vw"
+            sizes="(max-width:1023px) 100vw,50vw"
             className="h-auto w-full"
           />
-          <p className="mt-3.75 text-science-note text-muted">
+          <p className="tech-note text-science-note text-muted">
             {copy.binaural.note}
           </p>
         </Reveal>
       </section>
-
-      <section className={`${rowClassName} lg:min-h-115`}>
-        <Dot />
-        <Reveal className="lg:col-start-2 lg:row-start-1">
+      <section className="tech-principle tech-entrainment">
+        <span className="tech-dot" aria-hidden="true" />
+        <Reveal className="tech-principle-copy">
           <Text {...copy.entrainment} />
         </Reveal>
-        {/* 피그마처럼 파형의 위아래가 섹션 경계를 조금 넘어간다. */}
-        <Reveal className="mt-8 lg:col-start-1 lg:row-start-1 lg:-mt-22.5">
+        <Reveal className="tech-visual">
           <Waveform />
         </Reveal>
       </section>
-
-      <section className={`${rowClassName} lg:min-h-125`}>
-        <Dot />
-        <Reveal>
+      <section className="tech-principle tech-sleep">
+        <span className="tech-dot" aria-hidden="true" />
+        <Reveal className="tech-principle-copy">
           <Text {...copy.sleep} />
         </Reveal>
-        <Reveal className="mt-8 lg:mt-2.5">
-          <div className="overflow-hidden rounded-3xl">
-            <Image
-              src="/images/technology/sleep.png"
-              alt="이어폰을 끼고 침대에서 잠든 사람"
-              width={550}
-              height={367}
-              sizes="(min-width: 1440px) 550px, (min-width: 1024px) 45vw, 100vw"
-              className="h-auto w-full transition-transform duration-500 ease-out motion-safe:hover:scale-102"
-            />
-          </div>
+        <Reveal className="tech-visual tech-sleep-photo">
+          <Image
+            src="/images/technology/sleep.png"
+            alt="이어폰을 끼고 침대에서 잠든 사람"
+            width={550}
+            height={367}
+            sizes="(max-width:1023px) 100vw,50vw"
+            className="tech-hover-image h-auto w-full"
+          />
         </Reveal>
       </section>
     </div>
