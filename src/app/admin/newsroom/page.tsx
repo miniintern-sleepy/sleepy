@@ -32,7 +32,7 @@ async function NewsroomContent({ searchParams }: PageProps<"/admin/newsroom">) {
   return (
     <>
       <AdminNav active="/admin/newsroom" />
-      <h1 className="mb-5 text-h3">뉴스룸 관리</h1>
+      <h1 className="mb-5 text-form-aside">뉴스룸 관리</h1>
       <div className="space-y-6">
         <section className={panelClass} aria-label="기사 목록">
           <ContentTable

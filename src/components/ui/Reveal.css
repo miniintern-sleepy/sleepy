@@ -5,8 +5,8 @@
 @media screen and (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   [data-reveal] {
     transition:
-      opacity 700ms ease-out,
-      translate 700ms ease-out;
+      opacity var(--motion-reveal) ease-out,
+      translate var(--motion-reveal) ease-out;
   }
 
   [data-reveal]:not([data-visible="true"]) {

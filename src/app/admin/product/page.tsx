@@ -27,7 +27,7 @@ async function ProductContent({ searchParams }: PageProps<"/admin/product">) {
   return (
     <>
       <AdminNav active="/admin/product" />
-      <h1 className="mb-5 text-h3">제품 관리</h1>
+      <h1 className="mb-5 text-form-aside">제품 관리</h1>
       <div className="space-y-6">
         <PurchaseUrlForm url={result.data.purchaseUrl} />
         <section className={panelClass} aria-label="제품 사양 목록">

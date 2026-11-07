@@ -18,10 +18,10 @@ export default function PurchaseUrlForm({ url }: { url: string | null }) {
   });
   return (
     <section className={panelClass} aria-labelledby="purchase-title">
-      <h2 id="purchase-title" className="text-title">
+      <h2 id="purchase-title" className="text-form-title">
         구매 주소
       </h2>
-      <p className="mt-3 text-body-sm text-fg-muted">
+      <p className="mt-3 text-helper text-muted">
         https:// 주소를 입력해 주세요. 비우고 저장하면 공개 화면에 출시 예정으로
         표시됩니다.
       </p>

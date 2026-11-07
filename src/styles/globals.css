@@ -3,6 +3,44 @@
 
 @layer base {
   body {
-    @apply bg-surface font-sans text-body text-fg antialiased;
+    @apply bg-paper font-ui text-copy text-ink antialiased;
+    word-break: keep-all;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: var(--tracking-heading);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: var(--focus-width) solid var(--color-violet-strong);
+    outline-offset: var(--focus-offset);
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
+  main [id] {
+    scroll-margin-top: var(--scroll-target-gap);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

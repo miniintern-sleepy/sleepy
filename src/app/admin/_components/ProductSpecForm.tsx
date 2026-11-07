@@ -33,7 +33,7 @@ export default function ProductSpecForm({ item }: { item?: SpecItem }) {
   );
   return (
     <section className={panelClass} aria-labelledby="spec-form-title">
-      <h2 id="spec-form-title" className="text-title">
+      <h2 id="spec-form-title" className="text-form-title">
         {item ? "제품 사양 수정" : "제품 사양 추가"}
       </h2>
       <form action={action} className="mt-5 space-y-4" aria-busy={pending}>
@@ -119,7 +119,9 @@ export default function ProductSpecForm({ item }: { item?: SpecItem }) {
           공개
         </label>
         {state.fieldErrors?.isPublished && (
-          <p role="alert">{state.fieldErrors.isPublished}</p>
+          <p role="alert" className="text-helper text-error-ink">
+            {state.fieldErrors.isPublished}
+          </p>
         )}
         <Feedback state={state} />
         <div className="flex flex-wrap items-center gap-4">
@@ -129,7 +131,7 @@ export default function ProductSpecForm({ item }: { item?: SpecItem }) {
           {item && (
             <Link
               href="/admin/product"
-              className="inline-flex min-h-11 items-center text-brand-deep underline"
+              className="inline-flex min-h-11 items-center text-ink underline"
             >
               새 사양 추가
             </Link>

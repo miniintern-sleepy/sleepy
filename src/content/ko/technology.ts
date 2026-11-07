@@ -13,8 +13,6 @@ export const technologyCopy = {
       { label: "전신마취", english: "general anesthesia" },
     ],
     productName: "Sleeby",
-    category: "디지털 수면제",
-    categoryEnglish: "digital sedatives",
   },
   principles: {
     binaural: {
