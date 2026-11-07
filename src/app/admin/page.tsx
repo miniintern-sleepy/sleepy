@@ -57,7 +57,7 @@ async function AdminContent() {
           <AdminNav active="/admin" />
         </div>
         <p className="mt-3 text-body text-fg-muted">
-          FAQ, 제품 사양·구매 주소와 뉴스 기사를 관리할 수 있습니다.
+          FAQ, 제품 사양·구매 주소, 뉴스 기사와 문의 답변을 관리할 수 있습니다.
         </p>
       </div>
     </section>

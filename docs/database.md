@@ -1,6 +1,6 @@
 # 테이블 설계
 
-> 이 파일이 원본이다(D-40). 마지막 반영일: 2026-11-06
+> 이 파일이 원본이다(D-40). 마지막 반영일: 2026-11-07
 
 ## 1. 핵심 엔티티 도출
 
@@ -39,6 +39,10 @@ erDiagram
         timestamptz consented_at "동의 시각"
         text status "new | answered"
         timestamptz answered_at "null 가능, 보관 기간 기준"
+        text reply_body "null 가능, 답변 원문 1~2000자"
+        text reply_status "null | sending | failed | sent"
+        int reply_attempt "기본 0"
+        text reply_email_id "null 가능, Resend ID"
         timestamptz created_at
     }
     faqs {
@@ -82,17 +86,25 @@ erDiagram
 
 ### inquiries (문의)
 
-| 컬럼         | 타입        | 제약                                   | 설명                                             |
-| ------------ | ----------- | -------------------------------------- | ------------------------------------------------ |
-| id           | uuid        | PK, 기본값 `gen_random_uuid()`         | 추측하기 어려운 번호                             |
-| type         | text        | not null, `product`·`general` 중 하나  | 문의 유형: 제품·일반 (D-29)                      |
-| name         | text        | not null, 1~50자                       |                                                  |
-| email        | text        | not null, 254자 이하                   | 답변 받을 주소. 연락처는 받지 않음(팀 시트 제안) |
-| message      | text        | not null, 1~2,000자                    | 길이 제한은 스팸 방어(D-08)                      |
-| consented_at | timestamptz | not null                               | 개인정보 수집 동의 시각                          |
-| status       | text        | not null, 기본 `new`, `new`·`answered` | 답변 여부. 답변 완료 알림 메일은 보류            |
-| answered_at  | timestamptz | null 가능                              | 답변한 시각. 보관 기간(답변 후 1년) 계산 기준    |
-| created_at   | timestamptz | not null, 기본 `now()`                 |                                                  |
+| 컬럼           | 타입        | 제약                                   | 설명                                             |
+| -------------- | ----------- | -------------------------------------- | ------------------------------------------------ |
+| id             | uuid        | PK, 기본값 `gen_random_uuid()`         | 추측하기 어려운 번호                             |
+| type           | text        | not null, `product`·`general` 중 하나  | 문의 유형: 제품·일반 (D-29)                      |
+| name           | text        | not null, 1~50자                       |                                                  |
+| email          | text        | not null, 254자 이하                   | 답변 받을 주소. 연락처는 받지 않음(팀 시트 제안) |
+| message        | text        | not null, 1~2,000자                    | 길이 제한은 스팸 방어(D-08)                      |
+| consented_at   | timestamptz | not null                               | 개인정보 수집 동의 시각                          |
+| status         | text        | not null, 기본 `new`, `new`·`answered` | 답변 여부. 답변 완료 알림 메일은 보류            |
+| answered_at    | timestamptz | null 가능                              | 답변한 시각. 보관 기간(답변 후 1년) 계산 기준    |
+| created_at     | timestamptz | not null, 기본 `now()`                 |                                                  |
+| reply_body     | text        | null 가능, 값이 있으면 1~2,000자       | 줄바꿈·앞뒤 공백을 정리한 답변 원문 (#45)        |
+| reply_status   | text        | null 가능, sending·failed·sent 중 하나 | 미발송은 NULL, 실패·결과 불확실은 failed         |
+| reply_attempt  | integer     | not null, 기본 0, 0 이상               | 첫 발송 1, 동일 답변 재시도 유지, 수정 시 증가   |
+| reply_email_id | text        | null 가능                              | 발송 접수 성공 시 Resend ID                      |
+
+- #45 마이그레이션: `supabase/migrations/20261107090000_inquiry_reply.sql`. 기존 행에는 NULL과 attempt 0을 추가하며 기존 관리자 SELECT·UPDATE RLS를 사용한다. 원격 SQL 실행은 담당자가 직접 한다.
+- 동시 발송은 `status='new'`이고 `reply_status IS NULL OR reply_status <> 'sending'`인 행을 읽은 attempt 조건과 함께 UPDATE하여 선점한다. 잠금 ID·시각·해시 칸은 두지 않는다. 완료·실패 갱신도 같은 attempt와 sending 조건을 사용한다.
+- 메일 성공 시에만 status를 answered로 바꾸고 answered_at을 기록한다. 답변 원문과 HTML 변환 후 문자열 길이를 각각 2,000자 이하로 검사한다. 복구·중복 키의 제약은 [메일 설정 안내](mail-setup.md)에 정리한다.
 
 - 보관: 동의 문구에는 "답변 후 1년"으로 안내한다. 기간이 지난 문의를 지우는 기능은 추후 결정하고, 지금은 지우지 않는다.
 
