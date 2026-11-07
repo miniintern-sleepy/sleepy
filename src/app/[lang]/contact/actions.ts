@@ -1,8 +1,10 @@
 "use server";
 
 import { headers } from "next/headers";
+import { after } from "next/server";
 
 import { createServiceClient } from "@/lib/supabase/server";
+import { sendInquiryNotification } from "@/lib/mail/send";
 
 import { validateInquiry, type InquiryState } from "./_components/form";
 
@@ -84,16 +86,40 @@ export async function submitInquiry(
     if (lookupError) return { ok: false, attempt, reason: "server" };
     if (data?.length) return { ok: true, attempt };
 
-    const { error } = await client.from("inquiries").insert({
-      name: values.name,
-      email: values.email,
-      type: values.type,
-      message: values.message,
-      consented_at: new Date().toISOString(),
-    });
-    return error
-      ? { ok: false, attempt, reason: "server" }
-      : { ok: true, attempt };
+    const { data: saved, error } = await client
+      .from("inquiries")
+      .insert({
+        name: values.name,
+        email: values.email,
+        type: values.type,
+        message: values.message,
+        consented_at: new Date().toISOString(),
+      })
+      .select("id, created_at")
+      .single();
+    if (error || !saved) return { ok: false, attempt, reason: "server" };
+
+    // 저장이 확정된 새 문의만 등록하고 알림 장애로 문의 재전송을 유발하지 않는다(#45).
+    try {
+      after(async () => {
+        try {
+          const result = await sendInquiryNotification({
+            id: saved.id,
+            created_at: saved.created_at,
+            name: values.name,
+            type: values.type as "product" | "general",
+            message: values.message,
+          });
+          if (!result.ok)
+            console.error("문의 알림 실패", saved.id, result.reason);
+        } catch {
+          console.error("문의 알림 실패", saved.id, "unexpected");
+        }
+      });
+    } catch {
+      console.error("문의 알림 실패", saved.id, "schedule");
+    }
+    return { ok: true, attempt };
   } catch {
     return { ok: false, attempt, reason: "server" };
   }

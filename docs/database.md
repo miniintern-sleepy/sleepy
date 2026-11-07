@@ -1,6 +1,6 @@
 # 테이블 설계
 
-> 이 파일이 원본이다(D-40). 마지막 반영일: 2026-11-01
+> 이 파일이 원본이다(D-40). 마지막 반영일: 2026-11-07
 
 ## 1. 핵심 엔티티 도출
 
@@ -39,6 +39,10 @@ erDiagram
         timestamptz consented_at "동의 시각"
         text status "new | answered"
         timestamptz answered_at "null 가능, 보관 기간 기준"
+        text reply_body "null 가능, 답변 원문 1~2000자"
+        text reply_status "null | sending | failed | sent"
+        int reply_attempt "기본 0"
+        text reply_email_id "null 가능, Resend ID"
         timestamptz created_at
     }
     faqs {
@@ -82,17 +86,25 @@ erDiagram
 
 ### inquiries (문의)
 
-| 컬럼         | 타입        | 제약                                   | 설명                                             |
-| ------------ | ----------- | -------------------------------------- | ------------------------------------------------ |
-| id           | uuid        | PK, 기본값 `gen_random_uuid()`         | 추측하기 어려운 번호                             |
-| type         | text        | not null, `product`·`general` 중 하나  | 문의 유형: 제품·일반 (D-29)                      |
-| name         | text        | not null, 1~50자                       |                                                  |
-| email        | text        | not null, 254자 이하                   | 답변 받을 주소. 연락처는 받지 않음(팀 시트 제안) |
-| message      | text        | not null, 1~2,000자                    | 길이 제한은 스팸 방어(D-08)                      |
-| consented_at | timestamptz | not null                               | 개인정보 수집 동의 시각                          |
-| status       | text        | not null, 기본 `new`, `new`·`answered` | 답변 여부. 답변 완료 알림 메일은 보류            |
-| answered_at  | timestamptz | null 가능                              | 답변한 시각. 보관 기간(답변 후 1년) 계산 기준    |
-| created_at   | timestamptz | not null, 기본 `now()`                 |                                                  |
+| 컬럼           | 타입        | 제약                                   | 설명                                             |
+| -------------- | ----------- | -------------------------------------- | ------------------------------------------------ |
+| id             | uuid        | PK, 기본값 `gen_random_uuid()`         | 추측하기 어려운 번호                             |
+| type           | text        | not null, `product`·`general` 중 하나  | 문의 유형: 제품·일반 (D-29)                      |
+| name           | text        | not null, 1~50자                       |                                                  |
+| email          | text        | not null, 254자 이하                   | 답변 받을 주소. 연락처는 받지 않음(팀 시트 제안) |
+| message        | text        | not null, 1~2,000자                    | 길이 제한은 스팸 방어(D-08)                      |
+| consented_at   | timestamptz | not null                               | 개인정보 수집 동의 시각                          |
+| status         | text        | not null, 기본 `new`, `new`·`answered` | 답변 여부. 답변 완료 알림 메일은 보류            |
+| answered_at    | timestamptz | null 가능                              | 답변한 시각. 보관 기간(답변 후 1년) 계산 기준    |
+| created_at     | timestamptz | not null, 기본 `now()`                 |                                                  |
+| reply_body     | text        | null 가능, 값이 있으면 1~2,000자       | 줄바꿈·앞뒤 공백을 정리한 답변 원문 (#45)        |
+| reply_status   | text        | null 가능, sending·failed·sent 중 하나 | 미발송은 NULL, 실패·결과 불확실은 failed         |
+| reply_attempt  | integer     | not null, 기본 0, 0 이상               | 첫 발송 1, 동일 답변 재시도 유지, 수정 시 증가   |
+| reply_email_id | text        | null 가능                              | 발송 접수 성공 시 Resend ID                      |
+
+- #45 마이그레이션: `supabase/migrations/20261107090000_inquiry_reply.sql`. 기존 행에는 NULL과 attempt 0을 추가하며 기존 관리자 SELECT·UPDATE RLS를 사용한다. 원격 SQL 실행은 담당자가 직접 한다.
+- 동시 발송은 `status='new'`이고 `reply_status IS NULL OR reply_status <> 'sending'`인 행을 읽은 attempt 조건과 함께 UPDATE하여 선점한다. 잠금 ID·시각·해시 칸은 두지 않는다. 완료·실패 갱신도 같은 attempt와 sending 조건을 사용한다.
+- 메일 성공 시에만 status를 answered로 바꾸고 answered_at을 기록한다. 답변 원문과 HTML 변환 후 문자열 길이를 각각 2,000자 이하로 검사한다. 복구·중복 키의 제약은 [메일 설정 안내](mail-setup.md)에 정리한다.
 
 - 보관: 동의 문구에는 "답변 후 1년"으로 안내한다. 기간이 지난 문의를 지우는 기능은 추후 결정하고, 지금은 지우지 않는다.
 
@@ -181,7 +193,30 @@ erDiagram
 
 ## 5. 이미지
 
-제품·뉴스 이미지는 처음엔 저장소 `public/`에 둔다. 관리 화면에서 올리게 되면 Supabase Storage 공개 버킷을 쓴다(C-01).
+제품의 기존 이미지는 저장소 `public/`에 유지한다. 관리자 뉴스 썸네일은 Supabase Storage 공개 버킷 `news-thumbnails`를 쓴다(#44). 테이블 구조는 바꾸지 않고 공개 URL을 기존 `news_articles.thumbnail_url`에 저장한다.
+
+| 항목      | 설정                                                                                                                   |
+| --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 버킷      | `news-thumbnails`, public                                                                                              |
+| 파일 경로 | `news/<UUID>.<jpg 또는 png 또는 webp>`                                                                                 |
+| 허용 MIME | `image/jpeg`, `image/png`, `image/webp`                                                                                |
+| 최대 크기 | 900KB = 921,600바이트 (`file_size_limit`)                                                                              |
+| 접근 정책 | `storage.objects`의 해당 버킷·news 폴더에 `authenticated`이고 `public.is_admin()`인 사용자만 SELECT·INSERT·DELETE 허용 |
+| 덮어쓰기  | 하지 않음. 새 UUID를 사용하며 UPDATE 정책은 없음                                                                       |
+
+- 공개 URL 다운로드는 로그인 없이 가능하다. 기사 비공개 여부와 별개로 이미지 URL은 공개된다. 목록 조회·업로드·삭제에는 위 정책이 적용된다.
+- 업로드는 관리 Server Action에서 사용자 세션으로만 수행한다. 버킷 이름과 객체 경로를 서버가 정하고, 교체·삭제 시 다른 기사의 참조가 없는 자체 버킷 파일만 정리한다.
+- `faqs.updated_at`, `site_settings.updated_at`은 트리거 없이 Action에서 현재 시각을 넣어 갱신한다.
+- 마이그레이션: `supabase/migrations/20261106060000_news_thumbnails.sql`. 테이블·컬럼 변경 없이 버킷과 정책만 추가한다.
+
+### 원격 적용 방법
+
+1. Supabase 대시보드에서 대상 프로젝트를 확인하고 SQL Editor를 연다.
+2. 위 마이그레이션 파일 전체를 새 쿼리에 붙여 넣고 실행한다. 트랜잭션으로 적용되며 이미 적용한 파일을 반복 실행하지 않는다.
+3. Storage에서 `news-thumbnails`가 Public, 최대 921,600바이트, 허용 MIME 3개인지 확인한다. Storage 정책의 관리자 조건도 확인한다.
+4. 적용 완료 후 관리자 계정으로 뉴스 업로드를 검증한다. 코드를 작성한 에이전트는 원격 SQL을 실행하지 않고 담당자의 적용 완료 응답을 기다린다.
+
+근거: [Supabase 버킷·파일 제한](https://supabase.com/docs/guides/storage/buckets/creating-buckets), [Storage RLS](https://supabase.com/docs/guides/storage/security/access-control), [공개 버킷 접근 모델](https://supabase.com/docs/guides/storage/buckets/fundamentals).
 
 ## 6. 확인이 필요한 것
 
