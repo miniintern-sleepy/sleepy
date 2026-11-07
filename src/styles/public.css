@@ -8,11 +8,13 @@
   margin-inline: auto;
 }
 .public-page-heading {
-  padding-block: 80px 60px;
+  padding-block: 85px 70px;
   text-align: center;
 }
 .public-page-heading p {
   margin-top: 25px;
+  margin-inline: auto;
+  max-width: 660px;
 }
 .public-list-section {
   padding-bottom: var(--space-section);
@@ -54,6 +56,10 @@
   background: var(--color-panel);
   padding-block: 100px;
   text-align: center;
+}
+.public-page .public-contact-banner .public-wide {
+  width: var(--layout-page-width);
+  max-width: none;
 }
 .public-contact-banner p {
   margin-top: 18px;
@@ -112,6 +118,9 @@
   color: var(--color-ink);
   border-bottom-color: var(--color-ink);
   font-weight: var(--font-weight-ui-selected);
+}
+.public-news-list {
+  border-top: 1px solid var(--color-ink);
 }
 .public-news-item {
   display: grid;
@@ -201,7 +210,7 @@
 }
 @media (max-width: 760px) {
   .public-page-heading {
-    padding-block: 58px 45px;
+    padding-block: 55px 45px;
   }
   .public-list-section {
     padding-bottom: var(--space-section-small);
@@ -218,9 +227,6 @@
   }
   .public-faq-contact {
     gap: 24px;
-  }
-  .public-faq-contact .public-text-link {
-    font-size: var(--text-compact-link);
   }
   .public-faq-list summary {
     min-height: 74px;

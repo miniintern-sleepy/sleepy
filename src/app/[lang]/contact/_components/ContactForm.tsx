@@ -211,7 +211,6 @@ export default function ContactForm({
             onChange={(e) => change("message", e.target.value)}
             maxLength={2000}
             required
-            rows={6}
             placeholder="문의 내용을 입력해 주세요"
             className={`${inputClass} resize-y`}
             aria-invalid={Boolean(errors.message)}

@@ -51,7 +51,7 @@ export default function Newsroom({
       <p className="public-results text-micro text-muted" aria-live="polite">
         총 {visible.length}개의 소식
       </p>
-      <div>
+      <div className="public-news-list">
         {visible.map((article) => (
           <NewsItem key={article.id} article={article} />
         ))}

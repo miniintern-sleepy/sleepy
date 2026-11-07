@@ -8,7 +8,7 @@ export default function NewsItem({ article }: { article: NewsArticle }) {
   const href = sourceUrl(article.sourceUrl);
   const body = (
     <>
-      {image && <NewsImage key={image} src={image} title={article.title} />}
+      {image && <NewsImage key={image} src={image} />}
       <div>
         <span className="public-news-meta text-news-meta text-muted">
           {categoryLabels[article.category]} · {formatDate(article.publishedAt)}

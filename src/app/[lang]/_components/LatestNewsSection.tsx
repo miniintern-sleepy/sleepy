@@ -12,7 +12,7 @@ export default async function LatestNewsSection({ lang }: { lang: string }) {
           <h2 className="text-latest-heading">슬리피의 소식</h2>
           <TextLink href={`/${lang}/newsroom`}>뉴스룸 보기</TextLink>
         </div>
-        <div>
+        <div className="public-news-list">
           {articles.map((article) => (
             <NewsItem key={article.id} article={article} />
           ))}
