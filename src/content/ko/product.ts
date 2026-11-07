@@ -1,9 +1,9 @@
-// 제품 · 디자인 초안 D2 원문(브라우저 확인, 2026-11-03, #27).
+// 제품 · B 정적 시안 원문(#54).
 // 숫자 요약과 전체 사양의 값은 이 파일에 두지 않고 getProductSpecs()로 읽는다.
 export const productCopy = {
   intro: {
     title: "편한 잠듦을 위한\n디지털 귀마개, 슬리비",
-    description: "잠들기 전, 간편하게 휴식을 시작하세요.",
+    description: "잠들기 전, 간편하게\n휴식을 시작하세요.",
     purchaseButton: "구매하러 가기",
     comingSoon: "출시 예정",
     guideButton: "사용 방법",

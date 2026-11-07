@@ -35,19 +35,19 @@ async function InquiriesContent({
   return (
     <>
       <AdminNav active="/admin/inquiries" />
-      <h1 className="mb-5 text-h3">문의 관리</h1>
+      <h1 className="mb-5 text-form-aside">문의 관리</h1>
       <nav aria-label="문의 상태" className="mb-5 flex flex-wrap gap-4">
         <Link
           href="/admin/inquiries"
           aria-current={status === "new" ? "page" : undefined}
-          className="inline-flex min-h-11 items-center text-brand-deep underline"
+          className="inline-flex min-h-11 items-center text-ink underline"
         >
           새 문의
         </Link>
         <Link
           href="/admin/inquiries?status=answered"
           aria-current={status === "answered" ? "page" : undefined}
-          className="inline-flex min-h-11 items-center text-brand-deep underline"
+          className="inline-flex min-h-11 items-center text-ink underline"
         >
           답변 완료
         </Link>
@@ -56,7 +56,7 @@ async function InquiriesContent({
         className={panelClass}
         aria-label={status === "new" ? "새 문의 목록" : "답변 완료 목록"}
       >
-        <p className="mb-4 text-body-sm text-fg-muted">
+        <p className="mb-4 text-helper text-muted">
           {status === "new" ? "새 문의" : "답변 완료"} {result.data.total}건
         </p>
         <InquiryTable items={result.data.items} />
@@ -67,7 +67,7 @@ async function InquiriesContent({
           {page > 1 && (
             <Link
               href={path(page - 1)}
-              className="inline-flex min-h-11 items-center text-brand-deep underline"
+              className="inline-flex min-h-11 items-center text-ink underline"
             >
               이전
             </Link>
@@ -78,7 +78,7 @@ async function InquiriesContent({
           {page < pages && (
             <Link
               href={path(page + 1)}
-              className="inline-flex min-h-11 items-center text-brand-deep underline"
+              className="inline-flex min-h-11 items-center text-ink underline"
             >
               다음
             </Link>

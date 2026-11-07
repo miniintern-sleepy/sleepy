@@ -7,9 +7,9 @@ import type { InquiryItem } from "../_lib/queries";
 export default function InquiryTable({ items }: { items: InquiryItem[] }) {
   if (!items.length) return <p>해당하는 문의가 없습니다.</p>;
   return (
-    <table className="w-full table-fixed text-left text-body-sm">
+    <table className="w-full table-fixed text-left text-helper">
       <caption className="sr-only">문의 목록</caption>
-      <thead className="border-b border-line">
+      <thead className="border-b border-rule">
         <tr>
           <th scope="col" className="w-1/2 px-2 py-3 sm:w-auto">
             문의자·요약
@@ -30,10 +30,10 @@ export default function InquiryTable({ items }: { items: InquiryItem[] }) {
       </thead>
       <tbody>
         {items.map((item) => (
-          <tr key={item.id} className="border-b border-line align-top">
-            <th scope="row" className="px-2 py-4 font-normal break-words">
-              <p className="text-label">{item.name}</p>
-              <p className="mt-1 line-clamp-2 text-fg-muted">{item.message}</p>
+          <tr key={item.id} className="border-b border-rule align-top">
+            <th scope="row" className="px-2 py-4 font-ui-regular break-words">
+              <p className="text-ui-label">{item.name}</p>
+              <p className="mt-1 line-clamp-2 text-muted">{item.message}</p>
             </th>
             <td className="hidden px-2 py-4 break-all md:table-cell">
               {item.email}
@@ -44,18 +44,28 @@ export default function InquiryTable({ items }: { items: InquiryItem[] }) {
               {formatReceivedAt(item.createdAt)}
             </td>
             <td className="px-2 py-4 break-words">
-              {item.status === "answered"
-                ? "답변 완료"
-                : item.replyStatus === "sending"
-                  ? "발송 중"
-                  : item.replyStatus === "failed"
-                    ? "실패"
-                    : "새 문의"}
+              <span
+                className={
+                  item.status === "answered"
+                    ? "text-success-ink"
+                    : item.replyStatus === "failed"
+                      ? "text-error-ink"
+                      : "text-violet-strong"
+                }
+              >
+                {item.status === "answered"
+                  ? "답변 완료"
+                  : item.replyStatus === "sending"
+                    ? "발송 중"
+                    : item.replyStatus === "failed"
+                      ? "실패"
+                      : "새 문의"}
+              </span>
             </td>
             <td className="px-2 py-4">
               <Link
                 href={`/admin/inquiries/${item.id}`}
-                className="inline-flex min-h-11 items-center text-brand-deep underline"
+                className="inline-flex min-h-11 items-center text-ink underline"
                 aria-label={`${item.name}님의 문의 상세`}
               >
                 보기

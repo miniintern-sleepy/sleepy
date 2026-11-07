@@ -1,36 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
-
 import Reveal from "@/components/ui/Reveal";
 import type { getCompanyCopy } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
-
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["easyTech"];
-
-// 먼저 귀가 나타나고, 선이 이어진 뒤, 가운데 "머릿속"이 나타난다. 모션을 줄인 환경에서는 처음부터 보인다.
-const earClassName =
-  "flex w-30 flex-col items-center md:absolute md:top-0 motion-safe:scale-80 motion-safe:opacity-0 motion-safe:transition motion-safe:duration-700 motion-safe:group-data-[visible=true]:scale-100 motion-safe:group-data-[visible=true]:opacity-100 print:scale-100 print:opacity-100";
-
-function Ear({
-  label,
-  caption,
-  position,
-}: {
-  label: string;
-  caption: string;
-  position: string;
-}) {
-  return (
-    <div className={`${earClassName} ${position}`}>
-      <span className="grid size-30 place-items-center rounded-full bg-brand-lavender text-label text-fg">
-        {label}
-      </span>
-      <span className="mt-3 text-center text-caption text-fg-muted">
-        {caption}
-      </span>
-    </div>
-  );
-}
 
 export default function EasyTechSection({
   copy,
@@ -39,70 +11,131 @@ export default function EasyTechSection({
   copy: Copy;
   lang: Locale;
 }) {
+  const center = copy.center.split("\n");
   return (
     <section
       aria-labelledby="company-tech"
-      className="px-6 py-16 md:px-10 md:py-24"
+      className="company-content company-section text-center"
     >
-      <Reveal className="mx-auto max-w-360 text-center">
+      <Reveal>
         <h2
           id="company-tech"
-          className="text-h3 text-brand-deep md:text-tech-heading"
+          className="text-form-aside md:text-detail-heading"
         >
           {copy.title}
         </h2>
-
         <div
+          className="company-tech-diagram"
           role="img"
           aria-label={`${copy.left}와 ${copy.right}에 ${copy.caption}가 전달되어 ${copy.center.replace("\n", " ")}가 만들어집니다`}
-          className="relative mx-auto mt-12 flex flex-col items-center gap-6 md:mt-14 md:block md:h-52.5 md:w-195"
         >
-          <Ear label={copy.left} caption={copy.caption} position="md:left-0" />
-          <Ear
-            label={copy.right}
-            caption={copy.caption}
-            position="md:right-0"
-          />
-          <div
+          <svg
+            viewBox="0 0 780 210"
+            className="company-tech-desktop"
             aria-hidden="true"
-            className="hidden w-49 origin-left transition-transform delay-500 duration-700 ease-out motion-safe:scale-x-0 motion-safe:group-data-[visible=true]:scale-x-100 md:absolute md:top-15 md:left-30 md:block print:scale-x-100"
           >
-            <Image
-              src="/images/company/line-left.svg"
-              alt=""
-              width={196}
-              height={77}
-              className="h-auto w-full"
-            />
-          </div>
-          <div
-            aria-hidden="true"
-            className="hidden w-49 origin-right transition-transform delay-500 duration-700 ease-out motion-safe:scale-x-0 motion-safe:group-data-[visible=true]:scale-x-100 md:absolute md:top-15 md:left-116.25 md:block print:scale-x-100"
-          >
-            <Image
-              src="/images/company/line-right.svg"
-              alt=""
-              width={196}
-              height={77}
-              className="h-auto w-full"
-            />
-          </div>
-          <div className="relative isolate grid size-37.5 place-items-center rounded-full border border-line-image bg-surface text-center text-label whitespace-pre-line text-fg delay-1000 motion-safe:scale-60 motion-safe:opacity-0 motion-safe:transition motion-safe:duration-700 motion-safe:group-data-[visible=true]:scale-100 motion-safe:group-data-[visible=true]:opacity-100 md:absolute md:top-15 md:left-78.75 print:scale-100 print:opacity-100">
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 -z-10 rounded-full bg-brand/20 motion-safe:group-data-[visible=true]:animate-ping"
-            />
-            {copy.center}
+            <g className="company-tech-ear">
+              <circle cx="60" cy="60" r="60" className="fill-panel" />
+              <text
+                x="60"
+                y="60"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="fill-ink text-ui-label"
+              >
+                {copy.left}
+              </text>
+              <text
+                x="60"
+                y="145"
+                textAnchor="middle"
+                className="fill-muted text-micro"
+              >
+                {copy.caption}
+              </text>
+            </g>
+            <g className="company-tech-ear">
+              <circle cx="720" cy="60" r="60" className="fill-panel" />
+              <text
+                x="720"
+                y="60"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="fill-ink text-ui-label"
+              >
+                {copy.right}
+              </text>
+              <text
+                x="720"
+                y="145"
+                textAnchor="middle"
+                className="fill-muted text-micro"
+              >
+                {copy.caption}
+              </text>
+            </g>
+            <g transform="translate(120 60)">
+              <path
+                className="company-tech-line company-tech-line-left stroke-rule"
+                d="M0.358979 0.933346L195.359 75.9333"
+                strokeWidth="2"
+              />
+            </g>
+            <g transform="translate(465 60)">
+              <path
+                className="company-tech-line company-tech-line-right stroke-rule"
+                d="M0.358979 75.9333L195.359 0.933346"
+                strokeWidth="2"
+              />
+            </g>
+            <g className="company-tech-center">
+              <circle
+                cx="390"
+                cy="135"
+                r="75"
+                className="company-tech-pulse fill-violet"
+              />
+              <circle
+                cx="390"
+                cy="135"
+                r="75"
+                className="fill-paper stroke-rule"
+              />
+              <text
+                x="390"
+                y="128"
+                textAnchor="middle"
+                className="fill-ink text-ui-label"
+              >
+                {center.map((line, index) => (
+                  <tspan key={line} x="390" dy={index === 0 ? 0 : "1.2em"}>
+                    {line}
+                  </tspan>
+                ))}
+              </text>
+            </g>
+          </svg>
+          <div className="company-tech-mobile" aria-hidden="true">
+            {[copy.left, copy.right].map((label) => (
+              <div key={label} className="company-tech-ear">
+                <span className="company-tech-ear-circle text-ui-label">
+                  {label}
+                </span>
+                <span className="mt-3 block text-micro text-muted">
+                  {copy.caption}
+                </span>
+              </div>
+            ))}
+            <div className="company-tech-center company-tech-center-circle text-ui-label whitespace-pre-line">
+              <span className="company-tech-pulse" />
+              {copy.center}
+            </div>
           </div>
         </div>
-
-        <p className="mt-8 text-body whitespace-pre-line text-fg-muted md:mt-10">
+        <p className="mt-8 text-copy whitespace-pre-line text-muted md:mt-10">
           {copy.description}
         </p>
-        <Link
-          href={`/${lang}/technology`}
-          className="mt-4 inline-flex min-h-11 items-center text-tech-label underline underline-offset-4 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors"
-        >
+        <Link href={`/${lang}/technology`} className="public-text-link mt-4">
           {copy.link}
         </Link>
       </Reveal>

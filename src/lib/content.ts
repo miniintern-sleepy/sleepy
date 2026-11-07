@@ -1,5 +1,8 @@
 import { cacheLife, cacheTag } from "next/cache";
 
+import { faqCopy } from "@/content/ko/faq";
+import { newsroomCopy } from "@/content/ko/newsroom";
+import { contactCopy } from "@/content/ko/contact";
 import { companyCopy } from "@/content/ko/company";
 import { homeCopy } from "@/content/ko/home";
 import { productCopy } from "@/content/ko/product";
@@ -88,28 +91,6 @@ export async function getNewsList(
   return data.map(toNewsArticle);
 }
 
-/**
- * 공개된 기사 하나를 가져온다.
- *
- * @returns 없거나 공개되지 않은 기사면 `null`. 화면은 `notFound()`로 404를 보여 준다(F-12).
- */
-export async function getNewsArticle(id: number): Promise<NewsArticle | null> {
-  "use cache";
-  cacheLife("hours");
-  cacheTag("news_articles");
-
-  if (!Number.isSafeInteger(id) || id < 1) return null;
-
-  const { data, error } = await createReadClient()
-    .from("news_articles")
-    .select(newsColumns)
-    .eq("is_published", true)
-    .eq("id", id)
-    .maybeSingle();
-  if (error) throw error;
-  return data && toNewsArticle(data);
-}
-
 const newsColumns =
   "id, category, title, summary, source_name, source_url, thumbnail_url, published_at, is_featured";
 
@@ -160,4 +141,17 @@ export async function getTechnologyCopy() {
 /** 제품 화면 문구를 가져온다. 사양은 `getProductSpecs()`로 따로 읽는다. */
 export async function getProductCopy() {
   return productCopy;
+}
+
+/** FAQ 화면의 정적 문구를 가져온다. 질문·답변은 getFaqs로 읽는다. */
+export async function getFaqCopy() {
+  return faqCopy;
+}
+/** 뉴스룸의 정적 문구를 가져온다. 기사는 getNewsList로 읽는다. */
+export async function getNewsroomCopy() {
+  return newsroomCopy;
+}
+/** 문의 화면의 안내 문구를 가져온다. */
+export async function getContactCopy() {
+  return contactCopy;
 }

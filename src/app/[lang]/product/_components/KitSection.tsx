@@ -25,10 +25,7 @@ export default function KitSection({
   });
 
   return (
-    <section
-      aria-labelledby="product-kit"
-      className="mx-auto grid max-w-360 gap-10 py-16 md:grid-cols-2 md:gap-0 lg:min-h-160 lg:pt-10 lg:pb-19"
-    >
+    <section aria-labelledby="product-kit" className="public-wrap product-kit">
       <Reveal>
         <Image
           src="/images/product/components.png"
@@ -36,21 +33,18 @@ export default function KitSection({
           width={720}
           height={480}
           sizes="(min-width: 1440px) 720px, (min-width: 768px) 50vw, 100vw"
-          className="aspect-3/2 w-full object-cover"
+          className="product-kit-photo"
         />
       </Reveal>
-      <Reveal className="px-6 md:px-10 lg:px-20 lg:pt-5">
-        <h2
-          id="product-kit"
-          className="text-product-feature lg:text-product-kit-title"
-        >
+      <Reveal className="product-kit-copy">
+        <h2 id="product-kit" className="text-kit-heading">
           {copy.title}
         </h2>
-        <ul className="mt-10 border-t border-line-image">
+        <ul className="mt-10 border-t border-rule">
           {copy.items.map((item) => (
             <li
               key={item}
-              className="border-b border-line-image py-3.25 text-product-kit-item last:border-0"
+              className="border-b border-rule py-3.25 text-kit-item last:border-0"
             >
               {item}
             </li>
@@ -63,10 +57,8 @@ export default function KitSection({
                 key={spec.id}
                 className="flex min-w-0 flex-col-reverse gap-3"
               >
-                <dt className="text-product-metric-label text-fg-muted">
-                  {spec.label}
-                </dt>
-                <dd className="text-product-metric wrap-anywhere whitespace-pre-line">
+                <dt className="text-ui-label text-muted">{spec.label}</dt>
+                <dd className="text-spec-value wrap-anywhere whitespace-pre-line">
                   {spec.value}
                 </dd>
               </div>

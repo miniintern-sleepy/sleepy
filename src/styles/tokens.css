@@ -1,268 +1,518 @@
 /*
- * 슬리피 디자인 토큰. 피그마 "공통 컴포넌트 > Sleepy 공통 스타일 v1"에서 옮겼다(2026-10-30).
- *
- * 디자인 값이 바뀌면 이 파일만 고친다. 화면 코드에서는 아래 이름의 클래스만 쓰고
- * #3f2867, text-[15px] 같은 값을 직접 쓰지 않는다.
- *
- * Tailwind 클래스 이름은 한글을 쓸 수 없어서 영어로 지었다. 각 줄 옆에 피그마 이름을 적었다.
- *
- * 주의: 기본 색·글자 크기(bg-red-500, text-xl 등)는 꺼 두었다. 디자인에 없는 값이 섞이지
- * 않게 하려는 것이다. 필요한 토큰이 없으면 여기에 추가한다.
+ * #54 A·B 통합 디자인 원본. B 670d9a3의 public/styles/ 최종 활성 규칙을 따른다.
+ * 역할·값·출처와 페이지 예외는 docs/DESIGN.md에 기록한다. A 토큰·별칭은 두지 않는다.
  */
-
 @theme {
   --color-*: initial;
   --text-*: initial;
+  --font-*: initial;
 
-  /* 글자 */
-  --color-fg: #1d1b24; /* 글자/기본 */
-  --color-fg-muted: #5c5a66; /* 글자/보조 */
-  --color-fg-subtle: #9a96a6; /* 글자/흐림 */
+  /* 공통 색. 오류·성공 네 값은 #54에서 승인한 기능 상태색이다. */
+  --color-paper: #fcfbff;
+  --color-panel: #eeebf8;
+  --color-ink: #2b263a;
+  --color-muted: #6b607a;
+  --color-violet: #7754ab;
+  --color-violet-strong: #543779;
+  --color-rule: #ddd5eb;
+  --color-white: #ffffff;
+  --color-error-ink: #9b1c31;
+  --color-error-panel: #fff1f3;
+  --color-success-ink: #216344;
+  --color-success-panel: #edf7f0;
+  /* 페이지 전용 장식·사진 색. 본문색으로 사용하지 않는다. */
+  --color-halftone: #a78acb;
+  --color-wordmark-faint: #7754ab03;
+  --color-wave-back: color-mix(
+    in srgb,
+    var(--color-violet) 18%,
+    var(--color-panel)
+  );
+  --color-algorithm-glow: color-mix(
+    in srgb,
+    var(--color-violet) 20%,
+    transparent
+  );
+  --color-photo-scrim: color-mix(in srgb, var(--color-ink) 70%, transparent);
 
-  /* 선 */
-  --color-line: #dddae4; /* 선/기본 */
-  --color-line-image: #c9c5d3; /* 선/이미지 자리 */
-  --color-line-on-dark: #8e7cb0; /* 선/어두운 배경 */
+  --container-site: 80rem;
+  --container-admin: 64rem;
+  --radius-control: 3px;
+  --radius-pill: 28px;
+  --radius-media: 10px;
+  --radius-photo: 12px;
+  --radius-stage: 16px;
+  --radius-research-photo: 13px;
+  --font-weight-ui-regular: 400;
+  --font-weight-ui-medium: 500;
+  --font-weight-ui-selected: 600;
+  --tracking-heading: -0.045em;
 
-  /* 배경 */
-  --color-surface: #ffffff; /* 배경/흰색 */
-  --color-surface-muted: #f7f6fa; /* 배경/면 */
-  --color-surface-image: #e9e7ee; /* 배경/이미지 자리 */
-  --color-surface-dark: #15131b; /* 배경/어두움 */
-  --color-surface-dark-2: #2a2733; /* 배경/어두움 2 */
+  /* 공통 글자: foundation.css, theme.css의 본문·폼·링크 규칙. */
+  --text-page-title: clamp(2.25rem, 4.2vw, 3.5rem);
+  --text-page-title--font-weight: 450;
+  --text-page-title--line-height: 1.4;
+  --text-page-title--letter-spacing: -0.045em;
+  --text-detail-heading: clamp(1.875rem, 3.3vw, 3rem);
+  --text-detail-heading--font-weight: 450;
+  --text-detail-heading--line-height: 1.35;
+  --text-detail-heading--letter-spacing: -0.045em;
+  --text-form-aside: 1.75rem;
+  --text-form-aside--font-weight: 450;
+  --text-form-aside--line-height: 1.5;
+  --text-form-aside--letter-spacing: -0.045em;
+  --text-form-title: 1.5625rem;
+  --text-form-title--font-weight: 450;
+  --text-form-title--line-height: 1.5;
+  --text-form-title--letter-spacing: -0.045em;
+  --text-copy: 1rem;
+  --text-copy--font-weight: 400;
+  --text-copy--line-height: 1.9;
+  --text-copy--letter-spacing: 0;
+  --text-copy-large: 1.125rem;
+  --text-copy-large--font-weight: 400;
+  --text-copy-large--line-height: 1.9;
+  --text-copy-large--letter-spacing: 0;
+  --text-copy-intro: 1.0625rem;
+  --text-copy-intro--font-weight: 400;
+  --text-copy-intro--line-height: 1.9;
+  --text-copy-intro--letter-spacing: 0;
+  --text-helper: 0.875rem;
+  --text-helper--font-weight: 400;
+  --text-helper--line-height: 1.9;
+  --text-helper--letter-spacing: 0;
+  --text-meta: 0.8125rem;
+  --text-meta--font-weight: 400;
+  --text-meta--line-height: 1.9;
+  --text-meta--letter-spacing: 0;
+  --text-header-cta: 0.8125rem;
+  --text-header-cta--font-weight: 400;
+  --text-header-cta--line-height: normal;
+  --text-footer-nav: 0.8125rem;
+  --text-footer-nav--font-weight: 400;
+  --text-footer-nav--line-height: normal;
+  --text-footer-info: 0.8125rem;
+  --text-footer-info--font-weight: 400;
+  --text-footer-info--line-height: 2;
+  --text-footer-legal: 0.6875rem;
+  --text-footer-legal--font-weight: 400;
+  --text-footer-legal--line-height: normal;
+  --text-micro: 0.75rem;
+  --text-micro--font-weight: 400;
+  --text-micro--line-height: 1.9;
+  --text-micro--letter-spacing: 0;
+  --text-fine: 0.6875rem;
+  --text-fine--font-weight: 400;
+  --text-fine--line-height: 1.9;
+  --text-fine--letter-spacing: 0;
+  --text-nav: 0.875rem;
+  --text-nav--font-weight: 500;
+  --text-nav--line-height: normal;
+  --text-nav--letter-spacing: 0;
+  --text-ui-label: 0.875rem;
+  --text-ui-label--font-weight: 400;
+  --text-ui-label--line-height: normal;
+  --text-ui-label--letter-spacing: 0;
+  --text-ui-button: 0.875rem;
+  --text-ui-button--font-weight: 400;
+  --text-ui-button--line-height: 1.3;
+  --text-ui-button--letter-spacing: 0;
+  --text-ui-input: 1rem;
+  --text-ui-input--font-weight: 400;
+  --text-ui-input--line-height: normal;
+  --text-ui-input--letter-spacing: 0;
+  --text-ui-glyph: 1.375rem;
+  --text-ui-glyph--font-weight: 400;
+  --text-ui-glyph--line-height: normal;
+  --text-text-link: 0.9375rem;
+  --text-text-link--font-weight: 400;
+  --text-text-link--line-height: 1.5;
+  --text-text-link--letter-spacing: 0;
+  --text-compact-link: 0.8125rem;
+  --text-compact-link--font-weight: 400;
+  --text-compact-link--line-height: 1.5;
+  --text-compact-link--letter-spacing: 0;
+  --text-kicker: 0.75rem;
+  --text-kicker--font-weight: 550;
+  --text-kicker--line-height: 1.4;
+  --text-kicker--letter-spacing: 0.06em;
+  --text-cta-heading: 2rem;
+  --text-cta-heading--font-weight: 450;
+  --text-cta-heading--line-height: 1.5;
+  --text-cta-heading--letter-spacing: -0.045em;
 
-  /* 브랜드 */
-  --color-brand-deep: #3f2867; /* 브랜드/진보라 */
-  --color-brand: #6f4f9a; /* 브랜드/보라 */
-  --color-brand-soft: #c2a3e9; /* 브랜드/연보라 */
-  --color-brand-lavender: #e6e0f2; /* 브랜드/라벤더 */
-  --color-brand-pale: #eee9f6; /* 브랜드/옅은 보라 */
-
-  /* 글자 스타일: 크기 · 줄 높이 · 굵기를 한 클래스로 쓴다 (예: text-h2) */
-  --text-display: 4rem; /* Sleepy/Display 64 Bold */
-  --text-display--line-height: 1.2;
-  --text-display--font-weight: 700;
-
-  --text-h1: 3rem; /* Sleepy/Heading 1 48 Bold */
-  --text-h1--line-height: 1.3;
-  --text-h1--font-weight: 700;
-
-  --text-h2: 2.25rem; /* Sleepy/Heading 2 36 Bold */
-  --text-h2--line-height: 1.4;
-  --text-h2--font-weight: 700;
-
-  --text-h3: 1.5rem; /* Sleepy/Heading 3 24 Bold */
-  --text-h3--line-height: 1.4;
-  --text-h3--font-weight: 700;
-
-  --text-title: 1.25rem; /* Sleepy/Title 20 Bold */
-  --text-title--line-height: 1.4;
-  --text-title--font-weight: 700;
-
-  --text-body-lg: 1.125rem; /* Sleepy/Body L 18 Regular */
-  --text-body-lg--line-height: 1.6;
-  --text-body-lg--font-weight: 400;
-
-  --text-body: 1rem; /* Sleepy/Body 16 Regular */
-  --text-body--line-height: 1.6;
-  --text-body--font-weight: 400;
-
-  --text-body-sm: 0.875rem; /* Sleepy/Body S 14 Regular */
-  --text-body-sm--line-height: 1.6;
-  --text-body-sm--font-weight: 400;
-
-  --text-caption: 0.75rem; /* Sleepy/Caption 12 Medium */
-  --text-caption--line-height: 1.5;
-  --text-caption--font-weight: 500;
-
-  --text-eyebrow: 0.875rem; /* Sleepy/Eyebrow 14 Bold */
-  --text-eyebrow--line-height: 1.4;
-  --text-eyebrow--letter-spacing: 0.09375rem; /* 1.5px (피그마 확인 2026-10-30) */
-  --text-eyebrow--font-weight: 700;
-
-  --text-label: 0.875rem; /* Sleepy/Label 14 Bold */
-  --text-label--line-height: 1.4;
-  --text-label--font-weight: 700;
-
-  --text-button: 1rem; /* Sleepy/Button 16 Bold */
-  --text-button--line-height: 1;
-  --text-button--font-weight: 700;
-
-  --text-tab: 1.0625rem; /* Sleepy/Tab 17 Bold (선택된 탭) */
-  --text-tab--line-height: 1.4;
-  --text-tab--font-weight: 700;
-
-  --text-tab-base: 1.0625rem; /* Sleepy/Tab 기본 17 Medium (선택 안 된 탭) */
-  --text-tab-base--line-height: 1.4;
-  --text-tab-base--font-weight: 500;
+  /* 페이지 전용 글자: home·dimension·details·heroes·components.css. */
+  --text-landing-title: clamp(3.25rem, 5.6vw, 5rem);
+  --text-landing-title--font-weight: 420;
+  --text-landing-title--line-height: 1.22;
+  --text-landing-title--letter-spacing: -0.065em;
+  --text-story-heading: 2.6875rem;
+  --text-story-heading--font-weight: 450;
+  --text-story-heading--line-height: 1.5;
+  --text-story-heading--letter-spacing: -0.045em;
+  --text-day-heading: 2.0625rem;
+  --text-day-heading--font-weight: 450;
+  --text-day-heading--line-height: 1.6;
+  --text-day-heading--letter-spacing: -0.045em;
+  --text-founder-quote: clamp(1.75rem, 3.5vw, 3.125rem);
+  --text-founder-quote--font-weight: 400;
+  --text-founder-quote--line-height: 1.7;
+  --text-founder-quote--letter-spacing: -0.052em;
+  --text-founder-name: 1.75rem;
+  --text-founder-name--font-weight: 450;
+  --text-founder-name--line-height: 1.5;
+  --text-founder-name--letter-spacing: -0.045em;
+  --text-context-heading: 1.375rem;
+  --text-context-heading--font-weight: 450;
+  --text-context-heading--line-height: 1.65;
+  --text-context-heading--letter-spacing: -0.045em;
+  --text-stage-heading: 2.375rem;
+  --text-stage-heading--font-weight: 450;
+  --text-stage-heading--line-height: 1.5;
+  --text-stage-heading--letter-spacing: -0.045em;
+  --text-latest-heading: 2.375rem;
+  --text-latest-heading--font-weight: 450;
+  --text-latest-heading--line-height: 1.5;
+  --text-latest-heading--letter-spacing: -0.045em;
+  --text-latest-title: 1.25rem;
+  --text-latest-title--font-weight: 500;
+  --text-latest-title--line-height: 1.55;
+  --text-latest-title--letter-spacing: -0.045em;
+  --text-science-title: clamp(2.625rem, 5.5vw, 5rem);
+  --text-science-title--font-weight: 420;
+  --text-science-title--line-height: 1.25;
+  --text-science-title--letter-spacing: -0.045em;
+  --text-science-subtitle: 1.5rem;
+  --text-science-subtitle--font-weight: 400;
+  --text-science-subtitle--line-height: 1.9;
+  --text-science-subtitle--letter-spacing: 0;
+  --text-science-intro: 1.25rem;
+  --text-science-intro--font-weight: 400;
+  --text-science-intro--line-height: 1.9;
+  --text-science-intro--letter-spacing: 0;
+  --text-device-word: 1.625rem;
+  --text-device-word--font-weight: 400;
+  --text-device-word--line-height: 1.9;
+  --text-device-word--letter-spacing: 0;
+  --text-science-note: 0.8125rem;
+  --text-science-note--font-weight: 400;
+  --text-science-note--line-height: 1.8;
+  --text-science-note--letter-spacing: 0;
+  --text-metric-label: 1.125rem;
+  --text-metric-label--font-weight: 500;
+  --text-metric-label--line-height: 1.5;
+  --text-metric-label--letter-spacing: 0;
+  --text-research-heading: 1.875rem;
+  --text-research-heading--font-weight: 450;
+  --text-research-heading--line-height: 1.65;
+  --text-research-heading--letter-spacing: -0.045em;
+  --text-metric-number: 4rem;
+  --text-metric-number--font-weight: 450;
+  --text-metric-number--line-height: 1.3;
+  --text-metric-number--letter-spacing: -0.04em;
+  --text-study-title: 1.0625rem;
+  --text-study-title--font-weight: 400;
+  --text-study-title--line-height: 1.7;
+  --text-study-title--letter-spacing: 0;
+  --text-study-state: 0.9375rem;
+  --text-study-state--font-weight: 400;
+  --text-study-state--line-height: normal;
+  --text-study-state--letter-spacing: 0;
+  --text-patent-heading: 2.75rem;
+  --text-patent-heading--font-weight: 450;
+  --text-patent-heading--line-height: 1.4;
+  --text-patent-heading--letter-spacing: -0.045em;
+  --text-patent-number: 3.875rem;
+  --text-patent-number--font-weight: 450;
+  --text-patent-number--line-height: 1.3;
+  --text-patent-number--letter-spacing: -0.04em;
+  --text-patent-item: 1.3125rem;
+  --text-patent-item--font-weight: 400;
+  --text-patent-item--line-height: 1.65;
+  --text-patent-item--letter-spacing: 0;
+  --text-patent-key: 0.9375rem;
+  --text-patent-key--font-weight: 400;
+  --text-patent-key--line-height: normal;
+  --text-patent-key--letter-spacing: 0;
+  --text-patent-note: 0.75rem;
+  --text-patent-note--font-weight: 400;
+  --text-patent-note--line-height: 1.8;
+  --text-patent-note--letter-spacing: 0;
+  --text-product-intro-title: 1.5rem;
+  --text-product-intro-title--font-weight: 650;
+  --text-product-intro-title--line-height: 1.6;
+  --text-product-intro-title--letter-spacing: -0.04em;
+  --text-product-wordmark: clamp(9.375rem, 20vw, 18.125rem);
+  --text-product-wordmark--font-weight: 850;
+  --text-product-wordmark--line-height: 0.95;
+  --text-product-wordmark--letter-spacing: -0.065em;
+  --text-product-watermark: clamp(12.5rem, 28vw, 25.625rem);
+  --text-product-watermark--font-weight: 850;
+  --text-product-watermark--line-height: 1;
+  --text-product-watermark--letter-spacing: -0.07em;
+  --text-feature-heading: 2rem;
+  --text-feature-heading--font-weight: 450;
+  --text-feature-heading--line-height: 1.4;
+  --text-feature-heading--letter-spacing: -0.045em;
+  --text-scene-caption: 1.125rem;
+  --text-scene-caption--font-weight: 400;
+  --text-scene-caption--line-height: 1.6;
+  --text-scene-caption--letter-spacing: 0;
+  --text-guide-caption: 1.5625rem;
+  --text-guide-caption--font-weight: 400;
+  --text-guide-caption--line-height: 1.55;
+  --text-guide-caption--letter-spacing: 0;
+  --text-guide-heading: 1.375rem;
+  --text-guide-heading--font-weight: 450;
+  --text-guide-heading--line-height: 1.65;
+  --text-guide-heading--letter-spacing: -0.045em;
+  --text-kit-heading: 2.5rem;
+  --text-kit-heading--font-weight: 450;
+  --text-kit-heading--line-height: 1.35;
+  --text-kit-heading--letter-spacing: -0.045em;
+  --text-kit-item: 1.25rem;
+  --text-kit-item--font-weight: 400;
+  --text-kit-item--line-height: 1.6;
+  --text-kit-item--letter-spacing: 0;
+  --text-news-title: 1.3125rem;
+  --text-news-title--font-weight: 500;
+  --text-news-title--line-height: 1.55;
+  --text-news-title--letter-spacing: -0.045em;
+  --text-news-meta: 0.75rem;
+  --text-news-meta--font-weight: 400;
+  --text-news-meta--line-height: normal;
+  --text-news-meta--letter-spacing: 0.02em;
+  --text-faq-question: 1.125rem;
+  --text-faq-question--font-weight: 500;
+  --text-faq-question--line-height: 1.7;
+  --text-faq-question--letter-spacing: 0;
+  --text-faq-answer: 1rem;
+  --text-faq-answer--font-weight: 400;
+  --text-faq-answer--line-height: 1.9;
+  --text-faq-answer--letter-spacing: 0;
+  --text-filter: 1rem;
+  --text-filter--font-weight: 400;
+  --text-filter--line-height: normal;
+  --text-filter--letter-spacing: 0;
 }
 
-/* next/font가 만든 글꼴 변수를 연결한다. inline이어야 변수 값이 그대로 들어간다. */
 @theme inline {
-  --font-sans: var(--font-noto-sans-kr);
+  --font-ui:
+    var(--font-pretendard-local), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
 }
 
-/* 기술 · 시안 01에서 브라우저로 확인한 값. 화면용 토큰 추가 승인(2026-11-02, #21). */
-@theme {
-  --color-tech-ip: #f5f2fb;
-  --color-tech-spectrum-start: #e9e3f5;
-  --color-tech-spectrum-middle: #a98bc8;
-  --color-tech-spectrum-end: #66428f;
-
-  --text-tech-hero: 5rem;
-  --text-tech-hero--line-height: 1.24;
-  --text-tech-hero--font-weight: 500;
-  --text-tech-hero--letter-spacing: -0.025em;
-
-  --text-tech-heading: 3rem;
-  --text-tech-heading--line-height: 1.24;
-  --text-tech-heading--font-weight: 500;
-  --text-tech-heading--letter-spacing: -0.025em;
-
-  --text-tech-ip-title: 2.75rem;
-  --text-tech-ip-title--line-height: 1.24;
-  --text-tech-ip-title--font-weight: 500;
-  --text-tech-ip-title--letter-spacing: -0.025em;
-
-  --text-tech-metric: 4.5rem;
-  --text-tech-metric--line-height: 1.24;
-  --text-tech-metric--font-weight: 500;
-  --text-tech-metric--letter-spacing: -0.025em;
-
-  --text-tech-count: 4rem;
-  --text-tech-count--line-height: 1.2;
-  --text-tech-count--font-weight: 500;
-  --text-tech-count--letter-spacing: -0.025em;
-
-  --text-tech-clinical-title: 1.875rem;
-  --text-tech-clinical-title--line-height: 1.65;
-  --text-tech-clinical-title--font-weight: 500;
-  --text-tech-clinical-title--letter-spacing: -0.005em;
-
-  --text-tech-spectrum: 1.75rem;
-  --text-tech-spectrum--line-height: 1.3;
-  --text-tech-spectrum--font-weight: 500;
-  --text-tech-spectrum--letter-spacing: 0em;
-
-  --text-tech-product-name: 1.625rem;
-  --text-tech-product-name--line-height: 1.3;
-  --text-tech-product-name--font-weight: 500;
-  --text-tech-product-name--letter-spacing: 0em;
-
-  --text-tech-subtitle: 1.5rem;
-  --text-tech-subtitle--line-height: 1.5;
-  --text-tech-subtitle--font-weight: 400;
-  --text-tech-subtitle--letter-spacing: -0.005em;
-
-  --text-tech-intro: 1.25rem;
-  --text-tech-intro--line-height: 1.65;
-  --text-tech-intro--font-weight: 400;
-  --text-tech-intro--letter-spacing: -0.005em;
-
-  --text-tech-body: 1.125rem;
-  --text-tech-body--line-height: 1.65;
-  --text-tech-body--font-weight: 400;
-  --text-tech-body--letter-spacing: -0.005em;
-
-  --text-tech-metric-label: 1.125rem;
-  --text-tech-metric-label--line-height: 1.5;
-  --text-tech-metric-label--font-weight: 700;
-  --text-tech-metric-label--letter-spacing: -0.005em;
-
-  --text-tech-patent: 1.125rem;
-  --text-tech-patent--line-height: 1.45;
-  --text-tech-patent--font-weight: 500;
-  --text-tech-patent--letter-spacing: -0.005em;
-
-  --text-tech-list: 1.0625rem;
-  --text-tech-list--line-height: 1.5;
-  --text-tech-list--font-weight: 500;
-  --text-tech-list--letter-spacing: -0.005em;
-
-  --text-tech-status: 0.9375rem;
-  --text-tech-status--line-height: 1.5;
-  --text-tech-status--font-weight: 500;
-  --text-tech-status--letter-spacing: -0.005em;
-
-  --text-tech-label: 1rem;
-  --text-tech-label--line-height: 1.5;
-  --text-tech-label--font-weight: 500;
-  --text-tech-label--letter-spacing: -0.005em;
-
-  --text-tech-detail: 0.875rem;
-  --text-tech-detail--line-height: 1.5;
-  --text-tech-detail--font-weight: 400;
-  --text-tech-detail--letter-spacing: -0.005em;
-
-  --text-tech-note: 0.8125rem;
-  --text-tech-note--line-height: 1.65;
-  --text-tech-note--font-weight: 400;
-  --text-tech-note--letter-spacing: -0.005em;
-
-  --text-tech-spectrum-en: 0.875rem;
-  --text-tech-spectrum-en--line-height: 1.3;
-  --text-tech-spectrum-en--font-weight: 400;
-  --text-tech-spectrum-en--letter-spacing: 0em;
-
-  --text-tech-category-en: 1rem;
-  --text-tech-category-en--line-height: 1.3;
-  --text-tech-category-en--font-weight: 400;
-  --text-tech-category-en--letter-spacing: 0em;
+:root {
+  --layout-gutter: clamp(22px, 5.55vw, 80px);
+  --layout-page-side: max(22px, calc((100vw - 850px) / 4));
+  --layout-page-width: min(1280px, calc(100vw - var(--layout-page-side) * 2));
+  --header-height: 88px;
+  --header-height-small: 72px;
+  --size-logo: 106px;
+  --size-touch: 44px;
+  --size-field: 50px;
+  --size-button: 49px;
+  --focus-width: 2px;
+  --focus-offset: 5px;
+  --scroll-target-gap: 28px;
+  --space-section: 112px;
+  --space-section-small: 75px;
+  --container-hero: 1160px;
+  --space-founder: 125px;
+  --space-founder-small: 80px;
+  --shadow-object: 0 18px 15px #4d336a16;
+  --gradient-science: linear-gradient(
+    90deg,
+    var(--color-panel),
+    color-mix(in srgb, var(--color-violet) 42%, var(--color-panel)) 45%,
+    var(--color-violet)
+  );
+  --motion-state: 160ms;
+  --motion-reveal: 700ms;
+  --motion-image: 500ms;
+  --motion-card: 200ms;
+  --motion-line: 1000ms;
+  --motion-ping-once: 1000ms;
+  --mask-product-halftone: radial-gradient(
+    ellipse at 50% 50%,
+    var(--color-ink) 14%,
+    color-mix(in srgb, var(--color-ink) 60%, transparent) 40%,
+    transparent 70%
+  );
 }
 
-/* 제품 · 디자인 초안 D2에서 브라우저로 확인한 누락값(#27, 2026-11-03). */
+/* B에서 페이지별로 다른 도식·제품 링크의 활성 활자 규칙. */
 @theme {
-  --color-product-surface: #f6f6f8;
-  --color-product-gradient: #dfe0e4;
-  --color-product-shade: #d8d8da;
-  --color-product-case-end: #f2f2f2;
-  --text-product-hero: 3.75rem;
-  --text-product-hero--line-height: 1.24;
-  --text-product-hero--font-weight: 500;
-  --text-product-hero--letter-spacing: -0.025em;
+  --text-patent-unit: 1.0625rem;
+  --text-patent-unit--font-weight: 400;
+  --text-patent-unit--line-height: normal;
+  --text-algorithm-link: 1rem;
+  --text-algorithm-link--font-weight: 400;
+  --text-algorithm-link--line-height: normal;
+  --text-product-purchase: 0.875rem;
+  --text-product-purchase--font-weight: 500;
+  --text-product-purchase--line-height: 1.5;
+  --text-spectrum-label: 1.75rem;
+  --text-spectrum-label--font-weight: 400;
+  --text-spectrum-label--line-height: normal;
+  --text-spectrum-english: 0.8125rem;
+  --text-spectrum-english--font-weight: 400;
+  --text-spectrum-english--line-height: 1.5;
+  --text-product-hero-copy: 1.0625rem;
+  --text-product-hero-copy--font-weight: 400;
+  --text-product-hero-copy--line-height: 1.8;
+  --text-product-hero-link: 1.0625rem;
+  --text-product-hero-link--font-weight: 650;
+  --text-product-hero-link--line-height: normal;
+  --text-product-nav: 1.1875rem;
+  --text-product-nav--font-weight: 400;
+  --text-product-nav--line-height: 1.5;
+  --text-spec-value: 1.6875rem;
+  --text-spec-value--font-weight: 400;
+  --text-spec-value--line-height: 1.55;
+  --text-day-caption: 0.875rem;
+  --text-day-caption--font-weight: 400;
+  --text-day-caption--line-height: normal;
+  --text-guide-copy: 1rem;
+  --text-guide-copy--font-weight: 400;
+  --text-guide-copy--line-height: 1.9;
+  --text-research-more: 1rem;
+  --text-research-more--font-weight: 400;
+  --text-research-more--line-height: 1.9;
+}
 
-  --text-product-heading: 3.5rem;
-  --text-product-heading--line-height: 1.24;
-  --text-product-heading--font-weight: 500;
-  --text-product-heading--letter-spacing: -0.025em;
+@media (max-width: 1100px) {
+  :root {
+    --text-product-hero-copy: 0.9375rem;
+    --text-product-nav: 1rem;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --text-spectrum-label: 1.3125rem;
+    --text-spectrum-english: 0.625rem;
+    --text-spectrum-english--line-height: 1.6;
+    --text-product-hero-copy: 1rem;
+    --text-product-nav: 0.875rem;
+  }
+}
+@media (max-width: 520px) {
+  :root {
+    --text-spectrum-label: 1.125rem;
+    --text-spectrum-english: 0.5625rem;
+  }
+}
 
-  --text-product-feature: 2.25rem;
-  --text-product-feature--line-height: 1.24;
-  --text-product-feature--font-weight: 500;
-  --text-product-feature--letter-spacing: -0.025em;
+@media (max-width: 1200px) {
+  :root {
+    --text-science-intro: 1.125rem;
+    --text-research-heading: 1.625rem;
+    --text-metric-number: 3.375rem;
+    --text-patent-heading: 2.5rem;
+    --text-feature-heading: 1.6875rem;
+  }
+}
 
-  --text-product-kit-title: 2.5rem;
-  --text-product-kit-title--line-height: 1.24;
-  --text-product-kit-title--font-weight: 500;
-  --text-product-kit-title--letter-spacing: -0.025em;
+@media (max-width: 1100px) {
+  :root {
+    --text-product-intro-title: 1.25rem;
+  }
+}
 
-  --text-product-metric: 2.5rem;
-  --text-product-metric--line-height: 1.24;
-  --text-product-metric--font-weight: 300;
-  --text-product-metric--letter-spacing: -0.025em;
+@media (max-width: 1023px) {
+  :root {
+    --text-guide-copy: 0.9375rem;
+    --text-feature-heading: 1.5625rem;
+    --text-guide-caption: 1.25rem;
+    --text-guide-heading: 1.1875rem;
+    --text-kit-heading: 2.125rem;
+    --text-kit-item: 1.0625rem;
+  }
+}
 
-  --text-product-step: 1.375rem;
-  --text-product-step--line-height: 1.45;
-  --text-product-step--font-weight: 500;
-  --text-product-step--letter-spacing: -0.005em;
+@media (max-width: 760px) {
+  :root {
+    --text-detail-heading: 2.125rem;
+    --text-landing-title: 2.8125rem;
+    --text-landing-title--line-height: 1.25;
+    --text-story-heading: 2.375rem;
+    --text-day-heading: 2.1875rem;
+    --text-founder-name: 1.5625rem;
+    --text-stage-heading: 2.125rem;
+    --text-latest-heading: 1.9375rem;
+    --text-latest-title: 1.0625rem;
+    --text-cta-heading: 1.8125rem;
+    --text-science-title: 2.875rem;
+    --text-science-subtitle: 1.25rem;
+    --text-guide-copy: 0.875rem;
+    --text-research-more: 0.875rem;
+    --text-science-intro: 1rem;
+    --text-device-word: 1.375rem;
+    --text-science-note: 0.75rem;
+    --text-metric-label: 0.875rem;
+    --text-research-heading: 1.625rem;
+    --text-metric-number: 3.125rem;
+    --text-study-title: 0.9375rem;
+    --text-study-state: 0.8125rem;
+    --text-patent-unit: 0.875rem;
+    --text-algorithm-link: 0.9375rem;
+    --text-patent-heading: 2.125rem;
+    --text-patent-number: 3rem;
+    --text-patent-item: 1.125rem;
+    --text-patent-key: 0.8125rem;
+    --text-patent-note: 0.6875rem;
+    --text-product-intro-title: 1.625rem;
+    --text-product-intro-title--line-height: 1.45;
+    --text-product-wordmark: 28vw;
+    --text-product-wordmark--letter-spacing: -0.07em;
+    --text-product-watermark: 54vw;
+    --text-feature-heading: 1.5rem;
+    --text-scene-caption: 0.9375rem;
+    --text-guide-heading: 1.125rem;
+    --text-kit-heading: 1.9375rem;
+    --text-news-title: 1rem;
+    --text-faq-question: 1rem;
+    --text-faq-answer: 0.9375rem;
+    --text-copy-large: 1rem;
+    --text-copy-intro: 1rem;
+  }
+}
 
-  --text-product-body: 1.0625rem;
-  --text-product-body--line-height: 1.65;
-  --text-product-body--font-weight: 400;
-  --text-product-body--letter-spacing: -0.005em;
+@media (max-width: 520px) {
+  :root {
+    --text-day-caption: 0.75rem;
+    --text-guide-copy: 0.9375rem;
+    --text-science-subtitle: 1.125rem;
+    --text-detail-heading: 1.875rem;
+    --text-story-heading: 2.125rem;
+    --text-founder-quote: 1.6875rem;
+    --text-founder-quote--line-height: 1.75;
+    --text-founder-name: 1.4375rem;
+    --text-stage-heading: 2rem;
+    --text-cta-heading: 1.625rem;
+    --text-science-title: 2.25rem;
+    --text-science-intro: 0.9375rem;
+    --text-research-heading: 1.5rem;
+    --text-metric-number: 2.8125rem;
+    --text-study-title: 0.875rem;
+    --text-patent-heading: 1.8125rem;
+    --text-patent-number: 3.1875rem;
+    --text-patent-item: 1rem;
+    --text-patent-key: 0.875rem;
+    --text-patent-note: 0.75rem;
+    --text-feature-heading: 1.5625rem;
+    --text-scene-caption: 1rem;
+    --text-guide-caption: 1.375rem;
+    --text-guide-heading: 1.1875rem;
+    --text-kit-item: 1.125rem;
+    --text-news-meta: 0.6875rem;
+    --text-copy-large: 0.9375rem;
+    --text-filter: 0.875rem;
+  }
+}
 
-  --text-product-detail: 0.9375rem;
-  --text-product-detail--line-height: 1.65;
-  --text-product-detail--font-weight: 400;
-  --text-product-detail--letter-spacing: -0.005em;
-
-  --text-product-kit-item: 1.125rem;
-  --text-product-kit-item--line-height: 1.4;
-  --text-product-kit-item--font-weight: 400;
-  --text-product-kit-item--letter-spacing: -0.005em;
-
-  --text-product-metric-label: 0.8125rem;
-  --text-product-metric-label--line-height: 1.4;
-  --text-product-metric-label--font-weight: 400;
-  --text-product-metric-label--letter-spacing: -0.005em;
+@media (max-width: 400px) {
+  :root {
+    --text-landing-title: 2.5625rem;
+  }
 }

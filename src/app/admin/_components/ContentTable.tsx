@@ -15,12 +15,12 @@ export default function ContentTable({
   deleteAction: ContentAction;
 }) {
   if (!items.length)
-    return <p className="py-4 text-fg-muted">등록된 항목이 없습니다.</p>;
+    return <p className="py-4 text-muted">등록된 항목이 없습니다.</p>;
   return (
-    <table className="w-full table-fixed border-collapse text-body-sm">
+    <table className="w-full table-fixed border-collapse text-helper">
       <caption className="sr-only">공개·비공개 전체 항목</caption>
       <thead>
-        <tr className="border-b border-line text-left">
+        <tr className="border-b border-rule text-left">
           <th scope="col" className="py-3 pr-2">
             제목
           </th>
@@ -46,10 +46,10 @@ export default function ContentTable({
       </thead>
       <tbody>
         {items.map((item) => (
-          <tr key={item.id} className="border-b border-line align-top">
+          <tr key={item.id} className="border-b border-rule align-top">
             <th
               scope="row"
-              className="py-3 pr-2 text-left font-normal wrap-anywhere"
+              className="py-3 pr-2 text-left font-ui-regular wrap-anywhere"
             >
               {item.title}
             </th>
@@ -66,7 +66,7 @@ export default function ContentTable({
               <Link
                 href={`${path}?edit=${item.id}`}
                 aria-label={`${item.title} 수정`}
-                className="inline-flex min-h-11 items-center px-1 text-label text-brand-deep underline focus-visible:outline-2 focus-visible:outline-brand"
+                className="inline-flex min-h-11 items-center px-1 text-ui-label text-ink underline"
               >
                 수정
               </Link>

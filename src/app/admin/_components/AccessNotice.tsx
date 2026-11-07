@@ -8,13 +8,13 @@ export default function AccessNotice({
   reason: "unauthenticated" | "forbidden" | "server";
 }) {
   return (
-    <section className="space-y-4 rounded-xl border border-line bg-surface p-6">
-      <h1 className="text-h3">
+    <section className="space-y-4 rounded-control border border-rule bg-paper p-6">
+      <h1 className="text-form-aside">
         {reason === "server"
           ? "데이터를 불러오지 못했습니다"
           : "관리자 로그인이 필요합니다"}
       </h1>
-      <p role="alert">
+      <p role="alert" className="admin-error text-helper">
         {reason === "server"
           ? "잠시 후 새로고침해 주세요. 문제가 계속되면 담당자에게 문의해 주세요."
           : reason === "forbidden"
@@ -23,7 +23,7 @@ export default function AccessNotice({
       </p>
       <Link
         href="/admin"
-        className="inline-flex min-h-11 items-center text-brand-deep underline"
+        className="inline-flex min-h-11 items-center text-ink underline"
       >
         관리자 로그인으로 이동
       </Link>

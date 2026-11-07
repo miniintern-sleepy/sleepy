@@ -1,57 +1,45 @@
 import Image from "next/image";
-
-import type { getTechnologyCopy } from "@/lib/content";
-
 import Reveal from "@/components/ui/Reveal";
-
+import type { getTechnologyCopy } from "@/lib/content";
 type Copy = Awaited<ReturnType<typeof getTechnologyCopy>>["clinical"];
-
 export default function ClinicalSection({ copy }: { copy: Copy }) {
   return (
-    <section className="mx-auto max-w-360 px-6 pb-10 md:px-10 lg:grid lg:grid-cols-[3fr_4fr] lg:gap-x-15 min-[90rem]:pr-20">
-      <Reveal>
-        <div className="overflow-hidden rounded-4xl">
-          <Image
-            src="/images/technology/research.png"
-            alt="수술실에서 의료진이 환자의 마취를 돕는 연구 현장"
-            width={540}
-            height={700}
-            sizes="(min-width: 1440px) 540px, (min-width: 1024px) 40vw, 100vw"
-            className="h-auto w-full transition-transform duration-500 ease-out motion-safe:hover:scale-102"
-          />
-        </div>
+    <section className="tech-clinical public-wrap">
+      <Reveal className="tech-research-photo">
+        <Image
+          src="/images/technology/research.png"
+          alt="수술실에서 의료진이 환자의 마취를 돕는 연구 현장"
+          width={540}
+          height={700}
+          sizes="(max-width:1023px) 100vw,40vw"
+          className="tech-hover-image h-auto w-full"
+        />
       </Reveal>
-
-      <Reveal className="mt-8 lg:mt-9">
-        <h2 className="text-tech-clinical-title text-brand-deep">
+      <Reveal className="tech-clinical-copy">
+        <h2 className="text-research-heading text-violet-strong">
           {copy.title}
         </h2>
-        <div className="mt-8 flex flex-wrap items-center gap-x-4.5 gap-y-2 lg:mt-10.75 lg:ml-32">
-          <p className="text-tech-metric-label whitespace-pre-line text-fg-muted">
+        <div className="tech-clinical-metric">
+          <p className="text-metric-label whitespace-pre-line text-muted">
             {copy.metric.label}
           </p>
-          <p className="text-h1 text-brand md:text-tech-metric">
-            {copy.metric.value}
-          </p>
+          <p className="text-metric-number text-violet">{copy.metric.value}</p>
         </div>
-
-        <ul className="mt-10 border-b border-line lg:mt-15.25">
-          {copy.studies.map(({ title, status }) => (
-            <li
-              key={title}
-              className="flex items-center justify-between gap-4 border-t border-line pt-3.5 pb-3.25"
-            >
-              <span className="text-tech-list text-fg">{title}</span>
+        <ul className="tech-studies">
+          {copy.studies.map((item) => (
+            <li key={item.title}>
+              <span className="text-study-title">{item.title}</span>
               <span
-                className={`shrink-0 text-tech-status ${status === "발표" ? "text-brand" : "text-fg-muted"}`}
+                className={`text-study-state ${item.status === "발표" ? "text-violet" : "text-muted"}`}
               >
-                {status}
+                {item.status}
               </span>
             </li>
           ))}
         </ul>
-        {/* 연결할 자료가 아직 없어 링크가 아닌 글자로 둔다. */}
-        <p className="mt-5.5 text-tech-label text-fg">{copy.moreLabel}</p>
+        <p className="tech-research-more text-research-more">
+          {copy.moreLabel}
+        </p>
       </Reveal>
     </section>
   );
