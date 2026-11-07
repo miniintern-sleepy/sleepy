@@ -52,14 +52,14 @@ async function InquiryContent({ params }: PageProps<"/admin/inquiries/[id]">) {
               <dd>{inquiry.status === "answered" ? "답변 완료" : "새 문의"}</dd>
             </div>
           </dl>
-          <h2 className="text-copy-intro">문의 내용</h2>
+          <h2 className="text-form-title">문의 내용</h2>
           <p className="break-words whitespace-pre-wrap">{inquiry.message}</p>
         </section>
         <section
           className={`${panelClass} space-y-5`}
           aria-labelledby="reply-title"
         >
-          <h2 id="reply-title" className="text-copy-intro">
+          <h2 id="reply-title" className="text-form-title">
             답변
           </h2>
           {inquiry.replyBody && (

@@ -39,7 +39,7 @@ export default function DeleteForm({
           if (state.ok) router.refresh();
         }}
       >
-        <h2 className="text-copy-intro">
+        <h2 className="text-form-title">
           {state.ok ? "삭제했습니다" : "정말 삭제할까요?"}
         </h2>
         <p className="text-copy wrap-anywhere">{title}</p>

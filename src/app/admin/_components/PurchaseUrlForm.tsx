@@ -18,7 +18,7 @@ export default function PurchaseUrlForm({ url }: { url: string | null }) {
   });
   return (
     <section className={panelClass} aria-labelledby="purchase-title">
-      <h2 id="purchase-title" className="text-copy-intro">
+      <h2 id="purchase-title" className="text-form-title">
         구매 주소
       </h2>
       <p className="mt-3 text-helper text-muted">

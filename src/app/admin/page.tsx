@@ -52,7 +52,7 @@ async function AdminContent() {
         <LogoutForm />
       </div>
       <div className="border-t border-rule pt-6">
-        <h2 className="text-copy-intro">콘텐츠 관리</h2>
+        <h2 className="text-form-title">콘텐츠 관리</h2>
         <div className="mt-4">
           <AdminNav active="/admin" />
         </div>

@@ -8,7 +8,7 @@
 - B는 [정적 시안 670d9a3](https://github.com/kohyunseok518/sleepy/tree/670d9a3cc0ece144dcae6ece24d9be83a7b7a4a5)의 `docs/DESIGN.md`, `public/*.html`, `public/styles/`, `public/scripts/waves.js`, 실제 참조 자산이다. archive는 기준에서 제외한다.
 - B CSS는 HTML의 import 순서·선택자 우선순위·반응형 최종 규칙으로 판단한다. foundation의 초기 값보다 theme·dimension·페이지 선택자의 최종 활성 값이 우선한다.
 - 메인·기술·제품·뉴스룸·FAQ·문의는 B 배치·문구를 따른다. 회사 소개는 A 구간 순서·배치를 유지하고 새 색·활자·간격을 적용한다.
-- 공개 헤더·푸터는 B이며 모션 끄기 버튼과 A의 SNS 장식은 넣지 않는다. 관리자에는 공개 헤더·푸터를 넣지 않는다.
+- 공개 헤더·푸터는 B이며 모션 끄기 버튼과 A의 SNS 장식은 넣지 않는다. 모바일 현재 메뉴는 진한 보라·선택 굵기로 구분하고, 푸터 일반/제휴 문의는 유형 쿼리 없이 해당 언어의 contact로 연결한다. 관리자에는 공개 헤더·푸터를 넣지 않는다.
 - 기존 A 색·글자 토큰·하위 변수·별칭은 모두 제거한다. 화면에서는 새 토큰을 사용하며 색 리터럴·임의 글자 값을 쓰지 않는다. 기본 Tailwind 색·글자 크기는 계속 비활성화한다.
 - 피그마는 이번 작업 범위가 아니다. 디자인을 바꿀 때 코드와 이 문서를 함께 고친다.
 
@@ -60,9 +60,19 @@
 
 ### 글꼴
 
-Pretendard 1.3.9 정적 Regular(400)·Medium(500)·SemiBold(600)·Bold(700)·Black(900) WOFF2를 `src/assets/fonts/pretendard/`에 OFL LICENSE와 함께 둔다. [공식 정적 face 정의](https://raw.githubusercontent.com/orioncactus/pretendard/v1.3.9/dist/web/static/pretendard.css)와 같은 글꼴 선택 방식을 사용한다.
+Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regular(400)·Medium(500)·SemiBold(600)·Bold(700)·Black(900) WOFF2를 `src/assets/fonts/pretendard/`에 OFL LICENSE와 함께 둔다. [공식 정적 face 정의](https://raw.githubusercontent.com/orioncactus/pretendard/v1.3.9/dist/web/static/pretendard.css)와 같은 글꼴 선택 방식을 사용한다.
 
 공개·관리자의 별도 최상위 레이아웃이 `src/lib/fonts.ts`의 next/font/local 설정을 공유한다. `display: swap`, `preload: false`로 사용한 face만 자체 호스트에서 불러온다. 새 라이브러리·런타임 CDN은 없다. `--font-ui`는 next/font가 생성한 `--font-pretendard-local`과 시스템 대체 글꼴을 연결한다.
+
+축소판에 없는 글자는 시스템 대체 글꼴로 표시된다. 임의 재가공 없이 [공식 1.3.9 배포 ZIP](https://github.com/orioncactus/pretendard/releases/download/v1.3.9/Pretendard-1.3.9.zip)의 `web/static/woff2-subset/` 파일과 공식 태그의 개별 다운로드 파일을 SHA-256으로 대조했다. LICENSE는 그대로 유지한다. Regular+Medium 파일 합계는 535,420바이트다.
+
+| 파일                               | 바이트  | 공식 배포판과 일치한 SHA-256                                       |
+| ---------------------------------- | ------- | ------------------------------------------------------------------ |
+| `Pretendard-Regular.subset.woff2`  | 267,096 | `01dd73155fdfab7ce9b25224523e85a96927e21aef97f21957d41f1bfa7e3878` |
+| `Pretendard-Medium.subset.woff2`   | 268,324 | `6f4e897a59138903ae64e814df059790cf0e0ff73b8595810145aee23204469f` |
+| `Pretendard-SemiBold.subset.woff2` | 268,752 | `4247dc5e260b92640c2cbd0e75091154647b71e1d5884116655e2903468c54cc` |
+| `Pretendard-Bold.subset.woff2`     | 270,784 | `78eb71c33101ee7d4f8d1b777d193a12d00f8a296e712a8c417cf27abe946397` |
+| `Pretendard-Black.subset.woff2`    | 273,460 | `439823f6076b12390af89a9d8883d79530f60539319e4b244633057d5a0cff6f` |
 
 ### 공통 활자
 
@@ -188,6 +198,7 @@ FAQ·뉴스·구매 주소·사양의 기존 cacheTag/updateTag 연결과 /[lang
 - 로그인·FAQ·제품 사양/구매·뉴스 목록/폼·문의 목록/상세/답변에 같은 새 글꼴·색·글자·선·포커스를 적용한다. 버튼·입력은 control 모서리와 B 높이 규칙을 따른다.
 - 모바일 핵심 칸만 보이는 기존 동작을 유지한다. 표의 가로 스크롤을 추가하지 않는다.
 - requireAdmin·사용자 세션 DB/Storage·기본 1MB Action 한도·900KB 파일 한도·메일 실패/중복 발송 정책은 그대로다. 새 모션은 넣지 않는다.
+- 화면 주 제목은 form-aside, 구간 제목은 form-title을 사용한다. 현재 AdminNav 메뉴는 violet-strong 테두리·글자색과 font-ui-selected 굵기로 표시한다.
 - 성공·오류는 위 공통 상태 토큰과 문구로 구별한다. 문구·기능을 디자인 작업 때문에 바꾸지 않는다.
 
 ## 모션

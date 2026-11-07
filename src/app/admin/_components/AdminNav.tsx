@@ -20,7 +20,7 @@ export default async function AdminNav({ active }: { active?: string }) {
           key={href}
           href={href}
           aria-current={active === href ? "page" : undefined}
-          className="inline-flex min-h-11 items-center rounded-lg border border-rule bg-paper px-4 py-2 text-ui-label text-ink underline-offset-4 hover:underline aria-[current=page]:bg-panel"
+          className="inline-flex min-h-11 items-center rounded-lg border border-rule bg-paper px-4 py-2 text-ui-label text-ink underline-offset-4 hover:underline aria-[current=page]:border-violet-strong aria-[current=page]:bg-panel aria-[current=page]:font-ui-selected aria-[current=page]:text-violet-strong"
         >
           {label}
         </Link>

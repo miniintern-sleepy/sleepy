@@ -58,7 +58,7 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
       : null;
   return (
     <section className={panelClass} aria-labelledby="news-form-title">
-      <h2 id="news-form-title" className="text-copy-intro">
+      <h2 id="news-form-title" className="text-form-title">
         {item ? "기사 수정" : "기사 추가"}
       </h2>
       <form action={action} className="mt-5 space-y-4" aria-busy={pending}>

@@ -190,6 +190,11 @@
     display: block;
     padding-block: 16px;
   }
+  .site-navigation a[aria-current="page"] {
+    color: var(--color-violet-strong);
+    font-weight: var(--font-weight-ui-selected);
+  }
+
   .site-navigation a[aria-current="page"]::after,
   .header-contact {
     display: none;

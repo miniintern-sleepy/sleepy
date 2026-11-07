@@ -27,10 +27,10 @@ export default function Footer({ lang }: { lang: Locale }) {
           </Link>
           <nav aria-label="하단 메뉴" className="footer-navigation">
             <Link href={`/${lang}/faq`}>FAQ</Link>
-            <Link href={`/${lang}/contact?type=general`}>
+            <Link href={`/${lang}/contact`}>
               일반 문의 <span aria-hidden="true">↗</span>
             </Link>
-            <Link href={`/${lang}/contact?type=general`}>
+            <Link href={`/${lang}/contact`}>
               제휴 문의 <span aria-hidden="true">↗</span>
             </Link>
           </nav>
