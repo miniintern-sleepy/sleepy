@@ -224,10 +224,14 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
           </label>
         </div>
         {state.fieldErrors?.isPublished && (
-          <p role="alert">{state.fieldErrors.isPublished}</p>
+          <p role="alert" className="text-helper text-error-ink">
+            {state.fieldErrors.isPublished}
+          </p>
         )}
         {state.fieldErrors?.isFeatured && (
-          <p role="alert">{state.fieldErrors.isFeatured}</p>
+          <p role="alert" className="text-helper text-error-ink">
+            {state.fieldErrors.isFeatured}
+          </p>
         )}
         {safeImage && (
           <div>
@@ -238,7 +242,7 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
               width={320}
               height={180}
               unoptimized
-              className="mt-2 h-auto max-w-full rounded-lg"
+              className="mt-2 h-auto max-w-full rounded-media"
             />
           </div>
         )}

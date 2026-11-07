@@ -2,11 +2,10 @@ import type { ReactNode } from "react";
 
 import type { ContentState } from "../_lib/validation";
 
-export const inputClass =
-  "mt-2 min-h-12 w-full rounded-lg border border-rule bg-paper px-3 py-2 text-copy text-ink   ";
-export const buttonClass =
-  "min-h-11 rounded-lg bg-violet-strong px-4 py-3 text-ui-button text-white    disabled:opacity-60";
-export const panelClass = "rounded-xl border border-rule bg-paper p-4 sm:p-6";
+export const inputClass = "admin-input mt-2";
+export const buttonClass = "admin-button";
+export const panelClass =
+  "rounded-control border border-rule bg-paper p-4 sm:p-6";
 
 export function Field({
   name,
@@ -25,7 +24,7 @@ export function Field({
         {label}
       </label>
       {children}
-      <p id={`${name}-error`} className="mt-1 text-helper text-ink">
+      <p id={`${name}-error`} className="mt-1 text-helper text-error-ink">
         {error}
       </p>
     </div>
@@ -47,15 +46,21 @@ export function Feedback({ state }: { state: ContentState }) {
       aria-atomic="true"
       className="space-y-1 text-helper text-ink"
     >
-      <p>
+      <p
+        className={
+          state.ok ? "admin-success" : state.reason ? "admin-error" : undefined
+        }
+      >
         {state.ok
           ? "저장했습니다."
           : state.reason
             ? messages[state.reason]
             : ""}
       </p>
-      {state.fieldErrors?.id && <p>{state.fieldErrors.id}</p>}
-      {state.warning && <p>{state.warning}</p>}
+      {state.fieldErrors?.id && (
+        <p className="admin-error">{state.fieldErrors.id}</p>
+      )}
+      {state.warning && <p className="admin-error">{state.warning}</p>}
     </div>
   );
 }

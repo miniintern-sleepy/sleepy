@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 
 import { login } from "../actions";
+import { buttonClass, inputClass } from "./form-ui";
 
 export default function LoginForm() {
   const [state, action, pending] = useActionState(login, { ok: false });
@@ -13,12 +14,10 @@ export default function LoginForm() {
         server: "로그인을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.",
       }[state.reason]
     : "";
-  const inputClass =
-    "mt-2 min-h-12 w-full rounded-lg border border-rule bg-paper px-3 py-2 text-copy text-ink   ";
 
   return (
     <section
-      className="mx-auto w-full max-w-md rounded-xl border border-rule bg-paper p-6 sm:p-8"
+      className="mx-auto w-full max-w-md rounded-control border border-rule bg-paper p-6 sm:p-8"
       aria-labelledby="login-title"
     >
       <h1 id="login-title" className="text-form-aside">
@@ -62,14 +61,14 @@ export default function LoginForm() {
           id="login-message"
           aria-live="polite"
           aria-atomic="true"
-          className="text-helper text-ink"
+          className={message ? "admin-error text-helper" : "text-helper"}
         >
           {message}
         </p>
         <button
           type="submit"
           disabled={pending}
-          className="min-h-12 w-full rounded-lg bg-violet-strong px-4 py-3 text-ui-button text-white disabled:opacity-60"
+          className={`${buttonClass} w-full`}
         >
           {pending ? "로그인 중…" : "로그인"}
         </button>

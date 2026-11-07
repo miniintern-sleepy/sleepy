@@ -119,7 +119,9 @@ export default function ProductSpecForm({ item }: { item?: SpecItem }) {
           공개
         </label>
         {state.fieldErrors?.isPublished && (
-          <p role="alert">{state.fieldErrors.isPublished}</p>
+          <p role="alert" className="text-helper text-error-ink">
+            {state.fieldErrors.isPublished}
+          </p>
         )}
         <Feedback state={state} />
         <div className="flex flex-wrap items-center gap-4">

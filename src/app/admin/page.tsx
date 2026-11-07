@@ -19,13 +19,13 @@ async function AdminContent() {
     if (access.reason === "unauthenticated") return <LoginForm />;
 
     return (
-      <section className="space-y-5 rounded-xl border border-rule bg-paper p-6 sm:p-8">
+      <section className="space-y-5 rounded-control border border-rule bg-paper p-6 sm:p-8">
         <h1 className="text-form-aside">
           {access.reason === "forbidden"
             ? "접근 권한이 없습니다"
             : "인증 상태를 확인하지 못했습니다"}
         </h1>
-        <p role="alert" className="text-copy text-muted">
+        <p role="alert" className="admin-error text-helper">
           {access.reason === "forbidden"
             ? "관리자 계정으로 다시 로그인해 주세요."
             : "잠시 후 페이지를 새로 고쳐 주세요. 문제가 계속되면 담당자에게 문의해 주세요."}
@@ -37,7 +37,7 @@ async function AdminContent() {
 
   return (
     <section
-      className="space-y-6 rounded-xl border border-rule bg-paper p-6 sm:p-8"
+      className="space-y-6 rounded-control border border-rule bg-paper p-6 sm:p-8"
       aria-labelledby="admin-title"
     >
       <div className="flex flex-wrap items-start justify-between gap-5">

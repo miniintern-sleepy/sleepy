@@ -44,13 +44,23 @@ export default function InquiryTable({ items }: { items: InquiryItem[] }) {
               {formatReceivedAt(item.createdAt)}
             </td>
             <td className="px-2 py-4 break-words">
-              {item.status === "answered"
-                ? "답변 완료"
-                : item.replyStatus === "sending"
-                  ? "발송 중"
-                  : item.replyStatus === "failed"
-                    ? "실패"
-                    : "새 문의"}
+              <span
+                className={
+                  item.status === "answered"
+                    ? "text-success-ink"
+                    : item.replyStatus === "failed"
+                      ? "text-error-ink"
+                      : "text-violet-strong"
+                }
+              >
+                {item.status === "answered"
+                  ? "답변 완료"
+                  : item.replyStatus === "sending"
+                    ? "발송 중"
+                    : item.replyStatus === "failed"
+                      ? "실패"
+                      : "새 문의"}
+              </span>
             </td>
             <td className="px-2 py-4">
               <Link

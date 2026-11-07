@@ -30,7 +30,7 @@ function ReplyFeedback({ state }: { state: ReplyState }) {
       role="status"
       aria-live="polite"
       aria-atomic="true"
-      className="space-y-2 text-helper text-ink"
+      className={`space-y-2 text-helper ${state.ok ? "admin-success" : state.reason || state.message ? "admin-error" : ""}`}
     >
       <p>{state.message ?? (state.reason ? messages[state.reason] : "")}</p>
       {state.fieldErrors?.id && <p>{state.fieldErrors.id}</p>}
@@ -49,7 +49,7 @@ export default function ReplyForm({ inquiry }: { inquiry: InquiryItem }) {
   // 발송 성공 뒤 refresh()로 폼이 다시 만들어져 Action의 성공 안내가 사라지므로 여기서 안내한다(#45).
   if (inquiry.status === "answered")
     return (
-      <p role="status">
+      <p role="status" className="admin-success text-helper">
         답변 메일 발송을 접수했습니다. 답변 완료된 문의는 다시 보낼 수 없습니다.
       </p>
     );
@@ -83,7 +83,9 @@ export default function ReplyForm({ inquiry }: { inquiry: InquiryItem }) {
       </p>
       {failed && (
         <div className="space-y-3">
-          <p role="alert">{failedReplyMessage}</p>
+          <p role="alert" className="admin-error text-helper">
+            {failedReplyMessage}
+          </p>
           <label className="flex min-h-11 items-center gap-3">
             <input
               type="checkbox"
@@ -127,10 +129,10 @@ function ResetForm({ inquiry }: { inquiry: InquiryItem }) {
     >
       <input type="hidden" name="id" value={inquiry.id} />
       <input type="hidden" name="attempt" value={inquiry.replyAttempt} />
-      <p role="status">
+      <p role="status" className="admin-pending text-helper">
         답변을 발송 중입니다. 먼저 새로고침해서 처리 결과를 확인해 주세요.
       </p>
-      <p>{failedReplyMessage}</p>
+      <p className="text-helper text-muted">{failedReplyMessage}</p>
       <label className="flex min-h-11 items-center gap-3">
         <input
           type="checkbox"
