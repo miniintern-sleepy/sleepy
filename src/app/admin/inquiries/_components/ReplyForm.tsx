@@ -46,8 +46,13 @@ export default function ReplyForm({ inquiry }: { inquiry: InquiryItem }) {
   const normalized = normalizeReply(body);
   const error = replyError(normalized);
   const failed = inquiry.replyStatus === "failed";
+  // 발송 성공 뒤 refresh()로 폼이 다시 만들어져 Action의 성공 안내가 사라지므로 여기서 안내한다(#45).
   if (inquiry.status === "answered")
-    return <p>답변 완료된 문의입니다. 재발송할 수 없습니다.</p>;
+    return (
+      <p role="status">
+        답변 메일 발송을 접수했습니다. 답변 완료된 문의는 다시 보낼 수 없습니다.
+      </p>
+    );
   if (inquiry.replyStatus === "sending") return <ResetForm inquiry={inquiry} />;
   return (
     <form action={action} className="space-y-4" aria-busy={pending}>
