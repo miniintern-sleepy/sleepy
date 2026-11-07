@@ -1,17 +1,17 @@
 /* D2의 페이지 배경 띠를 이 구역 기준으로 옮겼다. 위 113px, 아래 100px 섹션 밖까지 번진다. */
 [data-product-algorithm-band] {
   background: linear-gradient(
-    var(--color-product-surface),
-    var(--color-product-gradient) 29.4%,
-    var(--color-product-gradient) 70.5%,
-    var(--color-product-surface)
+    var(--color-paper),
+    var(--color-panel) 29.4%,
+    var(--color-panel) 70.5%,
+    var(--color-paper)
   );
 }
 
 [data-product-algorithm-glow] {
   background: radial-gradient(
     closest-side,
-    color-mix(in srgb, var(--color-brand-soft) 55%, transparent),
+    color-mix(in srgb, var(--color-halftone) 55%, transparent),
     transparent
   );
 }

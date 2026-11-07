@@ -17,7 +17,7 @@ export default function IntroSection({
 }) {
   return (
     <section aria-labelledby="product-title" className="relative">
-      <div className="relative mx-auto max-w-360 lg:min-h-180 lg:bg-linear-to-r lg:from-product-surface lg:to-product-shade lg:to-51%">
+      <div className="relative mx-auto max-w-360 lg:min-h-180 lg:bg-linear-to-r lg:from-paper lg:to-panel lg:to-51%">
         <div
           aria-hidden="true"
           data-product-hero-glow
@@ -27,18 +27,18 @@ export default function IntroSection({
           <Reveal className="relative z-1">
             <h1
               id="product-title"
-              className="text-product-feature whitespace-pre-line md:text-tech-heading lg:text-product-hero"
+              className="text-feature-heading whitespace-pre-line md:text-detail-heading lg:text-product-intro-title"
             >
               {copy.title}
             </h1>
-            <p className="mt-5 text-tech-body text-fg-muted">
+            <p className="mt-5 text-copy-large text-muted">
               {copy.description}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <PurchaseButton url={purchaseUrl} copy={copy} />
               <Link
                 href="#how-to-use"
-                className="inline-flex min-h-11 items-center text-tech-label underline underline-offset-4 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors"
+                className="inline-flex min-h-11 items-center text-text-link underline underline-offset-4 hover:text-violet motion-safe:transition-colors"
               >
                 {copy.guideButton}
               </Link>
@@ -56,25 +56,25 @@ export default function IntroSection({
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 h-17.5 bg-linear-to-b from-product-surface to-product-surface/0 lg:hidden"
+            className="pointer-events-none absolute inset-x-0 top-0 h-17.5 bg-linear-to-b from-paper to-paper/0 lg:hidden"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 hidden w-35 bg-linear-to-r from-product-surface to-product-surface/0 md:block lg:from-product-shade lg:to-product-shade/0"
+            className="pointer-events-none absolute inset-y-0 left-0 hidden w-35 bg-linear-to-r from-paper to-paper/0 md:block lg:from-panel lg:to-panel/0"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 right-0 hidden w-35 bg-linear-to-l from-product-surface to-product-surface/0 min-[90.0625rem]:block"
+            className="pointer-events-none absolute inset-y-0 right-0 hidden w-35 bg-linear-to-l from-paper to-paper/0 min-[90.0625rem]:block"
           />
         </div>
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-17.5 bg-linear-to-b from-surface to-surface/0"
+        className="pointer-events-none absolute inset-x-0 top-0 h-17.5 bg-linear-to-b from-paper to-paper/0"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-25 bg-linear-to-b from-product-surface/0 to-product-surface"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-25 bg-linear-to-b from-paper/0 to-paper"
       />
     </section>
   );

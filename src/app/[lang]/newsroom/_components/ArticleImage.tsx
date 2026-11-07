@@ -14,7 +14,7 @@ export default function ArticleImage({
 }) {
   const [failed, setFailed] = useState(false);
   if (failed)
-    return <span aria-hidden="true" className="block h-full bg-brand-pale" />;
+    return <span aria-hidden="true" className="block h-full bg-panel" />;
   return (
     <Image
       src={src}

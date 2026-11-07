@@ -58,7 +58,7 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
       : null;
   return (
     <section className={panelClass} aria-labelledby="news-form-title">
-      <h2 id="news-form-title" className="text-title">
+      <h2 id="news-form-title" className="text-copy-intro">
         {item ? "기사 수정" : "기사 추가"}
       </h2>
       <form action={action} className="mt-5 space-y-4" aria-busy={pending}>
@@ -231,7 +231,7 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
         )}
         {safeImage && (
           <div>
-            <p className="text-label">현재 썸네일</p>
+            <p className="text-ui-label">현재 썸네일</p>
             <Image
               src={safeImage}
               alt={`${item?.title} 썸네일`}
@@ -257,7 +257,7 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
             aria-describedby="thumbnail-help thumbnail-error"
           />
         </Field>
-        <p id="thumbnail-help" className="text-body-sm text-fg-muted">
+        <p id="thumbnail-help" className="text-helper text-muted">
           JPEG·PNG·WebP, 900KB(921,600바이트) 이하. 파일을 선택하지 않으면 기존
           이미지를 유지합니다. 비공개 기사 이미지도 URL은 공개됩니다.
         </p>
@@ -286,7 +286,7 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
           {item && (
             <Link
               href="/admin/newsroom"
-              className="inline-flex min-h-11 items-center text-brand-deep underline"
+              className="inline-flex min-h-11 items-center text-ink underline"
             >
               새 기사 추가
             </Link>

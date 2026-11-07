@@ -32,16 +32,16 @@ export default function CeoSection({ copy }: { copy: Copy }) {
           </Reveal>
         )}
         <Reveal>
-          <p className="text-eyebrow text-brand">CEO</p>
-          <h2 className="mt-3 text-h2 text-brand-deep md:text-tech-heading">
+          <p className="text-kicker text-violet">CEO</p>
+          <h2 className="mt-3 text-detail-heading text-ink md:text-detail-heading">
             {copy.name}
           </h2>
-          <p className="mt-3 text-tech-body text-fg-muted">{copy.role}</p>
+          <p className="mt-3 text-copy-large text-muted">{copy.role}</p>
           {/* 기술 화면의 세로선 모티프를 따라 가는 보라 선을 옆에 둔다. */}
-          <blockquote className="mt-8 max-w-160 border-l-2 border-brand pl-6 text-tech-subtitle text-brand-deep md:mt-10 lg:text-tech-clinical-title">
+          <blockquote className="mt-8 max-w-160 border-l-2 border-violet pl-6 text-science-subtitle text-ink md:mt-10 lg:text-research-heading">
             {copy.quote}
           </blockquote>
-          <div className="mt-8 flex max-w-160 flex-col gap-4 text-tech-body text-fg-muted">
+          <div className="mt-8 flex max-w-160 flex-col gap-4 text-copy-large text-muted">
             {copy.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}

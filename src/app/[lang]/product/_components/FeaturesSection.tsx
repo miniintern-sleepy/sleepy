@@ -8,7 +8,7 @@ const images = [
   {
     src: "/images/product/case-cutout.png",
     alt: "닫힌 슬리비 충전 케이스",
-    background: "bg-linear-to-r from-product-shade to-product-case-end",
+    background: "bg-linear-to-r from-panel to-paper",
     outerEdge: "left-0 bg-linear-to-r",
   },
   {
@@ -32,7 +32,7 @@ export default function FeaturesSection({
       <Reveal className="px-6 md:px-10 lg:px-20">
         <h2
           id="product-features"
-          className="text-product-feature whitespace-pre-line md:text-tech-heading lg:text-product-heading"
+          className="text-feature-heading whitespace-pre-line md:text-detail-heading lg:text-detail-heading"
         >
           {copy.title}
         </h2>
@@ -53,23 +53,23 @@ export default function FeaturesSection({
                 />
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-product-surface to-product-surface/0 lg:h-20"
+                  className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-linear-to-b from-paper to-paper/0 lg:h-20"
                 />
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-b from-product-surface/0 to-product-surface lg:h-20"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-b from-paper/0 to-paper lg:h-20"
                 />
                 <div
                   aria-hidden="true"
-                  className={`pointer-events-none absolute inset-y-0 hidden w-35 from-product-surface to-product-surface/0 min-[90.0625rem]:block ${images[index].outerEdge}`}
+                  className={`pointer-events-none absolute inset-y-0 hidden w-35 from-paper to-paper/0 min-[90.0625rem]:block ${images[index].outerEdge}`}
                 />
               </div>
             )}
             <div className="mt-8 px-6 md:px-10 lg:mt-15 lg:px-20">
-              <h3 className="text-tech-spectrum lg:text-product-feature">
+              <h3 className="text-metric-label lg:text-feature-heading">
                 {item.title}
               </h3>
-              <p className="mt-5 text-product-body whitespace-pre-line text-fg-muted lg:mt-10.25">
+              <p className="mt-5 text-product-lead whitespace-pre-line text-muted lg:mt-10.25">
                 {item.description}
               </p>
             </div>

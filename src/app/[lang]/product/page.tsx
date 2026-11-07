@@ -33,7 +33,7 @@ export default async function ProductPage({
   return (
     <main
       data-product-page
-      className="relative isolate overflow-clip bg-product-surface break-keep"
+      className="relative isolate overflow-clip bg-paper break-keep"
     >
       <IntroSection copy={copy.intro} purchaseUrl={purchaseUrl} />
       <FeaturesSection copy={copy.features} />

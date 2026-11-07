@@ -37,7 +37,7 @@ export default function ContactForm({
   const [dismissed, setDismissed] = useState(-1);
   const errors = { ...state.fieldErrors, ...clientErrors };
   const inputClass =
-    "min-h-13 w-full rounded-lg border border-line bg-surface px-4 py-3 text-body text-fg placeholder:text-fg-subtle focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand aria-invalid:border-brand-deep";
+    "min-h-13 w-full rounded-lg border border-rule bg-paper px-4 py-3 text-copy text-ink placeholder:text-muted    aria-invalid:border-violet-strong";
 
   function change<K extends keyof InquiryValues>(
     field: K,
@@ -66,7 +66,7 @@ export default function ContactForm({
     return (
       <section
         aria-labelledby="contact-success"
-        className="flex flex-col items-center rounded-xl border border-line px-6 py-16 text-center sm:px-8"
+        className="flex flex-col items-center rounded-xl border border-rule px-6 py-16 text-center sm:px-8"
       >
         <Image src="/images/contact/check.svg" alt="" width={80} height={80} />
         <h2
@@ -75,11 +75,11 @@ export default function ContactForm({
           ref={(node) => {
             node?.focus();
           }}
-          className="mt-7 text-h2 text-brand-deep"
+          className="mt-7 text-detail-heading text-ink"
         >
           문의가 접수되었습니다.
         </h2>
-        <p role="status" className="mt-5 text-body-lg text-fg-muted">
+        <p role="status" className="mt-5 text-copy-large text-muted">
           남겨주신 내용을 확인한 뒤 이메일로 답변드리겠습니다.
           <br />
           슬리피에 관심을 가져주셔서 감사합니다.
@@ -87,7 +87,7 @@ export default function ContactForm({
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             href={`/${lang}/faq`}
-            className="inline-flex min-h-12 items-center rounded-xl border border-line px-6 py-3 text-button text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+            className="inline-flex min-h-12 items-center rounded-xl border border-rule px-6 py-3 text-ui-button text-violet"
           >
             FAQ로 돌아가기
           </Link>
@@ -99,7 +99,7 @@ export default function ContactForm({
               setToken("");
               setDismissed(state.attempt);
             }}
-            className="min-h-12 cursor-pointer rounded-xl bg-brand px-6 py-3 text-button text-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+            className="min-h-12 cursor-pointer rounded-xl bg-violet px-6 py-3 text-ui-button text-white"
           >
             새 문의 작성
           </button>
@@ -121,18 +121,18 @@ export default function ContactForm({
       onSubmit={check}
       noValidate
       aria-labelledby="contact-form-title"
-      className="rounded-xl border border-line bg-surface p-6 sm:p-8"
+      className="rounded-xl border border-rule bg-paper p-6 sm:p-8"
     >
-      <h2 id="contact-form-title" className="text-h3 text-brand-deep">
+      <h2 id="contact-form-title" className="text-form-aside text-ink">
         문의 내용 작성
       </h2>
-      <p className="mt-4 text-body-sm text-fg-muted">
+      <p className="mt-4 text-helper text-muted">
         필수 항목을 입력해 문의를 남겨주세요.
       </p>
       {!enabled && (
         <p
           role="status"
-          className="mt-5 rounded-lg bg-brand-pale p-4 text-body-sm text-brand-deep"
+          className="mt-5 rounded-lg bg-panel p-4 text-helper text-ink"
         >
           온라인 문의 접수를 준비하고 있습니다.{" "}
           <a
@@ -148,7 +148,7 @@ export default function ContactForm({
         <legend className="sr-only">문의 정보</legend>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="name" className="mb-2 block text-label">
+            <label htmlFor="name" className="mb-2 block text-ui-label">
               이름 <span aria-hidden="true">*</span>
             </label>
             <input
@@ -165,13 +165,13 @@ export default function ContactForm({
               aria-describedby={errors.name ? "name-error" : undefined}
             />
             {errors.name && (
-              <p id="name-error" className="mt-2 text-body-sm text-brand-deep">
+              <p id="name-error" className="mt-2 text-helper text-ink">
                 {errors.name}
               </p>
             )}
           </div>
           <div>
-            <label htmlFor="email" className="mb-2 block text-label">
+            <label htmlFor="email" className="mb-2 block text-ui-label">
               이메일 <span aria-hidden="true">*</span>
             </label>
             <input
@@ -189,14 +189,14 @@ export default function ContactForm({
               aria-describedby={errors.email ? "email-error" : undefined}
             />
             {errors.email && (
-              <p id="email-error" className="mt-2 text-body-sm text-brand-deep">
+              <p id="email-error" className="mt-2 text-helper text-ink">
                 {errors.email}
               </p>
             )}
           </div>
         </div>
         <div>
-          <label htmlFor="type" className="mb-2 block text-label">
+          <label htmlFor="type" className="mb-2 block text-ui-label">
             문의 유형 <span aria-hidden="true">*</span>
           </label>
           <select
@@ -213,13 +213,13 @@ export default function ContactForm({
             <option value="product">제품 문의</option>
           </select>
           {errors.type && (
-            <p id="type-error" className="mt-2 text-body-sm text-brand-deep">
+            <p id="type-error" className="mt-2 text-helper text-ink">
               {errors.type}
             </p>
           )}
         </div>
         <div>
-          <label htmlFor="message" className="mb-2 block text-label">
+          <label htmlFor="message" className="mb-2 block text-ui-label">
             문의 내용 <span aria-hidden="true">*</span>
           </label>
           <textarea
@@ -235,11 +235,11 @@ export default function ContactForm({
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? "message-error" : undefined}
           />
-          <p className="mt-1 text-right text-caption text-fg-muted">
+          <p className="mt-1 text-right text-micro text-muted">
             {values.message.length}/2,000자
           </p>
           {errors.message && (
-            <p id="message-error" className="mt-2 text-body-sm text-brand-deep">
+            <p id="message-error" className="mt-2 text-helper text-ink">
               {errors.message}
             </p>
           )}
@@ -247,7 +247,7 @@ export default function ContactForm({
         <div>
           <label
             htmlFor="consent"
-            className="flex cursor-pointer items-start gap-3 text-body-sm text-fg-muted"
+            className="flex cursor-pointer items-start gap-3 text-helper text-muted"
           >
             <input
               id="consent"
@@ -256,7 +256,7 @@ export default function ContactForm({
               checked={values.consent}
               onChange={(e) => change("consent", e.target.checked)}
               required
-              className="mt-0.5 size-5 shrink-0 accent-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+              className="mt-0.5 size-5 shrink-0 accent-violet"
               aria-invalid={Boolean(errors.consent)}
               aria-describedby={
                 errors.consent ? "consent-error" : "consent-description"
@@ -266,7 +266,7 @@ export default function ContactForm({
               개인정보 수집 및 이용에 동의합니다. (필수)
               <span
                 id="consent-description"
-                className="mt-1.5 block text-caption"
+                className="mt-1.5 block text-micro"
               >
                 이름·이메일·문의 내용은 답변을 위해 수집하며, 답변 후 1년간
                 보관됩니다.
@@ -274,7 +274,7 @@ export default function ContactForm({
             </span>
           </label>
           {errors.consent && (
-            <p id="consent-error" className="mt-2 text-body-sm text-brand-deep">
+            <p id="consent-error" className="mt-2 text-helper text-ink">
               {errors.consent}
             </p>
           )}
@@ -295,20 +295,20 @@ export default function ContactForm({
         {(captchaMessage || serverMessage) && (
           <p
             role="alert"
-            className="rounded-lg bg-brand-pale p-4 text-body-sm text-brand-deep"
+            className="rounded-lg bg-panel p-4 text-helper text-ink"
           >
             {captchaMessage || serverMessage}
           </p>
         )}
         {Object.values(errors).some(Boolean) && (
-          <p role="alert" className="text-body-sm text-brand-deep">
+          <p role="alert" className="text-helper text-ink">
             입력 항목의 안내를 확인해 주세요.
           </p>
         )}
         <button
           type="submit"
           disabled={pending || !enabled}
-          className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-xl bg-brand px-8 py-3 text-button text-surface transition-colors hover:bg-brand-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-xl bg-violet px-8 py-3 text-ui-button text-white transition-colors hover:bg-violet-strong disabled:cursor-not-allowed disabled:opacity-50"
         >
           {pending ? "보내는 중…" : "문의 보내기"}
         </button>

@@ -8,10 +8,10 @@ type Copy = Awaited<ReturnType<typeof getTechnologyCopy>>["patents"];
 
 export default function PatentsSection({ copy }: { copy: Copy }) {
   return (
-    <section className="bg-tech-ip">
+    <section className="bg-panel">
       <div className="mx-auto max-w-360 px-6 py-14 md:px-10 xl:grid xl:grid-cols-[minmax(0,1fr)_35rem] xl:gap-x-20 xl:py-20 min-[90rem]:pr-30 min-[90rem]:pl-20">
         <Reveal className="xl:mt-2.5">
-          <h2 className="text-h2 whitespace-pre-line text-brand-deep xl:text-tech-ip-title">
+          <h2 className="text-detail-heading whitespace-pre-line text-ink xl:text-patent-heading">
             {copy.title}
           </h2>
 
@@ -22,16 +22,18 @@ export default function PatentsSection({ copy }: { copy: Copy }) {
                 className={
                   index === 0
                     ? "md:w-34 md:shrink-0"
-                    : "md:w-40 md:shrink-0 md:border-l md:border-tech-spectrum-start md:pl-6"
+                    : "md:w-40 md:shrink-0 md:border-l md:border-panel md:pl-6"
                 }
               >
-                <dt className="text-tech-label text-fg">{label}</dt>
+                <dt className="text-text-link text-ink">{label}</dt>
                 <dd className="mt-1.5">
-                  <span className="text-tech-count text-brand">{count}</span>
-                  <span className="ml-2 text-tech-body text-fg-muted">
+                  <span className="text-patent-number text-violet">
+                    {count}
+                  </span>
+                  <span className="ml-2 text-copy-large text-muted">
                     {unit}
                   </span>
-                  <span className="mt-3.25 block text-tech-detail whitespace-nowrap text-fg-muted">
+                  <span className="mt-3.25 block text-helper whitespace-nowrap text-muted">
                     {note}
                   </span>
                 </dd>
@@ -43,12 +45,12 @@ export default function PatentsSection({ copy }: { copy: Copy }) {
             {copy.items.map(({ title, status }) => (
               <li
                 key={title}
-                className="flex items-start justify-between gap-4 border-line not-first:pt-6 not-last:border-b not-last:pb-10.5"
+                className="flex items-start justify-between gap-4 border-rule not-first:pt-6 not-last:border-b not-last:pb-10.5"
               >
-                <span className="text-tech-patent whitespace-pre-line text-fg">
+                <span className="text-patent-item whitespace-pre-line text-ink">
                   {title}
                 </span>
-                <span className="shrink-0 text-tech-status text-brand">
+                <span className="shrink-0 text-study-state text-violet">
                   {status}
                 </span>
               </li>

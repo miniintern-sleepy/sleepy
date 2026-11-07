@@ -30,7 +30,7 @@ function ReplyFeedback({ state }: { state: ReplyState }) {
       role="status"
       aria-live="polite"
       aria-atomic="true"
-      className="space-y-2 text-body-sm text-brand-deep"
+      className="space-y-2 text-helper text-ink"
     >
       <p>{state.message ?? (state.reason ? messages[state.reason] : "")}</p>
       {state.fieldErrors?.id && <p>{state.fieldErrors.id}</p>}
@@ -77,7 +77,7 @@ export default function ReplyForm({ inquiry }: { inquiry: InquiryItem }) {
           aria-describedby="body-error reply-length"
         />
       </Field>
-      <p id="reply-length" className="text-body-sm text-fg-muted">
+      <p id="reply-length" className="text-helper text-muted">
         원문 {normalized.length}/2,000자 · 메일 변환 후{" "}
         {escapeMailHtml(normalized).length}/2,000자
       </p>
@@ -93,7 +93,7 @@ export default function ReplyForm({ inquiry }: { inquiry: InquiryItem }) {
             />
             Resend 대시보드에서 발송 여부를 확인했습니다.
           </label>
-          <p className="text-body-sm text-fg-muted">
+          <p className="text-helper text-muted">
             같은 답변은 같은 발송 키를 사용합니다. 답변을 수정하면 새 발송 키가
             만들어집니다. 오래된 재시도는 같은 키여도 새 메일이 될 수 있습니다.
           </p>

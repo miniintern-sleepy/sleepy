@@ -27,56 +27,56 @@ async function InquiryContent({ params }: PageProps<"/admin/inquiries/[id]">) {
   return (
     <>
       <AdminNav active="/admin/inquiries" />
-      <h1 className="mb-5 text-h3">문의 상세</h1>
+      <h1 className="mb-5 text-form-aside">문의 상세</h1>
       <div className="space-y-6">
         <section className={`${panelClass} space-y-4`} aria-label="접수한 문의">
-          <dl className="space-y-3 text-body break-words">
+          <dl className="space-y-3 text-copy break-words">
             <div>
-              <dt className="text-label">문의자</dt>
+              <dt className="text-ui-label">문의자</dt>
               <dd>{inquiry.name}</dd>
             </div>
             <div>
-              <dt className="text-label">답변 받을 주소</dt>
+              <dt className="text-ui-label">답변 받을 주소</dt>
               <dd className="break-all">{inquiry.email}</dd>
             </div>
             <div>
-              <dt className="text-label">유형</dt>
+              <dt className="text-ui-label">유형</dt>
               <dd>{inquiry.type === "product" ? "제품" : "일반"}</dd>
             </div>
             <div>
-              <dt className="text-label">접수 시각</dt>
+              <dt className="text-ui-label">접수 시각</dt>
               <dd>{formatReceivedAt(inquiry.createdAt)}</dd>
             </div>
             <div>
-              <dt className="text-label">처리 상태</dt>
+              <dt className="text-ui-label">처리 상태</dt>
               <dd>{inquiry.status === "answered" ? "답변 완료" : "새 문의"}</dd>
             </div>
           </dl>
-          <h2 className="text-title">문의 내용</h2>
+          <h2 className="text-copy-intro">문의 내용</h2>
           <p className="break-words whitespace-pre-wrap">{inquiry.message}</p>
         </section>
         <section
           className={`${panelClass} space-y-5`}
           aria-labelledby="reply-title"
         >
-          <h2 id="reply-title" className="text-title">
+          <h2 id="reply-title" className="text-copy-intro">
             답변
           </h2>
           {inquiry.replyBody && (
             <div>
-              <p className="text-label">저장된 답변</p>
+              <p className="text-ui-label">저장된 답변</p>
               <p className="mt-2 break-words whitespace-pre-wrap">
                 {inquiry.replyBody}
               </p>
             </div>
           )}
           {inquiry.answeredAt && (
-            <p className="text-body-sm text-fg-muted">
+            <p className="text-helper text-muted">
               발송 접수: {formatReceivedAt(inquiry.answeredAt)}
             </p>
           )}
           {inquiry.replyEmailId && (
-            <p className="text-body-sm break-all text-fg-muted">
+            <p className="text-helper break-all text-muted">
               Resend 발송 ID: {inquiry.replyEmailId}
             </p>
           )}
@@ -91,7 +91,7 @@ async function InquiryContent({ params }: PageProps<"/admin/inquiries/[id]">) {
               ? "/admin/inquiries?status=answered"
               : "/admin/inquiries"
           }
-          className="inline-flex min-h-11 items-center text-brand-deep underline"
+          className="inline-flex min-h-11 items-center text-ink underline"
         >
           문의 목록으로
         </Link>

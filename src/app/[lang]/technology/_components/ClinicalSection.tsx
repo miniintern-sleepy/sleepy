@@ -23,27 +23,25 @@ export default function ClinicalSection({ copy }: { copy: Copy }) {
       </Reveal>
 
       <Reveal className="mt-8 lg:mt-9">
-        <h2 className="text-tech-clinical-title text-brand-deep">
-          {copy.title}
-        </h2>
+        <h2 className="text-research-heading text-ink">{copy.title}</h2>
         <div className="mt-8 flex flex-wrap items-center gap-x-4.5 gap-y-2 lg:mt-10.75 lg:ml-32">
-          <p className="text-tech-metric-label whitespace-pre-line text-fg-muted">
+          <p className="text-metric-label whitespace-pre-line text-muted">
             {copy.metric.label}
           </p>
-          <p className="text-h1 text-brand md:text-tech-metric">
+          <p className="text-page-title text-violet md:text-metric-number">
             {copy.metric.value}
           </p>
         </div>
 
-        <ul className="mt-10 border-b border-line lg:mt-15.25">
+        <ul className="mt-10 border-b border-rule lg:mt-15.25">
           {copy.studies.map(({ title, status }) => (
             <li
               key={title}
-              className="flex items-center justify-between gap-4 border-t border-line pt-3.5 pb-3.25"
+              className="flex items-center justify-between gap-4 border-t border-rule pt-3.5 pb-3.25"
             >
-              <span className="text-tech-list text-fg">{title}</span>
+              <span className="text-study-title text-ink">{title}</span>
               <span
-                className={`shrink-0 text-tech-status ${status === "발표" ? "text-brand" : "text-fg-muted"}`}
+                className={`shrink-0 text-study-state ${status === "발표" ? "text-violet" : "text-muted"}`}
               >
                 {status}
               </span>
@@ -51,7 +49,7 @@ export default function ClinicalSection({ copy }: { copy: Copy }) {
           ))}
         </ul>
         {/* 연결할 자료가 아직 없어 링크가 아닌 글자로 둔다. */}
-        <p className="mt-5.5 text-tech-label text-fg">{copy.moreLabel}</p>
+        <p className="mt-5.5 text-text-link text-ink">{copy.moreLabel}</p>
       </Reveal>
     </section>
   );

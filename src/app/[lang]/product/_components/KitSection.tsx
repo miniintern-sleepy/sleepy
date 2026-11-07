@@ -42,15 +42,15 @@ export default function KitSection({
       <Reveal className="px-6 md:px-10 lg:px-20 lg:pt-5">
         <h2
           id="product-kit"
-          className="text-product-feature lg:text-product-kit-title"
+          className="text-feature-heading lg:text-kit-heading"
         >
           {copy.title}
         </h2>
-        <ul className="mt-10 border-t border-line-image">
+        <ul className="mt-10 border-t border-rule">
           {copy.items.map((item) => (
             <li
               key={item}
-              className="border-b border-line-image py-3.25 text-product-kit-item last:border-0"
+              className="border-b border-rule py-3.25 text-kit-item last:border-0"
             >
               {item}
             </li>
@@ -63,10 +63,8 @@ export default function KitSection({
                 key={spec.id}
                 className="flex min-w-0 flex-col-reverse gap-3"
               >
-                <dt className="text-product-metric-label text-fg-muted">
-                  {spec.label}
-                </dt>
-                <dd className="text-product-metric wrap-anywhere whitespace-pre-line">
+                <dt className="text-ui-label text-muted">{spec.label}</dt>
+                <dd className="text-patent-number wrap-anywhere whitespace-pre-line">
                   {spec.value}
                 </dd>
               </div>

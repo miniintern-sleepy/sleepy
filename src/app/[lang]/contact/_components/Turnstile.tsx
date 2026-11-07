@@ -75,7 +75,7 @@ export default function Turnstile({
         aria-label="스팸 방지를 위한 보안 확인"
       />
       {failed && (
-        <p role="alert" className="text-body-sm text-brand-deep">
+        <p role="alert" className="text-helper text-ink">
           보안 확인을 불러오지 못했습니다. 새로고침 후 다시 시도하거나 이메일로
           문의해 주세요.
         </p>

@@ -33,7 +33,7 @@ export default function HowToUseSection({
       <Reveal>
         <h2
           id="product-guide"
-          className="text-product-feature md:text-tech-heading lg:text-product-heading"
+          className="text-feature-heading md:text-detail-heading lg:text-detail-heading"
         >
           {copy.title}
         </h2>
@@ -52,16 +52,18 @@ export default function HowToUseSection({
                   className="aspect-[416/300] w-full object-cover"
                 />
               )}
-              <figcaption className="mt-5 text-product-step">{step}</figcaption>
+              <figcaption className="mt-5 text-guide-caption">
+                {step}
+              </figcaption>
             </figure>
           </Reveal>
         ))}
       </div>
-      <Reveal className="mt-9.5 grid gap-8 border-t border-line-image pt-7.5 md:grid-cols-3 md:gap-4">
+      <Reveal className="mt-9.5 grid gap-8 border-t border-rule pt-7.5 md:grid-cols-3 md:gap-4">
         {copy.notes.map((note) => (
           <div key={note.title}>
-            <h3 className="text-tech-patent">{note.title}</h3>
-            <p className="mt-2 text-product-detail whitespace-pre-line text-fg-muted">
+            <h3 className="text-patent-item">{note.title}</h3>
+            <p className="mt-2 text-helper whitespace-pre-line text-muted">
               {note.description}
             </p>
           </div>

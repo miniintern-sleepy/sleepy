@@ -15,7 +15,10 @@ export default function ScenesSection({ copy }: { copy: Copy }) {
       className="mx-auto max-w-360 px-6 pb-16 md:px-10 md:pb-24 lg:px-20 lg:pb-28"
     >
       <Reveal>
-        <h2 id="home-scenes" className="text-h3 text-fg md:text-tech-heading">
+        <h2
+          id="home-scenes"
+          className="text-form-aside text-ink md:text-detail-heading"
+        >
           {copy.title}
         </h2>
       </Reveal>
@@ -32,8 +35,8 @@ export default function ScenesSection({ copy }: { copy: Copy }) {
                   sizes="(min-width: 1440px) 416px, (min-width: 768px) 32vw, 100vw"
                   className="aspect-572/254 w-full object-cover"
                 />
-                <h3 className="mt-4 text-tech-list text-fg">{item.title}</h3>
-                <p className="mt-1.5 text-body-sm text-fg-muted">
+                <h3 className="mt-4 text-study-title text-ink">{item.title}</h3>
+                <p className="mt-1.5 text-helper text-muted">
                   {item.description}
                 </p>
               </article>

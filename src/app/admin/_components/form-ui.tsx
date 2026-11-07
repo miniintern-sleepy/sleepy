@@ -3,10 +3,10 @@ import type { ReactNode } from "react";
 import type { ContentState } from "../_lib/validation";
 
 export const inputClass =
-  "mt-2 min-h-12 w-full rounded-lg border border-line bg-surface px-3 py-2 text-body text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+  "mt-2 min-h-12 w-full rounded-lg border border-rule bg-paper px-3 py-2 text-copy text-ink   ";
 export const buttonClass =
-  "min-h-11 rounded-lg bg-brand-deep px-4 py-3 text-button text-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:opacity-60";
-export const panelClass = "rounded-xl border border-line bg-surface p-4 sm:p-6";
+  "min-h-11 rounded-lg bg-violet-strong px-4 py-3 text-ui-button text-white    disabled:opacity-60";
+export const panelClass = "rounded-xl border border-rule bg-paper p-4 sm:p-6";
 
 export function Field({
   name,
@@ -21,11 +21,11 @@ export function Field({
 }) {
   return (
     <div>
-      <label htmlFor={name} className="text-label">
+      <label htmlFor={name} className="text-ui-label">
         {label}
       </label>
       {children}
-      <p id={`${name}-error`} className="mt-1 text-body-sm text-brand-deep">
+      <p id={`${name}-error`} className="mt-1 text-helper text-ink">
         {error}
       </p>
     </div>
@@ -45,7 +45,7 @@ export function Feedback({ state }: { state: ContentState }) {
       role="status"
       aria-live="polite"
       aria-atomic="true"
-      className="space-y-1 text-body-sm text-brand-deep"
+      className="space-y-1 text-helper text-ink"
     >
       <p>
         {state.ok

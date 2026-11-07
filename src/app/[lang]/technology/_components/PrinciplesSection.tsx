@@ -57,10 +57,8 @@ function Waveform() {
       aria-hidden="true"
       className="mx-auto h-auto w-full max-w-137 min-[90rem]:ml-1.5"
     >
-      {backBars.map((item) =>
-        bar(item, "fill-tech-spectrum-start", `back-${item[0]}`),
-      )}
-      {frontBars.map((item) => bar(item, "fill-brand", `front-${item[0]}`))}
+      {backBars.map((item) => bar(item, "fill-panel", `back-${item[0]}`))}
+      {frontBars.map((item) => bar(item, "fill-violet", `front-${item[0]}`))}
     </svg>
   );
 }
@@ -68,8 +66,10 @@ function Waveform() {
 function Text({ title, paragraphs }: { title: string; paragraphs: string[] }) {
   return (
     <>
-      <h2 className="text-h2 text-brand-deep lg:text-tech-heading">{title}</h2>
-      <div className="mt-5 flex flex-col gap-3 text-tech-body text-fg">
+      <h2 className="text-detail-heading text-ink lg:text-detail-heading">
+        {title}
+      </h2>
+      <div className="mt-5 flex flex-col gap-3 text-copy-large text-ink">
         {paragraphs.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}
@@ -82,7 +82,7 @@ function Dot() {
   return (
     <span
       aria-hidden="true"
-      className="absolute top-16.5 left-1/2 hidden size-5 -translate-x-1/2 rounded-full bg-brand lg:block"
+      className="absolute top-16.5 left-1/2 hidden size-5 -translate-x-1/2 rounded-full bg-violet lg:block"
     />
   );
 }
@@ -95,7 +95,7 @@ export default function PrinciplesSection({ copy }: { copy: Copy }) {
     <div className="relative mx-auto max-w-360">
       <span
         aria-hidden="true"
-        className="absolute inset-y-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-brand lg:block"
+        className="absolute inset-y-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-violet lg:block"
       />
 
       <section className={`${rowClassName} lg:min-h-180`}>
@@ -112,7 +112,7 @@ export default function PrinciplesSection({ copy }: { copy: Copy }) {
             sizes="(min-width: 1440px) 550px, (min-width: 1024px) 45vw, 100vw"
             className="h-auto w-full"
           />
-          <p className="mt-3.75 text-tech-note text-fg-muted">
+          <p className="mt-3.75 text-science-note text-muted">
             {copy.binaural.note}
           </p>
         </Reveal>

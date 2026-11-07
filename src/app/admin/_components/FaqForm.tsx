@@ -38,7 +38,7 @@ export default function FaqForm({ item }: { item?: FaqItem }) {
   );
   return (
     <section className={panelClass} aria-labelledby="faq-form-title">
-      <h2 id="faq-form-title" className="text-title">
+      <h2 id="faq-form-title" className="text-copy-intro">
         {item ? "FAQ 수정" : "FAQ 추가"}
       </h2>
       <form action={action} className="mt-5 space-y-4" aria-busy={pending}>
@@ -134,7 +134,7 @@ export default function FaqForm({ item }: { item?: FaqItem }) {
           {item && (
             <Link
               href="/admin/faq"
-              className="inline-flex min-h-11 items-center text-brand-deep underline"
+              className="inline-flex min-h-11 items-center text-ink underline"
             >
               새 FAQ 추가
             </Link>

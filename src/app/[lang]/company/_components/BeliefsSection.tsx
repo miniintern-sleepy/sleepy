@@ -14,7 +14,7 @@ export default function BeliefsSection({ copy }: { copy: Copy }) {
       <Reveal>
         <h2
           id="company-beliefs"
-          className="text-h3 text-brand-deep md:text-tech-heading"
+          className="text-form-aside text-ink md:text-detail-heading"
         >
           {copy.title}
         </h2>

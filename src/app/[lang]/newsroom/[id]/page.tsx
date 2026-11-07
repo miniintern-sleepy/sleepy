@@ -28,22 +28,24 @@ async function Article({ params }: PageProps<"/[lang]/newsroom/[id]">) {
     <article>
       {isPreview && article.category !== "notice" && <PreviewNotice />}
       {article.category === "notice" && (
-        <header className="mb-12 bg-surface-muted px-6 py-16 text-center">
-          <h1 className="text-h1 text-brand-deep sm:text-display">공지사항</h1>
-          <p className="mt-3 text-body-lg text-fg-muted">
+        <header className="mb-12 bg-panel px-6 py-16 text-center">
+          <h1 className="text-page-title text-ink sm:text-page-title">
+            공지사항
+          </h1>
+          <p className="mt-3 text-copy-large text-muted">
             슬리피의 공식 안내를 확인하세요.
           </p>
         </header>
       )}
       <Link
         href={`/${lang}/newsroom${article.category === "notice" ? "?category=notice" : ""}`}
-        className="inline-flex min-h-11 items-center text-label text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+        className="inline-flex min-h-11 items-center text-ui-label text-violet"
       >
         {article.category === "notice" ? "← 공지사항 목록" : "← 뉴스룸 목록"}
       </Link>
-      <header className="mt-8 border-b border-line pb-8">
-        <p className="mb-4 flex flex-wrap items-center gap-4 text-body-sm text-fg-muted">
-          <span className="rounded bg-brand-pale px-3 py-1 text-label text-brand">
+      <header className="mt-8 border-b border-rule pb-8">
+        <p className="mb-4 flex flex-wrap items-center gap-4 text-helper text-muted">
+          <span className="rounded bg-panel px-3 py-1 text-ui-label text-violet">
             {categoryLabels[article.category]}
           </span>
           <time dateTime={article.publishedAt}>
@@ -52,22 +54,22 @@ async function Article({ params }: PageProps<"/[lang]/newsroom/[id]">) {
           {article.sourceName && <span>{article.sourceName}</span>}
         </p>
         {article.category === "notice" ? (
-          <h2 className="text-h3 break-keep text-brand-deep sm:text-h2">
+          <h2 className="text-form-aside break-keep text-ink sm:text-detail-heading">
             {article.title}
           </h2>
         ) : (
-          <h1 className="text-h3 break-keep text-brand-deep sm:text-h2">
+          <h1 className="text-form-aside break-keep text-ink sm:text-detail-heading">
             {article.title}
           </h1>
         )}
       </header>
       {image && (
-        <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-surface-image">
+        <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl bg-panel">
           <ArticleImage src={image} title={article.title} priority />
         </div>
       )}
       {article.summary && (
-        <p className="mt-8 text-body-lg whitespace-pre-line text-fg">
+        <p className="mt-8 text-copy-large whitespace-pre-line text-ink">
           {article.summary}
         </p>
       )}
@@ -76,7 +78,7 @@ async function Article({ params }: PageProps<"/[lang]/newsroom/[id]">) {
           href={source}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-10 inline-flex min-h-12 items-center rounded-xl bg-brand px-6 py-3 text-button text-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+          className="mt-10 inline-flex min-h-12 items-center rounded-xl bg-violet px-6 py-3 text-ui-button text-white"
         >
           원문 보기<span className="sr-only"> (새 창)</span>
           <span aria-hidden="true" className="ml-3">
@@ -95,7 +97,7 @@ export default function NewsDetailPage(
     <main className="mx-auto max-w-7xl px-6 py-16 sm:px-10">
       <Suspense
         fallback={
-          <p role="status" className="py-20 text-center text-fg-muted">
+          <p role="status" className="py-20 text-center text-muted">
             기사를 불러오는 중입니다.
           </p>
         }

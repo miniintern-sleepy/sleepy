@@ -8,14 +8,14 @@ export default function PurchaseButton({
   copy: ProductCopy["intro"];
 }) {
   const className =
-    "inline-flex min-h-13 items-center justify-center rounded-full bg-brand px-7.5 text-button text-surface focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors motion-safe:duration-200";
+    "inline-flex min-h-13 items-center justify-center rounded-full bg-violet px-7.5 text-ui-button text-white    motion-safe:transition-colors motion-safe:duration-200";
 
   return url?.startsWith("https://") ? (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${className} hover:bg-brand-deep`}
+      className={`${className} hover:bg-violet-strong`}
     >
       {copy.purchaseButton}
     </a>

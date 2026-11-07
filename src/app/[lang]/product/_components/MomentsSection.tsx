@@ -19,11 +19,11 @@ export default function MomentsSection({
       <Reveal className="grid gap-6 lg:grid-cols-[720fr_560fr] lg:gap-0">
         <h2
           id="product-moments"
-          className="text-product-feature whitespace-pre-line lg:text-tech-heading"
+          className="text-feature-heading whitespace-pre-line lg:text-detail-heading"
         >
           {copy.title}
         </h2>
-        <p className="text-product-body whitespace-pre-line text-fg-muted lg:pt-1.5">
+        <p className="text-product-lead whitespace-pre-line text-muted lg:pt-1.5">
           {copy.description}
         </p>
       </Reveal>
@@ -41,7 +41,7 @@ export default function MomentsSection({
                   className="aspect-[416/185] w-full object-cover"
                 />
               )}
-              <figcaption className="mt-3.75 text-tech-list">
+              <figcaption className="mt-3.75 text-study-title">
                 {label}
               </figcaption>
             </figure>

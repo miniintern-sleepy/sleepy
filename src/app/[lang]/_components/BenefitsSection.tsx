@@ -22,7 +22,10 @@ export default function BenefitsSection({ copy }: { copy: Copy }) {
       className="mx-auto max-w-360 px-6 py-16 md:px-10 md:py-24 lg:px-20 lg:py-28"
     >
       <Reveal>
-        <h2 id="home-benefits" className="text-h3 text-fg md:text-tech-heading">
+        <h2
+          id="home-benefits"
+          className="text-form-aside text-ink md:text-detail-heading"
+        >
           {copy.title}
         </h2>
       </Reveal>
@@ -36,12 +39,12 @@ export default function BenefitsSection({ copy }: { copy: Copy }) {
             <li key={item.title} className={`flex ${itemClassNames[index]}`}>
               <Reveal className="w-full">
                 <article
-                  className={`flex h-full flex-col border border-line p-4 text-fg motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1 md:p-5 ${
-                    isFeature ? "bg-surface-muted" : "bg-surface"
+                  className={`flex h-full flex-col border border-rule p-4 text-ink motion-safe:transition-transform motion-safe:duration-200 motion-safe:hover:-translate-y-1 md:p-5 ${
+                    isFeature ? "bg-panel" : "bg-paper"
                   } ${isWide ? "md:flex-row md:items-center md:gap-4" : ""}`}
                 >
                   <div
-                    className={`relative w-full overflow-hidden bg-surface-image ${
+                    className={`relative w-full overflow-hidden bg-panel ${
                       isFeature
                         ? "aspect-4/3 lg:aspect-auto lg:min-h-72 lg:flex-1"
                         : "aspect-4/3"
@@ -65,15 +68,15 @@ export default function BenefitsSection({ copy }: { copy: Copy }) {
                     <h3
                       className={
                         isFeature
-                          ? "text-h3 md:text-tech-clinical-title"
-                          : "text-tech-list"
+                          ? "text-form-aside md:text-research-heading"
+                          : "text-study-title"
                       }
                     >
                       {item.title}
                     </h3>
                     <p
-                      className={`mt-2.5 text-fg-muted ${
-                        isFeature ? "text-body" : "text-body-sm"
+                      className={`mt-2.5 text-muted ${
+                        isFeature ? "text-copy" : "text-helper"
                       }`}
                     >
                       {item.description}

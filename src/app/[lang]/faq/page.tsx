@@ -15,31 +15,34 @@ async function Questions() {
 
   if (faqs.length === 0) {
     return (
-      <p className="border-y border-line px-6 py-16 text-center text-body text-fg-muted">
+      <p className="border-y border-rule px-6 py-16 text-center text-copy text-muted">
         자주 묻는 질문을 곧 준비하겠습니다.
       </p>
     );
   }
 
   return (
-    <div className="border-t border-line">
+    <div className="border-t border-rule">
       {faqs.map((faq, index) => (
         <Reveal key={faq.id}>
-          <details open={index === 1} className="group border-b border-line">
-            <summary className="flex min-h-19 cursor-pointer list-none items-center gap-4 px-4 py-5 text-body-lg text-fg transition-colors hover:bg-surface-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand sm:px-6 [&::-webkit-details-marker]:hidden">
+          <details open={index === 1} className="group border-b border-rule">
+            <summary className="flex min-h-19 cursor-pointer list-none items-center gap-4 px-4 py-5 text-copy-large text-ink transition-colors hover:bg-panel sm:px-6 [&::-webkit-details-marker]:hidden">
               <span
                 aria-hidden="true"
-                className="shrink-0 text-label text-brand"
+                className="shrink-0 text-ui-label text-violet"
               >
                 Q
               </span>
               <span className="flex-1 break-keep">{faq.question}</span>
-              <span aria-hidden="true" className="shrink-0 text-h3 text-brand">
+              <span
+                aria-hidden="true"
+                className="shrink-0 text-form-aside text-violet"
+              >
                 <span className="group-open:hidden">+</span>
                 <span className="hidden group-open:inline">−</span>
               </span>
             </summary>
-            <div className="bg-brand-pale px-6 py-5 text-body whitespace-pre-line text-fg-muted sm:pr-12 sm:pl-16">
+            <div className="bg-panel px-6 py-5 text-copy whitespace-pre-line text-muted sm:pr-12 sm:pl-16">
               {faq.answer}
             </div>
           </details>
@@ -55,42 +58,42 @@ export default async function FaqPage({ params }: PageProps<"/[lang]/faq">) {
   return (
     <main className="mx-auto max-w-7xl px-6 pt-16 pb-20 sm:px-10 sm:pt-24">
       <header className="mb-9 text-center">
-        <h1 className="text-h1 text-brand-deep sm:text-display">FAQ</h1>
-        <p className="mt-3 text-body-lg font-normal text-brand sm:text-title">
+        <h1 className="text-page-title text-ink sm:text-page-title">FAQ</h1>
+        <p className="mt-3 text-copy-large font-ui-regular text-violet sm:text-copy-intro">
           궁금한 내용을 확인하고, 필요한 문의를 남겨주세요.
         </p>
       </header>
       <aside
         aria-labelledby="faq-contact-title"
-        className="mb-16 flex flex-col gap-6 rounded-xl bg-surface-muted px-7 py-6 sm:flex-row sm:items-center sm:justify-between"
+        className="mb-16 flex flex-col gap-6 rounded-xl bg-panel px-7 py-6 sm:flex-row sm:items-center sm:justify-between"
       >
         <div>
-          <h2 id="faq-contact-title" className="text-h3 text-brand-deep">
+          <h2 id="faq-contact-title" className="text-form-aside text-ink">
             문의하기
           </h2>
-          <p className="mt-1.5 text-body text-fg-muted">
+          <p className="mt-1.5 text-copy text-muted">
             원하시는 답변을 찾지 못하셨나요? 슬리피에 직접 문의해 주세요.
           </p>
         </div>
         <Link
           href={`/${lang}/contact?type=general`}
-          className="inline-flex min-h-12 shrink-0 items-center justify-center self-start rounded-xl bg-brand px-8 py-3 text-button text-surface transition-colors hover:bg-brand-deep focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
+          className="inline-flex min-h-12 shrink-0 items-center justify-center self-start rounded-xl bg-violet px-8 py-3 text-ui-button text-white transition-colors hover:bg-violet-strong"
         >
           문의하기
         </Link>
       </aside>
       <section aria-labelledby="faq-title">
-        <h2 id="faq-title" className="text-h2 text-brand-deep">
+        <h2 id="faq-title" className="text-detail-heading text-ink">
           자주 묻는 질문
         </h2>
-        <p className="mt-4 mb-4 text-body text-fg-muted">
+        <p className="mt-4 mb-4 text-copy text-muted">
           슬리피 제품 및 서비스 이용에 관한 질문을 모았습니다.
         </p>
         <Suspense
           fallback={
             <p
               role="status"
-              className="border-y border-line py-16 text-center text-body text-fg-muted"
+              className="border-y border-rule py-16 text-center text-copy text-muted"
             >
               질문을 불러오는 중입니다.
             </p>

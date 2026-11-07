@@ -26,7 +26,7 @@ async function FaqContent({ searchParams }: PageProps<"/admin/faq">) {
   return (
     <>
       <AdminNav active="/admin/faq" />
-      <h1 className="mb-5 text-h3">FAQ 관리</h1>
+      <h1 className="mb-5 text-form-aside">FAQ 관리</h1>
       <div className="space-y-6">
         <section className={panelClass} aria-label="FAQ 목록">
           <ContentTable

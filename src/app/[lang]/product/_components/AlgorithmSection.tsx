@@ -35,16 +35,16 @@ export default function AlgorithmSection({
         <Reveal className="relative z-1">
           <h2
             id="product-algorithm"
-            className="text-product-feature whitespace-pre-line md:text-tech-heading lg:text-product-heading"
+            className="text-feature-heading whitespace-pre-line md:text-detail-heading lg:text-detail-heading"
           >
             {copy.title}
           </h2>
-          <p className="mt-5.5 text-tech-body whitespace-pre-line text-fg-muted">
+          <p className="mt-5.5 text-copy-large whitespace-pre-line text-muted">
             {copy.description}
           </p>
           <Link
             href={`/${lang}/technology`}
-            className="mt-7.5 inline-flex min-h-11 items-center text-tech-label underline underline-offset-4 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors"
+            className="mt-7.5 inline-flex min-h-11 items-center text-text-link underline underline-offset-4 hover:text-violet motion-safe:transition-colors"
           >
             {copy.link}
           </Link>
@@ -61,7 +61,7 @@ export default function AlgorithmSection({
             {waves.map((wave) => (
               <div
                 key={wave}
-                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-brand ${wave}`}
+                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet ${wave}`}
               />
             ))}
             <Image

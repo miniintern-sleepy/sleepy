@@ -13,26 +13,26 @@ export default function NoticeList({
   lang: string;
 }) {
   return (
-    <ul className="divide-y divide-line border-y border-line">
+    <ul className="divide-y divide-rule border-y border-rule">
       {articles.map((article) => (
         <li key={article.id}>
           <Reveal>
             <article>
               <Link
                 href={`/${lang}/newsroom/${article.id}`}
-                className="group block px-4 py-8 transition-colors hover:bg-brand-pale focus-visible:bg-brand-pale focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand sm:px-6 sm:py-10"
+                className="group block px-4 py-8 transition-colors hover:bg-panel focus-visible:bg-panel sm:px-6 sm:py-10"
               >
                 <time
                   dateTime={article.publishedAt}
-                  className="text-label text-fg-muted"
+                  className="text-ui-label text-muted"
                 >
                   {formatDate(article.publishedAt)}
                 </time>
-                <h2 className="mt-3 text-title break-keep group-hover:text-brand-deep sm:text-h3">
+                <h2 className="mt-3 text-copy-intro break-keep group-hover:text-ink sm:text-form-aside">
                   {article.title}
                 </h2>
                 {article.summary && (
-                  <p className="mt-3 text-body text-fg-muted">
+                  <p className="mt-3 text-copy text-muted">
                     {article.summary.split("\n\n")[0]}
                   </p>
                 )}

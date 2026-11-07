@@ -12,7 +12,7 @@ export default function HistorySection({ copy }: { copy: Copy }) {
       <Reveal>
         <h2
           id="company-history"
-          className="text-center text-h3 text-brand-deep md:text-tech-heading"
+          className="text-center text-form-aside text-ink md:text-detail-heading"
         >
           {copy.title}
         </h2>
@@ -22,7 +22,7 @@ export default function HistorySection({ copy }: { copy: Copy }) {
       <Reveal className="relative mx-auto mt-10 max-w-190 md:mt-12">
         <div
           aria-hidden="true"
-          className="absolute top-0 bottom-0 left-2.5 w-0.5 origin-top bg-line-image transition-transform duration-1000 ease-out motion-safe:scale-y-0 motion-safe:group-data-[visible=true]:scale-y-100 md:left-1/2 md:-ml-px print:scale-y-100"
+          className="absolute top-0 bottom-0 left-2.5 w-0.5 origin-top bg-rule transition-transform duration-1000 ease-out motion-safe:scale-y-0 motion-safe:group-data-[visible=true]:scale-y-100 md:left-1/2 md:-ml-px print:scale-y-100"
         />
         <ol>
           {copy.items.map(({ date, text }, index) => {
@@ -35,7 +35,7 @@ export default function HistorySection({ copy }: { copy: Copy }) {
               >
                 <span
                   aria-hidden="true"
-                  className="relative col-start-1 row-start-1 mt-0.5 size-5.5 rounded-full border-2 border-brand bg-surface md:col-start-2"
+                  className="relative col-start-1 row-start-1 mt-0.5 size-5.5 rounded-full border-2 border-violet bg-paper md:col-start-2"
                 />
                 <p
                   className={`col-start-2 row-start-1 flex items-baseline gap-x-5 ${
@@ -44,10 +44,10 @@ export default function HistorySection({ copy }: { copy: Copy }) {
                       : "md:col-start-1 md:flex-row-reverse"
                   }`}
                 >
-                  <span className="min-w-16 text-h3 text-brand md:min-w-0">
+                  <span className="min-w-16 text-form-aside text-violet md:min-w-0">
                     {date}
                   </span>
-                  <span className="text-tech-list text-fg">{text}</span>
+                  <span className="text-study-title text-ink">{text}</span>
                 </p>
               </li>
             );

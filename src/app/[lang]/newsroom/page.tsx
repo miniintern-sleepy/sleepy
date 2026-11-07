@@ -41,14 +41,14 @@ export default async function NewsroomPage({
   return (
     <main className="mx-auto max-w-7xl px-6 pt-16 pb-20 sm:px-10 sm:pt-24">
       <header className="mb-9 text-center">
-        <h1 className="text-h1 text-brand-deep sm:text-display">뉴스룸</h1>
-        <p className="mt-3 text-body-lg font-normal text-brand sm:text-title">
+        <h1 className="text-page-title text-ink sm:text-page-title">뉴스룸</h1>
+        <p className="mt-3 text-copy-large font-ui-regular text-violet sm:text-copy-intro">
           새로운 소식과 이야기를 전합니다.
         </p>
       </header>
       <Suspense
         fallback={
-          <p role="status" className="py-20 text-center text-fg-muted">
+          <p role="status" className="py-20 text-center text-muted">
             뉴스를 불러오는 중입니다.
           </p>
         }

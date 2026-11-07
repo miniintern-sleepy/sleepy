@@ -22,12 +22,10 @@ function Ear({
 }) {
   return (
     <div className={`${earClassName} ${position}`}>
-      <span className="grid size-30 place-items-center rounded-full bg-brand-lavender text-label text-fg">
+      <span className="grid size-30 place-items-center rounded-full bg-panel text-ui-label text-ink">
         {label}
       </span>
-      <span className="mt-3 text-center text-caption text-fg-muted">
-        {caption}
-      </span>
+      <span className="mt-3 text-center text-micro text-muted">{caption}</span>
     </div>
   );
 }
@@ -47,7 +45,7 @@ export default function EasyTechSection({
       <Reveal className="mx-auto max-w-360 text-center">
         <h2
           id="company-tech"
-          className="text-h3 text-brand-deep md:text-tech-heading"
+          className="text-form-aside text-ink md:text-detail-heading"
         >
           {copy.title}
         </h2>
@@ -87,21 +85,21 @@ export default function EasyTechSection({
               className="h-auto w-full"
             />
           </div>
-          <div className="relative isolate grid size-37.5 place-items-center rounded-full border border-line-image bg-surface text-center text-label whitespace-pre-line text-fg delay-1000 motion-safe:scale-60 motion-safe:opacity-0 motion-safe:transition motion-safe:duration-700 motion-safe:group-data-[visible=true]:scale-100 motion-safe:group-data-[visible=true]:opacity-100 md:absolute md:top-15 md:left-78.75 print:scale-100 print:opacity-100">
+          <div className="relative isolate grid size-37.5 place-items-center rounded-full border border-rule bg-paper text-center text-ui-label whitespace-pre-line text-ink delay-1000 motion-safe:scale-60 motion-safe:opacity-0 motion-safe:transition motion-safe:duration-700 motion-safe:group-data-[visible=true]:scale-100 motion-safe:group-data-[visible=true]:opacity-100 md:absolute md:top-15 md:left-78.75 print:scale-100 print:opacity-100">
             <span
               aria-hidden="true"
-              className="absolute inset-0 -z-10 rounded-full bg-brand/20 motion-safe:group-data-[visible=true]:animate-ping"
+              className="absolute inset-0 -z-10 rounded-full bg-violet/20 motion-safe:group-data-[visible=true]:animate-ping"
             />
             {copy.center}
           </div>
         </div>
 
-        <p className="mt-8 text-body whitespace-pre-line text-fg-muted md:mt-10">
+        <p className="mt-8 text-copy whitespace-pre-line text-muted md:mt-10">
           {copy.description}
         </p>
         <Link
           href={`/${lang}/technology`}
-          className="mt-4 inline-flex min-h-11 items-center text-tech-label underline underline-offset-4 hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors"
+          className="mt-4 inline-flex min-h-11 items-center text-text-link underline underline-offset-4 hover:text-violet motion-safe:transition-colors"
         >
           {copy.link}
         </Link>

@@ -16,10 +16,10 @@ export default function SpecsSection({ specs }: { specs: ProductSpec[] }) {
             {column.map((spec) => (
               <div
                 key={spec.id}
-                className="grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-t border-line py-6 text-tech-detail"
+                className="grid grid-cols-[7rem_minmax(0,1fr)] gap-4 border-t border-rule py-6 text-helper"
               >
-                <dt className="text-tech-label">{spec.label}</dt>
-                <dd className="wrap-anywhere whitespace-pre-line text-fg-muted">
+                <dt className="text-text-link">{spec.label}</dt>
+                <dd className="wrap-anywhere whitespace-pre-line text-muted">
                   {spec.value}
                 </dd>
               </div>

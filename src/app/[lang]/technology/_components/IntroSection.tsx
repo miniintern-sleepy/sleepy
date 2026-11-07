@@ -18,13 +18,13 @@ export default function IntroSection({ copy }: { copy: Copy }) {
   return (
     <section className="mx-auto max-w-360 px-6 pt-16 md:min-h-225 md:px-10 md:pt-22.5 min-[90rem]:px-20">
       <div className="text-center">
-        <h1 className="text-h2 text-brand-deep md:text-tech-hero">
+        <h1 className="text-detail-heading text-ink md:text-science-title">
           {copy.title}
         </h1>
-        <p className="mt-1.75 text-tech-intro text-brand md:text-tech-subtitle">
+        <p className="mt-1.75 text-science-intro text-violet md:text-science-subtitle">
           {copy.subtitle}
         </p>
-        <p className="mx-auto mt-6 max-w-215 text-tech-body text-fg md:text-tech-intro">
+        <p className="mx-auto mt-6 max-w-215 text-copy-large text-ink md:text-science-intro">
           {copy.description}
         </p>
       </div>
@@ -36,21 +36,21 @@ export default function IntroSection({ copy }: { copy: Copy }) {
               key={label}
               className={`absolute top-0 flex flex-col ${spectrumPositions[index]}`}
             >
-              <span className="text-title font-medium text-fg md:text-tech-spectrum">
+              <span className="text-copy-intro font-ui-medium text-ink md:text-metric-label">
                 {label}
               </span>
-              <span className="text-caption font-normal whitespace-nowrap text-fg-muted md:mt-1 md:text-tech-spectrum-en">
+              <span className="text-micro font-ui-regular whitespace-nowrap text-muted md:mt-1 md:text-micro">
                 {english}
               </span>
             </li>
           ))}
         </ul>
-        <div className="h-12 origin-left bg-linear-to-r from-tech-spectrum-start via-tech-spectrum-middle to-tech-spectrum-end transition-transform delay-200 duration-1000 ease-out motion-safe:scale-x-0 motion-safe:group-data-[visible=true]:scale-x-100 md:h-18 print:scale-x-100" />
+        <div className="h-12 origin-left bg-linear-to-r from-panel via-halftone to-violet transition-transform delay-200 duration-1000 ease-out motion-safe:scale-x-0 motion-safe:group-data-[visible=true]:scale-x-100 md:h-18 print:scale-x-100" />
 
         <div className="flex flex-col items-center md:ml-15 md:flex-row md:items-start">
           {/* 두 이미지는 투명 여백이 커서 피그마처럼 겹쳐 놓고, 글자는 그 위에 얹는다. */}
           <div className="relative -mt-6 h-55 w-75 shrink-0 md:-mt-11 md:h-81">
-            <p className="absolute top-14.5 left-1/2 z-10 -translate-x-1/2 text-tech-product-name text-brand">
+            <p className="absolute top-14.5 left-1/2 z-10 -translate-x-1/2 text-device-word text-violet">
               {copy.productName}
             </p>
             <Image
@@ -69,10 +69,8 @@ export default function IntroSection({ copy }: { copy: Copy }) {
             />
           </div>
           <div className="text-center md:mt-3.5 md:-ml-0.5 md:text-left">
-            <p className="text-tech-spectrum text-fg">{copy.category}</p>
-            <p className="mt-1 text-tech-category-en text-fg-muted">
-              {copy.categoryEnglish}
-            </p>
+            <p className="text-metric-label text-ink">{copy.category}</p>
+            <p className="mt-1 text-meta text-muted">{copy.categoryEnglish}</p>
           </div>
         </div>
       </Reveal>

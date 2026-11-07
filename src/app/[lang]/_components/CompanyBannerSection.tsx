@@ -16,15 +16,15 @@ export default function CompanyBannerSection({
   return (
     <section
       aria-label="회사 소개"
-      className="bg-tech-ip px-6 py-14 md:px-10 md:py-20"
+      className="bg-panel px-6 py-14 md:px-10 md:py-20"
     >
       <Reveal className="mx-auto max-w-190 text-center">
-        <p className="text-tech-body whitespace-pre-line text-fg md:text-tech-intro">
+        <p className="text-copy-large whitespace-pre-line text-ink md:text-science-intro">
           {copy.title}
         </p>
         <Link
           href={`/${lang}/company`}
-          className="mt-6 inline-flex min-h-13 min-w-30 items-center justify-center rounded-full border border-line-image bg-surface px-7.5 text-button text-fg hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand motion-safe:transition-colors motion-safe:duration-200"
+          className="mt-6 inline-flex min-h-13 min-w-30 items-center justify-center rounded-full border border-rule bg-paper px-7.5 text-ui-button text-ink hover:border-violet hover:text-violet motion-safe:transition-colors motion-safe:duration-200"
         >
           {copy.button}
         </Link>
