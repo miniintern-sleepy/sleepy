@@ -164,7 +164,6 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 | `product-wordmark`    | `clamp(150px,20vw,290px) / 850 / .95 / -.065em`; S `28vw`·자간 -.07em  | 제품 Sleeby 워드마크                       |
 | `product-watermark`   | `clamp(200px,28vw,410px) / 850 / 1 / -.07em`; S `54vw`                 | 제품 흐린 배경 워드마크                    |
 | `feature-heading`     | `32px / 450 / 1.4 / -.045em`; L 27px, M 25px, S 24px, XS 25px          | 제품 특징 소제목                           |
-| `product-lead`        | `17px / 400 / 1.8`; S 16px                                             | 제품 도입 본문                             |
 | `scene-caption`       | `18px / 400 / 1.6`; S 15px, XS 16px                                    | 제품 생활 장면                             |
 | `guide-caption`       | `25px / 400 / 1.55`; M 20px, XS 22px                                   | 제품 사용 순서                             |
 | `guide-heading`       | `22px / 450 / 1.65 / -.045em`; M 19px, S 18px, XS 19px                 | 제품 사용 안내                             |
@@ -175,6 +174,8 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 | `faq-question`        | `18px / 500 / 1.7`; S 16px                                             | FAQ summary                                |
 | `faq-answer`          | `16px / 400 / 1.9`; S 15px                                             | FAQ 답변                                   |
 | `filter`              | `16px / 400 / normal`; XS 14px                                         | B 뉴스 분류. 선택 시 동일 크기·600 굵기    |
+
+사용하지 않는 `product-lead`는 제거했다. 제품 도입 본문은 B의 1100px 분기까지 대응하는 `product-hero-copy`를 쓴다.
 
 추가한 실제 대응 활자도 페이지 전용 토큰으로 관리한다. 원본과 해상도별 화면 대조에서 역할이 다른 값을 공통 본문에 합치지 않는다.
 
@@ -188,6 +189,9 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 | `spec-value`        | `27px / 400 / 1.55`                          | `details.css` 사양 숫자. 기존 DB 조건부 표시만 유지 |
 | `day-caption`       | `14px / 400 / normal`; XS 12px               | `structure.css` 낮·밤 사진 설명                     |
 | `guide-copy`        | `16px / 400 / 1.9`; M 15px, S 14px, XS 15px  | `details.css` 사용 안내 본문                        |
+| `patent-unit`       | `17px / 400 / normal`; S 14px                | B 실행 화면의 특허 수치 단위(1440·375px 실측)       |
+| `algorithm-link`    | `16px / 400 / normal`; S 15px                | B 실행 화면의 제품 기술 링크(1440·375px 실측)       |
+| `product-purchase`  | `14px / 500 / 1.5`                           | B 실행 화면의 제품 구매 상태(1440·375px 실측)       |
 | `research-more`     | `16px / 400 / 1.9`; S 14px                   | `details.css` 임상연구 하단 문구                    |
 
 공통 `ui-glyph`는 `22px / 400 / normal`로 B 검색 기호·뉴스 화살표(`foundation.css`)에 대응한다. 제품 `--mask-product-halftone`은 B `product-base.css`의 타원형 점무늬 마스크(중앙 불투명 14%·60% 농도 40%·투명 70%)다. 색은 ink 토큰을 공유한다.

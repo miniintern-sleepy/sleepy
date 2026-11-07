@@ -254,10 +254,6 @@
   --text-feature-heading--font-weight: 450;
   --text-feature-heading--line-height: 1.4;
   --text-feature-heading--letter-spacing: -0.045em;
-  --text-product-lead: 1.0625rem;
-  --text-product-lead--font-weight: 400;
-  --text-product-lead--line-height: 1.8;
-  --text-product-lead--letter-spacing: 0;
   --text-scene-caption: 1.125rem;
   --text-scene-caption--font-weight: 400;
   --text-scene-caption--line-height: 1.6;
@@ -347,6 +343,15 @@
 
 /* B에서 페이지별로 다른 도식·제품 링크의 활성 활자 규칙. */
 @theme {
+  --text-patent-unit: 1.0625rem;
+  --text-patent-unit--font-weight: 400;
+  --text-patent-unit--line-height: normal;
+  --text-algorithm-link: 1rem;
+  --text-algorithm-link--font-weight: 400;
+  --text-algorithm-link--line-height: normal;
+  --text-product-purchase: 0.875rem;
+  --text-product-purchase--font-weight: 500;
+  --text-product-purchase--line-height: 1.5;
   --text-spectrum-label: 1.75rem;
   --text-spectrum-label--font-weight: 400;
   --text-spectrum-label--line-height: normal;
@@ -449,6 +454,8 @@
     --text-metric-number: 3.125rem;
     --text-study-title: 0.9375rem;
     --text-study-state: 0.8125rem;
+    --text-patent-unit: 0.875rem;
+    --text-algorithm-link: 0.9375rem;
     --text-patent-heading: 2.125rem;
     --text-patent-number: 3rem;
     --text-patent-item: 1.125rem;
@@ -460,7 +467,6 @@
     --text-product-wordmark--letter-spacing: -0.07em;
     --text-product-watermark: 54vw;
     --text-feature-heading: 1.5rem;
-    --text-product-lead: 1rem;
     --text-scene-caption: 0.9375rem;
     --text-guide-heading: 1.125rem;
     --text-kit-heading: 1.9375rem;

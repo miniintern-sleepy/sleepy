@@ -23,7 +23,7 @@ export default function AlgorithmSection({
           <p className="text-copy-large whitespace-pre-line text-muted">
             {copy.description}
           </p>
-          <Link href={`/${lang}/technology`} className="text-copy">
+          <Link href={`/${lang}/technology`} className="text-algorithm-link">
             {copy.link}
           </Link>
         </Reveal>

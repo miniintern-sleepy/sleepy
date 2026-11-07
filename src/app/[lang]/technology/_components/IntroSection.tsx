@@ -6,7 +6,7 @@ export default function IntroSection({ copy }: { copy: Copy }) {
   return (
     <section className="tech-intro public-wrap">
       <header className="text-center">
-        <h1 className="text-science-title">{copy.title}</h1>
+        <h1 className="text-science-title text-violet-strong">{copy.title}</h1>
         <p className="tech-subtitle text-science-subtitle text-violet">
           {copy.subtitle}
         </p>

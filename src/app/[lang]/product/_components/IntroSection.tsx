@@ -64,9 +64,7 @@ export default function IntroSection({
             <PurchaseButton url={purchaseUrl} copy={copy} />
             <a href="#how-to-use" className="text-product-hero-link">
               {copy.guideButton}
-              <span aria-hidden="true" className="ml-5">
-                ↗
-              </span>
+              <span aria-hidden="true">↗</span>
             </a>
           </div>
         </Reveal>

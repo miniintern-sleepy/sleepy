@@ -18,7 +18,7 @@ export default function PatentsSection({ copy }: { copy: Copy }) {
                   <span className="text-patent-number text-violet">
                     {item.count}
                   </span>
-                  <span className="tech-patent-unit text-copy-intro text-muted">
+                  <span className="tech-patent-unit text-patent-unit text-muted">
                     {item.unit}
                   </span>
                   <small className="text-patent-note text-muted">

@@ -128,6 +128,12 @@
 .tech-binaural {
   min-height: 650px;
 }
+.tech-entrainment svg {
+  display: inline;
+  vertical-align: baseline;
+  color: var(--color-violet);
+  overflow: visible;
+}
 .tech-entrainment {
   min-height: 460px;
 }
@@ -139,6 +145,7 @@
   grid-column: 1;
   grid-row: 1;
   margin-top: -75px;
+  line-height: normal;
   align-self: start;
 }
 .tech-sleep {
@@ -179,6 +186,8 @@
   border-bottom: 1px solid var(--color-rule);
 }
 .tech-studies li {
+  font-size: var(--text-study-title);
+  line-height: var(--text-study-title--line-height);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -187,6 +196,7 @@
   border-top: 1px solid var(--color-rule);
 }
 .tech-studies li > span:last-child {
+  line-height: var(--text-study-title--line-height);
   flex-shrink: 0;
 }
 .tech-studies li:hover {
@@ -229,6 +239,9 @@
   margin-top: 50px;
 }
 .tech-patent-list li {
+  align-items: start;
+  font-size: var(--text-patent-item);
+  line-height: var(--text-patent-item--line-height);
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -239,6 +252,7 @@
   border-bottom: 0;
 }
 .tech-patent-list li > span:last-child {
+  line-height: var(--text-patent-item--line-height);
   flex-shrink: 0;
 }
 @media (max-width: 1279px) {
@@ -293,7 +307,15 @@
   .tech-entrainment .tech-visual {
     margin-top: 40px;
   }
+  .tech-entrainment svg {
+    display: block;
+  }
+  .tech-research-photo {
+    max-width: 490px;
+    margin-inline: auto;
+  }
   .tech-clinical {
+    gap: 0;
     display: block;
     padding-top: 30px;
   }
@@ -387,7 +409,6 @@
     margin-top: 14px;
   }
   .tech-clinical-metric {
-    justify-content: space-between;
     gap: 20px;
     margin-top: 32px;
   }
