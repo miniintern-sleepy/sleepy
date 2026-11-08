@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import AccessNotice from "../_components/AccessNotice";
-import AdminNav from "../_components/AdminNav";
+import AdminLoading from "../_components/AdminLoading";
 import ContentTable from "../_components/ContentTable";
 import ProductSpecForm from "../_components/ProductSpecForm";
 import PurchaseUrlForm from "../_components/PurchaseUrlForm";
@@ -12,7 +12,7 @@ import { deleteProductSpec } from "../content-actions";
 
 export default function ProductPage(props: PageProps<"/admin/product">) {
   return (
-    <Suspense fallback={<p role="status">제품 정보를 불러오고 있습니다…</p>}>
+    <Suspense fallback={<AdminLoading />}>
       <ProductContent {...props} />
     </Suspense>
   );
@@ -26,7 +26,6 @@ async function ProductContent({ searchParams }: PageProps<"/admin/product">) {
   const item = result.data.specs.find((row) => row.id === id);
   return (
     <>
-      <AdminNav active="/admin/product" />
       <h1 className="mb-5 text-form-aside">제품 관리</h1>
       <div className="space-y-6">
         <PurchaseUrlForm url={result.data.purchaseUrl} />

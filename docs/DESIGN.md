@@ -53,7 +53,8 @@
 | `--focus-width` / `--focus-offset`                     | `2px` / `5px`                                            | B `theme.css :focus-visible`, 색은 violet-strong                            |
 | `--scroll-target-gap`                                  | `28px`                                                   | B `theme.css main [id]`                                                     |
 | `--space-section` / `--space-section-small`            | `112px` / `75px`                                         | B 기본 구간 간격. 페이지별 큰 여백은 B 대응 규칙을 따름                     |
-| `--container-admin`                                    | `1024px`                                                 | B에 없음. A 관리자 `max-w-5xl` 폭 유지용                                    |
+| `--container-admin`                                    | `72rem` (1152px)                                         | #57 관리자 대시보드 시안의 본문 최대 폭                                     |
+| `--size-admin-sidebar`                                 | `248px`                                                  | #57 시안의 왼쪽 메뉴 폭                                                     |
 | `--font-weight-ui-selected`                            | `600`                                                    | B `foundation.css .filter[aria-pressed=true]`. 같은 역할의 선택 상태에 사용 |
 
 추가 굵기 토큰 `--font-weight-ui-regular: 400`, `--font-weight-ui-medium: 500`은 B의 본문·메뉴 굵기다. `--tracking-heading: -.045em`은 B의 공통 제목 자간이다. 페이지의 고유 그리드·이미지 비율은 그 화면 CSS에 둔다. 일반 간격에는 Tailwind 간격 유틸리티를 사용할 수 있다.
@@ -214,11 +215,11 @@ FAQ·뉴스·구매 주소·사양의 기존 cacheTag/updateTag 연결과 /[lang
 
 ## 관리자 적용 기준
 
-- 기존 독립 최상위 레이아웃·noindex·AdminNav·메뉴 순서·표/폼 구조·1024px 최대 폭을 유지한다.
+- #57에서 관리자 시안의 왼쪽 공통 메뉴와 대시보드를 적용한다. 독립 최상위 레이아웃·noindex를 유지하며 본문 최대 폭은 72rem, 메뉴 폭은 248px다. 기존 목록·폼 배치와 수정 폼의 목록 아래 위치를 유지한다.
 - 로그인·FAQ·제품 사양/구매·뉴스 목록/폼·문의 목록/상세/답변에 같은 새 글꼴·색·글자·선·포커스를 적용한다. 버튼·입력은 control 모서리와 B 높이 규칙을 따른다.
 - 모바일 핵심 칸만 보이는 기존 동작을 유지한다. 표의 가로 스크롤을 추가하지 않는다.
 - requireAdmin·사용자 세션 DB/Storage·기본 1MB Action 한도·900KB 파일 한도·메일 실패/중복 발송 정책은 그대로다. 새 모션은 넣지 않는다.
-- 화면 주 제목은 form-aside, 구간 제목은 form-title을 사용한다. 현재 AdminNav 메뉴는 violet-strong 테두리·글자색과 font-ui-selected 굵기로 표시한다.
+- 화면 주 제목은 form-aside, 구간 제목은 form-title을 사용한다. 현재 AdminNav 메뉴는 panel 배경·violet-strong 글자색과 font-ui-selected 굵기로 표시한다.
 - 성공·오류는 위 공통 상태 토큰과 문구로 구별한다. 문구·기능을 디자인 작업 때문에 바꾸지 않는다.
 
 ## 모션
@@ -284,3 +285,14 @@ FAQ 하단 배너의 내부 폭도 메인의 1280px 규칙과 분리해, B 실�
 - 오류·발송 실패는 error-ink/error-panel, 저장·답변 완료는 success-ink/success-panel, 발송 중은 violet-strong/panel로 표시한다. 상태 문구·라이브 안내도 그대로 유지해 색만으로 구분하지 않는다.
 - 모든 폼 라벨·입력·오류 연결, aria-current, 보라색 2px 포커스·5px offset을 유지한다. 새 모션·새 상태색·새 라이브러리는 추가하지 않는다.
 - Auth·requireAdmin·관리 Action·DB/Storage·cacheTag/updateTag·문의/메일 정책·개인 데이터는 바꾸지 않는다. 실제 시험 문의나 메일을 새로 발송하지 않고 기존 상태를 읽어 화면을 검증한다.
+
+## 관리자 대시보드 시안 적용 (#57)
+
+- 기준: 이 절의 값과 src/styles/tokens.css. 시안 원본·캡처·실측 JSON은 저장소 밖 로컬에만 보관한다. 토큰 변경은 container-admin 72rem과 size-admin-sidebar 248px 두 개뿐이다. 새 색·활자·라이브러리·모션은 추가하지 않는다.
+- 데스크톱: 메뉴 sticky·100dvh·세로 스크롤, 본문 위 64px/옆 clamp(22px,4.4vw,64px)/아래 80px, 집계 네 칸, 할 일/320px 보조 구간의 두 열·48px 간격. 1100px 이하는 본문 한 열, 900px 이하는 위쪽 접힌 메뉴와 본문 32px 22px 64px, 760px 이하는 집계 두 열·할 일 모바일 행·보조 구간 한 열이다.
+- 활자 대응: h1 form-aside, 요약 copy-intro, 숫자 metric-number, h2 form-title, 메뉴 nav, 그룹명 kicker, 목록 이름 study-title, 보조 helper/meta. 기존 토큰 반응형을 그대로 사용하므로 375px 요약은 16px·이름/바로 가기는 14px다(시안의 해당 고정 17px와 구분). 활자 값을 맞추려고 추가 토큰이나 임의 크기를 만들지 않는다.
+- 대시보드 파동 장식은 사용자 화면 확인 후 요청으로 삭제했다(2026-11-08). 방문자 통계는 없다. 상태와 실제 0건/조회 실패를 글자로 구분하며 실패 0건에는 error-panel 강조를 하지 않는다.
+- 메뉴의 열린 상태·aria-expanded·Escape·포커스 복귀·이동 시 닫기를 제공한다. 로그인/권한 거부에는 메뉴를 렌더링하지 않으며, 기존 공통 틀이 남은 상태의 세션 만료에도 접근 거부 표시를 따라 메뉴를 숨긴다. 권한 처리는 별도의 서버 검사로 유지한다.
+- 인증/본문 로딩은 정적인 제목·집계·목록·폼 크기의 자리 표시와 role=status를 사용한다. 메뉴 수의 로딩은 배지 안에서 처리해 공통 메뉴 전체를 기다리게 하지 않는다. 성공·오류·메일·삭제·업로드 정책과 모바일 핵심 열은 유지한다.
+
+- PR #58 검토 반영: 관리자 홈의 권한 없음·인증 장애는 기존 제목/안내·alert·로그아웃을 유지한다. 새 문의 0건 요약은 “처리할 새 문의가 없습니다.”다. 추가 폼 제목은 기존 ID를 유지하며 해시 바로 가기의 대상으로 쓴다. 모바일 제목은 `scroll-margin-top: calc(var(--size-touch) + 48px)`로 고정 메뉴와의 겹침을 피하고 이동에는 애니메이션을 사용하지 않는다.

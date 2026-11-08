@@ -6,6 +6,7 @@ import { useActionState, useState } from "react";
 import type { ContentState } from "../_lib/validation";
 
 import { upsertFaq } from "../content-actions";
+import FormHeading from "./FormHeading";
 import type { FaqItem } from "../_lib/content";
 import {
   buttonClass,
@@ -38,9 +39,9 @@ export default function FaqForm({ item }: { item?: FaqItem }) {
   );
   return (
     <section className={panelClass} aria-labelledby="faq-form-title">
-      <h2 id="faq-form-title" className="text-form-title">
+      <FormHeading id="faq-form-title">
         {item ? "FAQ 수정" : "FAQ 추가"}
-      </h2>
+      </FormHeading>
       <form action={action} className="mt-5 space-y-4" aria-busy={pending}>
         {item && <input type="hidden" name="id" value={item.id} />}
         <Field name="question" label="질문" error={state.fieldErrors?.question}>

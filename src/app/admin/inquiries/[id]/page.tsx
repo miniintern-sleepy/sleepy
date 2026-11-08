@@ -5,14 +5,14 @@ import { Suspense } from "react";
 import { formatReceivedAt } from "@/lib/mail/template";
 
 import AccessNotice from "../../_components/AccessNotice";
-import AdminNav from "../../_components/AdminNav";
+import AdminLoading from "../../_components/AdminLoading";
 import { panelClass } from "../../_components/form-ui";
 import ReplyForm from "../_components/ReplyForm";
 import { readInquiry } from "../_lib/queries";
 
 export default function InquiryPage(props: PageProps<"/admin/inquiries/[id]">) {
   return (
-    <Suspense fallback={<p role="status">문의를 불러오고 있습니다…</p>}>
+    <Suspense fallback={<AdminLoading />}>
       <InquiryContent {...props} />
     </Suspense>
   );
@@ -26,7 +26,6 @@ async function InquiryContent({ params }: PageProps<"/admin/inquiries/[id]">) {
   const inquiry = result.data;
   return (
     <>
-      <AdminNav active="/admin/inquiries" />
       <h1 className="mb-5 text-form-aside">문의 상세</h1>
       <div className="space-y-6">
         <section className={`${panelClass} space-y-4`} aria-label="접수한 문의">

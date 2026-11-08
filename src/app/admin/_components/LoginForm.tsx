@@ -17,6 +17,7 @@ export default function LoginForm() {
 
   return (
     <section
+      data-admin-access-denied
       className="mx-auto w-full max-w-md rounded-control border border-rule bg-paper p-6 sm:p-8"
       aria-labelledby="login-title"
     >
