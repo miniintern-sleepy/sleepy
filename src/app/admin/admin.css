@@ -443,6 +443,9 @@ textarea.admin-input {
   }
 }
 @media (max-width: 900px) {
+  .admin-form-heading {
+    scroll-margin-top: calc(var(--size-touch) + 48px);
+  }
   .admin-dashboard-shell {
     display: block;
   }

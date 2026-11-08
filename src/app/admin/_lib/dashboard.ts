@@ -53,7 +53,7 @@ export async function readAdminDashboard() {
   const columns = "id, name, type, message, created_at, reply_status";
   const recent = () =>
     client.from("inquiries").select(columns).eq("status", "new");
-  // 상태 문자열 정렬은 실패 이외 문의의 최신순을 깨뜨리므로 상한이 있는 두 결과를 합친다(#57)。
+  // 상태 문자열 정렬은 실패 이외 문의의 최신순을 깨뜨리므로 상한이 있는 두 결과를 합친다(#57)
   const [
     newInquiries,
     failedReplies,

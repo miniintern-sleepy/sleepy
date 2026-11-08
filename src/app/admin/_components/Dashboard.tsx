@@ -33,6 +33,10 @@ function Metric({
 }
 
 function Summary({ data }: { data: DashboardData }) {
+  if (data.newInquiries.ok && data.newInquiries.data === 0)
+    return (
+      <p className="text-copy-intro text-muted">처리할 새 문의가 없습니다.</p>
+    );
   if (!data.newInquiries.ok || !data.failedReplies.ok)
     return (
       <p className="text-copy-intro text-muted">
@@ -193,7 +197,10 @@ export default function Dashboard({ data }: { data: DashboardData }) {
               바로 가기
             </p>
             <div className="admin-dashboard-actions">
-              <Link href="/admin/faq" className="text-study-title">
+              <Link
+                href="/admin/faq#faq-form-title"
+                className="text-study-title"
+              >
                 FAQ 추가
                 <span
                   aria-hidden="true"
@@ -202,7 +209,10 @@ export default function Dashboard({ data }: { data: DashboardData }) {
                   +
                 </span>
               </Link>
-              <Link href="/admin/newsroom" className="text-study-title">
+              <Link
+                href="/admin/newsroom#news-form-title"
+                className="text-study-title"
+              >
                 기사 추가
                 <span
                   aria-hidden="true"

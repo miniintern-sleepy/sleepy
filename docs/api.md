@@ -97,3 +97,9 @@
 - 처리할 문의는 status=new에서 reply_status=failed와 그 이외(null 포함)를 각각 created_at DESC·id DESC로 최대 5건 읽고 실패 결과 먼저 합쳐 5건으로 자른다. 상태 문자열의 사전순으로 나머지 문의 순서를 왜곡하거나 전체 문의를 가져오지 않는다. 열은 id·name·type·message·created_at·reply_status만 읽으며 이메일·답변 원문을 이 목록에 추가하지 않는다.
 - site_settings의 key=purchase_url 한 행을 세션으로 읽고 F-06과 같은 HTTPS/출시 예정 상태를 표시한다. 조회 장애는 출시 예정으로 숨기지 않는다. 모든 새 조회는 관리자 세션 RLS로만 실행하며 원격 스키마·정책·환경 변수 변경은 없다.
 - 근거: 설치된 Next.js authentication.md의 Creating a Data Access Layer / Layouts and auth checks, authentication-with-cache-components.md의 Step 2, loading.md의 Navigation / Instant Loading States, layout.md의 pathname·shared layout 유지, refresh.md의 Usage.
+
+### 관리자 홈의 접근 결과·폼 바로 가기 (PR #58 검토 반영)
+
+- `/admin` 비로그인은 LoginForm이다. forbidden은 “접근 권한이 없습니다”·“관리자 계정으로 다시 로그인해 주세요.”, server는 “인증 상태를 확인하지 못했습니다”·“잠시 후 페이지를 새로 고쳐 주세요. 문제가 계속되면 담당자에게 문의해 주세요.”를 표시한다. 두 오류 모두 role=alert와 LogoutForm을 제공하고 같은 `/admin`으로 가는 링크는 넣지 않는다. forbidden에는 data-admin-access-denied를 붙인다. 하위 화면의 AccessNotice는 변경하지 않는다.
+- FAQ·기사 바로 가기는 기존 추가 폼 제목의 `faq-form-title`·`news-form-title` 해시다. 폼이 스트리밍 뒤에 마운트되면 현재 해시와 일치할 때만 해당 제목으로 즉시 스크롤한다. 추가/수정 모드는 같은 폼을 하나만 렌더링하므로 제목 ID가 중복되지 않는다. 모바일 고정 메뉴 높이는 해당 제목의 scroll-margin-top으로 보정한다.
+- 근거: 설치된 Next.js link.md의 Scrolling to an id·Handling scroll behavior with sticky headers. 실제 서비스 호출 없이 DSH-012~016의 가짜 조회/DOM으로 접근 결과·추가/수정 대상·지연 마운트를 확인한다.
