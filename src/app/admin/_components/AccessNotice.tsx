@@ -8,7 +8,10 @@ export default function AccessNotice({
   reason: "unauthenticated" | "forbidden" | "server";
 }) {
   return (
-    <section className="space-y-4 rounded-control border border-rule bg-paper p-6">
+    <section
+      data-admin-access-denied={reason !== "server" || undefined}
+      className="space-y-4 rounded-control border border-rule bg-paper p-6"
+    >
       <h1 className="text-form-aside">
         {reason === "server"
           ? "데이터를 불러오지 못했습니다"

@@ -2,14 +2,14 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import AccessNotice from "../_components/AccessNotice";
-import AdminNav from "../_components/AdminNav";
+import AdminLoading from "../_components/AdminLoading";
 import { panelClass } from "../_components/form-ui";
 import InquiryTable from "./_components/InquiryTable";
 import { inquiryPageSize, readInquiries } from "./_lib/queries";
 
 export default function InquiriesPage(props: PageProps<"/admin/inquiries">) {
   return (
-    <Suspense fallback={<p role="status">문의를 불러오고 있습니다…</p>}>
+    <Suspense fallback={<AdminLoading />}>
       <InquiriesContent {...props} />
     </Suspense>
   );
@@ -34,7 +34,6 @@ async function InquiriesContent({
     `/admin/inquiries?status=${status}&page=${target}`;
   return (
     <>
-      <AdminNav active="/admin/inquiries" />
       <h1 className="mb-5 text-form-aside">문의 관리</h1>
       <nav aria-label="문의 상태" className="mb-5 flex flex-wrap gap-4">
         <Link

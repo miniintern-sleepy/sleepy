@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import AccessNotice from "../_components/AccessNotice";
-import AdminNav from "../_components/AdminNav";
+import AdminLoading from "../_components/AdminLoading";
 import ContentTable from "../_components/ContentTable";
 import NewsArticleForm from "../_components/NewsArticleForm";
 import { panelClass } from "../_components/form-ui";
@@ -17,7 +17,7 @@ const categories: Record<string, string> = {
 
 export default function NewsroomPage(props: PageProps<"/admin/newsroom">) {
   return (
-    <Suspense fallback={<p role="status">기사를 불러오고 있습니다…</p>}>
+    <Suspense fallback={<AdminLoading />}>
       <NewsroomContent {...props} />
     </Suspense>
   );
@@ -31,7 +31,6 @@ async function NewsroomContent({ searchParams }: PageProps<"/admin/newsroom">) {
   const item = result.data.find((row) => row.id === id);
   return (
     <>
-      <AdminNav active="/admin/newsroom" />
       <h1 className="mb-5 text-form-aside">뉴스룸 관리</h1>
       <div className="space-y-6">
         <section className={panelClass} aria-label="기사 목록">

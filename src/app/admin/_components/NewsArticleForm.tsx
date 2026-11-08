@@ -7,6 +7,7 @@ import { useActionState, useState } from "react";
 import type { ContentState } from "../_lib/validation";
 
 import { upsertNewsArticle } from "../content-actions";
+import FormHeading from "./FormHeading";
 import type { NewsItem } from "../_lib/content";
 import {
   buttonClass,
@@ -58,9 +59,9 @@ export default function NewsArticleForm({ item }: { item?: NewsItem }) {
       : null;
   return (
     <section className={panelClass} aria-labelledby="news-form-title">
-      <h2 id="news-form-title" className="text-form-title">
+      <FormHeading id="news-form-title">
         {item ? "기사 수정" : "기사 추가"}
-      </h2>
+      </FormHeading>
       <form action={action} className="mt-5 space-y-4" aria-busy={pending}>
         {item && <input type="hidden" name="id" value={item.id} />}
         <Field name="title" label="제목" error={state.fieldErrors?.title}>

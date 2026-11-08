@@ -36,7 +36,8 @@
   --color-photo-scrim: color-mix(in srgb, var(--color-ink) 70%, transparent);
 
   --container-site: 80rem;
-  --container-admin: 64rem;
+  --container-admin: 72rem;
+  --size-admin-sidebar: 248px;
   --radius-control: 3px;
   --radius-pill: 28px;
   --radius-media: 10px;
