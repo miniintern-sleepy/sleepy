@@ -4,6 +4,11 @@ import { after, beforeEach, test } from "node:test";
 
 const hooks = registerHooks({
   resolve(specifier, context, nextResolve) {
+    if (specifier === "react")
+      return {
+        url: "data:text/javascript,export function cache(fn){return (...args)=>{const map=globalThis.__adminAuthTest.renderCache;if(!map)return fn(...args);if(!map.has(fn))map.set(fn,fn(...args));return map.get(fn)}}",
+        shortCircuit: true,
+      };
     if (specifier === "next/server")
       return {
         url: "data:text/javascript,export async function connection(){}",
@@ -120,6 +125,41 @@ test("관리자 등록이 제거되면 다음 호출부터 거부한다", async 
   scenario.isAdmin = false;
   assert.equal((await requireAdmin()).reason, "forbidden");
   assert.deepEqual(scenario.events, ["user", "admin", "user", "admin"]);
+});
+
+test("ADM-011 같은 렌더 요청의 권한 확인만 합치고 다음 요청은 다시 검증한다", async () => {
+  globalThis.__adminAuthTest.renderCache = new Map();
+  const [first, second, third] = await Promise.all([
+    requireAdmin(),
+    requireAdmin(),
+    requireAdmin(),
+  ]);
+  assert.equal(first, second);
+  assert.equal(second, third);
+  assert.deepEqual(scenario.events, ["user", "admin"]);
+  scenario.isAdmin = false;
+  globalThis.__adminAuthTest.renderCache = new Map();
+  assert.equal((await requireAdmin()).reason, "forbidden");
+  assert.deepEqual(scenario.events, ["user", "admin", "user", "admin"]);
+});
+
+test("ADM-012 로그인 직후 existingClient 경로는 같은 요청에서도 매번 검증한다", async () => {
+  globalThis.__adminAuthTest.renderCache = new Map();
+  assert.equal((await requireAdmin()).ok, true);
+  scenario.isAdmin = false;
+  for (let index = 0; index < 2; index++)
+    assert.equal(
+      (await requireAdmin(globalThis.__adminAuthTest.client)).reason,
+      "forbidden",
+    );
+  assert.deepEqual(scenario.events, [
+    "user",
+    "admin",
+    "user",
+    "admin",
+    "user",
+    "admin",
+  ]);
 });
 
 test("없는 계정과 틀린 비밀번호는 같은 결과로 반환하고 상세 오류를 노출하지 않는다", async () => {

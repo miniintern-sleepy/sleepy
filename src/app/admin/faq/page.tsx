@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import AccessNotice from "../_components/AccessNotice";
-import AdminNav from "../_components/AdminNav";
+import AdminLoading from "../_components/AdminLoading";
 import ContentTable from "../_components/ContentTable";
 import FaqForm from "../_components/FaqForm";
 import { panelClass } from "../_components/form-ui";
@@ -11,7 +11,7 @@ import { deleteFaq } from "../content-actions";
 
 export default function FaqPage(props: PageProps<"/admin/faq">) {
   return (
-    <Suspense fallback={<p role="status">FAQ를 불러오고 있습니다…</p>}>
+    <Suspense fallback={<AdminLoading />}>
       <FaqContent {...props} />
     </Suspense>
   );
@@ -25,7 +25,6 @@ async function FaqContent({ searchParams }: PageProps<"/admin/faq">) {
   const item = result.data.find((row) => row.id === id);
   return (
     <>
-      <AdminNav active="/admin/faq" />
       <h1 className="mb-5 text-form-aside">FAQ 관리</h1>
       <div className="space-y-6">
         <section className={panelClass} aria-label="FAQ 목록">

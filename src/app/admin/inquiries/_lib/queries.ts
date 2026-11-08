@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cache } from "react";
 import { requireAdmin } from "../../_lib/auth";
 
 export type InquiryRow = {
@@ -62,7 +63,7 @@ function item(row: InquiryRow): InquiryItem {
 }
 
 /** 새 문의 개수는 관리자 세션에서 읽고 요청 간 캐시하지 않는다. */
-export async function readNewInquiryCount(): Promise<Result<number>> {
+export const readNewInquiryCount = cache(async (): Promise<Result<number>> => {
   const access = await requireAdmin();
   if (!access.ok) return access;
   try {
@@ -75,7 +76,7 @@ export async function readNewInquiryCount(): Promise<Result<number>> {
   } catch {
     return { ok: false, reason: "server" };
   }
-}
+});
 
 /** 문의를 상태별 최신순으로 20건씩 읽는다. 개인정보는 공개 콘텐츠 캐시에 넣지 않는다. */
 export async function readInquiries(
