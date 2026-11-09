@@ -1,5 +1,4 @@
-.company-content,
-.company-hero-inner {
+.company-content {
   width: calc(100% - var(--layout-gutter) * 2);
   max-width: var(--container-site);
   margin-inline: auto;

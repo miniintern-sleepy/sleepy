@@ -20,9 +20,7 @@
   --color-error-panel: #fff1f3;
   --color-success-ink: #216344;
   --color-success-panel: #edf7f0;
-  /* 페이지 전용 장식·사진 색. 본문색으로 사용하지 않는다. */
-  --color-halftone: #a78acb;
-  --color-wordmark-faint: #7754ab03;
+  /* 페이지 전용 장식 색. 본문색으로 사용하지 않는다. */
   --color-wave-back: color-mix(
     in srgb,
     var(--color-violet) 18%,
@@ -33,8 +31,6 @@
     var(--color-violet) 20%,
     transparent
   );
-  --color-photo-scrim: color-mix(in srgb, var(--color-ink) 70%, transparent);
-
   --text-page-hero-title: clamp(2.75rem, 4.2vw, 3.5rem);
   --text-page-hero-title--font-weight: 450;
   --text-page-hero-title--line-height: 1.25;
@@ -58,10 +54,6 @@
   --tracking-heading: -0.045em;
 
   /* 공통 글자: foundation.css, theme.css의 본문·폼·링크 규칙. */
-  --text-page-title: clamp(2.25rem, 4.2vw, 3.5rem);
-  --text-page-title--font-weight: 450;
-  --text-page-title--line-height: 1.4;
-  --text-page-title--letter-spacing: -0.045em;
   --text-detail-heading: clamp(1.875rem, 3.3vw, 3rem);
   --text-detail-heading--font-weight: 450;
   --text-detail-heading--line-height: 1.35;
@@ -187,10 +179,6 @@
   --text-latest-title--font-weight: 500;
   --text-latest-title--line-height: 1.55;
   --text-latest-title--letter-spacing: -0.045em;
-  --text-science-title: clamp(2.625rem, 5.5vw, 5rem);
-  --text-science-title--font-weight: 420;
-  --text-science-title--line-height: 1.25;
-  --text-science-title--letter-spacing: -0.045em;
   --text-science-subtitle: 1.5rem;
   --text-science-subtitle--font-weight: 400;
   --text-science-subtitle--line-height: 1.9;
@@ -199,7 +187,7 @@
   --text-science-intro--font-weight: 400;
   --text-science-intro--line-height: 1.9;
   --text-science-intro--letter-spacing: 0;
-  --text-device-word: 1.625rem;
+  --text-device-word: 1.125rem;
   --text-device-word--font-weight: 400;
   --text-device-word--line-height: 1.9;
   --text-device-word--letter-spacing: 0;
@@ -247,18 +235,6 @@
   --text-patent-note--font-weight: 400;
   --text-patent-note--line-height: 1.8;
   --text-patent-note--letter-spacing: 0;
-  --text-product-intro-title: 1.5rem;
-  --text-product-intro-title--font-weight: 650;
-  --text-product-intro-title--line-height: 1.6;
-  --text-product-intro-title--letter-spacing: -0.04em;
-  --text-product-wordmark: clamp(9.375rem, 20vw, 18.125rem);
-  --text-product-wordmark--font-weight: 850;
-  --text-product-wordmark--line-height: 0.95;
-  --text-product-wordmark--letter-spacing: -0.065em;
-  --text-product-watermark: clamp(12.5rem, 28vw, 25.625rem);
-  --text-product-watermark--font-weight: 850;
-  --text-product-watermark--line-height: 1;
-  --text-product-watermark--letter-spacing: -0.07em;
   --text-feature-heading: 2rem;
   --text-feature-heading--font-weight: 450;
   --text-feature-heading--line-height: 1.4;
@@ -329,7 +305,6 @@
   --container-hero: 1160px;
   --space-founder: 125px;
   --space-founder-small: 80px;
-  --shadow-object: 0 18px 15px #4d336a16;
   --gradient-science: linear-gradient(
     90deg,
     var(--color-panel),
@@ -342,12 +317,6 @@
   --motion-card: 200ms;
   --motion-line: 1000ms;
   --motion-ping-once: 1000ms;
-  --mask-product-halftone: radial-gradient(
-    ellipse at 50% 50%,
-    var(--color-ink) 14%,
-    color-mix(in srgb, var(--color-ink) 60%, transparent) 40%,
-    transparent 70%
-  );
 }
 
 /* B에서 페이지별로 다른 도식·제품 링크의 활성 활자 규칙. */
@@ -358,24 +327,12 @@
   --text-algorithm-link: 1rem;
   --text-algorithm-link--font-weight: 400;
   --text-algorithm-link--line-height: normal;
-  --text-product-purchase: 0.875rem;
-  --text-product-purchase--font-weight: 500;
-  --text-product-purchase--line-height: 1.5;
-  --text-spectrum-label: 1.75rem;
+  --text-spectrum-label: 1.25rem;
   --text-spectrum-label--font-weight: 400;
   --text-spectrum-label--line-height: normal;
   --text-spectrum-english: 0.8125rem;
   --text-spectrum-english--font-weight: 400;
   --text-spectrum-english--line-height: 1.5;
-  --text-product-hero-copy: 1.0625rem;
-  --text-product-hero-copy--font-weight: 400;
-  --text-product-hero-copy--line-height: 1.8;
-  --text-product-hero-link: 1.0625rem;
-  --text-product-hero-link--font-weight: 650;
-  --text-product-hero-link--line-height: normal;
-  --text-product-nav: 1.1875rem;
-  --text-product-nav--font-weight: 400;
-  --text-product-nav--line-height: 1.5;
   --text-spec-value: 1.6875rem;
   --text-spec-value--font-weight: 400;
   --text-spec-value--line-height: 1.55;
@@ -390,28 +347,20 @@
   --text-research-more--line-height: 1.9;
 }
 
-@media (max-width: 1100px) {
-  :root {
-    --text-product-hero-copy: 0.9375rem;
-    --text-product-nav: 1rem;
-  }
-}
 @media (max-width: 760px) {
   :root {
     --text-page-hero-title: clamp(1.75rem, 8.5vw, 2rem);
     --text-page-hero-title--line-height: 1.3;
     --text-page-hero-description: 1rem;
     --size-page-hero: 367px;
-    --text-spectrum-label: 1.3125rem;
+    --text-spectrum-label: 1.125rem;
     --text-spectrum-english: 0.625rem;
     --text-spectrum-english--line-height: 1.6;
-    --text-product-hero-copy: 1rem;
-    --text-product-nav: 0.875rem;
   }
 }
 @media (max-width: 520px) {
   :root {
-    --text-spectrum-label: 1.125rem;
+    --text-spectrum-label: 1rem;
     --text-spectrum-english: 0.5625rem;
   }
 }
@@ -423,12 +372,6 @@
     --text-metric-number: 3.375rem;
     --text-patent-heading: 2.5rem;
     --text-feature-heading: 1.6875rem;
-  }
-}
-
-@media (max-width: 1100px) {
-  :root {
-    --text-product-intro-title: 1.25rem;
   }
 }
 
@@ -455,12 +398,12 @@
     --text-latest-heading: 1.9375rem;
     --text-latest-title: 1.0625rem;
     --text-cta-heading: 1.8125rem;
-    --text-science-title: 2.875rem;
+
     --text-science-subtitle: 1.25rem;
     --text-guide-copy: 0.875rem;
     --text-research-more: 0.875rem;
     --text-science-intro: 1rem;
-    --text-device-word: 1.375rem;
+    --text-device-word: 1rem;
     --text-science-note: 0.75rem;
     --text-metric-label: 0.875rem;
     --text-research-heading: 1.625rem;
@@ -474,11 +417,7 @@
     --text-patent-item: 1.125rem;
     --text-patent-key: 0.8125rem;
     --text-patent-note: 0.6875rem;
-    --text-product-intro-title: 1.625rem;
-    --text-product-intro-title--line-height: 1.45;
-    --text-product-wordmark: 28vw;
-    --text-product-wordmark--letter-spacing: -0.07em;
-    --text-product-watermark: 54vw;
+
     --text-feature-heading: 1.5rem;
     --text-scene-caption: 0.9375rem;
     --text-guide-heading: 1.125rem;
@@ -503,7 +442,7 @@
     --text-founder-name: 1.4375rem;
     --text-stage-heading: 2rem;
     --text-cta-heading: 1.625rem;
-    --text-science-title: 2.25rem;
+
     --text-science-intro: 0.9375rem;
     --text-research-heading: 1.5rem;
     --text-metric-number: 2.8125rem;

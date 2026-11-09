@@ -6,13 +6,11 @@ export default function IntroSection({ copy }: { copy: Copy }) {
   return (
     <section className="tech-intro public-wrap">
       <header className="text-center">
-        <h1 className="text-science-title text-violet-strong">{copy.title}</h1>
-        <p className="tech-subtitle text-science-subtitle text-violet">
+        <h2 className="text-detail-heading text-violet-strong">{copy.title}</h2>
+        <p className="tech-subtitle text-copy-large text-violet">
           {copy.subtitle}
         </p>
-        <p className="tech-description text-science-intro">
-          {copy.description}
-        </p>
+        <p className="tech-description text-copy-large">{copy.description}</p>
       </header>
       <Reveal className="tech-spectrum">
         <ul>
@@ -35,15 +33,15 @@ export default function IntroSection({ copy }: { copy: Copy }) {
             <Image
               src="/images/technology/buds.png"
               alt="슬리비 이어폰"
-              width={220}
-              height={220}
+              width={154}
+              height={154}
               className="tech-spectrum-buds"
             />
             <Image
               src="/images/technology/case.png"
               alt="슬리비 케이스"
-              width={300}
-              height={300}
+              width={210}
+              height={210}
               className="tech-spectrum-case"
             />
           </div>
