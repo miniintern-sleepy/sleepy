@@ -9,7 +9,7 @@ export default function PageHero({
 }: {
   title: string;
   description: string;
-  wave: "newsroom" | "faq" | "contact";
+  wave: "newsroom" | "faq" | "contact" | "company" | "technology" | "product";
   children?: ReactNode;
 }) {
   return (

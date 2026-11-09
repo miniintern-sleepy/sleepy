@@ -1,3 +1,4 @@
+import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import "./technology.css";
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 // B의 배치·A의 대응 모션을 사용한다(#54).
-// 섹션: 1. 상단 소개·스펙트럼  2. 원리 3가지  3. 임상 연구  4. 지식재산권
+// 섹션: 1. 공통 히어로  2. 중추신경계·스펙트럼  3. 원리 3가지  4. 임상 연구  5. 지식재산권
 
 export default async function TechnologyPage() {
   const copy = await getTechnologyCopy();
@@ -27,6 +28,11 @@ export default async function TechnologyPage() {
           {"[data-reveal],[data-reveal] *{opacity:1;translate:none;scale:none}"}
         </style>
       </noscript>
+      <PageHero
+        title={copy.hero.title}
+        description={copy.hero.description}
+        wave="technology"
+      />
       <IntroSection copy={copy.intro} />
       <PrinciplesSection copy={copy.principles} />
       <ClinicalSection copy={copy.clinical} />

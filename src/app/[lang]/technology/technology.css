@@ -1,25 +1,19 @@
 .tech-intro {
-  padding-top: 88px;
-  min-height: 800px;
-  background: radial-gradient(
-    ellipse at 50% 15%,
-    var(--color-panel),
-    var(--color-paper) 68%
-  );
+  padding-top: var(--space-section-small);
 }
 .tech-subtitle {
   margin-top: 7px;
 }
 .tech-description {
   max-width: 860px;
-  margin: 24px auto 0;
+  margin: 22px auto 0;
 }
 .tech-spectrum {
-  margin-top: 95px;
+  margin-top: 64px;
 }
 .tech-spectrum ul {
   position: relative;
-  height: 72px;
+  height: 56px;
 }
 .tech-spectrum li {
   position: absolute;
@@ -48,7 +42,7 @@
   margin-top: 4px;
 }
 .tech-spectrum-bar {
-  height: 58px;
+  height: 40px;
   border-radius: var(--radius-control);
   background: var(--gradient-science);
   transform-origin: left;
@@ -57,35 +51,35 @@
 .tech-spectrum-product {
   display: flex;
   align-items: flex-start;
-  margin-left: 60px;
+  margin-left: 42px;
 }
 .tech-spectrum-device {
   position: relative;
-  width: 300px;
-  height: 324px;
-  margin-top: -44px;
+  width: 210px;
+  height: 227px;
+  margin-top: -31px;
   flex-shrink: 0;
 }
 .tech-spectrum-device p {
   position: absolute;
   z-index: 2;
-  top: 58px;
+  top: 41px;
   left: 50%;
   transform: translateX(-50%);
 }
 .tech-spectrum-buds {
   position: absolute;
   top: 0;
-  left: 40px;
-  width: 220px;
-  height: 220px;
+  left: 28px;
+  width: 154px;
+  height: 154px;
 }
 .tech-spectrum-case {
   position: absolute;
-  top: 20px;
+  top: 14px;
   left: 0;
-  width: 300px;
-  height: 300px;
+  width: 210px;
+  height: 210px;
 }
 .tech-principles {
   position: relative;
@@ -284,10 +278,6 @@
   }
 }
 @media (max-width: 1023px) {
-  .tech-intro {
-    padding-top: 70px;
-    min-height: 730px;
-  }
   .tech-principles::before,
   .tech-dot {
     display: none;
@@ -325,11 +315,13 @@
 }
 @media (max-width: 760px) {
   .tech-intro {
-    min-height: 0;
     padding-block: 58px 35px;
   }
   .tech-spectrum {
-    margin-top: 52px;
+    margin-top: 40px;
+  }
+  .tech-spectrum-bar {
+    height: 32px;
   }
   .tech-spectrum ul {
     display: grid;
@@ -355,22 +347,22 @@
     justify-content: center;
   }
   .tech-spectrum-device {
-    width: 260px;
-    height: 270px;
-    margin-top: -28px;
+    width: 182px;
+    height: 189px;
+    margin-top: -20px;
   }
   .tech-spectrum-device p {
-    top: 48px;
+    top: 34px;
   }
   .tech-spectrum-buds {
-    width: 190px;
-    height: 190px;
-    left: 35px;
+    width: 133px;
+    height: 133px;
+    left: 25px;
   }
   .tech-spectrum-case {
-    width: 260px;
-    height: 260px;
-    top: 18px;
+    width: 182px;
+    height: 182px;
+    top: 13px;
   }
   .tech-principle {
     padding-bottom: 60px;
@@ -393,14 +385,14 @@
     padding-bottom: 55px;
   }
   .tech-spectrum {
-    margin-top: 40px;
+    margin-top: 32px;
   }
   .tech-spectrum-product {
     flex-direction: column;
     align-items: center;
   }
   .tech-spectrum-device {
-    height: 220px;
+    height: 154px;
   }
   .tech-principle {
     padding-top: 15px;

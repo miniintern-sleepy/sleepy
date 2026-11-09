@@ -18,13 +18,16 @@ function point(u, v, group, phase, width, height) {
 }
 const directory = new URL("../public/images/hero/", import.meta.url);
 await mkdir(directory, { recursive: true });
-for (const [name, phase] of [
-  ["newsroom", 1],
-  ["faq", 3.2],
-  ["contact", 5.3],
+for (const [name, phase, desktopHeight] of [
+  ["newsroom", 1, 480],
+  ["faq", 3.2, 480],
+  ["contact", 5.3, 480],
+  ["company", 0, 470],
+  ["technology", 2.1, 490],
+  ["product", 2.8, 480],
 ]) {
   for (const [suffix, width, height] of [
-    ["", 1960, 480],
+    ["", 1960, desktopHeight],
     ["-mobile", 900, 300],
   ]) {
     const paths = [];

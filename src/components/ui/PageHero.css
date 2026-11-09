@@ -23,6 +23,23 @@
   background-image: url("/images/hero/wave-contact.svg");
   background-position: calc(50% + 22px) 0;
 }
+.page-hero-company {
+  background-image: url("/images/hero/wave-company.svg");
+  background-size: 1960px 470px;
+  background-position: calc(50% + 9px) 5px;
+}
+.page-hero-company .page-hero-description {
+  white-space: normal;
+}
+.page-hero-technology {
+  background-image: url("/images/hero/wave-technology.svg");
+  background-size: 1960px 490px;
+  background-position: calc(50% - 117px) 0;
+}
+.page-hero-product {
+  background-image: url("/images/hero/wave-product.svg");
+  background-position: calc(50% - 18px) 0;
+}
 @media (max-width: 760px) {
   .page-hero {
     padding-top: 32px;
@@ -30,6 +47,26 @@
   }
   .page-hero-description {
     margin-top: 14px;
+  }
+  .page-hero-company {
+    min-height: 437px;
+    background-image: url("/images/hero/wave-company-mobile.svg");
+    background-size: 900px 300px;
+    background-position: calc(50% + 0px) 124px;
+  }
+  .page-hero-company .page-hero-description {
+    white-space: pre-line;
+  }
+  .page-hero-technology {
+    min-height: 410px;
+    background-image: url("/images/hero/wave-technology-mobile.svg");
+    background-size: 900px 300px;
+    background-position: calc(50% - 30px) 99px;
+  }
+  .page-hero-product {
+    min-height: 443px;
+    background-image: url("/images/hero/wave-product-mobile.svg");
+    background-position: calc(50% + 10px) 126px;
   }
   .page-hero-newsroom {
     background-image: url("/images/hero/wave-newsroom-mobile.svg");
