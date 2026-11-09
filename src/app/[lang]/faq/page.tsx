@@ -1,3 +1,4 @@
+import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ContactBanner from "@/components/ui/ContactBanner";
@@ -21,10 +22,7 @@ export default async function FaqPage({ params }: PageProps<"/[lang]/faq">) {
   ]);
   return (
     <main className="public-page" id="main">
-      <header className="public-page-heading public-wrap">
-        <h1 className="text-page-title">{copy.title}</h1>
-        <p className="text-copy-intro text-muted">{copy.description}</p>
-      </header>
+      <PageHero title={copy.title} description={copy.description} wave="faq" />
       <section className="public-wrap public-list-section">
         <aside className="public-faq-contact">
           <p className="text-helper whitespace-pre-line text-muted">

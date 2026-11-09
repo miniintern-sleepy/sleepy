@@ -1,0 +1,46 @@
+.page-hero {
+  min-height: var(--size-page-hero);
+  padding-top: 80px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: 1960px 480px;
+}
+.page-hero-description {
+  margin-top: 24px;
+}
+.page-hero-actions {
+  margin-top: 24px;
+}
+.page-hero-newsroom {
+  background-image: url("/images/hero/wave-newsroom.svg");
+  background-position: calc(50% + 121px) 0;
+}
+.page-hero-faq {
+  background-image: url("/images/hero/wave-faq.svg");
+  background-position: calc(50% - 145px) 0;
+}
+.page-hero-contact {
+  background-image: url("/images/hero/wave-contact.svg");
+  background-position: calc(50% + 22px) 0;
+}
+@media (max-width: 760px) {
+  .page-hero {
+    padding-top: 32px;
+    background-size: 900px 300px;
+  }
+  .page-hero-description {
+    margin-top: 14px;
+  }
+  .page-hero-newsroom {
+    background-image: url("/images/hero/wave-newsroom-mobile.svg");
+    background-position: calc(50% + 39.5px) 55px;
+  }
+  .page-hero-faq {
+    background-image: url("/images/hero/wave-faq-mobile.svg");
+    background-position: calc(50% - 50.5px) 59px;
+  }
+  .page-hero-contact {
+    background-image: url("/images/hero/wave-contact-mobile.svg");
+    background-position: calc(50% + 14.5px) 62px;
+  }
+}

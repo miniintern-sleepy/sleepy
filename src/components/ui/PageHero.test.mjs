@@ -1,0 +1,90 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { registerHooks } from "node:module";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import test from "node:test";
+import ts from "typescript";
+const hook = registerHooks({
+  resolve(s, c, n) {
+    if (s.endsWith(".css"))
+      return { url: "data:text/javascript,export {}", shortCircuit: true };
+    return n(s, c);
+  },
+  load(u, c, n) {
+    if (u.endsWith("/PageHero.tsx"))
+      return {
+        format: "module",
+        source: ts.transpileModule(readFileSync(new URL(u), "utf8"), {
+          compilerOptions: {
+            module: ts.ModuleKind.ESNext,
+            jsx: ts.JsxEmit.ReactJSX,
+          },
+        }).outputText,
+        shortCircuit: true,
+      };
+    return n(u, c);
+  },
+});
+const { default: PageHero } = await import("./PageHero.tsx");
+hook.deregister();
+test("HERO-001 제목·설명·파동 종류를 출력하고 장식 DOM과 빈 버튼 자리를 만들지 않는다", () => {
+  for (const wave of ["newsroom", "faq", "contact"]) {
+    const html = renderToStaticMarkup(
+      createElement(PageHero, {
+        title: "제목\n둘째 줄",
+        description: "설명\n둘째 줄",
+        wave,
+      }),
+    );
+    assert.ok(
+      html.includes("<h1") &&
+        html.includes("제목\n둘째 줄") &&
+        html.includes("설명\n둘째 줄"),
+    );
+    assert.ok(html.includes(`page-hero-${wave}`));
+    assert.ok(
+      !html.includes("page-hero-actions") &&
+        !html.includes("<img") &&
+        !html.includes("<svg"),
+    );
+  }
+});
+test("HERO-002 children이 있을 때만 추가 자리를 출력한다", () => {
+  const html = renderToStaticMarkup(
+    createElement(
+      PageHero,
+      { title: "제목", description: "설명", wave: "faq" },
+      createElement("a", { href: "/ko/contact" }, "문의"),
+    ),
+  );
+  assert.ok(html.includes("page-hero-actions") && html.includes("문의"));
+});
+test("HERO-003 생성 SVG는 선 수·정밀도와 뉴스룸 좌표 검증값을 유지한다", () => {
+  for (const [suffix, expected] of [
+    ["", [-24.4, 1854.4, 69.1, 387.7]],
+    ["-mobile", [-11.2, 851.5, 43.2, 242.3]],
+  ]) {
+    const svg = readFileSync(
+      new URL(
+        `../../../public/images/hero/wave-newsroom${suffix}.svg`,
+        import.meta.url,
+      ),
+      "utf8",
+    );
+    assert.equal((svg.match(/<path /g) || []).length, 108);
+    const coords = [...svg.matchAll(/[ML](-?\d+\.\d),(-?\d+\.\d)/g)].map(
+      (m) => [+m[1], +m[2]],
+    );
+    assert.deepEqual(
+      [
+        Math.min(...coords.map((p) => p[0])),
+        Math.max(...coords.map((p) => p[0])),
+        Math.min(...coords.map((p) => p[1])),
+        Math.max(...coords.map((p) => p[1])),
+      ],
+      expected,
+    );
+    assert.equal((svg.match(/opacity="\d\.\d{3}"/g) || []).length, 108);
+  }
+});
