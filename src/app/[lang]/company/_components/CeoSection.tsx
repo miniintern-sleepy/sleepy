@@ -23,7 +23,7 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               alt={copy.photoAlt}
               width={659}
               height={700}
-              sizes="(min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
+              sizes="(min-width: 1441px) 37.78vw, (min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
               className="aspect-square w-full object-cover object-top"
             />
           </Reveal>

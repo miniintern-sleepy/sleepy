@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { startWave } from "./wave.ts";
 
-function fixture(t, reducedAtStart = false) {
+function fixture(t, reducedAtStart = false, boxWidth = 1000, offsetWidth) {
   const previous = { window: globalThis.window, document: globalThis.document };
   const raf = new Map(),
     mediaListeners = new Set(),
@@ -12,6 +12,7 @@ function fixture(t, reducedAtStart = false) {
     strokes = 0,
     first = [],
     transform = [],
+    weights = [],
     resized,
     intersected;
   const observers = [];
@@ -20,6 +21,7 @@ function fixture(t, reducedAtStart = false) {
       draws++;
       strokes = 0;
       first = [];
+      weights = [];
     },
     beginPath() {},
     moveTo(x, y) {
@@ -28,6 +30,7 @@ function fixture(t, reducedAtStart = false) {
     lineTo() {},
     stroke() {
       strokes++;
+      weights.push(this.lineWidth);
     },
     setTransform(...v) {
       transform = v;
@@ -35,11 +38,12 @@ function fixture(t, reducedAtStart = false) {
   };
   const canvas = {
     dataset: {},
+    offsetWidth,
     getContext() {
       return ctx;
     },
     getBoundingClientRect() {
-      return { width: 1000, height: 350 };
+      return { width: boxWidth, height: 350 };
     },
   };
   const media = {
@@ -125,6 +129,9 @@ function fixture(t, reducedAtStart = false) {
     visibilityListeners,
     observers,
     stop,
+    get weights() {
+      return weights;
+    },
     get draws() {
       return draws;
     },
@@ -218,4 +225,20 @@ test("MOT-003 동작 줄이기에는 정지 프레임을 그리고 관찰자·�
   env.resize();
   assert.equal(env.raf.size, 0);
   assert.equal(env.draws, draws);
+});
+
+test("SCALE-004 파동은 실제 폭과 레이아웃 폭 비율로 선 두께를 확대하고 폭이 없으면 기존 두께를 쓴다", (t) => {
+  const env = fixture(t, false, 1778, 1000);
+  assert.ok(Math.abs(env.weights[0] - 0.85 * 1.778) < 1e-10);
+  assert.ok(Math.abs(env.weights[32] - 0.7 * 1.778) < 1e-10);
+  env.canvas.offsetWidth = 1778;
+  env.resize();
+  assert.equal(env.weights[0], 0.85);
+  assert.equal(env.weights[32], 0.7);
+  env.canvas.offsetWidth = 0;
+  env.resize();
+  assert.equal(env.weights[0], 0.85);
+  delete env.canvas.offsetWidth;
+  env.resize();
+  assert.equal(env.weights[32], 0.7);
 });

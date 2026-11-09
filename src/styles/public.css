@@ -252,3 +252,11 @@
       border-color var(--motion-state);
   }
 }
+
+@supports (zoom: min(1.7778, tan(atan2(100vw, 1440px)))) {
+  @media (min-width: 1441px) {
+    .public-body > * {
+      zoom: min(1.7778, tan(atan2(100vw, 1440px)));
+    }
+  }
+}

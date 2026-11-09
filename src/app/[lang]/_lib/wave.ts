@@ -5,6 +5,7 @@ export function startWave(canvas: HTMLCanvasElement) {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   let width = 0,
     height = 0,
+    scale = 1,
     elapsed = 0,
     last = 0,
     frame = 0,
@@ -42,7 +43,7 @@ export function startWave(canvas: HTMLCanvasElement) {
       if (!ctx) return;
       ctx.beginPath();
       ctx.globalAlpha = alpha;
-      ctx.lineWidth = weight;
+      ctx.lineWidth = weight * scale;
       ctx.strokeStyle = color;
       points.forEach((p, i) => (i ? ctx.lineTo(...p) : ctx.moveTo(...p)));
       ctx.stroke();
@@ -92,6 +93,7 @@ export function startWave(canvas: HTMLCanvasElement) {
     if (!active || !ctx) return;
     const box = canvas.getBoundingClientRect(),
       dpr = Math.min(window.devicePixelRatio || 1, 2);
+    scale = canvas.offsetWidth ? box.width / canvas.offsetWidth : 1;
     width = box.width;
     height = box.height;
     canvas.width = Math.round(width * dpr);

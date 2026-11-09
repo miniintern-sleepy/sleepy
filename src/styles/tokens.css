@@ -468,3 +468,14 @@
     --text-landing-title: 2.5625rem;
   }
 }
+
+@supports (zoom: min(1.7778, tan(atan2(100vw, 1440px)))) {
+  @media (min-width: 1441px) {
+    .public-body {
+      --layout-gutter: 79.92px;
+      --layout-page-side: 147.5px;
+      --layout-page-width: 1145px;
+      --text-detail-heading: 2.97rem;
+    }
+  }
+}

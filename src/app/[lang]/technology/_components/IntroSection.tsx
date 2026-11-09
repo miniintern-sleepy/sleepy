@@ -34,6 +34,7 @@ export default function IntroSection({ copy }: { copy: Copy }) {
               src="/images/technology/buds.png"
               alt="슬리비 이어폰"
               width={154}
+              sizes="(min-width: 1441px) 10.7vw, 154px"
               height={154}
               className="tech-spectrum-buds"
             />
@@ -41,6 +42,7 @@ export default function IntroSection({ copy }: { copy: Copy }) {
               src="/images/technology/case.png"
               alt="슬리비 케이스"
               width={210}
+              sizes="(min-width: 1441px) 14.6vw, 210px"
               height={210}
               className="tech-spectrum-case"
             />
