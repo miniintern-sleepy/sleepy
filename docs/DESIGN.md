@@ -318,7 +318,9 @@ scripts/generate-hero-waves.mjs는 메인 point의 amount=0·고정 phase로 2�
 
 ## 넓은 화면 비례 확대 (#62, D-49)
 
-1440px 이하는 기존 배율1이다. 1441px부터 공개 레이아웃의 public-body 직계 자식에 `zoom: min(1.7778, tan(atan2(100vw, 1440px)))`를 적용한다. 2560px에서 약1.7778이고 그 위에서는 고정한다. body 자체는 확대하지 않아 min-h-dvh와 짧은 본문 푸터가 이중 확대되지 않는다. 헤더는 일반 문서 흐름을 유지한다. 관리자에는 식별자와 확대를 적용하지 않는다.
+1440px 이하는 기존 배율1이다. 1441px부터 공개 레이아웃의 public-body 직계 자식에 `zoom: min(1.7778, tan(atan2(var(--public-vw), 1440px)))`를 적용한다. 2560px에서 약1.7778이고 그 위에서는 고정한다. body 자체는 확대하지 않아 min-h-dvh와 짧은 본문 푸터가 이중 확대되지 않는다. 헤더는 일반 문서 흐름을 유지한다. 관리자에는 식별자와 확대를 적용하지 않는다.
+
+Safari 대응: WebKit 26.6은 zoom 식 안의 100vw를 계산하지 못해 배율이 1이 되지만 CSS.supports는 true를 돌려준다. 그래서 `@property --public-vw`(`<length>`)를 등록하고 public-body에서 100vw로 확정한 길이를 zoom 식에 넘긴다. WebKit의 zoom은 rem으로 지정한 grid 칸과 gap에 배율을 곱하지 않으므로, 넓은 화면 분기에서 `--spacing: 4px`로 두고 공개 화면의 grid 칸 임의값은 px로 쓴다. 메인 캔버스는 zoom만 바뀌면 CSS 폭이 그대로라 ResizeObserver가 울리지 않으므로 창 resize에서도 버퍼를 다시 맞춘다.
 
 zoom 선언 전체를 검사하는 @supports 안에서만 확대와 토큰 고정을 함께 적용한다. 지원하지 않으면 두 규칙 모두 적용하지 않아 기존 레이아웃을 유지한다. tokens.css의 같은 분기에서 public-body에 gutter79.92px, page-side147.5px, page-width1145px, detail-heading2.97rem을 둔다. :root 공통값을 덮지 않는다.
 
