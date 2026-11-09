@@ -11,7 +11,7 @@ export default function CeoSection({ copy }: { copy: Copy }) {
       <div
         className={`grid items-center gap-10 ${
           copy.photo
-            ? "md:grid-cols-[20rem_1fr] md:gap-12 lg:grid-cols-[minmax(0,34rem)_1fr] lg:gap-24"
+            ? "md:grid-cols-[320px_1fr] md:gap-12 lg:grid-cols-[minmax(0,544px)_1fr] lg:gap-24"
             : ""
         }`}
       >
@@ -23,7 +23,7 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               alt={copy.photoAlt}
               width={659}
               height={700}
-              sizes="(min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
+              sizes="(min-width: 1441px) 37.78vw, (min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
               className="aspect-square w-full object-cover object-top"
             />
           </Reveal>

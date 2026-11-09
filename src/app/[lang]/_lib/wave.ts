@@ -5,6 +5,7 @@ export function startWave(canvas: HTMLCanvasElement) {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   let width = 0,
     height = 0,
+    scale = 1,
     elapsed = 0,
     last = 0,
     frame = 0,
@@ -42,7 +43,7 @@ export function startWave(canvas: HTMLCanvasElement) {
       if (!ctx) return;
       ctx.beginPath();
       ctx.globalAlpha = alpha;
-      ctx.lineWidth = weight;
+      ctx.lineWidth = weight * scale;
       ctx.strokeStyle = color;
       points.forEach((p, i) => (i ? ctx.lineTo(...p) : ctx.moveTo(...p)));
       ctx.stroke();
@@ -92,6 +93,7 @@ export function startWave(canvas: HTMLCanvasElement) {
     if (!active || !ctx) return;
     const box = canvas.getBoundingClientRect(),
       dpr = Math.min(window.devicePixelRatio || 1, 2);
+    scale = canvas.offsetWidth ? box.width / canvas.offsetWidth : 1;
     width = box.width;
     height = box.height;
     canvas.width = Math.round(width * dpr);
@@ -106,6 +108,9 @@ export function startWave(canvas: HTMLCanvasElement) {
   });
   resizeObserver.observe(canvas);
   intersectionObserver.observe(canvas);
+  // 이유: zoom만 바뀌면 캔버스의 CSS 폭(1000px)이 그대로라 ResizeObserver가 울리지 않는다.
+  // 2560→1920px에서 WebKit·Chromium 모두 버퍼가 3556으로 남았다(기대 2667, 2026-11-09, #62).
+  window.addEventListener("resize", resize);
   reduced.addEventListener("change", sync);
   document.addEventListener("visibilitychange", sync);
   resize();
@@ -115,6 +120,7 @@ export function startWave(canvas: HTMLCanvasElement) {
     if (frame) window.cancelAnimationFrame(frame);
     resizeObserver.disconnect();
     intersectionObserver.disconnect();
+    window.removeEventListener("resize", resize);
     reduced.removeEventListener("change", sync);
     document.removeEventListener("visibilitychange", sync);
   };

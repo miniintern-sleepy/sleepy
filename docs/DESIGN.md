@@ -315,3 +315,17 @@ scripts/generate-hero-waves.mjs는 메인 point의 amount=0·고정 phase로 2�
 중추신경계 억제는 h2/detail-heading, 영문 부제와 설명은 copy-large다. 배경 그라데이션·최소 높이를 제거하고 public-wrap으로 아래 원리와 좌우를 맞춘다. PC 위 여백은 space-section-small, 설명 위22px, 스펙트럼 위64px(760px 이하40px, 520px 이하32px)다. 라벨20/18/16px, 제품명18/16px로 줄이며 사진 묶음도 기존의 0.7배(PC 본체154px·케이스210px, 모바일133px·182px)다. 스펙트럼 등장·막대 확장 모션은 유지한다. 회사·제품 히어로의 사진·숫자·오브젝트·구매/구간 링크와 등장 모션은 제거한다. 회사 facts와 제품 버튼 문구는 후속 페이지 구성에서 다시 쓸 데이터로 보존한다.
 
 대비 검증의 한계: #61 회사 PC 설명 뒤 파동은 1·2배 밀도 SVG 합성에서 최저 5.36·4.58:1, 3배 밀도에서 일부 픽셀 4.47:1이다. 2026-11-09 사용자 확인으로 옅은 배경 보완을 넣지 않고 시안을 유지한다. 4.5:1을 모든 밀도에서 충족했다고 간주하지 않는다.
+
+## 넓은 화면 비례 확대 (#62, D-49)
+
+1440px 이하는 기존 배율1이다. 1441px부터 공개 레이아웃의 public-body 직계 자식에 `zoom: min(1.7778, tan(atan2(var(--public-vw), 1440px)))`를 적용한다. 2560px에서 약1.7778이고 그 위에서는 고정한다. body 자체는 확대하지 않아 min-h-dvh와 짧은 본문 푸터가 이중 확대되지 않는다. 헤더는 일반 문서 흐름을 유지한다. 관리자에는 식별자와 확대를 적용하지 않는다.
+
+Safari 대응: WebKit 26.6은 zoom 식 안의 100vw를 계산하지 못해 배율이 1이 되지만 CSS.supports는 true를 돌려준다. 그래서 `@property --public-vw`(`<length>`)를 등록하고 public-body에서 100vw로 확정한 길이를 zoom 식에 넘긴다. WebKit의 zoom은 rem으로 지정한 grid 칸과 gap에 배율을 곱하지 않으므로, 넓은 화면 분기에서 `--spacing: 4px`로 두고 공개 화면의 grid 칸 임의값은 px로 쓴다. 메인 캔버스는 zoom만 바뀌면 CSS 폭이 그대로라 ResizeObserver가 울리지 않으므로 창 resize에서도 버퍼를 다시 맞춘다.
+
+zoom 선언 전체를 검사하는 @supports 안에서만 확대와 토큰 고정을 함께 적용한다. 지원하지 않으면 두 규칙 모두 적용하지 않아 기존 레이아웃을 유지한다. tokens.css의 같은 분기에서 public-body에 gutter79.92px, page-side147.5px, page-width1145px, detail-heading2.97rem을 둔다. :root 공통값을 덮지 않는다.
+
+1440px에서 page-hero-title은56px(4.2vw=60.48px), landing-title은80px(5.6vw=80.64px), founder-quote는50px(3.5vw=50.4px)으로 이미 clamp 최댓값이다. 추가 고정을 하지 않는다. 제품의1700px 전용 궤도 확대는 제거한다. 메인 캔버스는 실제 표시 폭으로 그리므로 getBoundingClientRect.width/offsetWidth를 선 두께에 곱하고 offsetWidth가 없거나0이면1로 계산한다.
+
+고정 이미지 sizes에는1441px 이상 vw 분기를 추가한다. 대표37.78vw, 특허38.89vw, 메인 대표15.97vw, 뉴스10.42vw, 기술 본체10.7vw·케이스14.6vw다. 제품 구성은768px 이상50vw/나머지100vw로 둔다. 원본 교체·업스케일은 하지 않는다.
+
+2026-11-09 사용자 확인: 배율 상한 1.7778을 유지하고, 3440px에서 일부 히어로 파동 끝이 드러나는 것을 허용된 한계로 기록한다. 파동만 별도로 확대하거나 반복하지 않는다.

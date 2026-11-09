@@ -173,11 +173,6 @@
 .product-kit-copy ul {
   margin-top: 38px;
 }
-@media (min-width: 1700px) {
-  .product-orbits {
-    transform: translate(-50%, -50%) scale(0.68);
-  }
-}
 @media (max-width: 1279px) {
   .product-orbits {
     transform: translate(-50%, -50%) scale(0.51);

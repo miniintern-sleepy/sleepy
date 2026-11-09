@@ -32,7 +32,7 @@ export default function KitSection({
           alt="슬리비 케이스, 귀마개 본체, 충전 케이블, 이어팁과 사용설명서"
           width={720}
           height={480}
-          sizes="(min-width: 1440px) 720px, (min-width: 768px) 50vw, 100vw"
+          sizes="(min-width: 768px) 50vw, 100vw"
           className="product-kit-photo"
         />
       </Reveal>

@@ -13,7 +13,7 @@ export default function NewsImage({ src }: { src: string }) {
           alt=""
           fill
           unoptimized
-          sizes="(max-width: 520px) 82px, (max-width: 760px) 110px, 150px"
+          sizes="(min-width: 1441px) 10.42vw, (max-width: 520px) 82px, (max-width: 760px) 110px, 150px"
           className="object-cover"
           onError={() => setFailed(true)}
         />

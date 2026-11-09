@@ -2,16 +2,18 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { startWave } from "./wave.ts";
 
-function fixture(t, reducedAtStart = false) {
+function fixture(t, reducedAtStart = false, boxWidth = 1000, offsetWidth) {
   const previous = { window: globalThis.window, document: globalThis.document };
   const raf = new Map(),
     mediaListeners = new Set(),
-    visibilityListeners = new Set();
+    visibilityListeners = new Set(),
+    windowListeners = new Set();
   let sequence = 0,
     draws = 0,
     strokes = 0,
     first = [],
     transform = [],
+    weights = [],
     resized,
     intersected;
   const observers = [];
@@ -20,6 +22,7 @@ function fixture(t, reducedAtStart = false) {
       draws++;
       strokes = 0;
       first = [];
+      weights = [];
     },
     beginPath() {},
     moveTo(x, y) {
@@ -28,6 +31,7 @@ function fixture(t, reducedAtStart = false) {
     lineTo() {},
     stroke() {
       strokes++;
+      weights.push(this.lineWidth);
     },
     setTransform(...v) {
       transform = v;
@@ -35,11 +39,12 @@ function fixture(t, reducedAtStart = false) {
   };
   const canvas = {
     dataset: {},
+    offsetWidth,
     getContext() {
       return ctx;
     },
     getBoundingClientRect() {
-      return { width: 1000, height: 350 };
+      return { width: boxWidth, height: 350 };
     },
   };
   const media = {
@@ -64,6 +69,12 @@ function fixture(t, reducedAtStart = false) {
   globalThis.document = document;
   globalThis.window = {
     devicePixelRatio: 3,
+    addEventListener(_, fn) {
+      windowListeners.add(fn);
+    },
+    removeEventListener(_, fn) {
+      windowListeners.delete(fn);
+    },
     getComputedStyle() {
       return {
         getPropertyValue() {
@@ -123,8 +134,16 @@ function fixture(t, reducedAtStart = false) {
     raf,
     mediaListeners,
     visibilityListeners,
+    windowListeners,
     observers,
     stop,
+    resizeWindow(width) {
+      boxWidth = width;
+      windowListeners.forEach((fn) => fn());
+    },
+    get weights() {
+      return weights;
+    },
     get draws() {
       return draws;
     },
@@ -213,9 +232,36 @@ test("MOT-003 동작 줄이기에는 정지 프레임을 그리고 관찰자·�
   assert.equal(env.raf.size, 0);
   assert.equal(env.mediaListeners.size, 0);
   assert.equal(env.visibilityListeners.size, 0);
+  assert.equal(env.windowListeners.size, 0);
   assert.ok(env.observers.every((observer) => observer.disconnected));
   env.intersect(true);
   env.resize();
   assert.equal(env.raf.size, 0);
   assert.equal(env.draws, draws);
+});
+
+test("SCALE-004 파동은 실제 폭과 레이아웃 폭 비율로 선 두께를 확대하고 폭이 없으면 기존 두께를 쓴다", (t) => {
+  const env = fixture(t, false, 1778, 1000);
+  assert.ok(Math.abs(env.weights[0] - 0.85 * 1.778) < 1e-10);
+  assert.ok(Math.abs(env.weights[32] - 0.7 * 1.778) < 1e-10);
+  env.canvas.offsetWidth = 1778;
+  env.resize();
+  assert.equal(env.weights[0], 0.85);
+  assert.equal(env.weights[32], 0.7);
+  env.canvas.offsetWidth = 0;
+  env.resize();
+  assert.equal(env.weights[0], 0.85);
+  delete env.canvas.offsetWidth;
+  env.resize();
+  assert.equal(env.weights[32], 0.7);
+});
+
+// 가설: zoom만 바뀌면 캔버스의 CSS 폭이 그대로라 ResizeObserver가 울리지 않는다.
+// 확인: 2560→1920px에서 표시 폭 1333.3인데 버퍼 3556으로 남음 (2026-11-09, WebKit·Chromium)
+test("SCALE-006 창 폭이 바뀌면 관찰자 없이도 버퍼와 선 두께를 다시 맞춘다", (t) => {
+  const env = fixture(t, false, 1778, 1000);
+  assert.equal(env.canvas.width, 3556);
+  env.resizeWindow(1333.3);
+  assert.equal(env.canvas.width, 2667);
+  assert.ok(Math.abs(env.weights[0] - 0.85 * 1.3333) < 1e-10);
 });
