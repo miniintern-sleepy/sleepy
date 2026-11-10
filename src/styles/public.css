@@ -7,15 +7,6 @@
   width: var(--layout-page-width);
   margin-inline: auto;
 }
-.public-page-heading {
-  padding-block: 85px 70px;
-  text-align: center;
-}
-.public-page-heading p {
-  margin-top: 25px;
-  margin-inline: auto;
-  max-width: 660px;
-}
 .public-list-section {
   padding-bottom: var(--space-section);
 }
@@ -153,6 +144,15 @@
   overflow: hidden;
   background: var(--color-panel);
 }
+.public-news-logo {
+  display: grid;
+  place-items: center;
+}
+.public-news-logo img {
+  width: 48%;
+  height: auto;
+  opacity: 0.35;
+}
 .public-news-arrow {
   font-size: var(--text-ui-glyph);
   line-height: var(--text-ui-glyph--line-height);
@@ -209,9 +209,6 @@
   }
 }
 @media (max-width: 760px) {
-  .public-page-heading {
-    padding-block: 55px 45px;
-  }
   .public-list-section {
     padding-bottom: var(--space-section-small);
   }
@@ -262,5 +259,31 @@
       color var(--motion-state),
       background-color var(--motion-state),
       border-color var(--motion-state);
+  }
+}
+
+/*
+ * 이유: Safari 26.6은 zoom 식 안의 100vw를 계산하지 못해 배율이 1이 된다.
+ * CSS.supports는 true라 @supports로 걸러지지 않는다(2026-11-09 WebKit 측정, #62).
+ * 주의: body에서 길이로 확정한 값을 넘겨야 WebKit·Chromium 모두 1920px에서 1.3333이 된다.
+ */
+@property --public-vw {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* --public-vw와 같은 WebKit 화면 단위 계산 문제(D-49)로 body에서 길이로 확정해 넘긴다. */
+@property --public-vh {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@supports (zoom: min(1.7778, tan(atan2(100vw, 1440px)))) {
+  @media (min-width: 1441px) {
+    .public-body > * {
+      zoom: min(1.7778, tan(atan2(var(--public-vw), 1440px)));
+    }
   }
 }

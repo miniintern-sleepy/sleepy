@@ -1,6 +1,10 @@
 // 기술 · 시안 01(224:7736)의 원문. 브라우저에서 문구를 읽어 옮겼다(2026-11-02).
 // 주의: 효능·안전성 문구는 대표님이 확인한 것만 배포한다(F-10).
 export const technologyCopy = {
+  hero: {
+    title: "비약물적 기술로\n편안한 수면을 돕습니다.",
+    description: "양쪽 귀에 전하는 소리, 양이성 음향을 연구합니다.",
+  },
   intro: {
     title: "중추신경계 억제",
     subtitle: "CNS depression",

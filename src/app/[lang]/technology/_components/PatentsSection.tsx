@@ -47,7 +47,7 @@ export default function PatentsSection({ copy }: { copy: Copy }) {
             alt="특허와 상표 등록증 5장"
             width={560}
             height={640}
-            sizes="(max-width:560px) 100vw,560px"
+            sizes="(min-width: 1441px) 38.89vw, (max-width:560px) 100vw,560px"
             className="mx-auto h-auto w-full max-w-140"
           />
         </Reveal>

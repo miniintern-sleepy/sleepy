@@ -23,7 +23,7 @@ export default function FounderStorySection({
             width={659}
             height={700}
             className="home-founder-photo"
-            sizes="(max-width:520px) 105px,(max-width:760px) 150px,230px"
+            sizes="(min-width: 1441px) 15.97vw, (max-width:520px) 105px,(max-width:760px) 150px,230px"
           />
           <div>
             <h2 className="text-founder-name">{company.ceo.name}</h2>

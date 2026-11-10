@@ -1,3 +1,4 @@
+import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -43,10 +44,11 @@ export default async function ContactPage({
   const [{ lang }, copy] = await Promise.all([params, getContactCopy()]);
   return (
     <main className="public-page" id="main">
-      <header className="public-page-heading public-wrap">
-        <h1 className="text-page-title">{copy.title}</h1>
-        <p className="text-copy-intro text-muted">{copy.description}</p>
-      </header>
+      <PageHero
+        title={copy.title}
+        description={copy.description}
+        wave="contact"
+      />
       <section className="public-wrap contact-layout">
         <aside className="contact-intro">
           <h2 className="text-form-aside">{copy.guideTitle}</h2>

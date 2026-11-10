@@ -29,7 +29,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} className={pretendard.variable}>
-      <body className="flex min-h-dvh flex-col">
+      <body className="public-body flex min-h-dvh flex-col">
         <a href="#main" className="public-skip">
           본문 바로가기
         </a>

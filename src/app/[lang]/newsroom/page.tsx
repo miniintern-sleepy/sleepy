@@ -1,3 +1,4 @@
+import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getNewsroomCopy } from "@/lib/content";
@@ -19,9 +20,11 @@ export default async function NewsroomPage() {
   const copy = await getNewsroomCopy();
   return (
     <main className="public-page" id="main">
-      <header className="public-page-heading public-wrap">
-        <h1 className="text-page-title">{copy.title}</h1>
-      </header>
+      <PageHero
+        title={copy.title}
+        description={copy.description}
+        wave="newsroom"
+      />
       <section className="public-wrap public-list-section">
         <Suspense fallback={<p role="status">소식을 불러오고 있습니다.</p>}>
           <Articles />

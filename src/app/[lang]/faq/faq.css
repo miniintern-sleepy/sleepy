@@ -1,0 +1,24 @@
+/* 문의 안내는 F-04 순서대로 검색 위에 두되, 질문 목록이 먼저 보이도록 한 줄로 줄인다(#66). */
+.public-faq-contact.faq-contact-compact {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px 16px;
+  padding-block: 0;
+  margin-bottom: 24px;
+  border-block: none;
+}
+.faq-contact-compact p {
+  white-space: normal;
+}
+.faq-contact-compact .public-text-link {
+  gap: 8px;
+  padding-block: 0;
+  border-bottom: none;
+}
+@media (max-width: 520px) {
+  .public-faq-contact.faq-contact-compact {
+    justify-content: flex-start;
+  }
+}

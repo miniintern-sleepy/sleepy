@@ -1,9 +1,11 @@
+import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ContactBanner from "@/components/ui/ContactBanner";
 import TextLink from "@/components/ui/TextLink";
 import { getCompanyCopy, getFaqCopy, getFaqs } from "@/lib/content";
 import FaqSearch from "./_components/FaqSearch";
+import "./faq.css";
 
 export const metadata: Metadata = {
   title: "자주 묻는 질문",
@@ -21,12 +23,9 @@ export default async function FaqPage({ params }: PageProps<"/[lang]/faq">) {
   ]);
   return (
     <main className="public-page" id="main">
-      <header className="public-page-heading public-wrap">
-        <h1 className="text-page-title">{copy.title}</h1>
-        <p className="text-copy-intro text-muted">{copy.description}</p>
-      </header>
+      <PageHero title={copy.title} description={copy.description} wave="faq" />
       <section className="public-wrap public-list-section">
-        <aside className="public-faq-contact">
+        <aside className="public-faq-contact faq-contact-compact">
           <p className="text-helper whitespace-pre-line text-muted">
             {copy.contact}
           </p>
