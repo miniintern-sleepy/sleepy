@@ -1,9 +1,0 @@
-.newsroom-logo-thumb {
-  display: grid;
-  place-items: center;
-}
-.newsroom-logo-thumb img {
-  width: 48%;
-  height: auto;
-  opacity: 0.35;
-}
