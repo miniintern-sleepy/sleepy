@@ -43,7 +43,10 @@ export default function Footer({ lang }: { lang: Locale }) {
             <br />
             <a href={`mailto:${company.email}`}>{company.email}</a>
           </address>
-          <small>© Sleepy Inc. All rights reserved.</small>
+          <small>
+            이 사이트는 쿠키 없이 방문 통계를 수집합니다.
+            <br />© Sleepy Inc. All rights reserved.
+          </small>
         </div>
       </div>
     </footer>

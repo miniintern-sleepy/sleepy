@@ -2,8 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useActionState, useState, type FormEvent } from "react";
+import {
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 
+import { track } from "@/lib/analytics";
 import { submitInquiry } from "../actions";
 import { validateInquiry, type FieldErrors, type InquiryValues } from "./form";
 import Turnstile from "./Turnstile";
@@ -60,6 +67,14 @@ export default function ContactForm({
       setCaptchaMessage("보안 확인을 완료한 후 다시 보내주세요.");
     }
   }
+
+  // 제출 성공 때만 한 번 보낸다. 이름·이메일·내용은 보내지 않고 문의 유형만 보낸다(#71).
+  const trackedAttempt = useRef(-1);
+  useEffect(() => {
+    if (!state.ok || trackedAttempt.current === state.attempt) return;
+    trackedAttempt.current = state.attempt;
+    track("inquiry_submit", { type: values.type });
+  }, [state.ok, state.attempt, values.type]);
 
   if (state.ok && state.attempt !== dismissed) {
     return (

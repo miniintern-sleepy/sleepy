@@ -114,14 +114,16 @@ npm run dev
 
 `.env.example`을 복사한 `.env.local`에 값을 채웁니다. 값은 팀 내부 채널로 공유하고, `.env.local`은 커밋하지 않습니다.
 
-| 변수                             | 설명                       | 브라우저 노출 |
-| -------------------------------- | -------------------------- | ------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`       | Supabase 주소              | O             |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY`  | Supabase 공개 키           | O             |
-| `SUPABASE_SERVICE_ROLE_KEY`      | Supabase 서버 키           | X             |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Turnstile 사이트 키        | O             |
-| `TURNSTILE_SECRET_KEY`           | Turnstile 비밀 키          | X             |
-| `MAIL_API_KEY`                   | 문의 알림 메일 (도전 과제) | X             |
+| 변수                                | 설명                                           | 브라우저 노출 |
+| ----------------------------------- | ---------------------------------------------- | ------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`          | Supabase 주소                                  | O             |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY`     | Supabase 공개 키                               | O             |
+| `SUPABASE_SERVICE_ROLE_KEY`         | Supabase 서버 키                               | X             |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`    | Turnstile 사이트 키                            | O             |
+| `TURNSTILE_SECRET_KEY`              | Turnstile 비밀 키                              | X             |
+| `MAIL_API_KEY`                      | 문의 알림 메일 (도전 과제)                     | X             |
+| `NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN` | PostHog 프로젝트 토큰 (방문 지표, 도전 과제)   | O             |
+| `NEXT_PUBLIC_POSTHOG_HOST`          | PostHog 주소 (US는 `https://us.i.posthog.com`) | O             |
 
 `NEXT_PUBLIC_`이 붙은 값은 브라우저로 전달되므로 비밀 키에 붙이지 않습니다.
 
