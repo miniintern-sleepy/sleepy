@@ -81,8 +81,8 @@ export default function ContactForm({
           슬리피에 관심을 가져주셔서 감사합니다.
         </p>
         <div className="contact-success-links">
-          <Link href={`/${lang}/faq`} className="public-text-link">
-            FAQ로 돌아가기
+          <Link href={`/${lang}`} className="public-text-link">
+            홈으로
           </Link>
           <button
             type="button"
@@ -117,15 +117,6 @@ export default function ContactForm({
       <h2 id="contact-form-title" className="text-form-title">
         문의 내용 작성
       </h2>
-      {!enabled && (
-        <p role="status" className="contact-notice text-helper">
-          온라인 문의 접수를 준비하고 있습니다.{" "}
-          <a href="mailto:sleeby00@gmail.com" className="underline">
-            sleeby00@gmail.com
-          </a>
-          으로 문의해 주세요.
-        </p>
-      )}
       <fieldset disabled={pending} className="contact-fields">
         <legend className="sr-only">문의 정보</legend>
         <div className="contact-form-row">

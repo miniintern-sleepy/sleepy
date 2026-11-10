@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import NewsItem from "@/components/ui/NewsItem";
+import NewsRow from "./NewsRow";
 import { categoryLabels, filterNews } from "@/lib/news";
 import type { getNewsroomCopy } from "@/lib/content";
 import {
@@ -53,7 +53,7 @@ export default function Newsroom({
       </p>
       <div className="public-news-list">
         {visible.map((article) => (
-          <NewsItem key={article.id} article={article} />
+          <NewsRow key={article.id} article={article} />
         ))}
       </div>
       {visible.length === 0 && (
