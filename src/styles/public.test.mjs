@@ -27,10 +27,15 @@ test("SCALE-001 확대와 공개 전용 고정값은 지원 조건·1441px 분�
         css,
         /@property\s+--public-vw\s*\{\s*syntax:\s*"<length>";\s*inherits:\s*true;\s*initial-value:\s*0px;\s*\}/,
       );
+      assert.match(
+        css,
+        /@property\s+--public-vh\s*\{\s*syntax:\s*"<length>";\s*inherits:\s*true;\s*initial-value:\s*0px;\s*\}/,
+      );
     } else {
       assert.equal(selector, ".public-body");
       assert.deepEqual(values, {
         "--public-vw": "100vw",
+        "--public-vh": "100svh",
         "--spacing": "4px",
         "--layout-gutter": "79.92px",
         "--layout-page-side": "147.5px",

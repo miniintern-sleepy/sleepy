@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 
 import type { Locale } from "@/lib/i18n";
@@ -13,11 +12,6 @@ const menuItems = [
   { path: "newsroom", label: "뉴스룸" },
   { path: "faq", label: "FAQ" },
 ] as const;
-
-export default function HeaderNavigation({ lang }: { lang: Locale }) {
-  const pathname = usePathname();
-  return <Navigation key={pathname} lang={lang} pathname={pathname} />;
-}
 
 export function Navigation({
   lang,
