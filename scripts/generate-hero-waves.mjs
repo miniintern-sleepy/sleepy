@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 
-// 메인 wave.ts의 point를 amount=0으로 고정한 좌표다(#60).
+// 이전 메인 wave.ts(B waves.js)의 point를 amount=0으로 고정한 좌표다(#60).
 function point(u, v, group, phase, width, height) {
   const x = u * 1.15,
     z = (v - 0.5) * 1.75;

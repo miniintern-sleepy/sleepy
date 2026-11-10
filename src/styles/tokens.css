@@ -473,6 +473,7 @@
   @media (min-width: 1441px) {
     .public-body {
       --public-vw: 100vw;
+      --public-vh: 100svh;
       /* WebKit의 zoom은 rem으로 지정한 grid 칸과 gap에 배율을 곱하지 않는다(2026-11-09 측정, #62). */
       --spacing: 4px;
       --layout-gutter: 79.92px;

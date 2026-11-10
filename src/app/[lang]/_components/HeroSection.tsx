@@ -1,6 +1,7 @@
 import TextLink from "@/components/ui/TextLink";
 import type { getHomeCopy } from "@/lib/content";
-import AutoWave from "./AutoWave";
+import Image from "next/image";
+import heroWindow from "../../../../public/images/home/hero-window.webp";
 export default function HeroSection({
   copy,
   lang,
@@ -10,7 +11,15 @@ export default function HeroSection({
 }) {
   return (
     <section className="home-hero">
-      <div>
+      <Image
+        src={heroWindow}
+        fill
+        alt=""
+        sizes="100vw"
+        loading="eager"
+        fetchPriority="high"
+      />
+      <div className="home-hero-copy">
         <h1 className="text-landing-title">
           {copy.title.split("\n").map((line, index) => (
             <span key={line}>
@@ -25,7 +34,6 @@ export default function HeroSection({
         </h1>
         <TextLink href={`/${lang}/technology`}>{copy.link}</TextLink>
       </div>
-      <AutoWave />
     </section>
   );
 }
