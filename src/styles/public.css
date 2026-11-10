@@ -144,6 +144,15 @@
   overflow: hidden;
   background: var(--color-panel);
 }
+.public-news-logo {
+  display: grid;
+  place-items: center;
+}
+.public-news-logo img {
+  width: 48%;
+  height: auto;
+  opacity: 0.35;
+}
 .public-news-arrow {
   font-size: var(--text-ui-glyph);
   line-height: var(--text-ui-glyph--line-height);

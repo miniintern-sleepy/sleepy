@@ -126,7 +126,8 @@ textarea.contact-input {
 }
 .contact-notice {
   margin-block: 20px;
-  padding: 16px;
+  padding: 14px 18px;
+  border-left: 3px solid var(--color-error-ink);
   background: var(--color-error-panel);
   color: var(--color-error-ink);
 }
@@ -134,6 +135,25 @@ textarea.contact-input {
   display: inline-flex;
   align-items: center;
   min-height: var(--size-touch);
+}
+.contact-unavailable {
+  margin-block: 20px;
+  padding: 14px 18px 6px;
+  border-left: 3px solid var(--color-violet);
+  background: var(--color-panel);
+  color: var(--color-ink);
+}
+.contact-unavailable strong {
+  display: block;
+  font-weight: var(--font-weight-ui-selected);
+}
+.contact-unavailable a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-touch);
+  color: var(--color-violet-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .contact-success {
   border-top: 1px solid var(--color-success-ink);

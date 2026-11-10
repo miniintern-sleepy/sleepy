@@ -53,7 +53,7 @@ export default function Newsroom({
       </p>
       <div className="public-news-list">
         {visible.map((article) => (
-          <NewsItem key={article.id} article={article} />
+          <NewsItem key={article.id} article={article} logoFallback />
         ))}
       </div>
       {visible.length === 0 && (
