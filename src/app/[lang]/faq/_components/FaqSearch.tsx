@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 import type { getFaqCopy } from "@/lib/content";
 import type { Faq } from "@/types/content";
 import { searchFaqs } from "./search";
@@ -45,7 +46,17 @@ export default function FaqSearch({
             open={index === 0}
             hidden={!visible.has(item.id)}
           >
-            <summary className="text-faq-question">{item.question}</summary>
+            <summary
+              className="text-faq-question"
+              onClick={(event) => {
+                // 누르기 전에 닫혀 있던 질문만 "열기"로 센다. 처음 열려 있는 질문은 세지 않는다.
+                const details = event.currentTarget.parentElement;
+                if (details instanceof HTMLDetailsElement && !details.open)
+                  track("faq_open", { id: item.id });
+              }}
+            >
+              {item.question}
+            </summary>
             <p className="text-faq-answer whitespace-pre-line text-muted">
               {item.answer}
             </p>

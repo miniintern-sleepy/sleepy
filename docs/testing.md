@@ -482,3 +482,13 @@ MOT-001~003·SCALE-004·006은 AutoWave 제거와 함께 삭제했다. 현재 �
 - curl 첫 HTML의 header에 data-overlay=true가 있고 대기 Suspense 밖임을 다시 확인했다. 여섯 카테고리 이동은 일반 paper 헤더·로고 복귀는 투명으로 유지된다. /en은 기존대로404이고 새 언어 지원은 하지 않았다.
 - Safari 제어 권한은 앞선 확인에서 미허용이었으므로 WebKit1470×836·2560×1440의 높이·틈은 미확인이다. PL 직접 확인이 필요하다.
 - docs/features.md F-01의 자동 파동 첫 화면을 전면 사진 첫 화면으로 바로잡았다.1440×900·1728×997·2560×1440 캡처와13개 실측·대비·검사 로그는 /private/tmp/sleepy-68-review/height-update에만 있다. 커밋·푸시·PR 없이 같은 브랜치에서 검토를 기다린다.
+
+## 수동 확인 기록 (#71, 2026-11-10)
+
+- PostHog 서버 대신 로컬 시험 서버(127.0.0.1:3999)를 `NEXT_PUBLIC_POSTHOG_HOST`로 두고 개발 서버를 실행해 보낸 요청을 확인했다. Supabase는 가짜 주소라 메인은 500이고 FAQ 목록은 오류 안내가 보였으며, 이는 이번 변경과 무관하다.
+- 화면 조회(`$pageview`)는 `/ko`, `/ko/faq`, `/ko/contact`로 직접 들어갈 때와 메뉴로 `/ko/company`로 이동할 때 각각 1건씩 들어왔다. 요청 본문에 `$ip`와 `$geoip`가 없고 쿠키 없는 모드 표시가 있다.
+- 쿠키, Local Storage, Session Storage에 PostHog 값이 생기지 않았다. `/admin`을 열어도 요청이 가지 않았다.
+- 기능 플래그 요청(`/flags/`)은 `advanced_disable_flags`로 껐고, 끈 뒤 화면 하나당 요청은 1건이다.
+- 토큰이 없을 때는 PostHog가 시작되지 않고 `track()`은 아무것도 하지 않는다.
+- `purchase_click`·`inquiry_submit`·`faq_open`은 가짜 DB·Turnstile 때문에 화면에서 직접 일으키지 못해 실제 발송은 확인하지 못했다. 코드와 타입 검사만 확인했으며 배포 후 PostHog의 Live events에서 확인한다.
+- `npm test` 108개 통과, `format:check`·`lint`(기존 경고 1개)·`build` 통과. `secretlint`는 로컬 `.env.local`을 검사 대상으로 잡아 실패하며 저장소 파일에서는 나오지 않는다.
