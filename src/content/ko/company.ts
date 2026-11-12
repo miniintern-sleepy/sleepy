@@ -22,11 +22,14 @@ export const companyCopy = {
     ],
     quote:
       "“우리 아이들이 잠들기 전, 간편하게 사용할 수 있는 귀마개를 만들 수 없을까?”",
+    // 대표 이력을 확인할 수 있는 외부 페이지(2026-11-12 대표님 메일). href가 비면 링크를 숨긴다.
+    links: [
+      { label: "서울대병원 교수 소개", href: "" },
+      { label: "서울대 의대 연구자 정보", href: "" },
+    ],
   },
   beliefs: {
     title: "슬리피가 믿는 것",
-    // 카드를 누르거나 마우스를 올리면 뒤집혀 설명이 나온다.
-    hint: "눌러서 보기",
     items: [
       {
         title: "약 없이",
@@ -51,15 +54,31 @@ export const companyCopy = {
     description:
       "양쪽 귀에 서로 다른 주파수의 음향을 전달하면,\n뇌가 두 주파수 차이를 박동감으로 인지하게 됩니다.",
     link: "기술 자세히 보기",
+    // 유튜브 영상은 쿠키 때문에 화면 안에서 재생하지 않고 새 창으로 연다(#77). href가 비면 링크를 숨긴다.
+    videos: [
+      // 18분 14초부터 대표 발표가 시작되도록 메일의 시작 시각을 그대로 둔다.
+      {
+        label: "강의 영상 보기",
+        href: "https://www.youtube.com/watch?v=iuWn5CnKjQ0&t=1094s",
+      },
+      {
+        label: "IR 영상 보기",
+        href: "https://www.youtube.com/watch?v=hVidH-v1SwM",
+      },
+    ],
   },
   history: {
     title: "슬리피의 걸음",
+    // 오래된 것부터 날짜순으로 둔다(2026-11-12 대표님 메일).
     items: [
-      { date: "2026", text: "일본 크라우드펀딩 오픈" },
-      { date: "2026", text: "MWC 2026 출전" },
-      { date: "2026", text: "글로벌 크라우드펀딩 런칭" },
-      { date: "20XX", text: "미국 법인 설립" },
-      { date: "2024", text: "슬리피 창업" },
+      { date: "2024.04", text: "슬리피 창업" },
+      { date: "2025.07", text: "미국 법인 설립" },
+      { date: "2026.01", text: "삼성 C-Lab Outside 선정" },
+      { date: "2026.02", text: "킥스타터 크라우드 펀딩" },
+      { date: "2026.03", text: "MWC 2026 출전" },
+      { date: "2026.06", text: "Interop Tokyo 2026 출전" },
+      { date: "2026.10", text: "마쿠아케 크라우드 펀딩" },
+      { date: "2026.12", text: "슬리비 공식 론칭(예정)" },
     ],
   },
   contact: {
