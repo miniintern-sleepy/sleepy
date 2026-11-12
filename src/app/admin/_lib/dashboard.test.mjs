@@ -183,11 +183,11 @@ test("DSH-002 새 문의·새 문의의 실패·공개 FAQ·공개 뉴스만 정
     counts.every((q) => q.options.count === "exact" && q.columns === "id"),
   );
 });
-test("DSH-003 처리할 문의는 실패 먼저·각 최신순 최대 다섯 건이며 필요한 열만 읽는다", async () => {
+test("DSH-003 처리할 문의는 실패 먼저·각 최신순 최대 아홉 건이며 필요한 열만 읽는다", async () => {
   const { data } = await readAdminDashboard();
   assert.deepEqual(
     data.inquiries.data.map((x) => x.id),
-    ["3", "1", "2", "4", "5"],
+    ["3", "1", "2", "4", "5", "6"],
   );
   const lists = scenario.queries.filter(
     (q) => q.table === "inquiries" && !q.options?.head,
@@ -196,7 +196,7 @@ test("DSH-003 처리할 문의는 실패 먼저·각 최신순 최대 다섯 건
   assert.ok(
     lists.every(
       (q) =>
-        q.max === 5 &&
+        q.max === 9 &&
         q.filters.some(([k, v]) => k === "status" && v === "new"),
     ),
   );
@@ -216,12 +216,12 @@ test("DSH-003 처리할 문의는 실패 먼저·각 최신순 최대 다섯 건
     ),
   );
   scenario.data.inquiries = [
-    ...Array.from({ length: 6 }, (_, i) => inquiry(i + 10, i + 1, "failed")),
+    ...Array.from({ length: 12 }, (_, i) => inquiry(i + 10, i + 1, "failed")),
     inquiry(30, 8),
   ];
   assert.deepEqual(
     (await readAdminDashboard()).data.inquiries.data.map((row) => row.id),
-    ["15", "14", "13", "12", "11"],
+    ["21", "20", "19", "18", "17", "16", "15", "14", "13"],
   );
 });
 test("DSH-004 빈 문의는 빈 목록이며 HTTPS 구매 주소만 활성 상태로 읽는다", async () => {
@@ -302,4 +302,22 @@ test("DSH-011 같은 렌더 요청의 메뉴·본문은 새 문의 집계 한 �
     scenario.started.filter((key) => key === "inquiries:count:new").length,
     2,
   );
+});
+
+test("DSH-017 두 쿼리는 각각 아홉 건을 제한하고 실패 우선으로 합친 아홉 건만 반환한다", async () => {
+  scenario.data.inquiries = [
+    ...Array.from({ length: 3 }, (_, i) => inquiry(i + 100, i + 1, "failed")),
+    ...Array.from({ length: 12 }, (_, i) => inquiry(i + 200, i + 1)),
+  ];
+  const { data } = await readAdminDashboard();
+  assert.equal(data.newInquiries.data, 15);
+  assert.deepEqual(
+    data.inquiries.data.map((row) => row.id),
+    ["102", "101", "100", "211", "210", "209", "208", "207", "206"],
+  );
+  const lists = scenario.queries.filter(
+    (q) => q.table === "inquiries" && !q.options?.head,
+  );
+  assert.equal(lists.length, 2);
+  assert.ok(lists.every((q) => q.max === 9 && !q.columns.includes("message")));
 });

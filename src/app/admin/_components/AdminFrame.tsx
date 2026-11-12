@@ -18,7 +18,7 @@ async function InquiryCount({
       {count.data}
     </span>
   ) : (
-    <span className="text-meta text-error-ink">집계 실패</span>
+    <span className="admin-nav-count text-meta">집계 실패</span>
   );
 }
 

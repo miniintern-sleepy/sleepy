@@ -2,6 +2,8 @@
 
 import { useActionState } from "react";
 
+import AdminIcon from "./AdminIcon";
+
 import { logout } from "../actions";
 
 export default function LogoutForm({ menu = false }: { menu?: boolean }) {
@@ -22,6 +24,7 @@ export default function LogoutForm({ menu = false }: { menu?: boolean }) {
             : "admin-button admin-button-secondary"
         }
       >
+        {menu && <AdminIcon name="logout" />}
         {pending ? "로그아웃 중…" : "로그아웃"}
       </button>
       <p

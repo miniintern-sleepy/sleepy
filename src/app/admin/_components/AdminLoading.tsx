@@ -17,7 +17,6 @@ export default function AdminLoading({
           <div className="admin-placeholder admin-placeholder-login" />
         ) : variant === "dashboard" ? (
           <>
-            <div className="admin-placeholder admin-placeholder-summary" />
             <div className="admin-dashboard-metrics admin-placeholder-metrics">
               {[0, 1, 2, 3].map((key) => (
                 <div key={key} className="admin-placeholder" />
