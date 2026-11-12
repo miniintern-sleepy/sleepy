@@ -90,6 +90,8 @@ NEWS-001~004는 코드 예시·고정 공지 제거에 따라 삭제했다. 번�
 | NEWS-008 | `src/lib/news.test.mjs`                                  | HTTPS 원문과 안전한 썸네일 주소를 허용하고 주소 누락에는 링크를 만들지 않는다 | https·주소 누락·다른 프로토콜·인증정보·로컬/외부 이미지 | 유효한 https 원문, 로컬 또는 https 이미지 허용   | #54  |
 | NEWS-010 | `src/app/[lang]/newsroom/_components/load-news.test.mjs` | DB가 비면 예시·고정 공지를 넣지 않고 조회 장애를 숨기지 않는다                | 가짜 DB 0건·기존 행·조회 예외                           | DB 결과 그대로 반환, 오류 전파                   | #54  |
 | NEWS-011 | `src/app/[lang]/_components/LatestNewsSection.test.mjs`  | 공개 기사 0건이면 메인 소식 구간 전체를 숨기고 최신 두 건만 표시한다          | 가짜 DB 0건·3건을 서버 렌더링                           | 0건 null, 3건 중 앞 2건만 표시                   | #54  |
+| NEWS-012 | `src/app/[lang]/newsroom/_components/news-view.test.mjs` | 기사가 있는 연도를 최신순으로 고르고 고른 연도의 기사만 남긴다                | 여러 연도·0건·전체·없는 연도                            | 중복 없는 최신순 연도, 그 해 기사만              | D-53 |
+| NEWS-013 | `src/app/[lang]/newsroom/_components/news-view.test.mjs` | 검색어나 연도로 좁혔으면 검색 결과 없음, 아니면 분류별 글 없음 문구를 고른다  | 검색어·연도·공백 검색어·분류 4종                        | 좁힌 경우 검색 결과 없음, 분류별 조사 맞춤 문구  | D-53 |
 
 ## FAQ 검색 (`FAQ`)
 

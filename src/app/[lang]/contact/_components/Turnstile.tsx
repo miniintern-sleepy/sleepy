@@ -9,7 +9,7 @@ type TurnstileApi = {
     options: {
       sitekey: string;
       action: string;
-      size: "compact";
+      size: "flexible";
       theme: "light";
       callback: (token: string) => void;
       "response-field": boolean;
@@ -28,9 +28,11 @@ declare global {
 
 export default function Turnstile({
   siteKey,
+  email,
   onToken,
 }: {
   siteKey: string;
+  email: string;
   onToken: (token: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -44,7 +46,8 @@ export default function Turnstile({
     const id = api.render(ref.current, {
       sitekey: siteKey,
       action: "contact",
-      size: "compact",
+      // 가로형(높이 65px)으로 두어 동의 체크와 보내기 버튼 사이가 비어 보이지 않게 한다(#77).
+      size: "flexible",
       theme: "light",
       "response-field": false,
       callback: (token) => {
@@ -75,9 +78,9 @@ export default function Turnstile({
         aria-label="스팸 방지를 위한 보안 확인"
       />
       {failed && (
-        <p role="alert" className="text-helper text-ink">
-          보안 확인을 불러오지 못했습니다. 새로고침 후 다시 시도하거나 이메일로
-          문의해 주세요.
+        <p role="alert" className="contact-notice text-helper">
+          보안 확인을 불러오지 못했습니다. 새로고침 후 다시 시도하거나{" "}
+          <a href={`mailto:${email}`}>{email}</a>으로 문의해 주세요.
         </p>
       )}
     </>
