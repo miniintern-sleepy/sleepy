@@ -8,7 +8,6 @@ export type DashboardInquiry = {
   id: string;
   name: string;
   type: "product" | "general";
-  message: string;
   created_at: string;
   reply_status: "sending" | "failed" | "sent" | null;
 };
@@ -50,7 +49,7 @@ export async function readAdminDashboard() {
   const access = await requireAdmin();
   if (!access.ok) return access;
   const { client } = access;
-  const columns = "id, name, type, message, created_at, reply_status";
+  const columns = "id, name, type, created_at, reply_status";
   const recent = () =>
     client.from("inquiries").select(columns).eq("status", "new");
   // 상태 문자열 정렬은 실패 이외 문의의 최신순을 깨뜨리므로 상한이 있는 두 결과를 합친다(#57)
@@ -88,7 +87,7 @@ export async function readAdminDashboard() {
         .eq("reply_status", "failed")
         .order("created_at", { ascending: false })
         .order("id", { ascending: false })
-        .limit(5)
+        .limit(9)
         .returns<DashboardInquiry[]>(),
     ),
     dataResult(() =>
@@ -96,7 +95,7 @@ export async function readAdminDashboard() {
         .or("reply_status.is.null,reply_status.neq.failed")
         .order("created_at", { ascending: false })
         .order("id", { ascending: false })
-        .limit(5)
+        .limit(9)
         .returns<DashboardInquiry[]>(),
     ),
     dataResult(() =>
@@ -109,7 +108,7 @@ export async function readAdminDashboard() {
   ]);
   const inquiries: DashboardResult<DashboardInquiry[]> =
     failed.ok && failed.data && other.ok && other.data
-      ? { ok: true, data: [...failed.data, ...other.data].slice(0, 5) }
+      ? { ok: true, data: [...failed.data, ...other.data].slice(0, 9) }
       : { ok: false };
   const purchaseUrl: DashboardResult<string | null> = settings.ok
     ? {

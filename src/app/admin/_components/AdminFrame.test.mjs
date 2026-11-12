@@ -24,8 +24,8 @@ const stubs = {
     "export async function requireAdmin(){return globalThis.__frame57.access}",
   "../inquiries/_lib/queries":
     "export function readNewInquiryCount(){const s=globalThis.__frame57;s.countReads++;return s.countPromise??Promise.resolve({ok:true,data:2})}",
-  "./AdminNav":
-    "import{createElement as h}from'react';export default function Nav(){return h('nav',{'aria-label':'관리 메뉴'},'대시보드')}",
+  "next/navigation":
+    "export function usePathname(){return globalThis.__frame57.path??'/admin'}",
   "next/link":
     "import{createElement as h}from'react';export default function Link({children,...props}){return h('a',props,children)}",
 };
@@ -50,6 +50,9 @@ const hook = registerHooks({
         "../_components/form-ui",
         "./form-ui",
         "./FormHeading",
+        "./AdminNav",
+        "./LogoutForm",
+        "./AdminIcon",
       ].includes(specifier)
     )
       return next(new URL(`${specifier}.tsx`, context.parentURL).href, context);
@@ -112,7 +115,9 @@ test("DSH-007 로그인 전·권한 없음·인증 장애에는 메뉴와 계정
     );
     assert.ok(html.includes("인증 안내"));
     assert.ok(
-      !html.includes("관리 메뉴") && !html.includes("admin@example.test"),
+      !html.includes("관리 메뉴") &&
+        !html.includes("admin-topbar") &&
+        !html.includes("admin@example.test"),
     );
     assert.equal(globalThis.__frame57.countReads, 0);
   }
@@ -133,7 +138,7 @@ test(
     );
   },
 );
-test("DSH-009 실패 문의가 있을 때만 강조하고 전체 이름·유형·한국 날짜·요약·바로 가기를 표시한다", () => {
+test("DSH-009 실패 문의가 있을 때만 강조하고 전체 이름·유형·한국 날짜·상태·바로 가기를 표시한다", () => {
   const d = data();
   d.newInquiries.data = 1;
   d.failedReplies.data = 1;
@@ -153,19 +158,18 @@ test("DSH-009 실패 문의가 있을 때만 강조하고 전체 이름·유형�
     "&lt;전체 이름 &amp; 특수문자&gt;",
     "제품 문의",
     "2026.11.08",
-    "&lt;한 줄 요약&gt;",
     "/admin/inquiries/test-id",
     "/admin/faq#faq-form-title",
     "/admin/newsroom#news-form-title",
   ])
     assert.ok(html.includes(text), text);
-  assert.ok(!html.includes("animate-"));
+  assert.ok(!html.includes("animate-") && !html.includes("한 줄 요약"));
 });
 test("DSH-010 실패 0건은 강조하지 않고 빈 문의·개별 집계 실패·구매 상태를 구분한다", () => {
   const d = data();
   let html = renderToStaticMarkup(createElement(Dashboard, { data: d }));
   assert.ok(!html.includes('data-alert="true"'));
-  assert.ok(html.includes("처리할 새 문의가 없습니다."));
+  assert.ok(!html.includes("처리할 새 문의가 없습니다."));
   assert.ok(!html.includes("0건을 확인해 주세요."));
   assert.ok(
     html.includes("처리할 문의가 없습니다.") && html.includes("출시 예정"),
@@ -179,11 +183,11 @@ test("DSH-010 실패 0건은 강조하지 않고 빈 문의·개별 집계 실�
       html.includes("16") &&
       html.includes("처리할 문의가 없습니다."),
   );
-  assert.ok(html.includes("구매 상태를 불러오지 못했습니다."));
+  assert.ok(html.includes("상태 확인 실패"));
   d.purchaseUrl = { ok: true, data: "https://example.test/shop" };
   assert.ok(
     renderToStaticMarkup(createElement(Dashboard, { data: d })).includes(
-      "구매 링크 표시 중",
+      "링크 표시 중",
     ),
   );
 });
@@ -296,4 +300,109 @@ test("DSH-016 늦게 나타난 폼 제목은 현재 해시가 일치할 때만 �
   heading.props.ref(node);
   heading.props.ref(null);
   assert.equal(calls.length, 1);
+});
+
+test("DSH-018 새 문의가 열 건이면 외 한 건, 아홉 건 이하면 생략하고 집계 실패는 전체 보기만 표시한다", () => {
+  const d = data();
+  d.newInquiries = { ok: true, data: 10 };
+  let html = renderToStaticMarkup(createElement(Dashboard, { data: d }));
+  assert.match(html, /외 1건 더 있음 · 전체 보기/);
+  assert.match(html, /href="\/admin\/inquiries\?status=new"/);
+  for (const n of [0, 1, 9]) {
+    d.newInquiries = { ok: true, data: n };
+    html = renderToStaticMarkup(createElement(Dashboard, { data: d }));
+    assert.ok(!html.includes("더 있음") && !html.includes("?status=new"));
+  }
+  d.newInquiries = { ok: false };
+  html = renderToStaticMarkup(createElement(Dashboard, { data: d }));
+  assert.match(html, /<a href="\/admin\/inquiries\?status=new">전체 보기<\/a>/);
+  assert.ok(!html.includes("더 있음"));
+});
+
+test("DSH-019 발송 중 문의도 새 문의로 표시하며 문의 본문 미리보기 없이 아홉 행을 렌더링한다", () => {
+  const d = data();
+  d.newInquiries = { ok: true, data: 9 };
+  d.inquiries = {
+    ok: true,
+    data: Array.from({ length: 9 }, (_, i) => ({
+      id: String(i + 1),
+      name: "시험 이름 " + i,
+      type: "general",
+      created_at: "2026-11-10T16:00:00Z",
+      reply_status: "sending",
+      message: "보이면 안 되는 본문",
+    })),
+  };
+  const html = renderToStaticMarkup(createElement(Dashboard, { data: d }));
+  const tbody = html.match(/<tbody[^>]*>([\s\S]*?)<\/tbody>/)[1];
+  assert.equal((tbody.match(/data-inquiry-row/g) || []).length, 9);
+  assert.equal((tbody.match(/data-state="new"/g) || []).length, 9);
+  assert.ok(tbody.includes("새 문의") && tbody.includes("2026.11.11"));
+  assert.ok(
+    !html.includes("보이면 안 되는 본문") && !tbody.includes("발송 중"),
+  );
+  assert.match(html, /<th[^>]*scope="col"[^>]*>이름<\/th>/);
+  assert.match(html, /<caption[^>]*>처리할 문의/);
+  assert.match(tbody, /admin-inquiry-link text-helper font-ui-medium/);
+  assert.match(tbody, /admin-inquiry-date text-helper/);
+  assert.match(tbody, /admin-inquiry-state text-helper/);
+  assert.ok(
+    !tbody.includes("text-meta") && !tbody.includes("text-study-title"),
+  );
+});
+
+test("DSH-020 머리줄은 부모 메뉴 제목과 로그인 이메일을 표시하고 인증 실패에서는 메뉴와 함께 없다", async () => {
+  globalThis.__frame57.path = "/admin/inquiries/9";
+  let html = renderToStaticMarkup(
+    await AdminFrame({ children: createElement("p", null, "본문") }),
+  );
+  const header = html.match(
+    /<header class="admin-topbar">([\s\S]*?)<\/header>/,
+  )[1];
+  assert.ok(
+    header.includes("문의") &&
+      header.includes("관리자") &&
+      header.includes("admin@example.test"),
+  );
+  assert.match(html, /aria-current="page"/);
+  assert.match(header, /class="text-form-title font-ui-selected">문의<\/p>/);
+  assert.match(header, /class="admin-account-avatar[^\"]*"[^>]*>관<\/span>/);
+  for (const reason of ["unauthenticated", "forbidden", "server"]) {
+    globalThis.__frame57.access = { ok: false, reason };
+    html = renderToStaticMarkup(
+      await AdminFrame({ children: createElement("p", null, "접근 거부") }),
+    );
+    assert.ok(
+      !html.includes("admin-topbar") &&
+        !html.includes("admin-sidebar") &&
+        !html.includes("admin@example.test"),
+    );
+  }
+});
+
+test("DSH-021 접근 거부로 전환하면 남아 있는 메뉴와 머리줄을 모두 숨기는 규칙을 유지한다", () => {
+  const css = readFileSync(new URL("../admin.css", import.meta.url), "utf8");
+  assert.match(
+    css,
+    /\.admin-dashboard-shell:has\(\[data-admin-access-denied\]\) \.admin-sidebar,\s*\.admin-dashboard-shell:has\(\[data-admin-access-denied\]\) \.admin-topbar\s*\{\s*display:\s*none;/,
+  );
+});
+
+test("DSH-022 숫자는 줄바꿈하지 않고 중간 폭에서는 문의 한 열과 지표 두 열을 사용한다", () => {
+  const css = readFileSync(new URL("../admin.css", import.meta.url), "utf8");
+  const number = css.match(/\.admin-metric-number\s*\{([^}]*)\}/)[1];
+  assert.match(number, /white-space:\s*nowrap/);
+  assert.ok(!number.includes("overflow-wrap"));
+  assert.match(
+    css,
+    /@media \(max-width: 1280px\)\s*\{\s*\.admin-dashboard-columns\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/,
+  );
+  assert.match(
+    css,
+    /@media \(max-width: 1100px\)\s*\{\s*\.admin-dashboard-metrics\s*\{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/,
+  );
+  assert.match(
+    css,
+    /\.admin-dashboard-table td:not\(:first-child\)\s*\{\s*white-space:\s*nowrap/,
+  );
 });
