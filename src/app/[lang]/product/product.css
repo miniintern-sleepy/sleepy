@@ -211,6 +211,12 @@
 .product-kit-copy ul {
   margin-top: 38px;
 }
+.product-kit-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 60px;
+}
 @media (min-width: 768px) {
   .product-moments-heading {
     align-items: end;
@@ -224,6 +230,11 @@
     padding-top: calc(
       var(--text-kit-heading) * var(--text-kit-heading--line-height) + 9px
     );
+  }
+  .product-kit-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 45px;
+    text-align: center;
   }
 }
 @media (max-width: 1279px) {

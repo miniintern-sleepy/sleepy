@@ -1,5 +1,6 @@
 // 제품 · B 정적 시안 원문(#54).
-// 숫자 요약과 전체 사양의 값은 이 파일에 두지 않고 getProductSpecs()로 읽는다.
+// 숫자 4칸은 이 파일, 전체 사양표는 DB에서 읽는다.
+// 사양표 문장은 짧은 숫자 칸에 맞지 않아 분리한다(#79, 2026-11-15 운영 표시 오류).
 export const productCopy = {
   intro: {
     title: "편한 잠듦을 위한\n디지털 귀마개, 슬리비",
@@ -68,5 +69,11 @@ export const productCopy = {
   kit: {
     title: "제품 구성",
     items: ["케이스", "본체", "충전 케이블", "이어팁(S / M / L)", "사용설명서"],
+    metrics: [
+      { label: "귀마개 무게", value: "3 g" },
+      { label: "충전 케이스 무게", value: "26 g" },
+      { label: "소비전력", value: "5V" },
+      { label: "무상 A/S", value: "1년" },
+    ],
   },
 };

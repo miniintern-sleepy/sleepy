@@ -50,7 +50,7 @@ export default async function ProductPage({
       <MomentsSection copy={copy.moments} />
       <AlgorithmSection copy={copy.algorithm} lang={lang} />
       <HowToUseSection copy={copy.howToUse} />
-      <KitSection copy={copy.kit} specs={specs} />
+      <KitSection copy={copy.kit} />
       <SpecsSection specs={specs} />
     </main>
   );
