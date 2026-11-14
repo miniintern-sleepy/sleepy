@@ -25,7 +25,7 @@ export default function DayTriptychSection({
         </figure>
         <div className="home-day-center">
           <h2 className="text-day-heading whitespace-pre-line">{copy.title}</h2>
-          <TextLink href={`/${lang}/company`}>{copy.link}</TextLink>
+          <TextLink href={`/${lang}/technology`}>{copy.link}</TextLink>
         </div>
         <figure>
           <Image

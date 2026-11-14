@@ -1,7 +1,7 @@
-import TextLink from "@/components/ui/TextLink";
+import Link from "next/link";
 import type { getHomeCopy } from "@/lib/content";
 import Image from "next/image";
-import heroWindow from "../../../../public/images/home/hero-window.webp";
+import heroBox from "../../../../public/images/home/hero-box.webp";
 export default function HeroSection({
   copy,
   lang,
@@ -12,7 +12,7 @@ export default function HeroSection({
   return (
     <section className="home-hero">
       <Image
-        src={heroWindow}
+        src={heroBox}
         fill
         alt=""
         sizes="100vw"
@@ -21,18 +21,16 @@ export default function HeroSection({
       />
       <div className="home-hero-copy">
         <h1 className="text-landing-title">
-          {copy.title.split("\n").map((line, index) => (
-            <span key={line}>
-              {index > 0 && (
-                <>
-                  <br />{" "}
-                </>
-              )}
-              {line}
-            </span>
+          {copy.title.split("\n").map((line) => (
+            <span key={line}>{line}</span>
           ))}
         </h1>
-        <TextLink href={`/${lang}/technology`}>{copy.link}</TextLink>
+        <p className="home-hero-description text-copy-large">
+          {copy.description}
+        </p>
+        <Link href={`/${lang}/product`} className="home-hero-button">
+          {copy.link}
+        </Link>
       </div>
     </section>
   );

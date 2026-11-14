@@ -26,11 +26,14 @@ export default function FounderStorySection({
             sizes="(min-width: 1441px) 15.97vw, (max-width:520px) 105px,(max-width:760px) 150px,230px"
           />
           <div>
-            <h2 className="text-founder-name">{company.ceo.name}</h2>
+            <h2 className="text-founder-name">
+              {company.ceo.name}
+              <span className="ml-3 text-meta text-muted">CEO</span>
+            </h2>
             <p className="home-founder-role text-meta text-muted">
-              {company.ceo.role}
+              {copy.role}
             </p>
-            {company.ceo.paragraphs.map((p) => (
+            {copy.paragraphs.map((p) => (
               <p
                 key={p}
                 className="home-founder-description text-copy text-muted"
@@ -45,9 +48,7 @@ export default function FounderStorySection({
             {copy.title}
           </h2>
           <div>
-            <p className="text-helper text-muted">
-              {company.intro.description}
-            </p>
+            <p className="text-helper text-muted">{copy.description}</p>
             <TextLink href={`/${lang}/company`}>{copy.link}</TextLink>
           </div>
         </div>
