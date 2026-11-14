@@ -27,7 +27,7 @@ const hook = registerHooks({
         url:
           "data:text/javascript," +
           encodeURIComponent(
-            "export function useState(){return [globalThis.__product79.active,n=>globalThis.__product79.active=n]} export function useRef(){return {current:globalThis.__product79.track??null}} export function useEffect(effect){globalThis.__product79.effect=effect}",
+            "export function useState(initial){const key=typeof initial==='boolean'?'isMobile':'active';return [globalThis.__product79[key]??initial,n=>globalThis.__product79[key]=n]} export function useRef(){return {current:globalThis.__product79.track??null}} export function useEffect(effect){globalThis.__product79.effect=effect}",
           ),
         shortCircuit: true,
       };
@@ -72,6 +72,7 @@ beforeEach(() => {
     specs: [],
     url: null,
     active: 0,
+    isMobile: false,
   };
 });
 after(() => {
@@ -171,9 +172,19 @@ test("PRD-004 갤러리 미리보기를 선택하면 큰 사진과 선택 버튼
     4,
   );
   assert.ok(!html.includes("priority"));
+  assert.equal((html.match(/loading="eager"/g) ?? []).length, 4);
+  const previews = elements(selected).find(
+    (e) => e.props?.className === "product-gallery-thumbnails",
+  );
+  assert.equal(previews.props.role, "group");
+  assert.equal(previews.props["aria-label"], "제품 사진 선택");
+  for (const image of elements(previews).filter(
+    (e) => e.props?.sizes === "120px",
+  ))
+    assert.equal(image.props.loading, undefined);
 });
 
-test("PRD-005 모바일 위치 점은 사진이 60% 이상 보일 때 바뀌고 관찰을 정리한다", () => {
+test("PRD-005 모바일에서만 사진 줄에 접근성 표시를 붙이고 위치 점 관찰을 정리한다", () => {
   const previous = globalThis.IntersectionObserver;
   const previousWindow = globalThis.window;
   let listener;
@@ -210,8 +221,21 @@ test("PRD-005 모바일 위치 점은 사진이 60% 이상 보일 때 바뀌고 
     }
   };
   try {
-    ProductGallery({ photos: productCopy.features.photos });
+    const renderTrack = () =>
+      elements(ProductGallery({ photos: productCopy.features.photos })).find(
+        (e) => e.props?.className === "product-gallery-track",
+      );
+    const initial = renderTrack();
+    for (const key of ["tabIndex", "role", "aria-label"])
+      assert.equal(initial.props[key], undefined);
     const cleanup = globalThis.__product79.effect();
+    const mounted = renderTrack();
+    assert.equal(mounted.props.tabIndex, 0);
+    assert.equal(mounted.props.role, "group");
+    assert.equal(
+      mounted.props["aria-label"],
+      "제품 사진, 좌우로 넘겨 볼 수 있습니다",
+    );
     assert.equal(options.root, track);
     assert.equal(options.threshold, 0.6);
     assert.equal(observed.length, 4);
@@ -233,6 +257,9 @@ test("PRD-005 모바일 위치 점은 사진이 60% 이상 보일 때 바뀌고 
     assert.equal(globalThis.__product79.active, 1);
     mobile.matches = false;
     listener();
+    const desktop = renderTrack();
+    for (const key of ["tabIndex", "role", "aria-label"])
+      assert.equal(desktop.props[key], undefined);
     callback([
       { isIntersecting: true, intersectionRatio: 1, target: track.children[3] },
     ]);
@@ -254,4 +281,15 @@ test("PRD-005 모바일 위치 점은 사진이 60% 이상 보일 때 바뀌고 
     if (previousWindow === undefined) delete globalThis.window;
     else globalThis.window = previousWindow;
   }
+});
+
+test("PRD-006 사용 방법 안내 제목은 문구의 줄바꿈을 유지한다", async () => {
+  const html = renderToStaticMarkup(await page());
+  const title = productCopy.howToUse.notes[0].title;
+  assert.ok(title.includes("\n"));
+  assert.ok(
+    html.includes(
+      `<h3 class="text-guide-heading whitespace-pre-line">${title}</h3>`,
+    ),
+  );
 });

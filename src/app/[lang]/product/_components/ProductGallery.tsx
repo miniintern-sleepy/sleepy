@@ -10,6 +10,7 @@ export default function ProductGallery({
   photos: ProductCopy["features"]["photos"];
 }) {
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export default function ProductGallery({
       { root: track, threshold: 0.6 },
     );
     const observeMobile = () => {
+      setIsMobile(mobile.matches);
       observer.disconnect();
       if (mobile.matches) {
         for (const slide of track.children) observer.observe(slide);
@@ -46,9 +48,11 @@ export default function ProductGallery({
       <div
         ref={trackRef}
         className="product-gallery-track"
-        tabIndex={0}
-        role="group"
-        aria-label="제품 사진, 좌우로 넘겨 볼 수 있습니다"
+        tabIndex={isMobile ? 0 : undefined}
+        role={isMobile ? "group" : undefined}
+        aria-label={
+          isMobile ? "제품 사진, 좌우로 넘겨 볼 수 있습니다" : undefined
+        }
       >
         {photos.map((photo, index) => (
           <div
@@ -62,11 +66,16 @@ export default function ProductGallery({
               alt={photo.alt}
               fill
               sizes="(max-width:767px) 100vw, 480px"
+              loading="eager"
             />
           </div>
         ))}
       </div>
-      <div className="product-gallery-thumbnails" aria-label="제품 사진 선택">
+      <div
+        className="product-gallery-thumbnails"
+        role="group"
+        aria-label="제품 사진 선택"
+      >
         {photos.map((photo, index) => (
           <button
             key={photo.src}
