@@ -211,6 +211,21 @@
 .product-kit-copy ul {
   margin-top: 38px;
 }
+@media (min-width: 768px) {
+  .product-moments-heading {
+    align-items: end;
+  }
+  .product-moments-photos figcaption,
+  .product-kit-copy h2 {
+    text-align: center;
+  }
+  .product-kit-media {
+    /* 제목 높이에 맞춰 사진을 내려 1440px 시안의 제목 위끝과 43px 차이를 유지한다(#79). */
+    padding-top: calc(
+      var(--text-kit-heading) * var(--text-kit-heading--line-height) + 9px
+    );
+  }
+}
 @media (max-width: 1279px) {
   .product-orbits {
     transform: translate(-50%, -50%) scale(0.51);
@@ -223,10 +238,6 @@
 }
 
 @media (max-width: 1023px) {
-  .product-moments-heading {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
   .product-algorithm-inner {
     min-height: 0;
   }
@@ -289,6 +300,10 @@
   }
   .product-gallery-dots [data-active="true"] {
     background: var(--color-violet-strong);
+  }
+  .product-moments-heading {
+    grid-template-columns: 1fr;
+    gap: 25px;
   }
   .product-moments-photos,
   .product-guide-steps,
