@@ -8,63 +8,61 @@
   align-items: center;
   text-align: left;
   overflow: clip;
-  height: clamp(640px, 100svh, 900px);
-  margin-top: calc((var(--header-height) + 1px) * -1);
-  color: var(--color-paper);
+  height: calc(clamp(640px, 100svh, 900px) - var(--header-height));
+  color: var(--color-ink);
 }
 .home-hero > img {
   z-index: -1;
   object-fit: cover;
-  object-position: center 58%;
-}
-.home-hero::before,
-.home-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.home-hero::before {
-  background: linear-gradient(
-    to right,
-    color-mix(in srgb, var(--color-ink) 76%, transparent) 20%,
-    transparent 62%
-  );
-}
-.home-hero::after {
-  background: linear-gradient(
-    to bottom,
-    color-mix(in srgb, var(--color-ink) 86%, transparent),
-    transparent 30%
-  );
+  object-position: center;
 }
 .home-hero-copy {
   position: relative;
-  z-index: 1;
-  margin-left: var(--layout-page-side);
+  align-self: flex-start;
+  margin: 166px max(var(--layout-gutter), calc((100% - 1200px) / 2)) 0;
 }
-.home-hero .public-text-link,
-.home-hero .public-text-link:hover {
-  margin-top: 24px;
-  font-size: var(--text-compact-link);
-  color: var(--color-paper);
+.home-hero h1 span {
+  display: block;
 }
-.home-hero :focus-visible {
-  outline-color: var(--color-paper);
+.home-hero h1 span + span {
+  margin-top: 8px;
 }
-/* zoom 안의 svh는 재확대되므로 body에서 확정한 창 높이를 배율로 나눈다(#68).
- * 2026-11-10 Chromium 시험: 1440×900·1470×836·1728×997·1920×960·2560×1440·3440×1300에서 틈이 0.34px 이하였다.
+.home-hero-description {
+  margin-top: 22px;
+  color: var(--color-home-hero-description);
+  line-height: var(--text-page-hero-description--line-height);
+}
+.home-hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin-top: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--color-violet);
+  color: var(--color-white);
+  font-size: var(--text-ui-input);
+  font-weight: var(--font-weight-ui-medium);
+  line-height: var(--text-text-link--line-height);
+}
+.home-hero-button:hover {
+  background: var(--color-violet-strong);
+}
+/* 사진이 머리말 아래에 오므로 #68의 전체 창 높이에서 머리말 높이를 뺀다.
+ * zoom 안 화면 단위 대신 body에서 확정한 창 높이를 같은 배율로 나눈다(D-49).
  * 주의: public.css의 zoom 식을 바꾸면 아래 나누는 식도 함께 바꿔야 한다.
  */
 @supports (zoom: min(1.7778, tan(atan2(100vw, 1440px)))) {
   @media (min-width: 1441px) {
     .home-hero {
-      height: clamp(
-        640px,
-        calc(
-          var(--public-vh) / min(1.7778, tan(atan2(var(--public-vw), 1440px)))
-        ),
-        900px
+      height: calc(
+        clamp(
+            640px,
+            var(--public-vh) / min(1.7778, tan(atan2(var(--public-vw), 1440px))),
+            900px
+          ) -
+          var(--header-height)
       );
     }
   }
@@ -164,7 +162,7 @@
 }
 .home-product,
 .home-latest {
-  background: var(--color-panel);
+  background: var(--color-paper);
 }
 .home-product-grid {
   display: grid;
@@ -204,6 +202,19 @@
   line-height: var(--text-latest-title--line-height);
   font-weight: var(--text-latest-title--font-weight);
 }
+@media (min-width: 761px) {
+  .home-everyday h2 {
+    position: relative;
+    left: 51px;
+  }
+  .home-days figcaption {
+    text-align: center;
+  }
+  .home-founder-context > div {
+    position: relative;
+    top: 18px;
+  }
+}
 @media (max-width: 1200px) {
   .home-product-grid {
     gap: 45px;
@@ -221,7 +232,6 @@
   }
   .home-hero {
     height: clamp(560px, 100dvh, calc(640px + var(--header-height-small)));
-    margin-top: calc((var(--header-height-small) + 1px) * -1);
     align-items: flex-start;
   }
   .home-hero-copy {
@@ -230,12 +240,8 @@
   .home-hero > img {
     object-position: 42% center;
   }
-  .home-hero::before {
-    background: linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--color-ink) 78%, transparent) 30%,
-      transparent 72%
-    );
+  .home-hero h1 span + span {
+    margin-top: 0;
   }
   .home-everyday {
     padding-block: 75px;

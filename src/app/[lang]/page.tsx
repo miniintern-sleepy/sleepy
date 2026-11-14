@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import ContactBanner from "@/components/ui/ContactBanner";
 import {
   getHomeCopy,
   getCompanyCopy,
@@ -15,7 +14,7 @@ import ProductStageSection from "./_components/ProductStageSection";
 import LatestNewsSection from "./_components/LatestNewsSection";
 import "./home.css";
 export const metadata: Metadata = {
-  title: { absolute: "슬리피 | 잠의 과학을, 생활의 언어로." },
+  title: { absolute: "Sleepy" },
   description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 메인",
 };
 export default async function HomePage({ params }: PageProps<"/[lang]">) {
@@ -41,7 +40,6 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <Suspense fallback={null}>
         <LatestNewsSection lang={lang} />
       </Suspense>
-      <ContactBanner lang={lang} copy={company.contact} />
     </main>
   );
 }

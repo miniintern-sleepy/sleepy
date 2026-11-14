@@ -7,7 +7,7 @@
 - A는 이 저장소의 `ff04e9235ce1c6d90f9b2a4dda4927b589f51cf9` 화면이다.
 - B는 [정적 시안 670d9a3](https://github.com/kohyunseok518/sleepy/tree/670d9a3cc0ece144dcae6ece24d9be83a7b7a4a5)의 `docs/DESIGN.md`, `public/*.html`, `public/styles/`, `public/scripts/waves.js`, 실제 참조 자산이다. archive는 기준에서 제외한다.
 - B CSS는 HTML의 import 순서·선택자 우선순위·반응형 최종 규칙으로 판단한다. foundation의 초기 값보다 theme·dimension·페이지 선택자의 최종 활성 값이 우선한다.
-- 메인은 B 본문 배치·문구를 따르되 첫 히어로는 #68의 전면 사진·메인 주소 전용 투명 헤더를 쓴다(D-50). 회사·기술·제품·뉴스룸·FAQ·문의의 히어로는 #60·#61의 PageHero를 따른다. 그 아래 회사 본문은 A 구간 순서·배치, 나머지 공개 본문은 B 배치·문구를 유지한다.
+- 메인은 B 본문 배치·문구를 따르되 첫 히어로는 #81의 상자 사진·일반 머리말 아래 배치를 쓴다. #68의 투명 헤더(D-50)는 더 사용하지 않는다. 회사·기술·제품·뉴스룸·FAQ·문의의 히어로는 #60·#61의 PageHero를 따른다. 그 아래 회사 본문은 A 구간 순서·배치, 나머지 공개 본문은 B 배치·문구를 유지한다.
 - 공개 헤더·푸터는 B이며 모션 끄기 버튼과 A의 SNS 장식은 넣지 않는다. 모바일 현재 메뉴는 진한 보라·선택 굵기로 구분하고, 푸터 일반/제휴 문의는 유형 쿼리 없이 해당 언어의 contact로 연결한다. 관리자에는 공개 헤더·푸터를 넣지 않는다.
 - 기존 A 색·글자 토큰·하위 변수·별칭은 모두 제거한다. 화면에서는 새 토큰을 사용하며 색 리터럴·임의 글자 값을 쓰지 않는다. 기본 Tailwind 색·글자 크기는 계속 비활성화한다.
 - 피그마는 이번 작업 범위가 아니다. 디자인을 바꿀 때 코드와 이 문서를 함께 고친다.
@@ -113,11 +113,12 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 
 ### 색·효과
 
-| 새 이름                  | 값                                                                                 | B의 근거 / 용도       |
-| ------------------------ | ---------------------------------------------------------------------------------- | --------------------- |
-| `--gradient-science`     | `linear-gradient(90deg, panel, color-mix(in srgb, violet 42%, panel) 45%, violet)` | B 기술 상태 스펙트럼  |
-| `--color-wave-back`      | `color-mix(in srgb, violet 18%, panel)`                                            | B 기술 막대의 옅은 층 |
-| `--color-algorithm-glow` | `color-mix(in srgb, violet 20%, transparent)`                                      | B 제품 알고리즘 장식  |
+| 새 이름                         | 값                                                                                 | B의 근거 / 용도                                  |
+| ------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------ |
+| `--gradient-science`            | `linear-gradient(90deg, panel, color-mix(in srgb, violet 42%, panel) 45%, violet)` | B 기술 상태 스펙트럼                             |
+| `--color-wave-back`             | `color-mix(in srgb, violet 18%, panel)`                                            | B 기술 막대의 옅은 층                            |
+| `--color-algorithm-glow`        | `color-mix(in srgb, violet 20%, transparent)`                                      | B 제품 알고리즘 장식                             |
+| `--color-home-hero-description` | `#3f3850`                                                                          | #81 회색 사진 벽 위 설명, muted보다 진한 승인 색 |
 
 기술 gradient-science는 B components.css, wave-back·algorithm-glow는 details.css에서 온다. 표의 panel/violet는 같은 이름의 색 변수를 뜻한다. #61에서 회사 사진 덮개·제품 히어로 전용 색과 그림자는 사용처가 없어 제거했다.
 
@@ -130,42 +131,42 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 
 ### 활자
 
-| 새 이름            | 값·반응형                                                              | B 근거 / 대상                              |
-| ------------------ | ---------------------------------------------------------------------- | ------------------------------------------ |
-| `landing-title`    | `clamp(52px,5.6vw,80px) / 420 / 1.22 / -.065em`; S 45px·1.25, XXS 41px | 메인 hero (`home.css`, `dimension.css`)    |
-| `story-heading`    | `43px / 450 / 1.5 / -.045em`; S 38px, XS 34px                          | 메인 생활 이야기                           |
-| `day-heading`      | `33px / 450 / 1.6 / -.045em`; S 35px                                   | 메인 세 장면 제목 (`dimension.css`)        |
-| `founder-quote`    | `clamp(28px,3.5vw,50px) / 400 / 1.7 / -.052em`; XS 27px·1.75           | 메인 대표 인용문                           |
-| `founder-name`     | `28px / 450 / 1.5 / -.045em`; S 25px, XS 23px                          | 메인 대표 이름                             |
-| `context-heading`  | `22px / 450 / 1.65 / -.045em`                                          | 메인 연구 소개                             |
-| `stage-heading`    | `38px / 450 / 1.5 / -.045em`; S 34px, XS 32px                          | 메인 제품 소개                             |
-| `latest-heading`   | `38px / 450 / 1.5 / -.045em`; S 31px                                   | 메인 소식 구간                             |
-| `latest-title`     | `20px / 500 / 1.55 / -.045em`; S 17px                                  | 메인 뉴스 항목                             |
-| `science-subtitle` | `24px / 400 / 1.9`; S 20px, XS 18px                                    | 회사 본문 보조 활자                        |
-| `science-intro`    | `20px / 400 / 1.9`; L 18px, S 16px, XS 15px                            | 회사 본문 설명                             |
-| `device-word`      | `18px / 400 / 1.9`; S 16px                                             | 기술 Sleeby                                |
-| `science-note`     | `13px / 400 / 1.8`; S 12px                                             | 기술 각주                                  |
-| `metric-label`     | `18px / 500 / 1.5`; S 14px                                             | 기술 임상 지표 이름                        |
-| `research-heading` | `30px / 450 / 1.65 / -.045em`; L 26px, S 26px, XS 24px                 | 기술 연구 제목                             |
-| `metric-number`    | `64px / 450 / 1.3 / -.04em`; L 54px, S 50px, XS 45px                   | 기술 임상 수치                             |
-| `study-title`      | `17px / 400 / 1.7`; S 15px, XS 14px                                    | 연구 목록                                  |
-| `study-state`      | `15px / 400 / normal`; S 13px                                          | 연구·등록 상태                             |
-| `patent-heading`   | `44px / 450 / 1.4 / -.045em`; L 40px, S 34px, XS 29px                  | 지식재산 제목                              |
-| `patent-number`    | `62px / 450 / 1.3 / -.04em`; S 48px, XS 51px                           | 지식재산 수치. B의 비단조 반응형 값도 유지 |
-| `patent-item`      | `21px / 400 / 1.65`; S 18px, XS 16px                                   | 특허 목록                                  |
-| `patent-key`       | `15px / 400 / normal`; S 13px, XS 14px                                 | 지식재산 항목명                            |
-| `patent-note`      | `12px / 400 / 1.8`; S 11px, XS 12px                                    | 지식재산 각주                              |
-| `feature-heading`  | `32px / 450 / 1.4 / -.045em`; L 27px, M 25px, S 24px, XS 25px          | 제품 특징 소제목                           |
-| `scene-caption`    | `18px / 400 / 1.6`; S 15px, XS 16px                                    | 제품 생활 장면                             |
-| `guide-caption`    | `25px / 400 / 1.55`; M 20px, XS 22px                                   | 제품 사용 순서                             |
-| `guide-heading`    | `22px / 450 / 1.65 / -.045em`; M 19px, S 18px, XS 19px                 | 제품 사용 안내                             |
-| `kit-heading`      | `40px / 450 / 1.35 / -.045em`; M 34px, S 31px                          | 제품 구성 제목                             |
-| `kit-item`         | `20px / 400 / 1.6`; M 17px, XS 18px                                    | 제품 구성품                                |
-| `news-title`       | `21px / 500 / 1.55 / -.045em`; S 16px                                  | 뉴스룸 행 제목                             |
-| `news-meta`        | `12px / 400 / normal / .02em`; XS 11px                                 | 뉴스 날짜·언론사                           |
-| `faq-question`     | `18px / 500 / 1.7`; S 16px                                             | FAQ summary                                |
-| `faq-answer`       | `16px / 400 / 1.9`; S 15px                                             | FAQ 답변                                   |
-| `filter`           | `16px / 400 / normal`; XS 14px                                         | B 뉴스 분류. 선택 시 동일 크기·600 굵기    |
+| 새 이름            | 값·반응형                                                        | B 근거 / 대상                                    |
+| ------------------ | ---------------------------------------------------------------- | ------------------------------------------------ |
+| `landing-title`    | `52px / 500 / 1.28 / -.045em`; S 45px·420·1.25·-.065em, XXS 41px | #81 PC 시안·모바일 기존 값 유지(2026-11-15 승인) |
+| `story-heading`    | `43px / 450 / 1.5 / -.045em`; S 38px, XS 34px                    | 메인 생활 이야기                                 |
+| `day-heading`      | `33px / 450 / 1.6 / -.045em`; S 35px                             | 메인 세 장면 제목 (`dimension.css`)              |
+| `founder-quote`    | `clamp(28px,3.5vw,50px) / 400 / 1.7 / -.052em`; XS 27px·1.75     | 메인 대표 인용문                                 |
+| `founder-name`     | `28px / 450 / 1.5 / -.045em`; S 25px, XS 23px                    | 메인 대표 이름                                   |
+| `context-heading`  | `22px / 450 / 1.65 / -.045em`                                    | 메인 연구 소개                                   |
+| `stage-heading`    | `38px / 450 / 1.5 / -.045em`; S 34px, XS 32px                    | 메인 제품 소개                                   |
+| `latest-heading`   | `38px / 450 / 1.5 / -.045em`; S 31px                             | 메인 소식 구간                                   |
+| `latest-title`     | `20px / 500 / 1.55 / -.045em`; S 17px                            | 메인 뉴스 항목                                   |
+| `science-subtitle` | `24px / 400 / 1.9`; S 20px, XS 18px                              | 회사 본문 보조 활자                              |
+| `science-intro`    | `20px / 400 / 1.9`; L 18px, S 16px, XS 15px                      | 회사 본문 설명                                   |
+| `device-word`      | `18px / 400 / 1.9`; S 16px                                       | 기술 Sleeby                                      |
+| `science-note`     | `13px / 400 / 1.8`; S 12px                                       | 기술 각주                                        |
+| `metric-label`     | `18px / 500 / 1.5`; S 14px                                       | 기술 임상 지표 이름                              |
+| `research-heading` | `30px / 450 / 1.65 / -.045em`; L 26px, S 26px, XS 24px           | 기술 연구 제목                                   |
+| `metric-number`    | `64px / 450 / 1.3 / -.04em`; L 54px, S 50px, XS 45px             | 기술 임상 수치                                   |
+| `study-title`      | `17px / 400 / 1.7`; S 15px, XS 14px                              | 연구 목록                                        |
+| `study-state`      | `15px / 400 / normal`; S 13px                                    | 연구·등록 상태                                   |
+| `patent-heading`   | `44px / 450 / 1.4 / -.045em`; L 40px, S 34px, XS 29px            | 지식재산 제목                                    |
+| `patent-number`    | `62px / 450 / 1.3 / -.04em`; S 48px, XS 51px                     | 지식재산 수치. B의 비단조 반응형 값도 유지       |
+| `patent-item`      | `21px / 400 / 1.65`; S 18px, XS 16px                             | 특허 목록                                        |
+| `patent-key`       | `15px / 400 / normal`; S 13px, XS 14px                           | 지식재산 항목명                                  |
+| `patent-note`      | `12px / 400 / 1.8`; S 11px, XS 12px                              | 지식재산 각주                                    |
+| `feature-heading`  | `32px / 450 / 1.4 / -.045em`; L 27px, M 25px, S 24px, XS 25px    | 제품 특징 소제목                                 |
+| `scene-caption`    | `18px / 400 / 1.6`; S 15px, XS 16px                              | 제품 생활 장면                                   |
+| `guide-caption`    | `25px / 400 / 1.55`; M 20px, XS 22px                             | 제품 사용 순서                                   |
+| `guide-heading`    | `22px / 450 / 1.65 / -.045em`; M 19px, S 18px, XS 19px           | 제품 사용 안내                                   |
+| `kit-heading`      | `40px / 450 / 1.35 / -.045em`; M 34px, S 31px                    | 제품 구성 제목                                   |
+| `kit-item`         | `20px / 400 / 1.6`; M 17px, XS 18px                              | 제품 구성품                                      |
+| `news-title`       | `21px / 500 / 1.55 / -.045em`; S 16px                            | 뉴스룸 행 제목                                   |
+| `news-meta`        | `12px / 400 / normal / .02em`; XS 11px                           | 뉴스 날짜·언론사                                 |
+| `faq-question`     | `18px / 500 / 1.7`; S 16px                                       | FAQ summary                                      |
+| `faq-answer`       | `16px / 400 / 1.9`; S 15px                                       | FAQ 답변                                         |
+| `filter`           | `16px / 400 / normal`; XS 14px                                   | B 뉴스 분류. 선택 시 동일 크기·600 굵기          |
 
 제품 히어로는 공통 page-hero 활자를 쓴다. 이전 히어로 전용 활자와 점무늬 마스크는 제거했다(#61).
 
@@ -188,15 +189,15 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 
 ## 페이지별 기준과 운영 기능
 
-| 화면 | 기준·예외                                                                                                                                                                                                                                      |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 메인 | 전면 사진 hero → 생활 이야기 → 세 장면 → 대표 소개·연구 이야기 → 제품 소개 → DB 최신 소식 2건 → 문의 배너. 공개 기사 0건이면 소식 구간 전체를 숨긴다. 제품 소개의 구매하러 가기/출시 예정은 F-06 유지에 따른 B와의 차이다.                     |
-| 회사 | 공통 PageHero → 대표 → 믿는 것 → 쉬운 기술 → 연혁 → 문의의 순서·배치를 유지한다. B의 추가 사진 쌍 구간은 넣지 않는다.                                                                                                                          |
-| 기술 | 공통 PageHero → 중추신경계·상태 스펙트럼 → B 세 원리·임상연구·지식재산. 승인된 본문·자료·수치는 유지한다.                                                                                                                                      |
-| 제품 | 공통 PageHero → B 특징·생활 장면·알고리즘·사용 방법·구성. 구매 버튼·사용 방법 링크는 후속 제품 구성에서 재배치한다. 기존 사양 조건부 표시만 유지하고 값이 없으면 숨긴다. 테이블 구조·사양 값·새 사양 구간을 추가하지 않는다.                   |
-| 뉴스 | DB 기사만 검색·분류해 B 행 목록으로 표시한다. 주요 기사 특별 배치·예시 기사·고정 공지는 제거한다. 원문은 새 탭으로 직접 연결하고 /newsroom/[id]는 삭제한다. 날짜는 전부 YYYY.MM.DD이며 임시 1일 값도 그대로 표시한다. 날짜 정밀도 컬럼은 없다. |
-| FAQ  | B 문의 안내·검색·native details·하단 문의 배너. 질문·답변은 DB에서만 읽으며 여러 개 동시 펼침을 허용한다.                                                                                                                                      |
-| 문의 | B 배치 안에 실제 제출·Turnstile·동의·대기·성공/오류를 유지한다. 처리 순서·중복 방지·담당자 알림은 바꾸지 않는다. 지도 저작자 표시는 A/B 공통으로 유지한다.                                                                                     |
+| 화면 | 기준·예외                                                                                                                                                                                                                                                                         |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 메인 | 상자 사진 hero(일반 헤더 아래) → 생활 이야기 → 세 장면 → 메인 전용 대표 소개·연구 이야기 → paper 제품 소개 → DB 최신 소식 2건. 메인 문의 배너는 #81에서 제거한다. 공개 기사 0건이면 소식 구간 전체를 숨긴다. 제품 소개의 구매하러 가기/출시 예정은 F-06 유지에 따른 B와의 차이다. |
+| 회사 | 공통 PageHero → 대표 → 믿는 것 → 쉬운 기술 → 연혁 → 문의의 순서·배치를 유지한다. B의 추가 사진 쌍 구간은 넣지 않는다.                                                                                                                                                             |
+| 기술 | 공통 PageHero → 중추신경계·상태 스펙트럼 → B 세 원리·임상연구·지식재산. 승인된 본문·자료·수치는 유지한다.                                                                                                                                                                         |
+| 제품 | 공통 PageHero → B 특징·생활 장면·알고리즘·사용 방법·구성. 구매 버튼·사용 방법 링크는 후속 제품 구성에서 재배치한다. 기존 사양 조건부 표시만 유지하고 값이 없으면 숨긴다. 테이블 구조·사양 값·새 사양 구간을 추가하지 않는다.                                                      |
+| 뉴스 | DB 기사만 검색·분류해 B 행 목록으로 표시한다. 주요 기사 특별 배치·예시 기사·고정 공지는 제거한다. 원문은 새 탭으로 직접 연결하고 /newsroom/[id]는 삭제한다. 날짜는 전부 YYYY.MM.DD이며 임시 1일 값도 그대로 표시한다. 날짜 정밀도 컬럼은 없다.                                    |
+| FAQ  | B 문의 안내·검색·native details·하단 문의 배너. 질문·답변은 DB에서만 읽으며 여러 개 동시 펼침을 허용한다.                                                                                                                                                                         |
+| 문의 | B 배치 안에 실제 제출·Turnstile·동의·대기·성공/오류를 유지한다. 처리 순서·중복 방지·담당자 알림은 바꾸지 않는다. 지도 저작자 표시는 A/B 공통으로 유지한다.                                                                                                                        |
 
 FAQ·뉴스·구매 주소·사양의 기존 cacheTag/updateTag 연결과 /[lang]·Metadata API는 유지한다. 원문 URL이 없는 뉴스 행은 가짜 링크를 만들지 않는다. 공개 정적 고정 문구는 src/content/ko와 get*Copy 함수로 읽는다. FAQ·기사 본문은 DB에만 둔다. 사용 중인 기존 이미지를 우선 재사용하고 낮·밤 생활 사진 두 개만 추가한다. B 활성 HTML에서 쓰지 않는 영상은 복사하지 않는다.
 
@@ -335,7 +336,7 @@ Safari 대응: WebKit 26.6은 zoom 식 안의 100vw를 계산하지 못해 배�
 
 zoom 선언 전체를 검사하는 @supports 안에서만 확대와 토큰 고정을 함께 적용한다. 지원하지 않으면 두 규칙 모두 적용하지 않아 기존 레이아웃을 유지한다. tokens.css의 같은 분기에서 public-body에 gutter79.92px, page-side147.5px, page-width1145px, detail-heading2.97rem을 둔다. :root 공통값을 덮지 않는다.
 
-1440px에서 page-hero-title은56px(4.2vw=60.48px), landing-title은80px(5.6vw=80.64px), founder-quote는50px(3.5vw=50.4px)으로 이미 clamp 최댓값이다. 추가 고정을 하지 않는다. 제품의1700px 전용 궤도 확대는 제거한다. 메인 캔버스와 선 두께 보정은 #68에서 제거했다. 확대 규칙은 전면 사진 히어로에도 적용한다.
+1440px에서 page-hero-title은56px(4.2vw=60.48px), founder-quote는50px(3.5vw=50.4px)으로 이미 clamp 최댓값이다. landing-title은 #81에서 PC 52px 고정으로 변경했다. 추가 고정을 하지 않는다. 제품의1700px 전용 궤도 확대는 제거한다. 메인 캔버스와 선 두께 보정은 #68에서 제거했다. 확대 규칙은 전면 사진 히어로에도 적용한다.
 
 고정 이미지 sizes에는1441px 이상 vw 분기를 추가한다. 대표37.78vw, 특허38.89vw, 메인 대표15.97vw, 뉴스10.42vw, 기술 본체10.7vw·케이스14.6vw다. 제품 구성은768px 이상50vw/나머지100vw로 둔다. 원본 교체·업스케일은 하지 않는다.
 
@@ -348,14 +349,14 @@ zoom 선언 전체를 검사하는 @supports 안에서만 확대와 토큰 고�
 - 문의 완료: 성공 화면의 링크를 "FAQ로 돌아가기"에서 "홈으로"(/{lang})로 바꾼다. 새 문의 작성 버튼과 접수 불가 안내(키 누락 시)는 유지한다.
 - 문의 접수 불가 안내(키 누락 시): 오류 안내(contact-notice, error-panel·error-ink)와 구분해 contact-unavailable로 표시한다. 두 상자는 같은 틀(여백 14px 18px, 왼쪽 3px 선)을 쓰고 색만 다르다. 오류 상자의 선은 error-ink다. panel 배경·왼쪽 3px violet 선·ink 글씨이며 첫 문장은 굵게, 메일 링크는 violet-strong 밑줄·높이 44px다. 문구는 바꾸지 않는다.
 
-## 메인 전면 사진과 투명 헤더 (#68, D-50)
+## 메인 상자 사진 히어로 (#81)
 
-메인 주소가 언어 루트와 정확히 일치할 때만 site-header에 data-overlay를 붙인다. usePathname은 HeaderClient 한곳에서 읽어 껍데기와 Navigation에 전달한다. Suspense fallback은 일반 헤더다. Cache Components가 이전 페이지를 display:none으로 보존하므로 body:has(.home-hero)를 쓰지 않는다. 헤더는 기존 relative다.
+#81의 PL 결정이 #68의 투명 헤더·흰 제목·어두운 덮개보다 우선한다. 모든 공개 화면은 paper 바탕의 일반 머리말을 쓰며 메인 사진도 그 아래에서 시작한다. HeaderClient의 usePathname·메뉴 현재 위치·이동 시 닫기는 유지하고, data-overlay·전용 CSS와 사용처가 없어진 isHomePath는 제거한다. 푸터·FAQ의 ContactBanner는 유지하고 메인의 ContactBanner만 제거한다.
 
-사진은 로컬 hero-window.webp 정적 import·fill·장식 alt·sizes100vw·eager/high로 표시한다. 제목은 PC에서도 두 줄이며 글자와 링크는 paper다. 사진 위치는 PC center58%, 모바일42% center다. 왼쪽 덮개는 ink76%(20%까지)→투명62%, 상단은 ink86%→투명30%다. 모바일 왼쪽 덮개는 아래 방향 ink78%(30%까지)→투명72%로 바꾼다. 대비 미달이 있으면 농도만 보완한다.
+제공된 hero-box.webp(2880×1624, 61,166바이트)를 정적 import·fill·장식 alt·sizes100vw·eager/high로 표시한다. 원본 SHA-256은 `0a8d10a698f78d3dc07948a6f30f29deca0021dba8356a796b5e382f3b51aac4`다. PC는 cover/center, 모바일은 기존42% center다. 덮개는 없으며 hero-window.webp는 전체 사용처 확인 후 삭제했다.
 
-PC 높이는 clamp(640px,100svh,900px), 모바일은 clamp(560px,100dvh,640px+header-height-small)이며 헤더+테두리1px만큼 음수 여백을 준다. 1441px 이상에서는 body에서 길이로 확정한 --public-vh를 public.css와 같은 배율 식으로 나눠 창 높이를 채운다. --public-vh는100svh이며 WebKit의 zoom 안 화면 단위 계산 문제(D-49)를 피하도록 상속하는 <length>로 등록한다. zoom 식을 바꾸면 높이의 나누는 식도 함께 바꾼다. 640px 최소·900px 상한으로 낮거나 세로가 긴 창의 구성을 보호하고 모바일 상한은 유지한다(2026-11-10 PL 결정). 사진 영역과 투명 헤더의 focus outline은 paper다. 모바일 밝은 메뉴판 링크는 ink다. 메인 자동 파동은 제거하며 카테고리 SVG와 생성 스크립트는 유지한다.
+제목은 “일상생활부터 / 편안한 수면까지 / 슬리피가 함께합니다”의 세 줄이며 모두 ink다. PC landing-title은52px·500·1.28·-.045em이고 줄 사이8px를 둔다. 모바일은 기존45px(400px 이하41px)·420·1.25·-.065em을 유지하고 줄 사이 추가 간격은 없다. 설명은 copy-large와 기존 페이지 설명 행간1.65를 사용한다. `--color-home-hero-description: #3f3850`은 회색 사진 벽에서 muted보다 진한 설명을 위한 승인된 페이지 전용 색이다. 제품 보기 링크는 violet/white·radius-pill·ui-input(16px)·ui-medium·52px 높이로 표시하고 해당 언어의 product로 이동한다. 공통 버튼 컴포넌트에는 일반 내부 이동용 pill이 없어 메인에만 둔다. 초점은 기존 violet-strong이다.
 
-#68 대비 확인에서 문의하기 버튼 뒤 밝은 배경이1920·2560px에서4.5:1에 못 미쳐 상단 덮개78%→86%로 보완했다. 큰 제목의 최저 대비 여유도 확보하도록 PC 왼쪽 덮개72%→76%로 보완했다. 위치·그라데이션 범위는 그대로다. 사진 위 초점은 paper이며 밝은 모바일 메뉴판 안 링크만 기존 violet-strong 초점을 유지한다.
+PC 사진 높이는 `calc(clamp(640px, 100svh, 900px) - var(--header-height))`다. 1440×900에서 사진 높이는812px이며 기존 머리말의 아래 테두리1px는 일반 문서 흐름에 남는다. 1441px 이상은 `calc(clamp(640px, var(--public-vh) / min(1.7778, tan(atan2(var(--public-vw), 1440px))), 900px) - var(--header-height))`로 #68의 배율 보정을 유지하면서 머리말 높이를 뺀다. public.css zoom 식을 바꾸면 이 나누는 식도 함께 바꾼다. 모바일 높이 clamp(560px,100dvh,640px+header-height-small)와 문구 여백은 유지하되 사진이 일반 머리말 아래에 오도록 음수 여백을 제거한다. 모바일의 나머지 본문 배치는 바꾸지 않는다.
 
-PC 확대 구간의 실제 높이 식은 `clamp(640px, calc(var(--public-vh) / min(1.7778, tan(atan2(var(--public-vw), 1440px)))), 900px)`다.
+1440px 제목 시작은 x120/y255 부근으로 맞춘다. PC 일상 제목만 오른쪽51px로 옮기고 오른쪽 본문은 유지한다. 하루 사진 설명은 PC만 각 사진 가운데로 정렬한다. 대표의 직함·소개·연구 설명은 home.ts에 분리하고 이름 옆 CEO는 meta(13px)/muted다. 회사의 데이터·CeoSection은 바꾸지 않는다. 대표 아래 설명/링크 묶음만 PC에서18px 내린다. 제품 무대는 paper로 바꾸고 기존 문구 위치·간격은 유지한다. 최신 소식은 시안에 없지만 2026-11-15 추가 지시로 기존 구간·데이터·배치를 유지하고 배경만 paper로 바꾼다. 문구·색·링크·배경은 PL 결정이 캡처보다 우선하며, 캡처의 문의 배너와 제품 무대 위치 변경은 구현하지 않는다.
