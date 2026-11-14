@@ -61,7 +61,7 @@ export default function ProductGallery({
               src={photo.src}
               alt={photo.alt}
               fill
-              sizes="(max-width:767px) 100vw, 720px"
+              sizes="(max-width:767px) 100vw, 480px"
             />
           </div>
         ))}

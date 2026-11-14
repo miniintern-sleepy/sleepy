@@ -166,6 +166,10 @@ test("PRD-004 갤러리 미리보기를 선택하면 큰 사진과 선택 버튼
     /product-gallery-dots" aria-hidden="true"><span data-active="false"><\/span><span data-active="false"><\/span><span data-active="true"/,
   );
   assert.equal((html.match(/sizes="120px"/g) ?? []).length, 4);
+  assert.equal(
+    (html.match(/sizes="\(max-width:767px\) 100vw, 480px"/g) ?? []).length,
+    4,
+  );
   assert.ok(!html.includes("priority"));
 });
 

@@ -35,7 +35,7 @@ export default function KitSection({ copy }: { copy: ProductCopy["kit"] }) {
           {copy.metrics.map((metric) => (
             <div
               key={metric.label}
-              className="flex min-w-0 flex-col-reverse gap-3"
+              className="product-kit-metric flex min-w-0 flex-col-reverse gap-3"
             >
               <dt className="text-ui-label text-muted">{metric.label}</dt>
               <dd className="text-spec-value whitespace-nowrap">
