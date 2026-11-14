@@ -54,7 +54,9 @@ export default function HowToUseSection({
       <Reveal className="product-guide-notes">
         {copy.notes.map((note) => (
           <div key={note.title}>
-            <h3 className="text-guide-heading">{note.title}</h3>
+            <h3 className="text-guide-heading whitespace-pre-line">
+              {note.title}
+            </h3>
             <p className="text-guide-copy whitespace-pre-line text-muted">
               {note.description}
             </p>

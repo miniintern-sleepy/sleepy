@@ -1,12 +1,13 @@
 import PageHero from "@/components/ui/PageHero";
+import PurchaseButton from "@/components/ui/PurchaseButton";
 import type { Metadata } from "next";
 
 import "./product.css";
 
-import { getProductCopy, getProductSpecs } from "@/lib/content";
+import { getProductCopy, getProductSpecs, getPurchaseUrl } from "@/lib/content";
 
 import AlgorithmSection from "./_components/AlgorithmSection";
-import FeaturesSection from "./_components/FeaturesSection";
+import GallerySection from "./_components/GallerySection";
 import HowToUseSection from "./_components/HowToUseSection";
 import KitSection from "./_components/KitSection";
 import MomentsSection from "./_components/MomentsSection";
@@ -19,16 +20,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// 공통 히어로 → 특징 → 생활 장면 → 알고리즘 → 사용 순서 → 구성·DB 사양(#61).
-// 구매 버튼·사용 방법 링크는 후속 제품 페이지 구성에서 다시 배치한다.
+// 구매 히어로 → 갤러리 → 생활 장면 → 알고리즘 → 사용 순서 → 고정 숫자 구성·DB 사양(#79).
 export default async function ProductPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
-  const [copy, specs, { lang }] = await Promise.all([
+  const [copy, specs, purchaseUrl, { lang }] = await Promise.all([
     getProductCopy(),
     getProductSpecs(),
+    getPurchaseUrl(),
     params,
   ]);
 
@@ -38,16 +39,18 @@ export default async function ProductPage({
       className="product-page relative isolate overflow-clip bg-paper break-keep"
       id="main"
     >
-      <PageHero
-        title={copy.intro.title}
-        description={copy.intro.description}
-        wave="product"
-      />
-      <FeaturesSection copy={copy.features} />
+      <PageHero title={copy.intro.title} wave="product">
+        <PurchaseButton
+          url={purchaseUrl}
+          copy={copy.intro}
+          location="product"
+        />
+      </PageHero>
+      <GallerySection copy={copy.features} />
       <MomentsSection copy={copy.moments} />
       <AlgorithmSection copy={copy.algorithm} lang={lang} />
       <HowToUseSection copy={copy.howToUse} />
-      <KitSection copy={copy.kit} specs={specs} />
+      <KitSection copy={copy.kit} />
       <SpecsSection specs={specs} />
     </main>
   );
