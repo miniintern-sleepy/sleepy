@@ -10,16 +10,22 @@ export const productCopy = {
   },
   features: {
     title: "앱도, 블루투스도 없이\n귀에 꽂는 것만으로 시작하는 디지털 귀마개",
-    items: [
+    photos: [
       {
-        title: "스마트폰 없이 간편하게",
-        description:
-          "스마트폰과 연결하지 않아도 기기 자체로 작동합니다.\n잠들기 전, 스마트폰에서 잠시 벗어나\n편안하게 휴식을 시작해보세요!",
+        src: "/images/product/gallery-01.jpg",
+        alt: "열린 충전 케이스와 슬리비 본체",
       },
       {
-        title: "꺼내서, 꽂으면 끝",
-        description:
-          "복잡한 설정도, 번거로운 조작도 필요 없습니다.\n케이스에서 꺼내 양쪽 귀에 꽂으면 바로 작동합니다.",
+        src: "/images/product/gallery-02.jpg",
+        alt: "슬리비 본체를 넣은 충전 케이스",
+      },
+      {
+        src: "/images/product/gallery-03.jpg",
+        alt: "슬리비 구성품과 제품 상자",
+      },
+      {
+        src: "/images/product/gallery-04.jpg",
+        alt: "슬리비 케이스, 본체, 충전 케이블과 이어팁",
       },
     ],
   },

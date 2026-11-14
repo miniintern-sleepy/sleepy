@@ -6,7 +6,7 @@ import "./product.css";
 import { getProductCopy, getProductSpecs } from "@/lib/content";
 
 import AlgorithmSection from "./_components/AlgorithmSection";
-import FeaturesSection from "./_components/FeaturesSection";
+import GallerySection from "./_components/GallerySection";
 import HowToUseSection from "./_components/HowToUseSection";
 import KitSection from "./_components/KitSection";
 import MomentsSection from "./_components/MomentsSection";
@@ -43,7 +43,7 @@ export default async function ProductPage({
         description={copy.intro.description}
         wave="product"
       />
-      <FeaturesSection copy={copy.features} />
+      <GallerySection copy={copy.features} />
       <MomentsSection copy={copy.moments} />
       <AlgorithmSection copy={copy.algorithm} lang={lang} />
       <HowToUseSection copy={copy.howToUse} />
