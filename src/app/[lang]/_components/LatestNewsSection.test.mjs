@@ -39,18 +39,20 @@ const hook = registerHooks({
 });
 const { default: Latest } = await import("./LatestNewsSection.tsx");
 hook.deregister();
-test("NEWS-011 공개 기사 0건이면 메인 소식 구간 전체를 숨기고 최신 두 건만 표시한다", async (t) => {
+test("NEWS-011 공개 기사 0건이면 메인 소식 구간 전체를 숨기고 최신 네 건까지 표시한다", async (t) => {
   t.after(() => delete globalThis.__sleepyLatest54);
-  globalThis.__sleepyLatest54 = [];
-  assert.equal(await Latest({ lang: "ko" }), null);
-  globalThis.__sleepyLatest54 = [
-    { id: 3, title: "첫 기사" },
-    { id: 2, title: "둘째 기사" },
-    { id: 1, title: "셋째 기사" },
+  const articles = [
+    { id: 5, title: "첫 기사" },
+    { id: 4, title: "둘째 기사" },
+    { id: 3, title: "셋째 기사" },
+    { id: 2, title: "넷째 기사" },
+    { id: 1, title: "다섯째 기사" },
   ];
-  const html = renderToStaticMarkup(await Latest({ lang: "ko" }));
-  assert.ok(html.includes("슬리피의 소식"));
-  assert.ok(html.includes("첫 기사"));
-  assert.ok(html.includes("둘째 기사"));
-  assert.ok(!html.includes("셋째 기사"));
+  for (const count of [2, 5]) {
+    globalThis.__sleepyLatest54 = articles.slice(0, count);
+    const html = renderToStaticMarkup(await Latest({ lang: "ko" }));
+    assert.ok(html.includes("슬리피의 소식"));
+    for (const [index, article] of articles.entries())
+      assert.equal(html.includes(article.title), index < Math.min(count, 4));
+  }
 });
