@@ -1,5 +1,6 @@
 import { newsroomThumbnail } from "./newsroom-thumbnail";
 import NewsroomImage from "./NewsroomImage";
+import TextLinkBody from "@/components/ui/TextLinkBody";
 import { categoryLabels, formatDate, sourceUrl } from "@/lib/news";
 import type { NewsArticle } from "@/types/content";
 
@@ -42,8 +43,9 @@ export default function NewsCard({
           </p>
         )}
         {featured && href && (
-          <span className="newsroom-original text-newsroom-button">
-            기사 원문 보기 <span aria-hidden="true">↗</span>
+          // 상자 전체가 이미 원문 링크라 링크를 겹치지 않고 글자 링크 모양만 쓴다(#88).
+          <span className="public-text-link newsroom-original">
+            <TextLinkBody>기사 원문 보기</TextLinkBody>
           </span>
         )}
       </div>

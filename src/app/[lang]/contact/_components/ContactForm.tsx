@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import {
   useActionState,
   useEffect,
@@ -10,6 +9,7 @@ import {
   type FormEvent,
 } from "react";
 
+import TextLink from "@/components/ui/TextLink";
 import { track } from "@/lib/analytics";
 import { submitInquiry } from "../actions";
 import { validateInquiry, type FieldErrors, type InquiryValues } from "./form";
@@ -108,9 +108,7 @@ export default function ContactForm({
           답변 받을 이메일 <strong>{values.email}</strong>
         </p>
         <div className="contact-success-links">
-          <Link href={`/${lang}`} className="public-text-link">
-            홈으로
-          </Link>
+          <TextLink href={`/${lang}`}>홈으로</TextLink>
           <button
             type="button"
             className="contact-button"

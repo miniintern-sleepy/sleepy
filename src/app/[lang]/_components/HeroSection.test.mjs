@@ -31,6 +31,12 @@ const hook = registerHooks({
           .href,
         shortCircuit: true,
       };
+    // TextLink가 같은 폴더의 ExternalLink·TextLinkBody를 확장자 없이 불러온다(#88).
+    if (
+      s.startsWith("./") &&
+      c.parentURL?.endsWith("/components/ui/TextLink.tsx")
+    )
+      return { url: new URL(`${s}.tsx`, c.parentURL).href, shortCircuit: true };
     if (s.endsWith(".webp"))
       return {
         url: moduleUrl(

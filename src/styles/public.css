@@ -10,22 +10,31 @@
 .public-list-section {
   padding-bottom: var(--space-section);
 }
+/* 글자 링크 공통 모양(#88). 페이지에서는 margin·flex-shrink 같은 바깥 배치만 덮어쓴다. */
 .public-text-link {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 35px;
+  width: fit-content;
   min-height: var(--size-touch);
-  padding-block: 10px;
-  border-bottom: 1px solid var(--color-rule);
-  color: var(--color-ink);
+  color: var(--color-violet-strong);
   font-size: var(--text-text-link);
   font-weight: var(--text-text-link--font-weight);
   line-height: var(--text-text-link--line-height);
 }
+.public-text-link-compact {
+  font-size: var(--text-compact-link);
+}
+.public-text-link-body {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  /* 이유: 줄 높이 1.5의 아래 반행간(약 3.5px)이 틈에 더해져 글자→밑줄이 7.5px였다(2026-11-15 측정, #88). */
+  line-height: var(--leading-text-link-body);
+}
 .public-text-link:hover {
-  color: var(--color-violet-strong);
-  border-color: var(--color-violet);
+  color: var(--color-violet);
 }
 .public-purchase {
   display: inline-flex;
@@ -303,10 +312,4 @@
       zoom: min(1.7778, tan(atan2(var(--public-vw), 1440px)));
     }
   }
-}
-
-.external-text-link {
-  width: fit-content;
-  justify-content: flex-start;
-  gap: 0.35em;
 }
