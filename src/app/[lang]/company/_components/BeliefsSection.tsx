@@ -8,7 +8,7 @@ export default function BeliefsSection({ copy }: { copy: Copy }) {
   return (
     <section
       aria-labelledby="company-beliefs"
-      className="company-content company-beliefs"
+      className="public-wrap company-beliefs"
     >
       <Reveal>
         <h2
@@ -18,16 +18,17 @@ export default function BeliefsSection({ copy }: { copy: Copy }) {
           {copy.title}
         </h2>
       </Reveal>
-      <ul className="mt-9 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-6">
-        {copy.items.map(({ title, description }, index) => (
+      <ul className="company-beliefs-grid">
+        {copy.items.map(({ title, description }) => (
           <li key={title}>
-            <Reveal className="flex h-full flex-col gap-10 border border-rule bg-paper p-6 md:gap-14 md:p-7">
-              <span className="text-kicker text-violet">
-                {String(index + 1).padStart(2, "0")}
-              </span>
+            <Reveal className="company-belief">
               <div>
-                <h3 className="text-form-aside text-ink">{title}</h3>
-                <p className="mt-3 text-copy-large text-muted">{description}</p>
+                <h3 className="text-form-aside font-ui-medium text-ink">
+                  {title}
+                </h3>
+                <p className="mt-3 text-study-title text-muted">
+                  {description}
+                </p>
               </div>
             </Reveal>
           </li>
