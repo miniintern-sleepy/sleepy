@@ -15,16 +15,24 @@ import { submitInquiry } from "../actions";
 import { validateInquiry, type FieldErrors, type InquiryValues } from "./form";
 import Turnstile from "./Turnstile";
 
+const inquiryTypes = [
+  { value: "general", label: "일반 문의" },
+  { value: "product", label: "제품 문의" },
+] as const;
+
 export default function ContactForm({
   initialType,
   siteKey,
   enabled,
   lang,
+  email,
 }: {
   initialType: "product" | "general";
   siteKey: string;
   enabled: boolean;
   lang: string;
+  /** 접수가 안 될 때 대신 안내하는 회사 이메일 */
+  email: string;
 }) {
   const initialValues: InquiryValues = {
     name: "",
@@ -95,6 +103,10 @@ export default function ContactForm({
           <br />
           슬리피에 관심을 가져주셔서 감사합니다.
         </p>
+        {/* 이메일을 잘못 적었으면 바로 알아차리도록 받을 주소를 다시 보여 준다(#77). */}
+        <p className="contact-success-email text-copy">
+          답변 받을 이메일 <strong>{values.email}</strong>
+        </p>
         <div className="contact-success-links">
           <Link href={`/${lang}`} className="public-text-link">
             홈으로
@@ -115,12 +127,16 @@ export default function ContactForm({
       </section>
     );
   }
+  const mailLink = <a href={`mailto:${email}`}>{email}</a>;
   const serverMessage =
-    state.reason === "captcha"
-      ? "보안 확인을 다시 완료한 후 보내주세요."
-      : state.reason === "server"
-        ? "문의를 접수하지 못했습니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요."
-        : "";
+    state.reason === "captcha" ? (
+      "보안 확인을 다시 완료한 후 보내주세요."
+    ) : state.reason === "server" ? (
+      <>
+        문의를 접수하지 못했습니다. 잠시 후 다시 시도하거나 {mailLink}으로
+        문의해 주세요.
+      </>
+    ) : null;
   return (
     <form
       action={action}
@@ -135,16 +151,50 @@ export default function ContactForm({
       {!enabled && (
         <p role="status" className="contact-unavailable text-helper">
           <strong>온라인 문의 접수를 준비하고 있습니다.</strong>
-          <a href="mailto:sleeby00@gmail.com">sleeby00@gmail.com</a>
+          {mailLink}
           으로 문의해 주세요.
         </p>
       )}
       <fieldset disabled={pending} className="contact-fields">
         <legend className="sr-only">문의 정보</legend>
+        <fieldset
+          className="contact-field contact-type"
+          aria-describedby={errors.type ? "type-error" : undefined}
+        >
+          <legend className="contact-label">
+            <span className="contact-required" aria-hidden="true">
+              *
+            </span>
+            문의 유형<span className="sr-only"> (필수)</span>
+          </legend>
+          <div className="contact-type-options">
+            {inquiryTypes.map(({ value, label }) => (
+              <label key={value} className="contact-type-option">
+                <input
+                  type="radio"
+                  name="type"
+                  value={value}
+                  checked={values.type === value}
+                  onChange={() => change("type", value)}
+                  className="sr-only"
+                />
+                {label}
+              </label>
+            ))}
+          </div>
+          {errors.type && (
+            <p id="type-error" className="contact-field-error text-helper">
+              {errors.type}
+            </p>
+          )}
+        </fieldset>
         <div className="contact-form-row">
           <div className="contact-field">
-            <label htmlFor="name">
-              이름 <span aria-hidden="true">*</span>
+            <label htmlFor="name" className="contact-label">
+              <span className="contact-required" aria-hidden="true">
+                *
+              </span>
+              이름
             </label>
             <input
               id="name"
@@ -166,8 +216,11 @@ export default function ContactForm({
             )}
           </div>
           <div className="contact-field">
-            <label htmlFor="email">
-              이메일 <span aria-hidden="true">*</span>
+            <label htmlFor="email" className="contact-label">
+              <span className="contact-required" aria-hidden="true">
+                *
+              </span>
+              이메일
             </label>
             <input
               id="email"
@@ -191,31 +244,11 @@ export default function ContactForm({
           </div>
         </div>
         <div className="contact-field">
-          <label htmlFor="type">
-            문의 유형 <span aria-hidden="true">*</span>
-          </label>
-          <select
-            id="type"
-            name="type"
-            value={values.type}
-            onChange={(e) => change("type", e.target.value)}
-            required
-            className={inputClass}
-            aria-invalid={Boolean(errors.type)}
-            aria-describedby={errors.type ? "type-error" : undefined}
-          >
-            <option value="general">일반 문의</option>
-            <option value="product">제품 문의</option>
-          </select>
-          {errors.type && (
-            <p id="type-error" className="contact-field-error text-helper">
-              {errors.type}
-            </p>
-          )}
-        </div>
-        <div className="contact-field">
-          <label htmlFor="message">
-            문의 내용 <span aria-hidden="true">*</span>
+          <label htmlFor="message" className="contact-label">
+            <span className="contact-required" aria-hidden="true">
+              *
+            </span>
+            문의 내용
           </label>
           <textarea
             id="message"
@@ -277,6 +310,7 @@ export default function ContactForm({
             <Turnstile
               key={state.attempt}
               siteKey={siteKey}
+              email={email}
               onToken={setToken}
             />
           </div>

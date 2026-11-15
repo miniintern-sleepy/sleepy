@@ -1,24 +1,77 @@
-/* 문의 안내는 F-04 순서대로 검색 위에 두되, 질문 목록이 먼저 보이도록 한 줄로 줄인다(#66). */
-.public-faq-contact.faq-contact-compact {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 4px 16px;
-  padding-block: 0;
-  margin-bottom: 24px;
-  border-block: none;
-}
-.faq-contact-compact p {
-  white-space: normal;
-}
-.faq-contact-compact .public-text-link {
+/* 넓은 화면은 왼쪽에 검색·문의 안내를 고정하고 오른쪽에 질문 목록을 둔다. 좁은 화면은 한 칸(#77). */
+.faq-layout {
+  display: grid;
   gap: 8px;
-  padding-block: 0;
-  border-bottom: none;
 }
-@media (max-width: 520px) {
-  .public-faq-contact.faq-contact-compact {
-    justify-content: flex-start;
+.faq-side .public-search {
+  max-width: none;
+  margin: 0 0 24px;
+}
+.faq-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-bottom: 32px;
+}
+.faq-contact .public-text-link {
+  gap: 8px;
+}
+.faq-count {
+  margin-bottom: 18px;
+}
+@media (min-width: 1024px) {
+  .faq-layout {
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 80px;
+    align-items: start;
+  }
+  .faq-side {
+    position: sticky;
+    top: 40px;
+  }
+  .faq-contact {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* 펼침 표시는 질문 오른쪽 끝의 +/−로 둔다. 기호는 화면 읽기 프로그램에 읽히지 않게 한다. */
+.faq-layout .public-faq-list summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 0;
+  padding-block: 24px;
+  list-style: none;
+}
+.faq-layout .public-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.faq-layout .public-faq-list summary::after {
+  content: "+" / "";
+  flex-shrink: 0;
+  width: 24px;
+  color: var(--color-muted);
+  font-size: var(--text-ui-glyph);
+  font-weight: var(--font-weight-ui-regular);
+  line-height: var(--text-ui-button--line-height);
+  text-align: center;
+}
+.faq-layout .public-faq-list details[open] summary::after {
+  content: "−" / "";
+  color: var(--color-violet);
+}
+.faq-layout .public-faq-list details p {
+  padding: 0 48px 28px 0;
+}
+@media (max-width: 760px) {
+  .faq-layout .public-faq-list summary {
+    padding-block: 20px;
+  }
+  .faq-layout .public-faq-list details p {
+    padding: 0 0 24px;
   }
 }
