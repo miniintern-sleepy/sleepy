@@ -1,31 +1,12 @@
-import Image from "next/image";
 import { categoryLabels, formatDate, imageUrl, sourceUrl } from "@/lib/news";
 import type { NewsArticle } from "@/types/content";
 
 import NewsImage from "./NewsImage";
 
-export default function NewsItem({
-  article,
-  logoFallback = false,
-}: {
-  article: NewsArticle;
-  /** 썸네일이 없을 때 흐린 로고를 대신 보여 모든 행의 칸을 맞춘다. 뉴스룸 목록에서만 켠다(#66). */
-  logoFallback?: boolean;
-}) {
+export default function NewsItem({ article }: { article: NewsArticle }) {
   const image = imageUrl(article.thumbnailUrl);
   const href = sourceUrl(article.sourceUrl);
-  const thumb = image ? (
-    <NewsImage key={image} src={image} />
-  ) : logoFallback ? (
-    <span className="public-news-thumb public-news-logo">
-      <Image
-        src="/images/layout/header-logo.svg"
-        alt=""
-        width={83}
-        height={19}
-      />
-    </span>
-  ) : null;
+  const thumb = image ? <NewsImage key={image} src={image} /> : null;
   const body = (
     <>
       {thumb}

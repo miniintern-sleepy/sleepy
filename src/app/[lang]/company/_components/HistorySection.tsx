@@ -31,7 +31,7 @@ export default function HistorySection({ copy }: { copy: Copy }) {
               <li
                 key={`${date}-${text}`}
                 style={{ transitionDelay: `${300 + index * 220}ms` }}
-                className="grid h-16.5 grid-cols-[auto_1fr] items-start gap-x-4 pt-2 motion-safe:translate-y-4 motion-safe:opacity-0 motion-safe:transition motion-safe:duration-700 motion-safe:group-data-[visible=true]:translate-y-0 motion-safe:group-data-[visible=true]:opacity-100 md:grid-cols-[1fr_auto_1fr] md:gap-x-7 print:translate-y-0 print:opacity-100"
+                className="grid min-h-16.5 grid-cols-[auto_1fr] items-start gap-x-4 pt-2 motion-safe:translate-y-4 motion-safe:opacity-0 motion-safe:transition motion-safe:duration-700 motion-safe:group-data-[visible=true]:translate-y-0 motion-safe:group-data-[visible=true]:opacity-100 md:grid-cols-[1fr_auto_1fr] md:gap-x-7 print:translate-y-0 print:opacity-100"
               >
                 <span
                   aria-hidden="true"
@@ -44,7 +44,7 @@ export default function HistorySection({ copy }: { copy: Copy }) {
                       : "md:col-start-1 md:flex-row-reverse"
                   }`}
                 >
-                  <span className="min-w-16 text-form-aside text-violet md:min-w-0">
+                  <span className="shrink-0 text-form-aside text-violet tabular-nums">
                     {date}
                   </span>
                   <span className="text-study-title text-ink">{text}</span>
