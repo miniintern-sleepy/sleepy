@@ -115,7 +115,7 @@ test("HOME-004 메인 대표 소개는 전용 문구를 쓰고 기술 원리 링
   assert.ok(html.includes(homeCopy.founder.paragraphs[0]));
   assert.ok(html.includes(homeCopy.founder.description));
   assert.match(html, /text-meta text-muted">CEO<\/span>/);
-  assert.ok(html.includes(`${companyCopy.ceo.name} <span`));
+  assert.ok(html.includes(`${companyCopy.ceo.name}<span class="ml-2`));
   assert.doesNotMatch(html, /회사 전용/);
   const day = renderToStaticMarkup(
     createElement(DayTriptychSection, { lang: "ko", copy: homeCopy.day }),
