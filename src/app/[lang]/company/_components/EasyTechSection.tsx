@@ -2,6 +2,7 @@ import Link from "next/link";
 import Reveal from "@/components/ui/Reveal";
 import type { getCompanyCopy } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
+
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["easyTech"];
 
 export default function EasyTechSection({

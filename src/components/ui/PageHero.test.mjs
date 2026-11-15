@@ -61,11 +61,12 @@ test("HERO-002 children이 있을 때만 추가 자리를 출력한다", () => {
   const html = renderToStaticMarkup(
     createElement(
       PageHero,
-      { title: "제목", description: "설명", wave: "faq" },
+      { title: "제목", wave: "product" },
       createElement("a", { href: "/ko/contact" }, "문의"),
     ),
   );
   assert.ok(html.includes("page-hero-actions") && html.includes("문의"));
+  assert.ok(!html.includes("<p") && !html.includes("page-hero-description"));
 });
 test("HERO-003 생성 SVG는 선 수·정밀도와 뉴스룸 좌표 검증값을 유지한다", () => {
   for (const [suffix, expected] of [
@@ -129,6 +130,14 @@ test("HERO-005 회사·기술·제품은 콘텐츠 문구로 PageHero를 직접 
       "utf8",
     );
     const copy = name === "technology" ? "hero" : "intro";
+    if (name === "product") {
+      assert.match(
+        page,
+        /<PageHero title=\{copy\.intro\.title\} wave="product">/,
+      );
+      assert.match(page, /<PurchaseButton/);
+      continue;
+    }
     assert.match(
       page,
       new RegExp(

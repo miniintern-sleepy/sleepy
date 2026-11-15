@@ -8,7 +8,7 @@ export default function PageHero({
   children,
 }: {
   title: string;
-  description: string;
+  description?: string;
   wave: "newsroom" | "faq" | "contact" | "company" | "technology" | "product";
   children?: ReactNode;
 }) {
@@ -16,9 +16,11 @@ export default function PageHero({
     <header className={`page-hero page-hero-${wave}`}>
       <div className="public-wrap">
         <h1 className="text-page-hero-title whitespace-pre-line">{title}</h1>
-        <p className="page-hero-description text-page-hero-description whitespace-pre-line text-ink">
-          {description}
-        </p>
+        {description ? (
+          <p className="page-hero-description text-page-hero-description whitespace-pre-line text-ink">
+            {description}
+          </p>
+        ) : null}
         {children ? <div className="page-hero-actions">{children}</div> : null}
       </div>
     </header>

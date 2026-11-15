@@ -7,11 +7,11 @@ const read = (path) =>
     "",
   );
 const compact = (value) => value.replace(/\s+/g, "");
-test("HOME-003 PC는 창 높이를 공개 배율로 나누고 모바일 높이는 유지한다", () => {
+test("HOME-003 PC는 공개 배율로 나눈 창 높이에서 머리말을 빼고 모바일 높이는 유지한다", () => {
   const home = read("./home.css");
   assert.match(
     home,
-    /\.home-hero\s*\{[^}]*height:\s*clamp\(640px,\s*100svh,\s*900px\);/,
+    /\.home-hero\s*\{[^}]*height:\s*calc\(clamp\(640px,\s*100svh,\s*900px\)\s*-\s*var\(--header-height\)\);/,
   );
   const zoom = read("../../styles/public.css")
     .match(/zoom:\s*([^;{}]+);/)[1]
@@ -23,7 +23,9 @@ test("HOME-003 PC는 창 높이를 공개 배율로 나누고 모바일 높이�
   const height = wide[1].match(/height:\s*([^;]+);/)[1];
   assert.equal(
     compact(height),
-    compact(`clamp(640px, calc(var(--public-vh) / ${zoom}), 900px)`),
+    compact(
+      `calc(clamp(640px, var(--public-vh) / ${zoom}, 900px) - var(--header-height))`,
+    ),
   );
   const mobile = home.match(
     /@media\s*\(max-width: 760px\)\s*\{[\s\S]*?\.home-hero\s*\{([^}]*)\}/,
