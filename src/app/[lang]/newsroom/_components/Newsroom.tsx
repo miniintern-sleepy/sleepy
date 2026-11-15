@@ -1,93 +1,69 @@
-"use client";
-import { useState } from "react";
-import { categoryLabels, filterNews } from "@/lib/news";
-import type { getNewsroomCopy } from "@/lib/content";
-import {
-  newsCategories,
-  type NewsArticle,
-  type NewsCategory,
-} from "@/types/content";
+import type { NewsArticle } from "@/types/content";
 import NewsCard from "./NewsCard";
-import { emptyMessage, filterByYear, newsYears } from "./news-view";
+import { newsPage } from "./news-view";
 
 export default function Newsroom({
   articles,
-  copy,
+  requestedPage,
 }: {
   articles: NewsArticle[];
-  copy: Awaited<ReturnType<typeof getNewsroomCopy>>;
+  requestedPage?: string | string[];
 }) {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<NewsCategory | "all">("all");
-  const [year, setYear] = useState<string | "all">("all");
-  const visible = filterByYear(filterNews(articles, query, category), year);
+  const { featured, cards, page, pages } = newsPage(articles, requestedPage);
+  if (!articles.length)
+    return (
+      <p className="public-empty text-copy text-muted">
+        아직 등록된 소식이 없습니다.
+      </p>
+    );
   return (
     <>
-      <div className="newsroom-toolbar">
-        <div className="newsroom-selects">
-          <label className="newsroom-select">
-            <span className="sr-only">뉴스 분류</span>
-            <select
-              value={category}
-              onChange={(event) =>
-                setCategory(event.target.value as NewsCategory | "all")
-              }
-              className="text-filter"
-            >
-              <option value="all">전체 분류</option>
-              {newsCategories.map((value) => (
-                <option key={value} value={value}>
-                  {categoryLabels[value]}
-                </option>
-              ))}
-            </select>
-            <span aria-hidden="true">⌄</span>
-          </label>
-          <label className="newsroom-select">
-            <span className="sr-only">발행 연도</span>
-            <select
-              value={year}
-              onChange={(event) => setYear(event.target.value)}
-              className="text-filter"
-            >
-              <option value="all">전체 연도</option>
-              {newsYears(articles).map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
-            <span aria-hidden="true">⌄</span>
-          </label>
-        </div>
-        <div className="public-search newsroom-search">
-          <label htmlFor="news-search" className="sr-only">
-            {copy.searchLabel}
-          </label>
-          <input
-            id="news-search"
-            type="search"
-            autoComplete="off"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={copy.placeholder}
-          />
-          <span aria-hidden="true">⌕</span>
-        </div>
-      </div>
-      <p className="public-results text-micro text-muted" aria-live="polite">
-        총 {visible.length}개의 소식
+      <p id="news" className="public-results text-micro text-muted">
+        총 {articles.length}개의 소식
       </p>
-      {visible.length > 0 ? (
-        <ul className="newsroom-grid">
-          {visible.map((article) => (
-            <NewsCard key={article.id} article={article} />
+      {featured && <NewsCard article={featured} featured />}
+      <ul
+        className={`newsroom-grid ${featured ? "newsroom-grid-after-feature" : ""}`}
+      >
+        {cards.map((article) => (
+          <li key={article.id}>
+            <NewsCard article={article} />
+          </li>
+        ))}
+      </ul>
+      {pages > 1 && (
+        <nav
+          className="newsroom-pagination text-newsroom-pagination"
+          aria-label="뉴스 페이지"
+        >
+          {page > 1 ? (
+            <a href={`?page=${page - 1}#news`} aria-label="이전 페이지">
+              ‹
+            </a>
+          ) : (
+            <span aria-label="이전 페이지" aria-disabled="true">
+              ‹
+            </span>
+          )}
+          {Array.from({ length: pages }, (_, i) => (
+            <a
+              key={i}
+              href={`?page=${i + 1}#news`}
+              aria-current={page === i + 1 ? "page" : undefined}
+            >
+              {i + 1}
+            </a>
           ))}
-        </ul>
-      ) : (
-        <p className="public-empty text-copy text-muted">
-          {emptyMessage(query, category, year)}
-        </p>
+          {page < pages ? (
+            <a href={`?page=${page + 1}#news`} aria-label="다음 페이지">
+              ›
+            </a>
+          ) : (
+            <span aria-label="다음 페이지" aria-disabled="true">
+              ›
+            </span>
+          )}
+        </nav>
       )}
     </>
   );

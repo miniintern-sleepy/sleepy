@@ -1,4 +1,4 @@
-import type { NewsArticle, NewsCategory } from "@/types/content";
+import type { NewsCategory } from "@/types/content";
 
 export const categoryLabels: Record<NewsCategory, string> = {
   company: "기업 소식",
@@ -30,27 +30,4 @@ export function imageUrl(value: string | null) {
   if (value.startsWith("/") && !value.startsWith("//") && !value.includes("\\"))
     return value;
   return sourceUrl(value);
-}
-
-/** B에서 보이는 제목·분류·날짜·언론사를 함께 검색한다. */
-export function filterNews(
-  articles: NewsArticle[],
-  query: string,
-  category: NewsCategory | "all",
-) {
-  const search = query.trim().toLocaleLowerCase("ko");
-  return articles.filter((article) => {
-    const text = [
-      article.title,
-      categoryLabels[article.category],
-      formatDate(article.publishedAt),
-      article.sourceName ?? "",
-    ]
-      .join(" ")
-      .toLocaleLowerCase("ko");
-    return (
-      (category === "all" || article.category === category) &&
-      text.includes(search)
-    );
-  });
 }

@@ -261,6 +261,35 @@
   --text-kit-item--font-weight: 400;
   --text-kit-item--line-height: 1.6;
   --text-kit-item--letter-spacing: 0;
+  /* #86 뉴스룸 목록 전용. 홈 소식의 활자는 유지한다. */
+  --text-newsroom-feature-title: 1.875rem;
+  --text-newsroom-feature-title--font-weight: 600;
+  --text-newsroom-feature-title--line-height: 1.4;
+  --text-newsroom-feature-title--letter-spacing: -0.035em;
+  --text-newsroom-card-title: 1.15625rem;
+  --text-newsroom-card-title--font-weight: 600;
+  --text-newsroom-card-title--line-height: 1.45;
+  --text-newsroom-card-title--letter-spacing: -0.02em;
+  --text-newsroom-source: 0.8125rem;
+  --text-newsroom-source--font-weight: 600;
+  --text-newsroom-source--line-height: 1.6;
+  --text-newsroom-source--letter-spacing: 0;
+  --text-newsroom-date: 0.8125rem;
+  --text-newsroom-date--font-weight: 400;
+  --text-newsroom-date--line-height: 1.6;
+  --text-newsroom-date--letter-spacing: 0;
+  --text-newsroom-summary: 1rem;
+  --text-newsroom-summary--font-weight: 400;
+  --text-newsroom-summary--line-height: 1.8;
+  --text-newsroom-summary--letter-spacing: 0;
+  --text-newsroom-button: 0.9375rem;
+  --text-newsroom-button--font-weight: 600;
+  --text-newsroom-button--line-height: 1.4;
+  --text-newsroom-button--letter-spacing: 0;
+  --text-newsroom-pagination: 0.875rem;
+  --text-newsroom-pagination--font-weight: 600;
+  --text-newsroom-pagination--line-height: 1.4;
+  --text-newsroom-pagination--letter-spacing: 0;
   --text-news-title: 1.3125rem;
   --text-news-title--font-weight: 500;
   --text-news-title--line-height: 1.55;
@@ -485,5 +514,11 @@
       --layout-page-width: 1145px;
       --text-detail-heading: 2.97rem;
     }
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --text-newsroom-feature-title: 1.5rem;
   }
 }
