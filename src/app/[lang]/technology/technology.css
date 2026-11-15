@@ -452,7 +452,6 @@
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 16px;
 }
 .tech-video-thumbnail img {
   width: 100%;
