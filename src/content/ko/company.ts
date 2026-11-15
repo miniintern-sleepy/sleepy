@@ -10,7 +10,7 @@ export const companyCopy = {
     name: "서정화",
     role: "서울대학교병원 마취통증의학과 교수",
     // 사진이 없으면 사진 칸을 숨긴다(F-02). photo를 빈 문자열로 두면 된다.
-    photo: "/images/company/ceo-portrait.webp",
+    photo: "/images/company/ceo-portrait-suit.webp",
     photoAlt: "슬리피 대표 서정화",
     paragraphs: [
       "네 아이의 아빠이자 마취통증의학과 교수인 슬리피 대표의 작은 질문에서 시작된 디지털 귀마개, 슬리비",

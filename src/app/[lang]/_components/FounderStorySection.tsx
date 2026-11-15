@@ -20,8 +20,8 @@ export default function FounderStorySection({
           <Image
             src={company.ceo.photo}
             alt={company.ceo.photoAlt}
-            width={659}
-            height={700}
+            width={1088}
+            height={1156}
             className="home-founder-photo"
             sizes="(min-width: 1441px) 15.97vw, (max-width:520px) 105px,(max-width:760px) 150px,230px"
           />

@@ -23,8 +23,8 @@ export default function CeoSection({ copy }: { copy: Copy }) {
             <Image
               src={copy.photo}
               alt={copy.photoAlt}
-              width={659}
-              height={700}
+              width={1088}
+              height={1156}
               sizes="(min-width: 1441px) 37.78vw, (min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
               className="aspect-square w-full object-cover object-top"
             />
