@@ -158,7 +158,6 @@
 }
 .home-founder-context .public-text-link {
   margin-top: 12px;
-  font-size: var(--text-compact-link);
 }
 .home-product,
 .home-latest,
@@ -207,11 +206,6 @@
   margin-top: 32px;
 }
 @media (min-width: 761px) {
-  .home-page .public-text-link {
-    width: fit-content;
-    justify-content: flex-start;
-    gap: 0.35em;
-  }
   .home-product-grid {
     --home-product-inset: max(
       0px,
