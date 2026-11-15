@@ -3,7 +3,7 @@ import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import type { getCompanyCopy } from "@/lib/content";
 
-import ExternalLinks from "./ExternalLinks";
+import ExternalLinks from "@/components/ui/ExternalLinks";
 
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["ceo"];
 
@@ -45,7 +45,7 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <ExternalLinks links={copy.links} className="mt-6" />
+          <ExternalLinks links={copy.links} className="mt-7" />
         </Reveal>
       </div>
     </section>

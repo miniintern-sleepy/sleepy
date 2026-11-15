@@ -24,8 +24,14 @@ export const companyCopy = {
       "“우리 아이들이 잠들기 전, 간편하게 사용할 수 있는 귀마개를 만들 수 없을까?”",
     // 대표 이력을 확인할 수 있는 외부 페이지(2026-11-12 대표님 메일). href가 비면 링크를 숨긴다.
     links: [
-      { label: "서울대병원 교수 소개", href: "" },
-      { label: "서울대 의대 연구자 정보", href: "" },
+      {
+        label: "서울대학교병원 마취통증의학과 교수",
+        href: "https://www.snuh.org/blog/65626/philosophy.do",
+      },
+      {
+        label: "서울대학교 의과대학 마취통증의학교실 교수",
+        href: "https://snu.elsevierpure.com/en/persons/y-seo-7/",
+      },
     ],
   },
   beliefs: {
@@ -54,18 +60,6 @@ export const companyCopy = {
     description:
       "양쪽 귀에 서로 다른 주파수의 음향을 전달하면,\n뇌가 두 주파수 차이를 박동감으로 인지하게 됩니다.",
     link: "기술 자세히 보기",
-    // 유튜브 영상은 쿠키 때문에 화면 안에서 재생하지 않고 새 창으로 연다(#77). href가 비면 링크를 숨긴다.
-    videos: [
-      // 18분 14초부터 대표 발표가 시작되도록 메일의 시작 시각을 그대로 둔다.
-      {
-        label: "강의 영상 보기",
-        href: "https://www.youtube.com/watch?v=iuWn5CnKjQ0&t=1094s",
-      },
-      {
-        label: "IR 영상 보기",
-        href: "https://www.youtube.com/watch?v=hVidH-v1SwM",
-      },
-    ],
   },
   history: {
     title: "슬리피의 걸음",

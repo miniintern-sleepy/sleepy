@@ -147,7 +147,6 @@
 }
 .tech-sleep-photo {
   margin-top: 10px;
-  border-radius: var(--radius-media);
   overflow: hidden;
   align-self: start;
 }
@@ -162,7 +161,6 @@
   align-items: start;
 }
 .tech-research-photo {
-  border-radius: var(--radius-research-photo);
   overflow: hidden;
 }
 .tech-clinical-copy {
@@ -429,5 +427,78 @@
   }
   .tech-hover-image:hover {
     transform: scale(1.02);
+  }
+}
+
+/* 원본 PNG에 투명한 둥근 모서리가 있다(대각선 research 19px·sleep 14px).
+   #83 PL 결정으로 4.5% 확대해 가리며, 직사각형 원본을 구하면 교체한다. */
+.tech-sleep-photo img,
+.tech-research-photo img {
+  scale: 1.045;
+}
+.tech-clinical-metric > p:last-child {
+  flex-shrink: 0;
+}
+.tech-video {
+  padding-block: 120px;
+}
+.tech-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 48px;
+}
+.tech-video-thumbnail {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.tech-video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tech-video-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-paper);
+  font-size: var(--text-patent-heading);
+}
+.tech-video-card > p:first-of-type {
+  margin-top: 20px;
+}
+.tech-video-card h3 {
+  margin-top: 8px;
+}
+.tech-video-card > p:last-child {
+  margin-top: 8px;
+}
+@media (min-width: 1024px) {
+  .tech-research-photo {
+    /* 제목 칸 위 여백 + 제목 반행간에 사진의 위쪽을 맞춘다(#83). */
+    margin-top: calc(
+      36px +
+        (
+          var(--text-research-heading) *
+            (var(--text-research-heading--line-height) - 1)
+        ) /
+        2
+    );
+  }
+}
+@media (min-width: 761px) {
+  .tech-clinical-metric {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 760px) {
+  .tech-video-grid {
+    grid-template-columns: 1fr;
+  }
+  .tech-video {
+    padding-block: 60px;
   }
 }
