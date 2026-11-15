@@ -33,4 +33,8 @@ export const homeCopy = {
     description: "스마트폰 연결 없이 쓰는 디지털 귀마개, 슬리비",
     link: "제품 소개",
   },
+  faq: {
+    title: "자주 묻는 질문",
+    link: "FAQ 전체 보기",
+  },
 };

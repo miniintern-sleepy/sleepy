@@ -12,6 +12,7 @@ import DayTriptychSection from "./_components/DayTriptychSection";
 import FounderStorySection from "./_components/FounderStorySection";
 import ProductStageSection from "./_components/ProductStageSection";
 import LatestNewsSection from "./_components/LatestNewsSection";
+import HomeFaqSection from "./_components/HomeFaqSection";
 import "./home.css";
 export const metadata: Metadata = {
   title: { absolute: "Sleepy" },
@@ -39,6 +40,9 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       />
       <Suspense fallback={null}>
         <LatestNewsSection lang={lang} />
+      </Suspense>
+      <Suspense fallback={null}>
+        <HomeFaqSection copy={copy.faq} lang={lang} />
       </Suspense>
     </main>
   );

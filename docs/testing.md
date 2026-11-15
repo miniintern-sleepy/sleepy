@@ -434,12 +434,13 @@ Supabase·인증·React 요청 메모 범위는 가짜 응답/제공자로 교�
 
 ## 메인 사진 히어로·일반 헤더 (HOME, #68·#81)
 
-| ID       | 파일                                            | 내용                                                                                                          |
-| -------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| HOME-001 | src/components/layout/HeaderClient.test.mjs     | 메인·카테고리·대기 머리말에 data-overlay 없음·현재 경로 메뉴 전달                                             |
-| HOME-002 | src/app/[lang]/_components/HeroSection.test.mjs | 세 줄 h1의 텍스트 공백·설명·제품 보기 버튼·alt 빈 상자 사진·100vw·eager/high, 메인 문의 배너 없음·Sleepy 제목 |
-| HOME-003 | src/app/[lang]/home.test.mjs                    | PC 머리말 제외 높이·1441px 나누는 식과 공개 zoom 문자열 일치·모바일 높이 유지                                 |
-| HOME-004 | src/app/[lang]/_components/HeroSection.test.mjs | 메인 전용 대표 직함·소개·설명과 이름/CEO 사이 공백, 기술 원리 링크의 기술 경로                                |
+| ID       | 파일                                               | 내용                                                                                                          |
+| -------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| HOME-001 | src/components/layout/HeaderClient.test.mjs        | 메인·카테고리·대기 머리말에 data-overlay 없음·현재 경로 메뉴 전달                                             |
+| HOME-002 | src/app/[lang]/_components/HeroSection.test.mjs    | 세 줄 h1의 텍스트 공백·설명·제품 보기 버튼·alt 빈 상자 사진·100vw·eager/high, 메인 문의 배너 없음·Sleepy 제목 |
+| HOME-003 | src/app/[lang]/home.test.mjs                       | PC 머리말 제외 높이·1441px 나누는 식과 공개 zoom 문자열 일치·모바일 높이 유지                                 |
+| HOME-004 | src/app/[lang]/_components/HeroSection.test.mjs    | 메인 전용 대표 직함·소개·설명과 이름/CEO 사이 공백, 기술 원리 링크의 기술 경로                                |
+| HOME-005 | src/app/[lang]/_components/HomeFaqSection.test.mjs | 메인 FAQ 0개면 숨김, 5개 중 앞 4개만·모두 접힘, FAQ 전체 보기 링크 /ko/faq                                    |
 
 MOT-001~003·SCALE-004·006은 AutoWave 제거와 함께 삭제했다. 현재 지원 언어는 ko뿐이므로 /en HTML은 404를 유지하며 새 언어 지원은 이 작업에 포함하지 않는다.
 

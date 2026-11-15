@@ -161,7 +161,8 @@
   font-size: var(--text-compact-link);
 }
 .home-product,
-.home-latest {
+.home-latest,
+.home-faq {
   background: var(--color-paper);
 }
 .home-product-grid {
@@ -202,6 +203,42 @@
   line-height: var(--text-latest-title--line-height);
   font-weight: var(--text-latest-title--font-weight);
 }
+/* 메인 FAQ 목록은 #78 FAQ 화면의 +/− 표시를 따른다.
+ * 이유: #78이 아직 dev에 머지되지 않아 그 규칙(faq.css의 .faq-layout .public-faq-list)을 공통으로 옮길 수 없다.
+ * 주의: #78 머지 뒤 이 블록을 public.css의 .public-faq-list로 합치고 FAQ 화면과 함께 쓴다.
+ */
+.home-faq .public-faq-list summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 0;
+  padding-block: 24px;
+  list-style: none;
+}
+.home-faq .public-faq-list summary::-webkit-details-marker {
+  display: none;
+}
+.home-faq .public-faq-list summary::after {
+  content: "+" / "";
+  flex-shrink: 0;
+  width: 24px;
+  color: var(--color-muted);
+  font-size: var(--text-ui-glyph);
+  font-weight: var(--font-weight-ui-regular);
+  line-height: var(--text-ui-button--line-height);
+  text-align: center;
+}
+.home-faq .public-faq-list details[open] summary::after {
+  content: "−" / "";
+  color: var(--color-violet);
+}
+.home-faq .public-faq-list details p {
+  padding: 0 48px 28px 0;
+}
+.home-faq-more {
+  margin-top: 32px;
+}
 @media (min-width: 761px) {
   .home-page .public-text-link {
     width: fit-content;
@@ -223,7 +260,8 @@
     position: relative;
     right: var(--home-product-inset);
   }
-  .home-latest .public-wide {
+  .home-latest .public-wide,
+  .home-faq .public-wide {
     max-width: 1000px;
   }
   .home-everyday h2 {
@@ -250,6 +288,12 @@
   }
 }
 @media (max-width: 760px) {
+  .home-faq .public-faq-list summary {
+    padding-block: 20px;
+  }
+  .home-faq .public-faq-list details p {
+    padding: 0 0 24px;
+  }
   .home-section {
     padding-block: var(--space-section-small);
   }
