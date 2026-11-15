@@ -160,10 +160,14 @@ test("PRD-004 사진 띠는 네 사진을 순서대로 표시하고 제목·조�
     buttons.map((e) => e.props["aria-label"]),
     ["이전 사진", "다음 사진"],
   );
+  // 가설: 끝에 닿은 버튼을 disabled로 바꾸면 그 버튼에 있던 키보드 초점이 BODY로 빠진다.
+  // 확인: 1024px에서 다음 사진에 초점을 두고 끝까지 이동 → activeElement BODY (2026-11-15, PR #80).
+  // 그래서 비활성은 aria-disabled로만 알리고 버튼은 초점을 받을 수 있게 둔다.
   assert.deepEqual(
-    buttons.map((e) => e.props.disabled),
+    buttons.map((e) => e.props["aria-disabled"]),
     [true, false],
   );
+  assert.ok(buttons.every((e) => e.props.disabled === undefined));
   const track = nodes.find(
     (e) => e.props?.className === "product-gallery-track",
   );
@@ -254,7 +258,9 @@ test("PRD-005 스크롤 갱신은 프레임으로 묶고 한 장씩 이동하며
       flush();
       assert.equal(track.scrollLeft, expected);
     }
-    assert.equal(buttons()[1].props.disabled, true);
+    assert.equal(buttons()[1].props["aria-disabled"], true);
+    buttons()[1].props.onClick();
+    assert.equal(track.scrollLeft, 1527);
     assert.equal(globalThis.__product79.position.progress, 1);
     for (const expected of [1088, 544, 0]) {
       buttons()[0].props.onClick();
@@ -262,7 +268,9 @@ test("PRD-005 스크롤 갱신은 프레임으로 묶고 한 장씩 이동하며
       flush();
       assert.equal(track.scrollLeft, expected);
     }
-    assert.equal(buttons()[0].props.disabled, true);
+    assert.equal(buttons()[0].props["aria-disabled"], true);
+    buttons()[0].props.onClick();
+    assert.equal(track.scrollLeft, 0);
     zoom = 2;
     buttons()[1].props.onClick();
     assert.equal(track.scrollLeft, 544);

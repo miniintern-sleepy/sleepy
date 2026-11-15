@@ -82,12 +82,12 @@
   color: var(--color-ink);
   cursor: pointer;
 }
-.product-gallery-arrows button:disabled {
+.product-gallery-arrows button[aria-disabled="true"] {
   color: var(--color-rule);
   cursor: default;
 }
-.product-gallery-arrows button:enabled:hover,
-.product-gallery-arrows button:enabled:focus-visible {
+.product-gallery-arrows button:not([aria-disabled="true"]):hover,
+.product-gallery-arrows button:not([aria-disabled="true"]):focus-visible {
   color: var(--color-violet-strong);
 }
 @media (min-width: 1440px) {

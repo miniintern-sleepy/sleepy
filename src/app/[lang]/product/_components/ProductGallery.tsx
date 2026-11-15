@@ -69,6 +69,8 @@ export default function ProductGallery({
     if (target !== undefined) track.scrollTo({ left: target });
   }
 
+  // 끝에 닿은 버튼은 disabled 대신 aria-disabled로 알린다.
+  // 이유: disabled로 바꾸면 그 버튼을 누르던 키보드 초점이 BODY로 빠진다(2026-11-15 확인, PR #80).
   return (
     <div className="product-gallery-viewer">
       <div
@@ -111,8 +113,10 @@ export default function ProductGallery({
           <button
             type="button"
             aria-label="이전 사진"
-            disabled={position.start}
-            onClick={() => move(-1)}
+            aria-disabled={position.start}
+            onClick={() => {
+              if (!position.start) move(-1);
+            }}
           >
             <svg
               width="24"
@@ -131,8 +135,10 @@ export default function ProductGallery({
           <button
             type="button"
             aria-label="다음 사진"
-            disabled={position.end}
-            onClick={() => move(1)}
+            aria-disabled={position.end}
+            onClick={() => {
+              if (!position.end) move(1);
+            }}
           >
             <svg
               width="24"

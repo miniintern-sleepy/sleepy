@@ -385,7 +385,7 @@ PC 위아래 여백은120px, 모바일은 기존50/55px다. 섹션은 전체 폭
 
 조작부는 public-wrap 안에 둔다. 진행 선은 rule1px·ink2px다. 진한 선의 길이는 보이는 폭/전체 스크롤 폭, 위치는 스크롤 비율×남은 선 길이로 계산한다. scroll 이벤트는 requestAnimationFrame으로 묶고 창 resize에서도 다시 계산하며 리스너와 예약 프레임을 정리한다. 진행 선은 aria-hidden 표시용이다.
 
-PC 화살표는 진행 선 오른쪽24px 간격에44×44px 버튼 두 개로 배치한다. 바탕·테두리 없이 ink 꺾쇠24px·선1.5·둥근 끝을 쓴다. 이전 M15 5l-7 7 7 7, 다음 M9 5l7 7-7 7이며 버튼 이름은 이전 사진/다음 사진이다. 한 장 시작점씩 scrollTo하고 양 끝은 disabled/rule, enabled hover·focus는 violet-strong이다. 포커스 테두리는 공통 규칙이다. 모바일은 화살표를 숨기고 선만 콘텐츠 폭 전체에 둔다.
+PC 화살표는 진행 선 오른쪽24px 간격에44×44px 버튼 두 개로 배치한다. 바탕·테두리 없이 ink 꺾쇠24px·선1.5·둥근 끝을 쓴다. 이전 M15 5l-7 7 7 7, 다음 M9 5l7 7-7 7이며 버튼 이름은 이전 사진/다음 사진이다. 한 장 시작점씩 scrollTo하고 양 끝은 aria-disabled/rule이며 누르면 아무 일도 하지 않는다. disabled를 쓰면 그 버튼의 키보드 초점이 BODY로 빠지므로 쓰지 않는다. 비활성이 아닌 버튼의 hover·focus는 violet-strong이다. 포커스 테두리는 공통 규칙이다. 모바일은 화살표를 숨기고 선만 콘텐츠 폭 전체에 둔다.
 
 띠는 모든 폭에서 tabindex0·role group·“제품 사진 4장, 좌우로 넘겨 볼 수 있습니다” 안내를 갖는다. 브라우저 기본 방향키·가로 스크롤·터치와 PC 화살표를 사용하며 마우스 드래그는 구현하지 않는다. CSS scroll-behavior:smooth를 사용하고 reduced-motion에서는 auto다. 화살표는 behavior를 강제하지 않아 CSS 설정을 따른다.
 
