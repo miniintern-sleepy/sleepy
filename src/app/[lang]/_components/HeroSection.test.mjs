@@ -69,8 +69,12 @@ test("HOME-002 메인 히어로는 세 줄 제목·제품 보기 버튼·상자 
     }),
   );
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
-  for (const line of homeCopy.hero.title.split("\n"))
-    assert.ok(html.includes(`<span>${line}</span>`));
+  for (const [index, line] of homeCopy.hero.title.split("\n").entries())
+    assert.ok(html.includes(`<span>${index > 0 ? " " : ""}${line}</span>`));
+  const titleText = html
+    .match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]
+    .replace(/<[^>]+>/g, "");
+  assert.equal(titleText, homeCopy.hero.title.replaceAll("\n", " "));
   assert.equal(homeCopy.hero.title.split("\n").length, 3);
   assert.match(html, /alt=""/);
   assert.match(html, /src="\/images\/home\/hero-box.webp"/);
@@ -105,6 +109,7 @@ test("HOME-004 메인 대표 소개는 전용 문구를 쓰고 기술 원리 링
   assert.ok(html.includes(homeCopy.founder.paragraphs[0]));
   assert.ok(html.includes(homeCopy.founder.description));
   assert.match(html, /text-meta text-muted">CEO<\/span>/);
+  assert.ok(html.includes(`${companyCopy.ceo.name} <span`));
   assert.doesNotMatch(html, /회사 전용/);
   const day = renderToStaticMarkup(
     createElement(DayTriptychSection, { lang: "ko", copy: homeCopy.day }),

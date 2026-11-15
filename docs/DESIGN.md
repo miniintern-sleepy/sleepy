@@ -353,7 +353,7 @@ zoom 선언 전체를 검사하는 @supports 안에서만 확대와 토큰 고�
 
 #81의 PL 결정이 #68의 투명 헤더·흰 제목·어두운 덮개보다 우선한다. 모든 공개 화면은 paper 바탕의 일반 머리말을 쓰며 메인 사진도 그 아래에서 시작한다. HeaderClient의 usePathname·메뉴 현재 위치·이동 시 닫기는 유지하고, data-overlay·전용 CSS와 사용처가 없어진 isHomePath는 제거한다. 푸터·FAQ의 ContactBanner는 유지하고 메인의 ContactBanner만 제거한다.
 
-제공된 hero-box.webp(2880×1624, 61,166바이트)를 정적 import·fill·장식 alt·sizes100vw·eager/high로 표시한다. 원본 SHA-256은 `0a8d10a698f78d3dc07948a6f30f29deca0021dba8356a796b5e382f3b51aac4`다. PC는 cover/center, 모바일은 기존42% center다. 덮개는 없으며 hero-window.webp는 전체 사용처 확인 후 삭제했다.
+제공된 hero-box.webp(2880×1624, 61,166바이트)를 정적 import·fill·장식 alt·sizes100vw·eager/high로 표시한다. 원본 SHA-256은 `0a8d10a698f78d3dc07948a6f30f29deca0021dba8356a796b5e382f3b51aac4`다. PC는 cover/center, 400px 이하는 PR #82 검토 후 케이스가 보이도록 right center로 바꾸고, 그보다 넓은 모바일은 글자 뒤 로고 겹침을 피하도록 기존42% center를 유지한다. 덮개는 없으며 hero-window.webp는 전체 사용처 확인 후 삭제했다.
 
 제목은 “일상생활부터 / 편안한 수면까지 / 슬리피가 함께합니다”의 세 줄이며 모두 ink다. PC landing-title은52px·500·1.28·-.045em이고 줄 사이8px를 둔다. 모바일은 기존45px(400px 이하41px)·420·1.25·-.065em을 유지하고 줄 사이 추가 간격은 없다. 설명은 copy-large와 기존 페이지 설명 행간1.65를 사용한다. `--color-home-hero-description: #3f3850`은 회색 사진 벽에서 muted보다 진한 설명을 위한 승인된 페이지 전용 색이다. 제품 보기 링크는 violet/white·radius-pill·ui-input(16px)·ui-medium·52px 높이로 표시하고 해당 언어의 product로 이동한다. 공통 버튼 컴포넌트에는 일반 내부 이동용 pill이 없어 메인에만 둔다. 초점은 기존 violet-strong이다.
 

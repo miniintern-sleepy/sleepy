@@ -21,8 +21,11 @@ export default function HeroSection({
       />
       <div className="home-hero-copy">
         <h1 className="text-landing-title">
-          {copy.title.split("\n").map((line) => (
-            <span key={line}>{line}</span>
+          {copy.title.split("\n").map((line, index) => (
+            <span key={line}>
+              {index > 0 ? " " : ""}
+              {line}
+            </span>
           ))}
         </h1>
         <p className="home-hero-description text-copy-large">

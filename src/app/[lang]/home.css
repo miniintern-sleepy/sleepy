@@ -363,3 +363,9 @@
     gap: 16px;
   }
 }
+
+@media (max-width: 400px) {
+  .home-hero > img {
+    object-position: right center;
+  }
+}

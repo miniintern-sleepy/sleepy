@@ -27,7 +27,7 @@ export default function FounderStorySection({
           />
           <div>
             <h2 className="text-founder-name">
-              {company.ceo.name}
+              {company.ceo.name}{" "}
               <span className="ml-3 text-meta text-muted">CEO</span>
             </h2>
             <p className="home-founder-role text-meta text-muted">
