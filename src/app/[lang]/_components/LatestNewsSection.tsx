@@ -3,7 +3,7 @@ import TextLink from "@/components/ui/TextLink";
 import { getNewsList } from "@/lib/content";
 
 export default async function LatestNewsSection({ lang }: { lang: string }) {
-  const articles = (await getNewsList()).slice(0, 2);
+  const articles = (await getNewsList()).slice(0, 4);
   if (!articles.length) return null;
   return (
     <section className="home-latest home-section">

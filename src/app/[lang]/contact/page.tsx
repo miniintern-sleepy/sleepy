@@ -12,9 +12,11 @@ export const metadata: Metadata = {
 };
 async function Form({
   lang,
+  email,
   searchParams,
 }: {
   lang: string;
+  email: string;
   searchParams: PageProps<"/[lang]/contact">["searchParams"];
 }) {
   const query = await searchParams;
@@ -31,6 +33,7 @@ async function Form({
       initialType={initialType}
       key={initialType}
       lang={lang}
+      email={email}
       siteKey={siteKey}
       enabled={enabled}
     />
@@ -51,19 +54,36 @@ export default async function ContactPage({
       />
       <section className="public-wrap contact-layout">
         <aside className="contact-intro">
-          <h2 className="text-form-aside">{copy.guideTitle}</h2>
+          <h2 className="text-form-title">{copy.guideTitle}</h2>
           <p>{copy.guide}</p>
-          <p>
-            이메일
-            <br />
-            <a href={`mailto:${copy.email}`}>{copy.email}</a>
-          </p>
-          <p>
-            주소
-            <br />
-            {copy.address}
-          </p>
-          <p>{copy.beforeVisit}</p>
+          <dl className="contact-info">
+            <div>
+              <dt>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
+                이메일
+              </dt>
+              <dd>
+                <a href={`mailto:${copy.email}`}>{copy.email}</a>
+              </dd>
+            </div>
+            <div>
+              <dt>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />
+                  <circle cx="12" cy="9.5" r="2.5" />
+                </svg>
+                주소
+              </dt>
+              <dd>
+                {copy.address}
+                <br />
+                {copy.beforeVisit}
+              </dd>
+            </div>
+          </dl>
           <Image
             src="/images/contact/map.jpg"
             alt="서울 성북구 화랑로 211 주변 지도"
@@ -87,7 +107,7 @@ export default async function ContactPage({
         <Suspense
           fallback={<p role="status">문의 화면을 준비하고 있습니다.</p>}
         >
-          <Form lang={lang} searchParams={searchParams} />
+          <Form lang={lang} email={copy.email} searchParams={searchParams} />
         </Suspense>
       </section>
     </main>

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { getNewsroomCopy } from "@/lib/content";
 import Newsroom from "./_components/Newsroom";
 import { loadNewsroom } from "./_components/load-news";
+import "./newsroom.css";
 
 export const metadata: Metadata = {
   title: "뉴스룸",

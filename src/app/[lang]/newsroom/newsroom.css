@@ -1,0 +1,155 @@
+/* 뉴스룸 카드 격자(#77, D-53). 위에 분류·연도 고르기와 둥근 검색창, 아래 굵은 선. */
+.newsroom-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding-bottom: 28px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--color-ink);
+}
+.newsroom-selects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.newsroom-select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.newsroom-select select {
+  min-width: 160px;
+  min-height: var(--size-touch);
+  padding: 10px 48px 10px 22px;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  appearance: none;
+  cursor: pointer;
+}
+.newsroom-select span[aria-hidden="true"] {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  translate: 0 -60%;
+  pointer-events: none;
+  color: var(--color-ink);
+}
+.newsroom-toolbar .newsroom-search {
+  flex: 1 1 280px;
+  max-width: 440px;
+  margin: 0;
+  padding-inline: 24px 20px;
+  border-bottom: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-panel);
+}
+.newsroom-toolbar .newsroom-search input {
+  padding-block: 12px;
+}
+
+.newsroom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 24px;
+  margin-top: 8px;
+}
+.newsroom-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-radius: var(--radius-stage);
+  overflow: hidden;
+  background: var(--color-panel);
+}
+.newsroom-card-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 22px 22px;
+}
+.newsroom-card-title {
+  margin-bottom: 12px;
+}
+.newsroom-card-meta {
+  margin-top: auto;
+}
+.newsroom-card-media {
+  display: block;
+}
+.newsroom-card-media .public-news-thumb,
+.newsroom-card-media .news-placeholder {
+  position: relative;
+  display: grid;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+}
+a.newsroom-card:hover .newsroom-card-title {
+  color: var(--color-violet-strong);
+}
+
+/* 사진 없는 기사의 분류별 아이콘. 분류마다 배경을 달리해 목록이 단조롭지 않게 한다. */
+.news-placeholder {
+  place-content: center;
+}
+.news-placeholder svg {
+  width: 48px;
+  height: 48px;
+}
+.news-placeholder-company {
+  background: var(--color-rule);
+  color: var(--color-violet-strong);
+}
+.news-placeholder-press {
+  background: var(--color-wave-back);
+  color: var(--color-violet-strong);
+}
+.news-placeholder-notice {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-rule);
+}
+
+@media (max-width: 1100px) {
+  .newsroom-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .newsroom-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
+  }
+  .newsroom-toolbar .newsroom-search {
+    max-width: none;
+  }
+}
+@media (max-width: 520px) {
+  .newsroom-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .newsroom-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .newsroom-toolbar .newsroom-search {
+    flex: none;
+  }
+  .newsroom-select {
+    flex: 1;
+  }
+  .newsroom-select select {
+    width: 100%;
+    min-width: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .newsroom-card-title {
+    transition: color var(--motion-state);
+  }
+}
