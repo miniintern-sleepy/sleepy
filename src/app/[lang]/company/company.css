@@ -9,9 +9,6 @@
 .company-beliefs {
   padding-bottom: var(--space-section);
 }
-.company-contact {
-  padding: var(--space-section-small) var(--layout-gutter);
-}
 .company-tech-diagram {
   margin: 56px auto 0;
   max-width: 780px;
@@ -293,8 +290,9 @@
   color: var(--color-violet-strong);
   font-weight: var(--font-weight-ui-medium);
 }
+/* 문의 배경 위 → 걸음 마지막 줄 아래 거리. 배너 안쪽 여백(100px)과 따로 센다(#90). */
 .company-contact {
-  margin-top: calc(var(--space-section) - var(--space-section-small));
+  margin-top: var(--space-section);
 }
 @media (min-width: 1024px) {
   .company-about {
@@ -324,7 +322,7 @@
     padding-top: 27px;
   }
   .company-contact {
-    margin-top: calc(200px - var(--space-section-small));
+    margin-top: 200px;
   }
 }
 @media (max-width: 767px) {
@@ -373,6 +371,6 @@
     text-align: left;
   }
   .company-contact {
-    margin-top: 0;
+    margin-top: var(--space-section-small);
   }
 }

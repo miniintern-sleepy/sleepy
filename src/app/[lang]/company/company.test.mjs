@@ -48,6 +48,7 @@ const { default: About } = await import("./_components/AboutSection.tsx");
 const { default: Beliefs } = await import("./_components/BeliefsSection.tsx");
 const { default: History } = await import("./_components/HistorySection.tsx");
 const { default: Ceo } = await import("./_components/CeoSection.tsx");
+const { default: Contact } = await import("./_components/ContactSection.tsx");
 after(() => hook.deregister());
 const render = (C, copy) => renderToStaticMarkup(createElement(C, { copy }));
 test("CMP-001 회사 소개는 h2와 dl8행·확정 라벨 순서로 회사 기본 정보를 보여 준다", () => {
@@ -87,4 +88,13 @@ test("CMP-004 CEO 표지는 이름과 같은 부모에서 이름 뒤에 나온�
     /<div class="flex items-baseline gap-3"><h2[^>]*>서정화<\/h2><p[^>]*>CEO<\/p><\/div>/,
   );
   assert.equal("facts" in companyCopy, false);
+});
+test("CMP-005 문의는 FAQ와 같은 문의 배너(글자 링크)이고 유형 일반을 미리 고른다", () => {
+  const html = renderToStaticMarkup(
+    createElement(Contact, { copy: companyCopy.contact, lang: "ko" }),
+  );
+  assert.match(html, /class="public-contact-banner company-contact"/);
+  assert.match(html, /href="\/ko\/contact\?type=general"/);
+  assert.match(html, /public-text-link/);
+  assert.doesNotMatch(html, /rounded-full|bg-violet-strong/);
 });
