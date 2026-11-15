@@ -203,6 +203,20 @@
   font-weight: var(--text-latest-title--font-weight);
 }
 @media (min-width: 761px) {
+  .home-page .public-text-link {
+    width: fit-content;
+    justify-content: flex-start;
+    gap: 0.35em;
+  }
+  .home-product-grid > div {
+    margin-left: max(
+      0px,
+      calc((min(1280px, 100vw - var(--layout-gutter) * 2) - 1000px) / 2)
+    );
+  }
+  .home-latest .public-wide {
+    max-width: 1000px;
+  }
   .home-everyday h2 {
     position: relative;
     left: 51px;
