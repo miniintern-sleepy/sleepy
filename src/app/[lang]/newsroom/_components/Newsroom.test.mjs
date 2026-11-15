@@ -28,8 +28,10 @@ const hook = registerHooks({
       );
     if (s.startsWith("./") && !/\.[a-z]+$/.test(s))
       return n(
-        new URL(`${s}${s === "./news-view" ? ".ts" : ".tsx"}`, c.parentURL)
-          .href,
+        new URL(
+          `${s}${["./news-view", "./newsroom-thumbnail"].includes(s) ? ".ts" : ".tsx"}`,
+          c.parentURL,
+        ).href,
         c,
       );
     return n(s, c);
@@ -50,6 +52,7 @@ const hook = registerHooks({
   },
 });
 const { default: Newsroom } = await import("./Newsroom.tsx");
+const { newsroomThumbnail } = await import("./newsroom-thumbnail.ts");
 const { default: NewsCard } = await import("./NewsCard.tsx");
 after(() => hook.deregister());
 const article = {
@@ -65,6 +68,21 @@ const article = {
 };
 const render = (C, p) => renderToStaticMarkup(createElement(C, p));
 test("NEWS-018 사진·원문 없는 기사는 로고 대체 그림과 링크 없는 article이다", () => {
+  for (const [sourceUrl, file] of [
+    [
+      "https://kr.aving.net/news/articleView.html?idxno=1812193",
+      "aving-1812193.jpg",
+    ],
+    [
+      "https://kr.aving.net/news/articleView.html?idxno=1809345",
+      "aving-1809345.jpg",
+    ],
+    ["https://www.medigatenews.com/news/976305745", "medigate-976305745.jpg"],
+  ])
+    assert.equal(
+      newsroomThumbnail({ ...article, sourceUrl }),
+      `/images/newsroom/${file}`,
+    );
   const html = render(NewsCard, { article, featured: true });
   assert.match(html, /<article/);
   assert.doesNotMatch(html, /<a |newsroom-original/);

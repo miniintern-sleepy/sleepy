@@ -93,8 +93,8 @@
   color: var(--color-muted);
 }
 .newsroom-pagination [aria-current="page"] {
-  background: var(--color-ink);
-  color: var(--color-white);
+  background: var(--color-panel);
+  color: var(--color-violet-strong);
 }
 .newsroom-pagination a:not([aria-current]):hover,
 .newsroom-pagination a:not([aria-current]):focus-visible {

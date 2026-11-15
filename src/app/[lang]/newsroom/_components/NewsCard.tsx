@@ -1,5 +1,6 @@
+import { newsroomThumbnail } from "./newsroom-thumbnail";
 import NewsroomImage from "./NewsroomImage";
-import { categoryLabels, formatDate, imageUrl, sourceUrl } from "@/lib/news";
+import { categoryLabels, formatDate, sourceUrl } from "@/lib/news";
 import type { NewsArticle } from "@/types/content";
 
 export default function NewsCard({
@@ -14,7 +15,7 @@ export default function NewsCard({
     <>
       <NewsroomImage
         key={article.thumbnailUrl}
-        src={imageUrl(article.thumbnailUrl)}
+        src={newsroomThumbnail(article)}
         featured={featured}
       />
       <div className="newsroom-card-copy">

@@ -638,14 +638,14 @@ MOT-001~003·SCALE-004·006은 AutoWave 제거와 함께 삭제했다. 현재 �
 
 ## 뉴스룸 목록 개편 (#86)
 
-| ID       | 위치                                    | 검사                                                      |
-| -------- | --------------------------------------- | --------------------------------------------------------- |
-| NEWS-014 | src/lib/news.test.mjs                   | YYYY.MM.DD 날짜 표시                                      |
-| NEWS-015 | newsroom/_components/news-view.test.mjs | 주요 기사 우선·없으면 최신·0건                            |
-| NEWS-016 | newsroom/_components/news-view.test.mjs | 16건 첫1+9·다음6·중복 없음·10건 이하 페이지1              |
-| NEWS-017 | newsroom/_components/news-view.test.mjs | 잘못된 page·범위 밖·배열 입력은1                          |
-| NEWS-018 | newsroom/_components/Newsroom.test.mjs  | 로고 대체 그림·원문 없는 article·출처 대체·사진 실패 처리 |
-| NEWS-019 | newsroom/_components/Newsroom.test.mjs  | 서버 페이지 링크·현재·비활성·0건·요약 생략                |
+| ID       | 위치                                    | 검사                                                                        |
+| -------- | --------------------------------------- | --------------------------------------------------------------------------- |
+| NEWS-014 | src/lib/news.test.mjs                   | YYYY.MM.DD 날짜 표시                                                        |
+| NEWS-015 | newsroom/_components/news-view.test.mjs | 주요 기사 우선·없으면 최신·0건                                              |
+| NEWS-016 | newsroom/_components/news-view.test.mjs | 16건 첫1+9·다음6·중복 없음·10건 이하 페이지1                                |
+| NEWS-017 | newsroom/_components/news-view.test.mjs | 잘못된 page·범위 밖·배열 입력은1                                            |
+| NEWS-018 | newsroom/_components/Newsroom.test.mjs  | 로고 대체 그림·원문 없는 article·출처 대체·사진 실패 처리·원문 사진3개 연결 |
+| NEWS-019 | newsroom/_components/Newsroom.test.mjs  | 서버 페이지 링크·현재·비활성·0건·요약 생략                                  |
 
 기존 검색·분류·연도 테스트 NEWS-005·006·012·013은 기능 삭제로 제거한다.
 
