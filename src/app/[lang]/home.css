@@ -136,7 +136,6 @@
 .home-founder-photo {
   width: 230px;
   height: auto;
-  border-radius: var(--radius-photo);
 }
 .home-founder-role {
   margin-top: 13px;
