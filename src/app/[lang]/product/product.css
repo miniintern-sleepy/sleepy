@@ -235,6 +235,9 @@
   margin-top: 60px;
 }
 @media (min-width: 768px) {
+  .product-kit-copy ul {
+    margin-inline: 6.25%;
+  }
   .product-moments-heading {
     align-items: end;
   }
