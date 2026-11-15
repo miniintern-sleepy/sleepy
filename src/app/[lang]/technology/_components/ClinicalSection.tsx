@@ -1,3 +1,4 @@
+import ExternalLinks from "@/components/ui/ExternalLinks";
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import type { getTechnologyCopy } from "@/lib/content";
@@ -37,9 +38,10 @@ export default function ClinicalSection({ copy }: { copy: Copy }) {
             </li>
           ))}
         </ul>
-        <p className="tech-research-more text-research-more">
-          {copy.moreLabel}
-        </p>
+        <ExternalLinks
+          className="tech-research-more"
+          links={[{ label: copy.moreLabel, href: copy.moreHref }]}
+        />
       </Reveal>
     </section>
   );

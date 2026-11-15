@@ -3,8 +3,6 @@ import Reveal from "@/components/ui/Reveal";
 import type { getCompanyCopy } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 
-import ExternalLinks from "./ExternalLinks";
-
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["easyTech"];
 
 export default function EasyTechSection({
@@ -141,7 +139,6 @@ export default function EasyTechSection({
         <Link href={`/${lang}/technology`} className="public-text-link mt-4">
           {copy.link}
         </Link>
-        <ExternalLinks links={copy.videos} className="mt-2 justify-center" />
       </Reveal>
     </section>
   );

@@ -304,3 +304,9 @@
     }
   }
 }
+
+.external-text-link {
+  width: fit-content;
+  justify-content: flex-start;
+  gap: 0.35em;
+}

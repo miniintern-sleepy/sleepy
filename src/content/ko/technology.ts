@@ -48,7 +48,7 @@ export const technologyCopy = {
   clinical: {
     title: "양이성 음향이 마취에 미치는 영향에 관한 임상연구",
     metric: {
-      label: "전신마취 유도 시\n프로포폴 요구량",
+      label: "전신마취 유도 시 프로포폴 요구량",
       value: "약 20%↓",
     },
     studies: [
@@ -59,7 +59,29 @@ export const technologyCopy = {
       { title: "소아 사시 수술 후 섬망", status: "발표" },
       { title: "소아 마취 유도 용량", status: "IRB" },
     ],
+    moreHref:
+      "https://www.ncbi.nlm.nih.gov/sites/myncbi/1JEcj2X0fdP/collections/68016625/public/",
     moreLabel: "양이성 음향 임상연구 전체 10건 보기",
+  },
+  video: {
+    title: "기술 소개 영상",
+    items: [
+      {
+        label: "IR 영상",
+        title:
+          "비약물적 방법으로 수면 및 마취 효능을 발현하는 디지털 수면제 & 마취제",
+        href: "https://www.youtube.com/watch?v=hVidH-v1SwM",
+        image: "/images/technology/video-ir.jpg",
+      },
+      // 대표 발표가 시작되는 18분 14초를 유지한다(#83).
+      {
+        label: "강의 영상",
+        title:
+          "Non-Pharmacological CNS Depression and Digital Anesthetics by Sensory and Brainwave Entrainment",
+        href: "https://www.youtube.com/watch?v=iuWn5CnKjQ0&t=1094s",
+        image: "/images/technology/video-lecture.jpg",
+      },
+    ],
   },
   patents: {
     title: "아이디어부터 디자인까지,\n지식재산권으로 보호합니다.",
