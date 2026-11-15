@@ -218,6 +218,8 @@
     margin-left: var(--home-product-inset);
   }
   .home-stage-photo {
+    width: calc(100% * 5 / 6);
+    justify-self: end;
     position: relative;
     right: var(--home-product-inset);
   }
