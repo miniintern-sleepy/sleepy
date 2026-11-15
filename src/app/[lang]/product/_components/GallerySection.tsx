@@ -1,4 +1,3 @@
-import Reveal from "@/components/ui/Reveal";
 import ProductGallery from "./ProductGallery";
 import type { ProductCopy } from "./types";
 
@@ -9,17 +8,12 @@ export default function GallerySection({
 }) {
   return (
     <section
-      className="product-gallery public-wrap"
+      className="product-gallery"
       aria-labelledby="product-gallery-title"
     >
-      <Reveal>
-        <h2
-          id="product-gallery-title"
-          className="text-detail-heading whitespace-pre-line"
-        >
-          {copy.title}
-        </h2>
-      </Reveal>
+      <h2 id="product-gallery-title" className="sr-only">
+        {copy.title}
+      </h2>
       <ProductGallery photos={copy.photos} />
     </section>
   );

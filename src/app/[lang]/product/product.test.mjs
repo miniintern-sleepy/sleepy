@@ -27,7 +27,7 @@ const hook = registerHooks({
         url:
           "data:text/javascript," +
           encodeURIComponent(
-            "export function useState(initial){const key=typeof initial==='boolean'?'isMobile':'active';return [globalThis.__product79[key]??initial,n=>globalThis.__product79[key]=n]} export function useRef(){return {current:globalThis.__product79.track??null}} export function useEffect(effect){globalThis.__product79.effect=effect}",
+            "export function useState(initial){return [globalThis.__product79.position??initial,n=>globalThis.__product79.position=n]} export function useRef(){return {current:globalThis.__product79.track??null}} export function useEffect(effect){globalThis.__product79.effect=effect}",
           ),
         shortCircuit: true,
       };
@@ -71,8 +71,6 @@ beforeEach(() => {
     copy: productCopy,
     specs: [],
     url: null,
-    active: 0,
-    isMobile: false,
   };
 });
 after(() => {
@@ -142,144 +140,142 @@ test("PRD-003 제품 히어로는 설명 대신 구매 버튼을 넣고 주소 �
       );
   }
 });
-test("PRD-004 갤러리 미리보기를 선택하면 큰 사진과 선택 버튼·위치 점이 함께 바뀐다", () => {
-  const render = () => ProductGallery({ photos: productCopy.features.photos });
-  const initial = render();
-  const buttons = elements(initial).filter((e) => e.type === "button");
-  assert.equal(buttons.length, 4);
-  assert.equal(buttons[0].props["aria-pressed"], true);
-  assert.ok(
-    buttons.every((e, i) =>
-      e.props["aria-label"].startsWith(`사진 ${i + 1} 보기:`),
-    ),
-  );
-  buttons[2].props.onClick();
-  const selected = render();
-  const selectedButtons = elements(selected).filter((e) => e.type === "button");
+test("PRD-004 사진 띠는 네 사진을 순서대로 표시하고 제목·조작부 접근성을 유지한다", async () => {
+  const tree = ProductGallery({ photos: productCopy.features.photos });
+  const nodes = elements(tree);
+  const images = nodes.filter((e) => e.props?.loading === "eager");
   assert.deepEqual(
-    selectedButtons.map((e) => e.props["aria-pressed"]),
-    [false, false, true, false],
+    images.map((e) => e.props.src),
+    productCopy.features.photos.map((p) => p.src),
   );
-  const html = renderToStaticMarkup(selected);
-  assert.match(html, /data-index="2" data-active="true"/);
-  assert.match(
-    html,
-    /product-gallery-dots" aria-hidden="true"><span data-active="false"><\/span><span data-active="false"><\/span><span data-active="true"/,
+  assert.deepEqual(
+    images.map((e) => e.props.alt),
+    productCopy.features.photos.map((p) => p.alt),
   );
-  assert.equal((html.match(/sizes="120px"/g) ?? []).length, 4);
+  assert.ok(images.every((e) => e.props.alt && !e.props.priority));
+  assert.ok(images[0].props.sizes.includes("260px"));
+  assert.ok(images[2].props.sizes.includes("390px"));
+  const buttons = nodes.filter((e) => e.type === "button");
+  assert.deepEqual(
+    buttons.map((e) => e.props["aria-label"]),
+    ["이전 사진", "다음 사진"],
+  );
+  assert.deepEqual(
+    buttons.map((e) => e.props.disabled),
+    [true, false],
+  );
+  const track = nodes.find(
+    (e) => e.props?.className === "product-gallery-track",
+  );
+  assert.equal(track.props.tabIndex, 0);
+  assert.equal(track.props.role, "group");
   assert.equal(
-    (html.match(/sizes="\(max-width:767px\) 100vw, 480px"/g) ?? []).length,
-    4,
+    track.props["aria-label"],
+    "제품 사진 4장, 좌우로 넘겨 볼 수 있습니다",
   );
-  assert.ok(!html.includes("priority"));
-  assert.equal((html.match(/loading="eager"/g) ?? []).length, 4);
-  const previews = elements(selected).find(
-    (e) => e.props?.className === "product-gallery-thumbnails",
-  );
-  assert.equal(previews.props.role, "group");
-  assert.equal(previews.props["aria-label"], "제품 사진 선택");
-  for (const image of elements(previews).filter(
-    (e) => e.props?.sizes === "120px",
-  ))
-    assert.equal(image.props.loading, undefined);
+  const html = renderToStaticMarkup(tree);
+  assert.doesNotMatch(html, /thumbnails|dots|data-active/);
+  const pageHtml = renderToStaticMarkup(await page());
+  assert.match(pageHtml, /id="product-gallery-title" class="sr-only"/);
 });
 
-test("PRD-005 모바일에서만 사진 줄에 접근성 표시를 붙이고 위치 점 관찰을 정리한다", () => {
-  const previous = globalThis.IntersectionObserver;
-  const previousWindow = globalThis.window;
-  let listener;
-  const mobile = {
-    matches: true,
-    addEventListener(_, callback) {
-      listener = callback;
-    },
-    removeEventListener(_, callback) {
-      assert.equal(callback, listener);
-    },
-  };
-  globalThis.window = { matchMedia: () => mobile };
+test("PRD-005 스크롤 갱신은 프레임으로 묶고 한 장씩 이동하며 끝과 진행 선을 계산한다", () => {
+  const css = readFileSync(new URL("./product.css", import.meta.url), "utf8");
+  assert.match(css, /scroll-padding-inline: var\(--gallery-inset\)/);
+  assert.match(
+    css,
+    /@media \(prefers-reduced-motion: reduce\)\s*\{\s*\.product-gallery-track\s*\{\s*scroll-behavior: auto/,
+  );
+  const saved = Object.fromEntries(
+    [
+      "window",
+      "requestAnimationFrame",
+      "cancelAnimationFrame",
+      "getComputedStyle",
+    ].map((k) => [k, globalThis[k]]),
+  );
+  const frames = new Map();
+  let serial = 0;
+  let zoom = 1;
+  const handlers = new Map();
   const track = {
-    children: Array.from({ length: 4 }, (_, i) => ({
-      dataset: { index: String(i) },
-    })),
+    scrollLeft: 0,
+    scrollWidth: 2967,
+    clientWidth: 1440,
+    getBoundingClientRect: () => ({ left: 10, width: 1440 * zoom }),
+    addEventListener: (name, fn) => handlers.set(name, fn),
+    removeEventListener: (name, fn) => {
+      assert.equal(handlers.get(name), fn);
+      handlers.delete(name);
+    },
+    scrollTo(options) {
+      assert.equal(options.behavior, undefined);
+      this.scrollLeft = Math.max(0, Math.min(1527, options.left));
+    },
   };
+  track.children = [0, 544, 1088, 1892].map((start) => ({
+    getBoundingClientRect: () => ({
+      left: 10 + (100 + start - track.scrollLeft) * zoom,
+    }),
+  }));
   globalThis.__product79.track = track;
-  let callback,
-    options,
-    disconnected = false;
-  const observed = [];
-  globalThis.IntersectionObserver = class {
-    constructor(cb, opts) {
-      callback = cb;
-      options = opts;
-    }
-    observe(node) {
-      observed.push(node);
-    }
-    disconnect() {
-      disconnected = true;
-    }
+  globalThis.window = {
+    addEventListener: (n, f) => handlers.set(n, f),
+    removeEventListener: (n, f) => {
+      assert.equal(handlers.get(n), f);
+      handlers.delete(n);
+    },
   };
+  globalThis.getComputedStyle = () => ({ paddingInlineStart: "100px" });
+  globalThis.requestAnimationFrame = (fn) => {
+    frames.set(++serial, fn);
+    return serial;
+  };
+  globalThis.cancelAnimationFrame = (id) => frames.delete(id);
+  const flush = () => {
+    const callbacks = [...frames.values()];
+    frames.clear();
+    callbacks.forEach((fn) => fn());
+  };
+  const render = () => ProductGallery({ photos: productCopy.features.photos });
+  const buttons = () => elements(render()).filter((e) => e.type === "button");
   try {
-    const renderTrack = () =>
-      elements(ProductGallery({ photos: productCopy.features.photos })).find(
-        (e) => e.props?.className === "product-gallery-track",
-      );
-    const initial = renderTrack();
-    for (const key of ["tabIndex", "role", "aria-label"])
-      assert.equal(initial.props[key], undefined);
+    render();
     const cleanup = globalThis.__product79.effect();
-    const mounted = renderTrack();
-    assert.equal(mounted.props.tabIndex, 0);
-    assert.equal(mounted.props.role, "group");
-    assert.equal(
-      mounted.props["aria-label"],
-      "제품 사진, 좌우로 넘겨 볼 수 있습니다",
-    );
-    assert.equal(options.root, track);
-    assert.equal(options.threshold, 0.6);
-    assert.equal(observed.length, 4);
-    callback([
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.1,
-        target: track.children[1],
-      },
-    ]);
-    assert.equal(globalThis.__product79.active, 0);
-    callback([
-      {
-        isIntersecting: true,
-        intersectionRatio: 0.9,
-        target: track.children[1],
-      },
-    ]);
-    assert.equal(globalThis.__product79.active, 1);
-    mobile.matches = false;
-    listener();
-    const desktop = renderTrack();
-    for (const key of ["tabIndex", "role", "aria-label"])
-      assert.equal(desktop.props[key], undefined);
-    callback([
-      { isIntersecting: true, intersectionRatio: 1, target: track.children[3] },
-    ]);
-    assert.equal(globalThis.__product79.active, 1);
-    callback([
-      {
-        isIntersecting: false,
-        intersectionRatio: 0,
-        target: track.children[2],
-      },
-    ]);
-    assert.equal(globalThis.__product79.active, 1);
-    disconnected = false;
+    handlers.get("scroll")();
+    handlers.get("scroll")();
+    assert.equal(frames.size, 1);
+    flush();
+    assert.equal(globalThis.__product79.position.visible, 1440 / 2967);
+    assert.equal(globalThis.__product79.position.start, true);
+    for (const expected of [544, 1088, 1527]) {
+      buttons()[1].props.onClick();
+      handlers.get("scroll")();
+      flush();
+      assert.equal(track.scrollLeft, expected);
+    }
+    assert.equal(buttons()[1].props.disabled, true);
+    assert.equal(globalThis.__product79.position.progress, 1);
+    for (const expected of [1088, 544, 0]) {
+      buttons()[0].props.onClick();
+      handlers.get("scroll")();
+      flush();
+      assert.equal(track.scrollLeft, expected);
+    }
+    assert.equal(buttons()[0].props.disabled, true);
+    zoom = 2;
+    buttons()[1].props.onClick();
+    assert.equal(track.scrollLeft, 544);
+    handlers.get("resize")();
+    assert.equal(frames.size, 1);
     cleanup();
-    assert.equal(disconnected, true);
+    assert.equal(frames.size, 0);
+    assert.equal(handlers.size, 0);
   } finally {
-    if (previous === undefined) delete globalThis.IntersectionObserver;
-    else globalThis.IntersectionObserver = previous;
-    if (previousWindow === undefined) delete globalThis.window;
-    else globalThis.window = previousWindow;
+    for (const [k, v] of Object.entries(saved)) {
+      if (v === undefined) delete globalThis[k];
+      else globalThis[k] = v;
+    }
   }
 });
 
