@@ -44,16 +44,10 @@
   overflow: hidden;
 }
 .newsroom-original {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35em;
-  width: 157px;
-  min-height: 48px;
   margin-top: 28px;
-  border-radius: var(--radius-control);
-  background: var(--color-ink);
-  color: var(--color-white);
+}
+.newsroom-feature:hover .newsroom-original {
+  color: var(--color-violet);
 }
 .newsroom-grid {
   display: grid;
@@ -118,9 +112,6 @@
   }
   .newsroom-feature .newsroom-card-copy {
     padding-top: 0;
-  }
-  .newsroom-original {
-    width: 100%;
   }
   .newsroom-grid {
     grid-template-columns: minmax(0, 1fr);

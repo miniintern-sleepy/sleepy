@@ -49,7 +49,9 @@ export default function FounderStorySection({
           </h2>
           <div>
             <p className="text-helper text-muted">{copy.description}</p>
-            <TextLink href={`/${lang}/company`}>{copy.link}</TextLink>
+            <TextLink href={`/${lang}/company`} size="compact">
+              {copy.link}
+            </TextLink>
           </div>
         </div>
       </div>

@@ -135,6 +135,8 @@
   --text-compact-link--font-weight: 400;
   --text-compact-link--line-height: 1.5;
   --text-compact-link--letter-spacing: 0;
+  /* 글자 링크 밑줄 묶음 전용. 1.5의 아래 반행간을 빼서 글자→밑줄 틈을 4px로 맞춘다(#88). */
+  --leading-text-link-body: 1.2;
   --text-kicker: 0.75rem;
   --text-kicker--font-weight: 550;
   --text-kicker--line-height: 1.4;
@@ -282,10 +284,6 @@
   --text-newsroom-summary--font-weight: 400;
   --text-newsroom-summary--line-height: 1.8;
   --text-newsroom-summary--letter-spacing: 0;
-  --text-newsroom-button: 0.9375rem;
-  --text-newsroom-button--font-weight: 600;
-  --text-newsroom-button--line-height: 1.4;
-  --text-newsroom-button--letter-spacing: 0;
   --text-newsroom-pagination: 0.875rem;
   --text-newsroom-pagination--font-weight: 600;
   --text-newsroom-pagination--line-height: 1.4;
