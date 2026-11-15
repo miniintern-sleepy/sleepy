@@ -11,13 +11,10 @@ export default function NewsCard({
   featured?: boolean;
 }) {
   const href = sourceUrl(article.sourceUrl);
+  const thumbnail = newsroomThumbnail(article);
   const body = (
     <>
-      <NewsroomImage
-        key={article.thumbnailUrl}
-        src={newsroomThumbnail(article)}
-        featured={featured}
-      />
+      <NewsroomImage key={thumbnail} src={thumbnail} featured={featured} />
       <div className="newsroom-card-copy">
         <div className="newsroom-source-line">
           <span className="text-newsroom-source text-violet-strong">

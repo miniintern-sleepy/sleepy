@@ -41,7 +41,7 @@ export default function Newsroom({
               ‹
             </a>
           ) : (
-            <span aria-label="이전 페이지" aria-disabled="true">
+            <span role="link" aria-label="이전 페이지" aria-disabled="true">
               ‹
             </span>
           )}
@@ -59,7 +59,7 @@ export default function Newsroom({
               ›
             </a>
           ) : (
-            <span aria-label="다음 페이지" aria-disabled="true">
+            <span role="link" aria-label="다음 페이지" aria-disabled="true">
               ›
             </span>
           )}

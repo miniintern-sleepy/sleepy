@@ -1,7 +1,7 @@
 import { imageUrl } from "@/lib/news";
 import type { NewsArticle } from "@/types/content";
 
-// #86 후속 요청: DB 경로 입력 전에도 세 자사 기사의 원문 대표 사진을 뉴스룸에서 표시한다.
+// #86: 관리자 썸네일을 우선하고, DB 값이 비어 있을 때만 원문 사진으로 보완한다.
 const originalPhotos: Record<string, string> = {
   "https://kr.aving.net/news/articleView.html?idxno=1812193":
     "/images/newsroom/aving-1812193.jpg",
@@ -12,9 +12,10 @@ const originalPhotos: Record<string, string> = {
 };
 
 export function newsroomThumbnail(article: NewsArticle) {
+  if (article.thumbnailUrl?.trim()) return imageUrl(article.thumbnailUrl);
   return (
     originalPhotos[
       (article.sourceUrl ?? "").replace("https://www.", "https://")
-    ] ?? imageUrl(article.thumbnailUrl)
+    ] ?? null
   );
 }

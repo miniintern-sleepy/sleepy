@@ -83,6 +83,25 @@ test("NEWS-018 사진·원문 없는 기사는 로고 대체 그림과 링크 �
       newsroomThumbnail({ ...article, sourceUrl }),
       `/images/newsroom/${file}`,
     );
+  const known = {
+    ...article,
+    sourceUrl: "https://kr.aving.net/news/articleView.html?idxno=1812193",
+  };
+  assert.equal(
+    newsroomThumbnail({ ...known, thumbnailUrl: "/images/admin-changed.jpg" }),
+    "/images/admin-changed.jpg",
+  );
+  assert.equal(
+    newsroomThumbnail({ ...known, thumbnailUrl: "javascript:alert(1)" }),
+    null,
+  );
+  assert.equal(newsroomThumbnail({ ...article, thumbnailUrl: null }), null);
+  const source = readFileSync(
+    new URL("./NewsCard.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(source, /key=\{thumbnail\}/);
+  assert.match(source, /src=\{thumbnail\}/);
   const html = render(NewsCard, { article, featured: true });
   assert.match(html, /<article/);
   assert.doesNotMatch(html, /<a |newsroom-original/);
@@ -115,10 +134,17 @@ test("NEWS-019 페이지 링크·현재 페이지·비활성 화살표와 0건�
   assert.equal((html.match(/<h3/g) || []).length, 10);
   assert.match(html, /href="\?page=2#news"/);
   assert.match(html, /aria-current="page"/);
-  assert.match(html, /aria-label="이전 페이지" aria-disabled="true"/);
+  assert.match(
+    html,
+    /role="link" aria-label="이전 페이지" aria-disabled="true"/,
+  );
   const second = render(Newsroom, { articles: rows, requestedPage: "2" });
   assert.equal((second.match(/<h3/g) || []).length, 6);
   assert.doesNotMatch(second, /class="newsroom-feature"/);
+  assert.match(
+    second,
+    /role="link" aria-label="다음 페이지" aria-disabled="true"/,
+  );
   assert.doesNotMatch(render(Newsroom, { articles: rows.slice(0, 9) }), /<nav/);
   assert.match(
     render(Newsroom, { articles: [] }),
