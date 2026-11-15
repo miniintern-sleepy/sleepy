@@ -26,12 +26,20 @@ export default function VideoSection({ copy }: { copy: Copy }) {
               <Image
                 src={item.image}
                 alt=""
-                width={480}
-                height={360}
+                width={640}
+                height={480}
                 sizes="(max-width:760px) 100vw, 50vw"
               />
               <span className="tech-video-play" aria-hidden="true">
-                ▶
+                <svg
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  focusable="false"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
               </span>
             </div>
             <p className="text-meta font-ui-medium text-violet">{item.label}</p>

@@ -42,7 +42,13 @@ test("TECH-002 영상 두 개는 시작 시각을 보존하고 임상연구와 �
   const page = read("./page.tsx");
   assert.ok(page.indexOf("<ClinicalSection") < page.indexOf("<VideoSection"));
   assert.ok(page.indexOf("<VideoSection") < page.indexOf("<PatentsSection"));
-  assert.match(read("./_components/VideoSection.tsx"), /<ExternalLink/);
+  const video = read("./_components/VideoSection.tsx");
+  assert.match(video, /<ExternalLink/);
+  assert.match(video, /<svg/);
+  assert.match(video, /aria-hidden="true"/);
+  assert.match(video, /width=\{640\}/);
+  assert.match(video, /height=\{480\}/);
+  assert.doesNotMatch(video, /▶/);
   assert.equal("videos" in companyCopy.easyTech, false);
   assert.doesNotMatch(
     read("../company/_components/EasyTechSection.tsx"),

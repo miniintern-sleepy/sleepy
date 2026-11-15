@@ -404,4 +404,6 @@ PC 화살표는 진행 선 오른쪽24px 간격에44×44px 버튼 두 개로 배
 - ExternalLinks를 공통 UI로 옮기고 ExternalLink로 새 창·noopener noreferrer·숨긴 “(새 창)” 안내를 통일한다. 목록은 세로 배치·8px 간격, 교수 소개 링크는 글 끝에서28px 아래다. 이번 링크만 내용 폭·0.35em 화살표 간격을 쓰고 공통 public-text-link는 유지한다.
 - 연구·수면 사진은 직사각형 칸에서4.5% 확대한다. 원본 PNG 자체의 투명한 둥근 모서리(research 대각선19px·sleep14px)를 가리는 PL 결정이며, 직사각형 원본을 구하면 교체한다. 연구 사진은 제목 위 여백36px+반행간에 맞추고1023px 이하 적층에서는 이 여백을 없앤다. radius-research-photo는 사용처가 없어졌으며 삭제 여부 확인 전 보존한다.
 - 임상연구 다음·지식재산권 이전 영상 구역: 위아래120px(760px 이하60px), 두 열·32px 간격·16:9 썸네일·16px 반경. 모바일은 한 열이다. 기존 patent-heading(44px), latest-title(20px), meta(13px) 토큰을 재사용한다. 종류는 ui-medium 굵기를 더한다. 카드 전체가 외부 링크이며 iframe은 없다.
-- YouTube 기본 대표 이미지(hqdefault.jpg)를 로컬에 저장한다. 강의 링크의1094초 시작 시각을 유지한다. 회사 쉬운 기술의 중복 영상 링크는 삭제한다.
+- YouTube 대표 이미지(sddefault.jpg, 640×480)를 로컬에 저장한다. 강의 링크의1094초 시작 시각을 유지한다. 회사 쉬운 기술의 중복 영상 링크는 삭제한다.
+
+#83 검토 반영: 영상 재생 장식은72px 원형 paper 배경(90% 불투명)과 ink색 SVG 삼각형이며 aria-hidden이다. 두 영상 모두 maxresdefault가404여서 sddefault를 사용한다.
