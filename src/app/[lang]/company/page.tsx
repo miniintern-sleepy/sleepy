@@ -5,6 +5,7 @@ import "./company.css";
 import { getCompanyCopy } from "@/lib/content";
 import { isLocale } from "@/lib/i18n";
 
+import AboutSection from "./_components/AboutSection";
 import BeliefsSection from "./_components/BeliefsSection";
 import CeoSection from "./_components/CeoSection";
 import ContactSection from "./_components/ContactSection";
@@ -16,9 +17,8 @@ export const metadata: Metadata = {
   description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 회사 소개",
 };
 
-// 회사 소개 (/ko/company) — 공통 히어로와 기존 본문 구간 순서(#61), 기능 명세 F-02
-// 섹션: 1. 공통 히어로  2. 대표 이야기  3. 슬리피가 믿는 것
-//       4. 기술을 쉬운 말로  5. 슬리피의 걸음(연혁)  6. 문의
+// 회사 소개 구간으로 검색 사용자가 회사 기본 정보를 바로 확인하게 한다(#90, F-02).
+// 섹션: 히어로 → 대표 → 회사 소개 → 지향하는 것 → 기술을 쉬운 말로 → 걸음 → 문의
 export default async function CompanyPage({
   params,
 }: PageProps<"/[lang]/company">) {
@@ -39,6 +39,7 @@ export default async function CompanyPage({
         wave="company"
       />
       <CeoSection copy={copy.ceo} />
+      <AboutSection copy={copy.about} />
       <BeliefsSection copy={copy.beliefs} />
       <EasyTechSection copy={copy.easyTech} lang={lang} />
       <HistorySection copy={copy.history} />
