@@ -367,3 +367,30 @@
     object-position: right center;
   }
 }
+
+/*
+ * #96 휴대폰 정리.
+ * - 사진 2장: 높이가 다른 상자(255·210)에 contain으로 넣어 위아래로 엇갈리고 설명 높이도 달랐다.
+ *   같은 4:5 칸에 cover로 채우고 위쪽을 맞춘다.
+ * - 대표 인용문: 아래 대표 소개가 왼쪽 정렬이라 인용문도 왼쪽에 맞춘다.
+ */
+@media (max-width: 520px) {
+  .home-days .public-wide {
+    align-items: start;
+    gap: 32px 16px;
+  }
+  .home-days img,
+  .home-days figure:last-child img {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .home-days figcaption {
+    margin-top: 10px;
+  }
+  .home-founder-quote {
+    text-align: left;
+    text-wrap: pretty;
+    margin-bottom: 36px;
+  }
+}

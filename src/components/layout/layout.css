@@ -224,3 +224,15 @@
     gap: 12px;
   }
 }
+/* #96 휴대폰에서는 꼬리말 메뉴를 로고 아래 줄로 내리고 12px → 13px로 키운다. 로고 옆에 붙으면 작고 빽빽했다. */
+@media (max-width: 520px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .footer-navigation {
+    gap: 20px;
+    font-size: var(--text-footer-nav);
+  }
+}

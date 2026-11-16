@@ -520,3 +520,41 @@
     --text-newsroom-feature-title: 1.5rem;
   }
 }
+
+/*
+ * #96 모바일 글자 단계. 375px에서 제목이 31~41px라 한 화면에 제목만 차 보였다(2026-11-16 운영 측정).
+ * 휴대폰 폭(520px 이하)에서는 제목을 세 단계로 묶는다: 첫 화면 32px, 섹션 제목 26px, 작은 제목 20~22px.
+ * 주의: 위의 760·520·400 구간 값보다 뒤에 있어야 이긴다. 이 블록을 위로 옮기지 않는다.
+ */
+@media (max-width: 520px) {
+  :root {
+    --text-landing-title: 2rem;
+    --text-page-hero-title: 1.75rem;
+
+    --text-story-heading: 1.625rem;
+    --text-day-heading: 1.625rem;
+    --text-stage-heading: 1.625rem;
+    --text-latest-heading: 1.625rem;
+    --text-detail-heading: 1.625rem;
+    --text-kit-heading: 1.625rem;
+    --text-patent-heading: 1.625rem;
+    --text-research-heading: 1.375rem;
+    --text-cta-heading: 1.375rem;
+    --text-form-aside: 1.375rem;
+    --text-feature-heading: 1.375rem;
+
+    --text-founder-quote: 1.3125rem;
+    --text-founder-quote--line-height: 1.7;
+    --text-founder-name: 1.25rem;
+    --text-form-title: 1.25rem;
+    --text-newsroom-feature-title: 1.25rem;
+    --text-context-heading: 1.1875rem;
+    --text-guide-caption: 1.125rem;
+    --text-spec-value: 1.375rem;
+
+    --text-metric-number: 2.25rem;
+    --text-patent-number: 2.25rem;
+
+    --size-page-hero: 260px;
+  }
+}

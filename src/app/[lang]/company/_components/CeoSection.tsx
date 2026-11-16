@@ -26,7 +26,7 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               width={1088}
               height={1156}
               sizes="(min-width: 1441px) 37.78vw, (min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
-              className="aspect-square w-full object-cover object-top"
+              className="company-ceo-photo aspect-square w-full object-cover object-top"
             />
           </Reveal>
         )}

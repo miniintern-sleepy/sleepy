@@ -81,3 +81,37 @@
     background-position: calc(50% + 14.5px) 62px;
   }
 }
+/*
+ * #96 휴대폰에서는 물결을 0.6배(900×300 → 540×180)로 줄여 첫머리를 약 110px 줄인다.
+ * 이유: 하위 화면 6개가 모두 첫머리만 360~440px라 본문이 화면 절반 아래에서 시작했다.
+ * 가로 위치는 760px 구간 값에 0.6을 곱했고, 세로 위치는 제목 아래 그대로 둔다. 높이 = 세로 위치 + 180 + 18.
+ */
+@media (max-width: 520px) {
+  .page-hero,
+  .page-hero-company,
+  .page-hero-technology,
+  .page-hero-product {
+    background-size: 540px 180px;
+  }
+  .page-hero-company {
+    min-height: 322px;
+    background-position: 50% 124px;
+  }
+  .page-hero-technology {
+    min-height: 297px;
+    background-position: calc(50% - 18px) 99px;
+  }
+  .page-hero-product {
+    min-height: 324px;
+    background-position: calc(50% + 6px) 126px;
+  }
+  .page-hero-newsroom {
+    background-position: calc(50% + 24px) 55px;
+  }
+  .page-hero-faq {
+    background-position: calc(50% - 30px) 59px;
+  }
+  .page-hero-contact {
+    background-position: calc(50% + 9px) 62px;
+  }
+}
