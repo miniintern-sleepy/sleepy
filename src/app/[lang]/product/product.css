@@ -459,3 +459,29 @@
     color: var(--color-ink);
   }
 }
+
+/*
+ * #96 아래 사진 묶음의 진행 선. 갤러리 휴대폰 진행 선과 같은 모양·간격(사진 아래 20px)이다.
+ * PC는 3칸 격자라 넘길 것이 없어 숨긴다.
+ */
+.product-strip-progress {
+  display: none;
+}
+@media (max-width: 520px) {
+  .product-strip-progress {
+    display: block;
+    margin-top: 20px;
+  }
+}
+
+/*
+ * #96 휴대폰 히어로의 "출시 예정" 버튼을 49px → 44px, 글자 14px → 13px로 줄인다(2026-11-17 PL 요청).
+ * 44px는 손가락으로 누르는 최소 높이(--size-touch)라 그 아래로는 줄이지 않는다.
+ */
+@media (max-width: 520px) {
+  .product-page .page-hero-actions .public-purchase {
+    min-height: var(--size-touch);
+    padding: 8px 22px;
+    font-size: var(--text-meta);
+  }
+}

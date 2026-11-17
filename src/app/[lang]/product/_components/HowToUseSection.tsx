@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import Reveal from "@/components/ui/Reveal";
+import ProductPhotoStrip from "./ProductPhotoStrip";
 
 import type { ProductCopy } from "./types";
 
@@ -35,7 +36,10 @@ export default function HowToUseSection({
           {copy.title}
         </h2>
       </Reveal>
-      <div className="product-guide-steps mobile-swipe">
+      <ProductPhotoStrip
+        className="product-guide-steps"
+        label="사용 방법 3단계, 좌우로 넘겨 볼 수 있습니다"
+      >
         {copy.steps.map((step, index) => (
           <Reveal key={step}>
             <figure className="product-hover-card">
@@ -50,7 +54,7 @@ export default function HowToUseSection({
             </figure>
           </Reveal>
         ))}
-      </div>
+      </ProductPhotoStrip>
       <Reveal className="product-guide-notes">
         {copy.notes.map((note) => (
           <div key={note.title}>
