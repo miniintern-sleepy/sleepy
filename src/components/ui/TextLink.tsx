@@ -10,6 +10,7 @@ export default function TextLink({
   className = "",
   external = false,
   size = "default",
+  newWindow,
 }: {
   href: string;
   children: ReactNode;
@@ -17,6 +18,7 @@ export default function TextLink({
   /** 새 창으로 열고 화면 읽기용 "(새 창)"을 붙인다. */
   external?: boolean;
   size?: "default" | "compact";
+  newWindow?: string;
 }) {
   const classes = [
     "public-text-link",
@@ -28,7 +30,7 @@ export default function TextLink({
   const body = <TextLinkBody>{children}</TextLinkBody>;
 
   return external ? (
-    <ExternalLink href={href} className={classes}>
+    <ExternalLink href={href} className={classes} newWindow={newWindow}>
       {body}
     </ExternalLink>
   ) : (

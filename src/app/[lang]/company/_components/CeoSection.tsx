@@ -1,15 +1,25 @@
 import Image from "next/image";
 
 import Reveal from "@/components/ui/Reveal";
+import type { UiCopy } from "@/content/ko/ui";
 import type { getCompanyCopy } from "@/lib/content";
 
 import ExternalLinks from "@/components/ui/ExternalLinks";
 
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["ceo"];
 
-export default function CeoSection({ copy }: { copy: Copy }) {
+export default function CeoSection({
+  copy,
+  ui,
+}: {
+  copy: Copy;
+  ui: Pick<UiCopy, "company" | "newWindow">;
+}) {
   return (
-    <section aria-label="대표 소개" className="company-content company-section">
+    <section
+      aria-label={ui.company.ceoSection}
+      className="company-content company-section"
+    >
       <div
         className={`grid items-center gap-10 ${
           copy.photo
@@ -26,7 +36,7 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               width={1088}
               height={1156}
               sizes="(min-width: 1441px) 37.78vw, (min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
-              className="aspect-square w-full object-cover object-top"
+              className="company-ceo-photo aspect-square w-full object-cover object-top"
             />
           </Reveal>
         )}
@@ -47,7 +57,11 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <ExternalLinks links={copy.links} className="mt-7" />
+          <ExternalLinks
+            links={copy.links}
+            className="mt-7"
+            newWindow={ui.newWindow}
+          />
         </Reveal>
       </div>
     </section>

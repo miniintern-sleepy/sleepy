@@ -7,6 +7,7 @@ import test from "node:test";
 import ts from "typescript";
 import { homeCopy } from "../../../content/ko/home.ts";
 import { companyCopy } from "../../../content/ko/company.ts";
+import { uiCopy } from "../../../content/ko/ui.ts";
 const react = JSON.stringify(import.meta.resolve("react"));
 const moduleUrl = (code) => `data:text/javascript,${encodeURIComponent(code)}`;
 const hook = registerHooks({
@@ -118,7 +119,11 @@ test("HOME-004 메인 대표 소개는 전용 문구를 쓰고 기술 원리 링
   assert.ok(html.includes(`${companyCopy.ceo.name}<span class="ml-2`));
   assert.doesNotMatch(html, /회사 전용/);
   const day = renderToStaticMarkup(
-    createElement(DayTriptychSection, { lang: "ko", copy: homeCopy.day }),
+    createElement(DayTriptychSection, {
+      lang: "ko",
+      copy: homeCopy.day,
+      ui: uiCopy.home,
+    }),
   );
   assert.match(day, /href="\/ko\/technology"/);
   assert.ok(day.includes("기술 원리"));

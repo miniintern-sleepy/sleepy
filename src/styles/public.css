@@ -313,3 +313,43 @@
     }
   }
 }
+
+/*
+ * #96 휴대폰에서 같은 종류 카드 여러 장(제품 쓰임새 4장·사용법 3단계, 기술 영상 2개)을 세로로 쌓지 않고
+ * 가로 한 줄로 놓아 옆으로 넘긴다. 다음 카드가 18% 보여 넘길 수 있다는 것을 알린다.
+ * 이유: 폭 가득 사진이 세로로 이어져 제품·기술 화면이 6000px를 넘었다(2026-11-16 운영 375px 캡처).
+ * 주의: :root를 붙인 것은 각 페이지 CSS의 grid 규칙(클래스 하나)을 이기기 위해서다. 기술·제품 main에는 public-page가 없다.
+ * 주의: overflow-y: hidden을 빼면 안 된다. overflow-x만 주면 세로도 auto가 되는데, 화면 밖 카드가 등장 효과로
+ *       16px 아래에 대기해 줄이 세로로 16px 넘친다. 그러면 사진을 잡고 위아래로 밀 때 페이지 대신 줄만 흔들렸다
+ *       (2026-11-17 375px에서 scrollHeight 177 > clientHeight 161 확인).
+ */
+@media (max-width: 520px) {
+  :root .mobile-swipe {
+    display: flex;
+    gap: 12px;
+    margin-inline: calc(var(--layout-gutter) * -1);
+    padding-inline: var(--layout-gutter);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--layout-gutter);
+    scrollbar-width: none;
+  }
+  :root .mobile-swipe::-webkit-scrollbar {
+    display: none;
+  }
+  :root .mobile-swipe > * {
+    flex: 0 0 82%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+}
+
+/* #96 휴대폰 문의 배너도 왼쪽 정렬로 본문과 맞춘다. */
+@media (max-width: 520px) {
+  .public-contact-banner {
+    padding-block: 64px;
+    text-align: left;
+  }
+}

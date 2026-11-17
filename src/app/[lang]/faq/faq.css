@@ -33,3 +33,13 @@
     align-items: flex-start;
   }
 }
+
+/*
+ * #96 휴대폰에서는 목록 위 "찾지 못하셨나요? 문의하기"를 숨긴다.
+ * 이유: 같은 안내가 화면 맨 아래 문의 배너에도 있어 두 번 나왔고, 질문 목록이 그만큼 아래로 밀렸다.
+ */
+@media (max-width: 520px) {
+  .faq-contact {
+    display: none;
+  }
+}

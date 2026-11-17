@@ -5,9 +5,11 @@ import TextLink from "./TextLink";
 export default function ExternalLinks({
   links,
   className = "",
+  newWindow,
 }: {
   links: { label: string; href: string }[];
   className?: string;
+  newWindow?: string;
 }) {
   const ready = links.filter((link) => link.href.startsWith("https://"));
   if (ready.length === 0) return null;
@@ -16,7 +18,7 @@ export default function ExternalLinks({
     <ul className={`flex flex-col items-start gap-2 ${className}`}>
       {ready.map(({ label, href }) => (
         <li key={href}>
-          <TextLink href={href} external>
+          <TextLink href={href} external newWindow={newWindow}>
             {label}
           </TextLink>
         </li>

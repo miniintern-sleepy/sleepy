@@ -3,21 +3,25 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 
+import type { UiCopy } from "@/content/ko/ui";
 import type { Locale } from "@/lib/i18n";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const menuItems = [
-  { path: "company", label: "회사 소개" },
-  { path: "technology", label: "기술" },
-  { path: "product", label: "제품" },
-  { path: "newsroom", label: "뉴스룸" },
-  { path: "faq", label: "FAQ" },
+  "company",
+  "technology",
+  "product",
+  "newsroom",
+  "faq",
 ] as const;
 
 export function Navigation({
   lang,
+  copy,
   pathname,
 }: {
   lang: Locale;
+  copy: UiCopy["header"];
   pathname?: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,21 +48,28 @@ export function Navigation({
       <button
         ref={toggleRef}
         type="button"
-        aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
+        aria-label={isOpen ? copy.menuClose : copy.menuOpen}
         aria-expanded={isOpen}
         aria-controls="site-navigation"
         className="menu-toggle"
         onClick={() => setIsOpen(!isOpen)}
       >
-        메뉴
+        {/* #96 글자 "메뉴" 상자 대신 아이콘. 이름은 aria-label이 맡는다. */}
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="menu-icon">
+          {isOpen ? (
+            <path d="M6 6l12 12M18 6 6 18" />
+          ) : (
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          )}
+        </svg>
       </button>
       <nav
         id="site-navigation"
-        aria-label="주 메뉴"
+        aria-label={copy.mainMenu}
         className="site-navigation"
         data-open={isOpen}
       >
-        {menuItems.map(({ path, label }) => {
+        {menuItems.map((path) => {
           const href = `/${lang}/${path}`;
           const current = pathname === href || pathname?.startsWith(`${href}/`);
           return (
@@ -68,7 +79,7 @@ export function Navigation({
               aria-current={current ? "page" : undefined}
               onClick={closeMenu}
             >
-              {label}
+              {copy.nav[path]}
             </Link>
           );
         })}
@@ -78,12 +89,19 @@ export function Navigation({
           aria-current={pathname === contactHref ? "page" : undefined}
           onClick={closeMenu}
         >
-          문의하기
+          {copy.contact} <span aria-hidden="true">↗</span>
         </Link>
       </nav>
-      <Link href={contactHref} className="header-contact">
-        문의하기 <span aria-hidden="true">↗</span>
-      </Link>
+      <div className="header-actions">
+        <LanguageSwitcher
+          lang={lang}
+          pathname={pathname}
+          label={copy.language}
+        />
+        <Link href={contactHref} className="header-contact">
+          {copy.contact} <span aria-hidden="true">↗</span>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -374,3 +374,45 @@
     margin-top: var(--space-section-small);
   }
 }
+
+/*
+ * #96 휴대폰 정리.
+ * - 대표 사진: 폭 가득(약 330px) 정사각형이 화면을 다 덮어 240px로 줄인다.
+ * - 회사 정보 표: 이름 칸 96px 때문에 값이 줄바꿈돼 72px로 줄인다(가장 긴 이름 "핵심 기술"이 한 줄에 들어간다).
+ * - 원리 그림: 동그라미 3개를 세로로 쌓으면 두 소리가 합쳐지는 관계가 안 보여 한 줄로 놓는다.
+ * - 걸음 제목: 아래 연표가 왼쪽 정렬이라 제목도 왼쪽에 맞춘다.
+ */
+@media (max-width: 520px) {
+  .company-ceo-photo {
+    max-width: 240px;
+  }
+  .company-about-table > div {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+  /* 영어 이름("Core technology", "First product")은 72px에서 두 줄로 꺾여 넓힌다. */
+  .company-about-table:lang(en) > div {
+    grid-template-columns: 108px minmax(0, 1fr);
+  }
+  .company-tech-mobile {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .company-tech-mobile .company-tech-ear {
+    text-align: center;
+  }
+  .company-tech-ear-circle {
+    width: 84px;
+    height: 84px;
+  }
+  .company-tech-center-circle {
+    width: 108px;
+    height: 108px;
+    margin-top: -12px;
+    text-align: center;
+  }
+  .company-history h2 {
+    text-align: left;
+  }
+}

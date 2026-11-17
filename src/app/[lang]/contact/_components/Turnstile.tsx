@@ -3,6 +3,8 @@
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 
+import type { UiCopy } from "@/content/ko/ui";
+
 type TurnstileApi = {
   render: (
     element: HTMLElement,
@@ -30,10 +32,15 @@ export default function Turnstile({
   siteKey,
   email,
   onToken,
+  text,
 }: {
   siteKey: string;
   email: string;
   onToken: (token: string) => void;
+  text: Pick<
+    UiCopy["contact"]["form"],
+    "security" | "securityFailed" | "mailAfter"
+  >;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
@@ -72,15 +79,12 @@ export default function Turnstile({
         onReady={() => setReady(true)}
         onError={() => setFailed(true)}
       />
-      <div
-        ref={ref}
-        className="min-h-16"
-        aria-label="스팸 방지를 위한 보안 확인"
-      />
+      <div ref={ref} className="min-h-16" aria-label={text.security} />
       {failed && (
         <p role="alert" className="contact-notice text-helper">
-          보안 확인을 불러오지 못했습니다. 새로고침 후 다시 시도하거나{" "}
-          <a href={`mailto:${email}`}>{email}</a>으로 문의해 주세요.
+          {text.securityFailed}
+          <a href={`mailto:${email}`}>{email}</a>
+          {text.mailAfter}
         </p>
       )}
     </>

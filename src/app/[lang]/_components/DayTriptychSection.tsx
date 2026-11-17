@@ -1,12 +1,15 @@
 import Image from "next/image";
 import TextLink from "@/components/ui/TextLink";
+import type { UiCopy } from "@/content/ko/ui";
 import type { getHomeCopy } from "@/lib/content";
 export default function DayTriptychSection({
   copy,
   lang,
+  ui,
 }: {
   copy: Awaited<ReturnType<typeof getHomeCopy>>["day"];
   lang: string;
+  ui: UiCopy["home"];
 }) {
   return (
     <section className="home-days">
@@ -14,7 +17,7 @@ export default function DayTriptychSection({
         <figure>
           <Image
             src="/images/home/rest-day.jpg"
-            alt="낮의 휴식"
+            alt={ui.dayAlt}
             width={768}
             height={1024}
             sizes="(max-width:760px) 50vw,33vw"
@@ -30,7 +33,7 @@ export default function DayTriptychSection({
         <figure>
           <Image
             src="/images/home/recovered-74.jpg"
-            alt="밤의 잠자리"
+            alt={ui.nightAlt}
             width={910}
             height={607}
             sizes="(max-width:760px) 50vw,33vw"

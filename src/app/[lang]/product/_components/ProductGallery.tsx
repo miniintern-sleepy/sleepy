@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { UiCopy } from "@/content/ko/ui";
 import type { ProductCopy } from "./types";
 
 export default function ProductGallery({
   photos,
+  ui,
 }: {
   photos: ProductCopy["features"]["photos"];
+  ui: UiCopy["product"];
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({
@@ -78,7 +81,7 @@ export default function ProductGallery({
         className="product-gallery-track"
         tabIndex={0}
         role="group"
-        aria-label="제품 사진 4장, 좌우로 넘겨 볼 수 있습니다"
+        aria-label={ui.galleryLabel}
       >
         {photos.map((photo, index) => (
           <div
@@ -112,7 +115,7 @@ export default function ProductGallery({
         <div className="product-gallery-arrows">
           <button
             type="button"
-            aria-label="이전 사진"
+            aria-label={ui.previousPhoto}
             aria-disabled={position.start}
             onClick={() => {
               if (!position.start) move(-1);
@@ -134,7 +137,7 @@ export default function ProductGallery({
           </button>
           <button
             type="button"
-            aria-label="다음 사진"
+            aria-label={ui.nextPhoto}
             aria-disabled={position.end}
             onClick={() => {
               if (!position.end) move(1);

@@ -506,3 +506,17 @@
     padding-block: 60px;
   }
 }
+
+/*
+ * #96 휴대폰 정리.
+ * - 중추신경계 억제 소개: 세 줄 넘는 문단을 가운데 정렬하면 줄 시작이 매번 달라 읽기 어렵다. 왼쪽에 맞춘다.
+ * - 눈금 영어 보조 글자: 9px는 너무 작아 10px로 올린다(11px는 "general anesthesia"가 두 줄로 꺾였다).
+ */
+@media (max-width: 520px) {
+  .tech-intro > header {
+    text-align: left;
+  }
+  .tech-intro .tech-spectrum {
+    --text-spectrum-english: 0.625rem;
+  }
+}
