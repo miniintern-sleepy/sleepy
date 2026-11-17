@@ -475,11 +475,13 @@
 }
 
 /*
- * #96 휴대폰 히어로의 "출시 예정" 버튼을 49px → 44px, 글자 14px → 13px로 줄인다(2026-11-17 PL 요청).
+ * #96 휴대폰 히어로의 "출시 예정"과 알고리즘 구간의 "원리 보기" 버튼을 49px → 44px, 글자 14px → 13px로 줄인다
+ * (2026-11-17 PL 요청). 두 버튼은 같은 알약 모양을 함께 쓰므로 크기도 같이 맞춘다.
  * 44px는 손가락으로 누르는 최소 높이(--size-touch)라 그 아래로는 줄이지 않는다.
  */
 @media (max-width: 520px) {
-  .product-page .page-hero-actions .public-purchase {
+  .product-page .page-hero-actions .public-purchase,
+  .product-algorithm-copy a {
     min-height: var(--size-touch);
     padding: 8px 22px;
     font-size: var(--text-meta);
