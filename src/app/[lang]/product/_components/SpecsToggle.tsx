@@ -9,7 +9,15 @@ import { useState, type ReactNode } from "react";
  * 주의: 접힘은 520px 이하 CSS에서만 걸린다. PC는 버튼이 숨겨지고 표가 그대로 다 보인다.
  *       내용은 접혀도 DOM에 남아 화면 읽기 프로그램은 전부 읽는다.
  */
-export default function SpecsToggle({ children }: { children: ReactNode }) {
+export default function SpecsToggle({
+  children,
+  more,
+  less,
+}: {
+  children: ReactNode;
+  more: string;
+  less: string;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -23,7 +31,7 @@ export default function SpecsToggle({ children }: { children: ReactNode }) {
         aria-expanded={open}
         onClick={() => setOpen(!open)}
       >
-        {open ? "사양 접기" : "전체 사양 보기"}
+        {open ? less : more}
       </button>
     </>
   );

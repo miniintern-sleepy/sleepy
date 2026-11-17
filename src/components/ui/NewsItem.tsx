@@ -1,9 +1,16 @@
-import { categoryLabels, formatDate, imageUrl, sourceUrl } from "@/lib/news";
+import { formatDate, imageUrl, sourceUrl } from "@/lib/news";
+import type { UiCopy } from "@/content/ko/ui";
 import type { NewsArticle } from "@/types/content";
 
 import NewsImage from "./NewsImage";
 
-export default function NewsItem({ article }: { article: NewsArticle }) {
+export default function NewsItem({
+  article,
+  ui,
+}: {
+  article: NewsArticle;
+  ui: Pick<UiCopy, "newsroom" | "newWindow">;
+}) {
   const image = imageUrl(article.thumbnailUrl);
   const href = sourceUrl(article.sourceUrl);
   const thumb = image ? <NewsImage key={image} src={image} /> : null;
@@ -12,7 +19,8 @@ export default function NewsItem({ article }: { article: NewsArticle }) {
       {thumb}
       <div>
         <span className="public-news-meta text-news-meta text-muted">
-          {categoryLabels[article.category]} · {formatDate(article.publishedAt)}
+          {ui.newsroom.categories[article.category]} ·{" "}
+          {formatDate(article.publishedAt)}
           {article.sourceName && ` · ${article.sourceName}`}
         </span>
         <h3 className="text-news-title">{article.title}</h3>
@@ -33,7 +41,7 @@ export default function NewsItem({ article }: { article: NewsArticle }) {
       className={className}
     >
       {body}
-      <span className="sr-only"> (새 창)</span>
+      <span className="sr-only">{ui.newWindow}</span>
     </a>
   ) : (
     <article className={className}>{body}</article>

@@ -1,9 +1,10 @@
 import Image from "next/image";
 import ExternalLink from "@/components/ui/ExternalLink";
+import type { UiCopy } from "@/content/ko/ui";
 import type { getTechnologyCopy } from "@/lib/content";
 
 type Copy = Awaited<ReturnType<typeof getTechnologyCopy>>["video"];
-export default function VideoSection({ copy }: { copy: Copy }) {
+export default function VideoSection({ copy, ui }: { copy: Copy; ui: UiCopy }) {
   return (
     <section
       className="tech-video public-wrap"
@@ -21,6 +22,7 @@ export default function VideoSection({ copy }: { copy: Copy }) {
             key={item.href}
             href={item.href}
             className="tech-video-card"
+            newWindow={ui.newWindow}
           >
             <div className="tech-video-thumbnail">
               <Image

@@ -47,6 +47,8 @@ export const technologyCopy = {
   },
   clinical: {
     title: "양이성 음향이 마취에 미치는 영향에 관한 임상연구",
+    // 이 상태만 보라 글자로 강조한다.
+    publishedStatus: "발표",
     metric: {
       label: "전신마취 유도 시 프로포폴 요구량",
       value: "약 20%↓",

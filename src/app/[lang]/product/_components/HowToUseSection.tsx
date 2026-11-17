@@ -5,25 +5,20 @@ import ProductPhotoStrip from "./ProductPhotoStrip";
 
 import type { ProductCopy } from "./types";
 
+import type { UiCopy } from "@/content/ko/ui";
+
 const images = [
-  {
-    src: "/images/product/step-01.png",
-    alt: "귀마개가 담긴 열린 슬리비 케이스",
-  },
-  {
-    src: "/images/product/step-02.png",
-    alt: "손으로 케이스에서 꺼낸 슬리비 귀마개",
-  },
-  {
-    src: "/images/product/step-03.png",
-    alt: "귓바퀴 안쪽에 밀착해 착용한 슬리비",
-  },
+  "/images/product/step-01.png",
+  "/images/product/step-02.png",
+  "/images/product/step-03.png",
 ];
 
 export default function HowToUseSection({
   copy,
+  ui,
 }: {
   copy: ProductCopy["howToUse"];
+  ui: UiCopy["product"];
 }) {
   return (
     <section
@@ -36,16 +31,13 @@ export default function HowToUseSection({
           {copy.title}
         </h2>
       </Reveal>
-      <ProductPhotoStrip
-        className="product-guide-steps"
-        label="사용 방법 3단계, 좌우로 넘겨 볼 수 있습니다"
-      >
+      <ProductPhotoStrip className="product-guide-steps" label={ui.howToLabel}>
         {copy.steps.map((step, index) => (
           <Reveal key={step}>
             <figure className="product-hover-card">
               <Image
-                src={images[index].src}
-                alt={images[index].alt}
+                src={images[index]}
+                alt={ui.howToAlts[index]}
                 width={416}
                 height={300}
                 sizes="(max-width:767px) 100vw,33vw"

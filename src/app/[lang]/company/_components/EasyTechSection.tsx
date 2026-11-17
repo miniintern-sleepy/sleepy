@@ -35,7 +35,7 @@ export default function EasyTechSection({
         <div
           className="company-tech-diagram"
           role="img"
-          aria-label={`${copy.left}와 ${copy.right}에 ${copy.caption}가 전달되어 ${copy.center.replace("\n", " ")}가 만들어집니다`}
+          aria-label={copy.diagramLabel}
         >
           <div className="company-tech-desktop" aria-hidden="true">
             <span className="company-tech-connector company-tech-line company-tech-line-left" />

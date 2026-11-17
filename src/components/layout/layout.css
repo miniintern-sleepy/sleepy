@@ -36,10 +36,11 @@
   display: contents;
 }
 
+/* #96 메뉴 사이 30px → 48px. 이름 5개가 붙어 보였다(PL 요청 2026-11-17). */
 .site-navigation {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 48px;
   font-size: var(--text-nav);
   font-weight: var(--text-nav--font-weight);
   line-height: var(--text-nav--line-height);
@@ -87,6 +88,70 @@
 .header-contact:hover {
   border-color: var(--color-violet);
   background: var(--color-panel);
+}
+
+/* #96 머리말 오른쪽: 언어 선택 + 문의하기 */
+.header-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+}
+.language-switcher {
+  position: relative;
+}
+.language-toggle {
+  display: inline-flex;
+  min-height: var(--size-touch);
+  align-items: center;
+  gap: 6px;
+  padding-inline: 6px;
+  color: var(--color-ink);
+  font-size: var(--text-header-cta);
+  font-weight: var(--font-weight-ui-selected);
+  cursor: pointer;
+}
+.language-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-muted);
+  stroke-width: 1.5;
+}
+.language-toggle:hover,
+.language-toggle[aria-expanded="true"] {
+  color: var(--color-violet);
+}
+.language-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 132px;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: var(--color-white);
+  padding-block: 8px;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+.language-menu[hidden] {
+  display: none;
+}
+.language-menu a {
+  display: flex;
+  min-height: var(--size-touch);
+  align-items: center;
+  padding-inline: 18px;
+  color: var(--color-muted);
+  font-size: var(--text-nav);
+  white-space: nowrap;
+}
+.language-menu a:hover {
+  background: var(--color-panel);
+  color: var(--color-ink);
+}
+.language-menu a[aria-current="true"] {
+  color: var(--color-violet-strong);
+  font-weight: var(--font-weight-ui-selected);
 }
 .site-navigation a:hover,
 .footer-navigation a:hover,
@@ -150,13 +215,23 @@
 }
 
 @media (max-width: 1100px) {
-  .header-inner,
-  .site-navigation {
+  .header-inner {
     gap: 20px;
+  }
+  /* 좁은 PC에서도 30px 가까이 띄우되, 영어 메뉴 이름과 언어 버튼이 들어가도록 줄인다. */
+  .site-navigation {
+    gap: 28px;
+  }
+  .header-actions {
+    gap: 6px;
   }
 }
 
 @media (max-width: 900px) {
+  /* 761px 영어 머리말이 본문 폭보다 11px 넘쳐 원래 간격 20px로 돌린다(2026-11-17 측정). */
+  .site-navigation {
+    gap: 20px;
+  }
   .site-navigation a {
     padding-block: 29px;
   }
@@ -196,7 +271,7 @@
   }
 
   .site-navigation a[aria-current="page"]::after,
-  .header-contact {
+  .header-actions {
     display: none;
   }
   .menu-toggle {

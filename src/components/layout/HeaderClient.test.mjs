@@ -6,6 +6,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import test from "node:test";
 import ts from "typescript";
 
+import { uiCopy } from "../../content/ko/ui.ts";
 const react = JSON.stringify(import.meta.resolve("react"));
 const stub = (code) => ({
   url: `data:text/javascript,${encodeURIComponent(code)}`,
@@ -50,7 +51,11 @@ hook.deregister();
 test("HOME-001 메인·카테고리·대기 머리말은 투명하지 않고 현재 경로를 메뉴에 전달한다", () => {
   for (const pathname of [undefined, "/ko", "/ko/technology", "/ko/faq"]) {
     const html = renderToStaticMarkup(
-      createElement(HeaderShell, { lang: "ko", pathname }),
+      createElement(HeaderShell, {
+        lang: "ko",
+        pathname,
+        copy: uiCopy.header,
+      }),
     );
     assert.match(html, /<header class="site-header">/);
     assert.doesNotMatch(html, /data-overlay/);

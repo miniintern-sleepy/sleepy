@@ -5,6 +5,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { after, test } from "node:test";
 import ts from "typescript";
+import { uiCopy } from "../../../../content/ko/ui.ts";
 const hook = registerHooks({
   resolve(s, c, n) {
     if (s === "next/image")
@@ -66,7 +67,15 @@ const article = {
   publishedAt: "2026-07-01",
   isFeatured: false,
 };
-const render = (C, p) => renderToStaticMarkup(createElement(C, p));
+// #96 다국어: 문구는 화면이 받아 쓴다. 테스트는 한국어 문구를 넘긴다.
+const render = (C, p) =>
+  renderToStaticMarkup(
+    createElement(C, {
+      ui: uiCopy.newsroom,
+      newWindow: uiCopy.newWindow,
+      ...p,
+    }),
+  );
 test("NEWS-018 사진·원문 없는 기사는 로고 대체 그림과 링크 없는 article이다", () => {
   for (const [sourceUrl, file] of [
     [

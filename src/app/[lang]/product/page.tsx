@@ -4,7 +4,14 @@ import type { Metadata } from "next";
 
 import "./product.css";
 
-import { getProductCopy, getProductSpecs, getPurchaseUrl } from "@/lib/content";
+import {
+  getProductCopy,
+  getProductSpecs,
+  getPurchaseUrl,
+  getUiCopy,
+  pageMetadata,
+} from "@/lib/content";
+import { toLocale } from "@/lib/i18n";
 
 import AlgorithmSection from "./_components/AlgorithmSection";
 import GallerySection from "./_components/GallerySection";
@@ -13,24 +20,22 @@ import KitSection from "./_components/KitSection";
 import MomentsSection from "./_components/MomentsSection";
 import SpecsSection from "./_components/SpecsSection";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "슬리비",
-    description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 제품",
-  };
+export async function generateMetadata({
+  params,
+}: PageProps<"/[lang]/product">): Promise<Metadata> {
+  return pageMetadata((await params).lang, "product", "productSection");
 }
 
 // 구매 히어로 → 갤러리 → 생활 장면 → 알고리즘 → 사용 순서 → 고정 숫자 구성·DB 사양(#79).
 export default async function ProductPage({
   params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
-  const [copy, specs, purchaseUrl, { lang }] = await Promise.all([
-    getProductCopy(),
+}: PageProps<"/[lang]/product">) {
+  const lang = toLocale((await params).lang);
+  const ui = getUiCopy(lang);
+  const [copy, specs, purchaseUrl] = await Promise.all([
+    getProductCopy(lang),
     getProductSpecs(),
     getPurchaseUrl(),
-    params,
   ]);
 
   return (
@@ -44,14 +49,15 @@ export default async function ProductPage({
           url={purchaseUrl}
           copy={copy.intro}
           location="product"
+          newWindow={ui.newWindow}
         />
       </PageHero>
-      <GallerySection copy={copy.features} />
-      <MomentsSection copy={copy.moments} />
+      <GallerySection copy={copy.features} ui={ui.product} />
+      <MomentsSection copy={copy.moments} label={ui.product.momentsLabel} />
       <AlgorithmSection copy={copy.algorithm} lang={lang} />
-      <HowToUseSection copy={copy.howToUse} />
-      <KitSection copy={copy.kit} />
-      <SpecsSection specs={specs} />
+      <HowToUseSection copy={copy.howToUse} ui={ui.product} />
+      <KitSection copy={copy.kit} alt={ui.product.kitAlt} />
+      <SpecsSection specs={specs} ui={ui.product} />
     </main>
   );
 }

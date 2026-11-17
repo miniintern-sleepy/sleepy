@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 
+import type { UiCopy } from "@/content/ko/ui";
 import type { getTechnologyCopy } from "@/lib/content";
 
 import Reveal from "@/components/ui/Reveal";
@@ -75,7 +76,13 @@ function Text({ title, paragraphs }: { title: string; paragraphs: string[] }) {
     </>
   );
 }
-export default function PrinciplesSection({ copy }: { copy: Copy }) {
+export default function PrinciplesSection({
+  copy,
+  ui,
+}: {
+  copy: Copy;
+  ui: UiCopy["technology"];
+}) {
   return (
     <div className="tech-principles public-wrap" id="principle">
       <section className="tech-principle tech-binaural">
@@ -86,7 +93,7 @@ export default function PrinciplesSection({ copy }: { copy: Copy }) {
         <Reveal className="tech-visual">
           <Image
             src="/images/technology/binaural.png"
-            alt="왼쪽 귀에 208Hz, 오른쪽 귀에 200Hz를 들려주면 8Hz 양이성 음향이 생기는 원리 도식"
+            alt={ui.binauralAlt}
             width={550}
             height={295}
             sizes="(max-width:1023px) 100vw,50vw"
@@ -114,7 +121,7 @@ export default function PrinciplesSection({ copy }: { copy: Copy }) {
         <Reveal className="tech-visual tech-sleep-photo">
           <Image
             src="/images/technology/sleep.png"
-            alt="이어폰을 끼고 침대에서 잠든 사람"
+            alt={ui.sleepAlt}
             width={550}
             height={367}
             sizes="(max-width:1023px) 100vw,50vw"

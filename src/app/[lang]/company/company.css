@@ -389,6 +389,10 @@
   .company-about-table > div {
     grid-template-columns: 72px minmax(0, 1fr);
   }
+  /* 영어 이름("Core technology", "First product")은 72px에서 두 줄로 꺾여 넓힌다. */
+  .company-about-table:lang(en) > div {
+    grid-template-columns: 108px minmax(0, 1fr);
+  }
   .company-tech-mobile {
     flex-direction: row;
     justify-content: center;

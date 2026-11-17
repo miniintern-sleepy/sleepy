@@ -5,8 +5,11 @@ import type { ProductCopy } from "./types";
 const images = ["scene-bedtime.png", "scene-nap.png", "scene-break.png"];
 export default function MomentsSection({
   copy,
+  label,
 }: {
   copy: ProductCopy["moments"];
+  /** 넘기는 사진 묶음의 화면 읽기 이름 */
+  label: string;
 }) {
   return (
     <section
@@ -24,10 +27,7 @@ export default function MomentsSection({
           {copy.description}
         </p>
       </Reveal>
-      <ProductPhotoStrip
-        className="product-moments-photos"
-        label="쓰임새 사진 4장, 좌우로 넘겨 볼 수 있습니다"
-      >
+      <ProductPhotoStrip className="product-moments-photos" label={label}>
         {copy.labels.map((label, index) => (
           <Reveal key={label}>
             <figure className="product-hover-card">
