@@ -4,12 +4,26 @@
   margin-inline: auto;
 }
 
+/*
+ * #96 머리말은 위에 붙여 두고, 아래로 스크롤하면 위로 밀어 숨긴다(HeaderAutoHide).
+ * 키보드로 머리말 안에 초점이 가면 숨겨져 있어도 다시 보인다.
+ */
 .site-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 30;
   flex-shrink: 0;
   background: var(--color-paper);
   border-bottom: 1px solid var(--color-rule);
+  transition: transform var(--motion-card);
+}
+:root[data-header-hidden="true"] .site-header:not(:focus-within) {
+  transform: translateY(-100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition: none;
+  }
 }
 
 .header-inner {
@@ -162,7 +176,6 @@
 /* #96 꼬리말: 로고·큰 문구 | 링크, 구분선, "이름 : 값" 회사 정보, 저작권(PL 참고 사진 배치). */
 .site-footer {
   flex-shrink: 0;
-  border-top: 1px solid var(--color-rule);
   background: var(--color-paper);
   padding-block: 56px 48px;
 }

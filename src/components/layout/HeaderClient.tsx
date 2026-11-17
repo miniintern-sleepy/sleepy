@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { UiCopy } from "@/content/ko/ui";
 import type { Locale } from "@/lib/i18n";
+import HeaderAutoHide from "./HeaderAutoHide";
 import { Navigation } from "./HeaderNavigation";
 
 type Copy = UiCopy["header"];
@@ -17,7 +18,12 @@ export default function HeaderClient({
   copy: Copy;
 }) {
   const pathname = usePathname();
-  return <HeaderShell lang={lang} copy={copy} pathname={pathname} />;
+  return (
+    <>
+      <HeaderAutoHide />
+      <HeaderShell lang={lang} copy={copy} pathname={pathname} />
+    </>
+  );
 }
 
 export function HeaderShell({

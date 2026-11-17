@@ -24,6 +24,9 @@ const hook = registerHooks({
       return stub(
         `import{createElement as h}from ${react};export default function Link(p){return h('a',p)}`,
       );
+    // 스크롤 감지는 브라우저에서만 동작하고 서버 마크업에는 아무것도 그리지 않는다.
+    if (s === "./HeaderAutoHide")
+      return stub("export default function HeaderAutoHide(){return null}");
     if (s === "./HeaderNavigation")
       return stub(
         `import{createElement as h}from ${react};export function Navigation({pathname}){return h('nav',{'data-path':pathname})}`,
