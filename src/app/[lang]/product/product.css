@@ -429,3 +429,33 @@
     scroll-behavior: auto;
   }
 }
+
+/* #96 전체 사양 접기. 다섯 줄(약 380px)만 보이고 아래를 흐리게 덮는다. 버튼은 휴대폰에서만 보인다. */
+.product-specs-more {
+  display: none;
+}
+@media (max-width: 520px) {
+  .product-specs[data-open="false"] {
+    position: relative;
+    max-height: 380px;
+    overflow: hidden;
+  }
+  .product-specs[data-open="false"]::after {
+    position: absolute;
+    inset: auto 0 0;
+    height: 96px;
+    background: linear-gradient(transparent, var(--color-paper));
+    content: "";
+  }
+  .product-specs-more {
+    display: flex;
+    width: 100%;
+    min-height: var(--size-touch);
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-pill);
+    color: var(--color-ink);
+  }
+}

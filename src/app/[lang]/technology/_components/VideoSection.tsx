@@ -15,7 +15,7 @@ export default function VideoSection({ copy }: { copy: Copy }) {
       >
         {copy.title}
       </h2>
-      <div className="tech-video-grid">
+      <div className="tech-video-grid mobile-swipe">
         {copy.items.map((item) => (
           <ExternalLink
             key={item.href}

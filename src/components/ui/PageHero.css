@@ -115,3 +115,10 @@
     background-position: calc(50% + 9px) 62px;
   }
 }
+
+/* #96 휴대폰에서는 첫머리 글자도 왼쪽에 맞춘다. 아래 본문이 모두 왼쪽 정렬이라 화면마다 시선이 좌우로 흔들렸다. */
+@media (max-width: 520px) {
+  .page-hero {
+    text-align: left;
+  }
+}

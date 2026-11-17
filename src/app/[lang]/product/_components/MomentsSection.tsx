@@ -23,7 +23,7 @@ export default function MomentsSection({
           {copy.description}
         </p>
       </Reveal>
-      <div className="product-moments-photos">
+      <div className="product-moments-photos mobile-swipe">
         {copy.labels.map((label, index) => (
           <Reveal key={label}>
             <figure className="product-hover-card">

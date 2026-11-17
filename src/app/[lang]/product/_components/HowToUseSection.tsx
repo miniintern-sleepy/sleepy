@@ -35,7 +35,7 @@ export default function HowToUseSection({
           {copy.title}
         </h2>
       </Reveal>
-      <div className="product-guide-steps">
+      <div className="product-guide-steps mobile-swipe">
         {copy.steps.map((step, index) => (
           <Reveal key={step}>
             <figure className="product-hover-card">

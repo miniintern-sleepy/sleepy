@@ -50,7 +50,14 @@ export function Navigation({
         className="menu-toggle"
         onClick={() => setIsOpen(!isOpen)}
       >
-        메뉴
+        {/* #96 글자 "메뉴" 상자 대신 아이콘. 이름은 aria-label이 맡는다. */}
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="menu-icon">
+          {isOpen ? (
+            <path d="M6 6l12 12M18 6 6 18" />
+          ) : (
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          )}
+        </svg>
       </button>
       <nav
         id="site-navigation"
@@ -78,7 +85,7 @@ export function Navigation({
           aria-current={pathname === contactHref ? "page" : undefined}
           onClick={closeMenu}
         >
-          문의하기
+          문의하기 <span aria-hidden="true">↗</span>
         </Link>
       </nav>
       <Link href={contactHref} className="header-contact">

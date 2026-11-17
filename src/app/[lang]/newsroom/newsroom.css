@@ -129,3 +129,40 @@
     display: none;
   }
 }
+
+/*
+ * #96 휴대폰 목록은 짧은 줄: 왼쪽 출처·날짜·제목, 오른쪽 104px 작은 사진. 메인 "슬리피의 소식"과 같은 모양이다.
+ * 이유: 폭 가득 사진 카드가 한 장에 300px 넘게 차지해 16개 소식이 3000px를 넘었다.
+ * 맨 위 주요 소식(featured)은 큰 사진 그대로 둔다.
+ */
+@media (max-width: 520px) {
+  .newsroom-grid {
+    row-gap: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .newsroom-grid-after-feature {
+    margin-top: 56px;
+  }
+  .newsroom-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 16px;
+    border-bottom: 1px solid var(--color-rule);
+    padding-block: 20px;
+  }
+  .newsroom-card .newsroom-image {
+    grid-column: 2;
+    grid-row: 1;
+    width: 104px;
+    aspect-ratio: 4 / 3;
+  }
+  .newsroom-card .newsroom-card-copy {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
+  }
+  .newsroom-card-title {
+    margin-top: 6px;
+  }
+}
