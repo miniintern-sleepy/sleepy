@@ -155,28 +155,41 @@
 }
 .site-navigation a:hover,
 .footer-navigation a:hover,
-.footer-bottom a:hover {
+.footer-info a:hover {
   color: var(--color-violet);
 }
 
+/* #96 꼬리말: 로고·큰 문구 | 링크, 구분선, "이름 : 값" 회사 정보, 저작권(PL 참고 사진 배치). */
 .site-footer {
   flex-shrink: 0;
   border-top: 1px solid var(--color-rule);
   background: var(--color-paper);
-  padding-block: 48px 30px;
+  padding-block: 56px 48px;
 }
-
-.footer-top,
-.footer-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-}
-
 .footer-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
   border-bottom: 1px solid var(--color-rule);
-  padding-bottom: 24px;
+  padding-bottom: 40px;
+}
+/* 참고 사진처럼 꼬리말 로고는 머리말보다 크게 둔다. */
+.footer-intro .site-logo {
+  width: 104px;
+}
+.footer-tagline {
+  margin-top: 28px;
+  color: var(--color-ink);
+  font-size: var(--text-context-heading);
+  font-weight: var(--font-weight-ui-selected);
+  line-height: var(--text-detail-heading--line-height);
+}
+.footer-tagline-sub {
+  margin-top: 8px;
+  color: var(--color-ink);
+  font-size: var(--text-copy);
+  line-height: var(--text-form-title--line-height);
 }
 .footer-navigation {
   display: flex;
@@ -186,30 +199,34 @@
   font-size: var(--text-footer-nav);
   line-height: var(--text-footer-nav--line-height);
 }
-
-.footer-navigation a,
-.footer-bottom a {
+.footer-navigation a {
   display: inline-flex;
   min-height: var(--size-touch);
   align-items: center;
   gap: 4px;
 }
-
-.footer-bottom {
-  align-items: flex-start;
-  padding-top: 22px;
+.footer-info {
+  display: grid;
+  gap: 4px;
+  padding-top: 32px;
   color: var(--color-muted);
-}
-
-.footer-bottom address {
   font-size: var(--text-footer-info);
   font-style: normal;
   line-height: var(--text-footer-info--line-height);
 }
-
-.footer-bottom small {
+.footer-info p {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 32px;
+}
+.footer-info strong {
+  color: var(--color-ink);
+  font-weight: var(--font-weight-ui-selected);
+}
+.footer-legal {
   display: block;
-  margin-top: 12px;
+  margin-top: 24px;
+  color: var(--color-muted);
   font-size: var(--text-footer-legal);
   line-height: var(--text-footer-legal--line-height);
 }
@@ -271,8 +288,23 @@
   }
 
   .site-navigation a[aria-current="page"]::after,
-  .header-actions {
+  .header-contact {
     display: none;
+  }
+  /* 휴대폰은 언어 선택만 ☰ 왼쪽에 둔다. 문의하기는 메뉴 판 안에 있다. */
+  .header-actions {
+    order: 1;
+    margin-left: auto;
+  }
+  .menu-toggle {
+    order: 2;
+  }
+  .header-inner {
+    gap: 4px;
+  }
+  .language-menu {
+    right: 0;
+    left: auto;
   }
   .menu-toggle {
     display: inline-flex;
@@ -287,28 +319,32 @@
     line-height: var(--text-ui-input--line-height);
   }
   .footer-top {
-    flex-wrap: wrap;
-  }
-  .footer-navigation {
-    gap: 10px;
-    font-size: var(--text-micro);
-  }
-  .footer-bottom {
-    align-items: flex-start;
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 24px;
+  }
+  .footer-info p {
+    flex-direction: column;
   }
 }
-/* #96 휴대폰에서는 꼬리말 메뉴를 로고 아래 줄로 내리고 12px → 13px로 키운다. 로고 옆에 붙으면 작고 빽빽했다. */
+/* #96 휴대폰 꼬리말은 위아래 여백과 큰 문구를 줄인다. */
 @media (max-width: 520px) {
-  .footer-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .site-footer {
+    padding-block: 40px 32px;
+  }
+  .footer-intro .site-logo {
+    width: 88px;
+  }
+  .footer-tagline {
+    margin-top: 20px;
+    font-size: var(--text-copy-large);
+  }
+  .footer-tagline-sub {
+    font-size: var(--text-meta);
   }
   .footer-navigation {
     gap: 20px;
-    font-size: var(--text-footer-nav);
   }
 }
 

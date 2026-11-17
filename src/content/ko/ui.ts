@@ -37,14 +37,19 @@ export const uiCopy = {
     },
   },
   footer: {
+    // 꼬리말 큰 문구. 새로 쓰지 않고 메인 첫 화면 설명과 메인 제품 구간 설명을 그대로 쓴다(2026-11-17).
+    tagline: "비약물적인 방법으로 편안한 수면을 돕습니다",
+    taglineSub: "스마트폰 연결 없이 쓰는 디지털 귀마개, 슬리비",
     menu: "하단 메뉴",
     general: "일반 문의",
     partnership: "제휴 문의",
     company: "주식회사 슬리피",
-    representativeLabel: "대표",
+    representativeLabel: "대표자명",
+    addressLabel: "주소",
+    emailLabel: "E-MAIL",
     representative: "서정화",
     address: "서울특별시 성북구 화랑로 211, 105호",
-    phoneLabel: "고객센터",
+    phoneLabel: "TEL",
     analytics: "이 사이트는 쿠키 없이 방문 통계를 수집합니다.",
   },
   home: {
