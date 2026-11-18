@@ -4,6 +4,9 @@
 .home-hero {
   position: relative;
   isolation: isolate;
+  /* 제품 설명 위치 계산(cqw)에 히어로 폭을 쓴다. */
+  container-type: inline-size;
+  width: 100%;
   display: flex;
   align-items: center;
   text-align: left;
@@ -64,8 +67,13 @@
   }
   .home-hero-product {
     position: absolute;
-    /* #98 사진의 흰 바닥과 회색 벽 경계(히어로 높이의 약 77%, 2026-11-18 1440px 측정) 바로 위에 둔다. */
-    bottom: calc(23% + 20px);
+    /*
+     * #98 사진의 흰 바닥과 회색 벽 경계 바로 위(20px)에 둔다.
+     * 경계는 사진 높이의 76.8% 지점이다(2026-11-18 측정). 사진은 가운데 기준 cover라
+     * 창이 납작하면(가로/세로 > 1.775) 위아래가 잘려 경계가 히어로의 50% + 사진폭/1.775×26.8% = 50% + 15.1cqw 지점으로 내려온다.
+     * 이유: 23%로만 두면 창 높이가 다른 Chrome(탭·북마크 줄)과 Safari에서 버튼과 경계 사이가 달랐다.
+     */
+    bottom: calc(min(23%, 50% - 15.1cqw) + 20px);
     left: calc(50% - 340px);
     width: max-content;
     margin: 0;
