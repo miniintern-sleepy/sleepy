@@ -36,6 +36,41 @@
 .public-text-link:hover {
   color: var(--color-violet);
 }
+/*
+ * 알약 버튼 링크 공통 모양(#98, ButtonLink). 페이지에서는 margin·flex-shrink 같은 바깥 배치만 덮어쓴다.
+ * primary는 메인 첫 화면 "제품 보기", secondary는 머리말 "문의하기"와 같은 모양이다.
+ */
+.public-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  min-height: var(--size-touch);
+  padding: 11px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-ui-input);
+  font-weight: var(--font-weight-ui-medium);
+  line-height: var(--text-text-link--line-height);
+}
+.public-button-primary {
+  background: var(--color-violet);
+  color: var(--color-white);
+}
+.public-button-primary:hover {
+  background: var(--color-violet-strong);
+}
+.public-button-secondary {
+  border-color: var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+.public-button-secondary:hover {
+  border-color: var(--color-violet);
+  background: var(--color-panel);
+  color: var(--color-violet-strong);
+}
 .public-purchase {
   display: inline-flex;
   min-height: var(--size-touch);
@@ -64,7 +99,7 @@
 .public-contact-banner p {
   margin-top: 18px;
 }
-.public-contact-banner .public-text-link {
+.public-contact-banner .public-button {
   margin-top: 28px;
 }
 .public-search {
@@ -166,7 +201,7 @@
   margin-bottom: 56px;
   border-block: 1px solid var(--color-rule);
 }
-.public-faq-contact .public-text-link {
+.public-faq-contact .public-button {
   flex-shrink: 0;
 }
 .public-faq-list {
@@ -280,6 +315,7 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .public-text-link,
+  .public-button,
   .public-news-item {
     transition:
       color var(--motion-state),

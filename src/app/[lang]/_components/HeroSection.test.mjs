@@ -26,16 +26,16 @@ const hook = registerHooks({
         ),
         shortCircuit: true,
       };
-    if (s === "@/components/ui/TextLink")
+    if (s === "@/components/ui/ButtonLink")
       return {
-        url: new URL("../../../components/ui/TextLink.tsx", import.meta.url)
+        url: new URL("../../../components/ui/ButtonLink.tsx", import.meta.url)
           .href,
         shortCircuit: true,
       };
-    // TextLink가 같은 폴더의 ExternalLink·TextLinkBody를 확장자 없이 불러온다(#88).
+    // ButtonLink가 같은 폴더의 ExternalLink를 확장자 없이 불러온다(#88).
     if (
       s.startsWith("./") &&
-      c.parentURL?.endsWith("/components/ui/TextLink.tsx")
+      c.parentURL?.endsWith("/components/ui/ButtonLink.tsx")
     )
       return { url: new URL(`${s}.tsx`, c.parentURL).href, shortCircuit: true };
     if (s.endsWith(".webp"))

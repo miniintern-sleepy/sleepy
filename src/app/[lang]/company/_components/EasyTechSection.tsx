@@ -1,5 +1,5 @@
 import Reveal from "@/components/ui/Reveal";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { getCompanyCopy } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 
@@ -27,9 +27,9 @@ export default function EasyTechSection({
         <p className="mt-8 text-study-title whitespace-pre-line text-muted">
           {copy.description}
         </p>
-        <TextLink href={`/${lang}/technology`} className="mt-8">
+        <ButtonLink href={`/${lang}/technology`} className="mt-8">
           {copy.link}
-        </TextLink>
+        </ButtonLink>
       </Reveal>
       <Reveal>
         <div

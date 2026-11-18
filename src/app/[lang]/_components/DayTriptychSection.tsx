@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { UiCopy } from "@/content/ko/ui";
 import type { getHomeCopy } from "@/lib/content";
 export default function DayTriptychSection({
@@ -28,7 +28,7 @@ export default function DayTriptychSection({
         </figure>
         <div className="home-day-center">
           <h2 className="text-day-heading whitespace-pre-line">{copy.title}</h2>
-          <TextLink href={`/${lang}/technology`}>{copy.link}</TextLink>
+          <ButtonLink href={`/${lang}/technology`}>{copy.link}</ButtonLink>
         </div>
         <figure>
           <Image

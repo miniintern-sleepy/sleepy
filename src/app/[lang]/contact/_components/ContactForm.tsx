@@ -9,7 +9,7 @@ import {
   type FormEvent,
 } from "react";
 
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { UiCopy } from "@/content/ko/ui";
 import { track } from "@/lib/analytics";
 import { submitInquiry } from "../actions";
@@ -115,7 +115,7 @@ export default function ContactForm({
           {t.successEmail} <strong>{values.email}</strong>
         </p>
         <div className="contact-success-links">
-          <TextLink href={`/${lang}`}>{t.home}</TextLink>
+          <ButtonLink href={`/${lang}`}>{t.home}</ButtonLink>
           <button
             type="button"
             className="contact-button"

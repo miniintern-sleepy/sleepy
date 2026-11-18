@@ -113,7 +113,7 @@
 .home-day-center {
   text-align: center;
 }
-.home-day-center .public-text-link {
+.home-day-center .public-button {
   margin-top: 28px;
 }
 .home-founder {
@@ -155,7 +155,7 @@
 .home-founder-context p {
   max-width: 550px;
 }
-.home-founder-context .public-text-link {
+.home-founder-context .public-button {
   margin-top: 12px;
 }
 .home-product,
@@ -193,7 +193,7 @@
   gap: 32px;
   margin-bottom: 48px;
 }
-.home-section-top .public-text-link {
+.home-section-top .public-button {
   flex-shrink: 0;
 }
 .home-latest h3 {

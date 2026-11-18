@@ -1,4 +1,4 @@
-import TextLink from "./TextLink";
+import ButtonLink from "./ButtonLink";
 /**
  * 새 창으로 여는 외부 링크 목록. 주소가 빈 항목은 빼고, 모두 비면 아무것도 그리지 않는다.
  */
@@ -18,9 +18,9 @@ export default function ExternalLinks({
     <ul className={`flex flex-col items-start gap-2 ${className}`}>
       {ready.map(({ label, href }) => (
         <li key={href}>
-          <TextLink href={href} external newWindow={newWindow}>
+          <ButtonLink href={href} external newWindow={newWindow}>
             {label}
-          </TextLink>
+          </ButtonLink>
         </li>
       ))}
     </ul>

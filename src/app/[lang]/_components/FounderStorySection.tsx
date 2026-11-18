@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { getHomeCopy, getCompanyCopy } from "@/lib/content";
 export default function FounderStorySection({
   copy,
@@ -49,9 +49,7 @@ export default function FounderStorySection({
           </h2>
           <div>
             <p className="text-helper text-muted">{copy.description}</p>
-            <TextLink href={`/${lang}/company`} size="compact">
-              {copy.link}
-            </TextLink>
+            <ButtonLink href={`/${lang}/company`}>{copy.link}</ButtonLink>
           </div>
         </div>
       </div>

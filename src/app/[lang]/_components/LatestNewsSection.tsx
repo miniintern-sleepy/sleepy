@@ -1,5 +1,5 @@
 import NewsItem from "@/components/ui/NewsItem";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { UiCopy } from "@/content/ko/ui";
 import { getNewsList } from "@/lib/content";
 
@@ -17,7 +17,9 @@ export default async function LatestNewsSection({
       <div className="public-wide">
         <div className="home-section-top">
           <h2 className="text-latest-heading">{ui.home.latestTitle}</h2>
-          <TextLink href={`/${lang}/newsroom`}>{ui.home.latestLink}</TextLink>
+          <ButtonLink href={`/${lang}/newsroom`}>
+            {ui.home.latestLink}
+          </ButtonLink>
         </div>
         <div className="public-news-list">
           {articles.map((article) => (

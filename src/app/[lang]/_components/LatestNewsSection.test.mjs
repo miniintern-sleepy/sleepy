@@ -11,7 +11,7 @@ const stubs = {
     "export async function getNewsList(){return globalThis.__sleepyLatest54;}",
   "@/components/ui/NewsItem":
     "export default function Item({article}){return article.title;}",
-  "@/components/ui/TextLink":
+  "@/components/ui/ButtonLink":
     "export default function Link({children}){return children;}",
 };
 const hook = registerHooks({
