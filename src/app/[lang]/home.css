@@ -570,3 +570,78 @@
     gap: 12px;
   }
 }
+
+/*
+ * #98 휴대폰 메인은 가운데 정렬로 읽는다(PL 결정 2026-11-18): 첫 화면·이야기·하루 사진·대표·제품 구간.
+ * 소식·FAQ 목록은 줄마다 읽는 목록이라 왼쪽 정렬을 유지한다.
+ */
+@media (max-width: 520px) {
+  .home-hero-copy {
+    text-align: center;
+  }
+  .home-hero-product {
+    align-items: center;
+  }
+  /* 하루 사진: 제목(가운데) → 사진 두 장 → 기술 원리 버튼(가운데). */
+  .home-day-center {
+    display: contents;
+  }
+  .home-day-center h2 {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    text-align: center;
+  }
+  .home-day-center .public-button {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-self: center;
+  }
+  .home-days figure {
+    grid-row: 2;
+  }
+  /* 대표: 인용 → 사진 → 이름·소속 → 소개, 모두 가운데. */
+  .home-founder-quote {
+    text-align: center;
+    text-wrap: balance;
+  }
+  .home-founder-detail {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0;
+    text-align: center;
+  }
+  .home-founder-photo {
+    grid-row: auto;
+  }
+  .home-founder-detail h2,
+  .home-founder-role,
+  .home-founder-description {
+    grid-column: 1;
+    align-self: auto;
+  }
+  .home-founder-detail h2 {
+    margin-top: 20px;
+  }
+  .home-founder-description {
+    margin-top: 16px;
+  }
+  .home-founder-context {
+    justify-items: center;
+    text-align: center;
+  }
+  .home-founder-link {
+    justify-self: center;
+  }
+  /* 하루와 맞닿은 이야기: 제목·본문 가운데. */
+  .home-everyday .public-wide {
+    justify-items: center;
+    text-align: center;
+  }
+  .home-everyday h2 {
+    left: auto;
+  }
+  /* 제품: 제목 가운데. */
+  .home-product-grid h2 {
+    text-align: center;
+  }
+}
