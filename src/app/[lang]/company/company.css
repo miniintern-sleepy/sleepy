@@ -378,8 +378,37 @@
  * - 걸음 제목: 아래 연표가 왼쪽 정렬이라 제목도 왼쪽에 맞춘다.
  */
 @media (max-width: 520px) {
+  .company-ceo-layout-with-photo {
+    grid-template-columns: 105px minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto;
+    gap: 0 22px;
+    align-items: start;
+  }
+  .company-ceo-photo-wrap {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
   .company-ceo-photo {
-    max-width: 240px;
+    width: 105px;
+    max-width: none;
+    height: auto;
+    aspect-ratio: auto;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy {
+    display: contents;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy > div:first-child {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy > p {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy > blockquote,
+  .company-ceo-layout-with-photo .company-ceo-copy > div:not(:first-child),
+  .company-ceo-layout-with-photo .company-ceo-copy > ul {
+    grid-column: 1 / -1;
   }
   .company-about-table > div {
     grid-template-columns: 72px minmax(0, 1fr);
