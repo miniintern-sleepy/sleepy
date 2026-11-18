@@ -332,15 +332,30 @@
   .home-section {
     padding-block: var(--space-section-small);
   }
+  /*
+   * #98 휴대폰: 글은 위 바탕 위에, 사진은 아래에 원래 비율(1024:577) 그대로 둔다(PL 확정 2026-11-18).
+   * 이유: 세로 화면을 가로 사진으로 꽉 채우면 사진의 약 1/3만 보여 상자가 잘리고 케이스만 흐리게 커졌다.
+   * 주의: next/image fill이 넣는 인라인 위치·크기를 덮어야 해서 사진에만 !important를 쓴다.
+   */
   .home-hero {
-    height: clamp(560px, 100dvh, calc(640px + var(--header-height-small)));
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    background: var(--color-paper);
+  }
+  .home-hero::before {
+    display: none;
   }
   .home-hero-copy {
-    margin: calc(var(--header-height-small) + 40px) var(--layout-gutter) 0;
+    align-self: auto;
+    margin: 40px var(--layout-gutter) 32px;
   }
   .home-hero > img {
-    object-position: 42% center;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1024 / 577;
+    order: 1;
   }
   .home-hero h1 span + span {
     margin-top: 0;
@@ -446,12 +461,6 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-  }
-}
-
-@media (max-width: 400px) {
-  .home-hero > img {
-    object-position: right center;
   }
 }
 
