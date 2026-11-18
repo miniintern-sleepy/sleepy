@@ -13,7 +13,7 @@ export const companyCopy = {
     photo: "/images/company/ceo-portrait-suit.webp",
     photoAlt: "슬리피 대표 서정화",
     paragraphs: [
-      "네 아이의 아빠이자 마취통증의학과 교수인 슬리피 대표의 작은 질문에서 시작된 디지털 귀마개, 슬리비",
+      "네 아이의 아빠이자 마취통증의학과 교수인 슬리피 대표의 작은 질문에서 시작됐습니다",
     ],
     quote:
       "“우리 아이들이 잠들기 전, 간편하게 사용할 수 있는 귀마개를 만들 수 없을까?”",

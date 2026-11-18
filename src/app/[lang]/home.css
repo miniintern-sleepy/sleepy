@@ -504,3 +504,69 @@
     margin-bottom: 36px;
   }
 }
+
+/* #98 휴대폰 메인 배치 정리(PL 요청 2026-11-18). */
+@media (max-width: 520px) {
+  /* 섹션 제목은 문구의 줄바꿈(\n)을 따르지 않고 폭대로 흘린다. */
+  .home-section h2.whitespace-pre-line,
+  .home-days h2.whitespace-pre-line,
+  .home-founder-context h2 {
+    white-space: normal;
+  }
+  .home-hero-copy {
+    margin-top: 32px;
+  }
+  .home-hero-product {
+    gap: 16px;
+    margin-top: 24px;
+  }
+  /* 제품 구간: 제목 → 사진 → 버튼·출시 예정(가운데). */
+  .home-product-grid {
+    gap: 24px;
+  }
+  .home-product-grid > div {
+    display: contents;
+  }
+  .home-product-grid h2 {
+    order: 1;
+  }
+  .home-stage-photo {
+    order: 2;
+    /* 사진 원래 비율(3:2)로 두어 위아래 빈 띠를 없앤다. */
+    height: auto;
+    max-height: none;
+    aspect-ratio: 3 / 2;
+    margin-bottom: 0;
+  }
+  /* 대표 소개: 사진 옆에는 이름·소속만, 소개 문장은 아래 전체 폭으로(좁은 칸에 4줄로 접혀 어색했다). */
+  .home-founder-detail > div {
+    display: contents;
+  }
+  .home-founder-photo {
+    grid-row: 1 / span 2;
+  }
+  .home-founder-detail h2,
+  .home-founder-role {
+    grid-column: 2;
+    align-self: end;
+  }
+  .home-founder-role {
+    align-self: start;
+  }
+  .home-founder-description {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+  }
+  .home-product-actions {
+    order: 3;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 0;
+  }
+  /* 소식·FAQ: 제목과 버튼을 한 줄에. */
+  .home-section-top {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+}

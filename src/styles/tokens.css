@@ -534,12 +534,16 @@
   :root {
     /* #98 휴대폰 첫 화면 제목은 줄을 길게 흘려 3줄로(26→22px, PL 요청 2026-11-18). */
     --text-landing-title: 1.375rem;
+    /* #98 첫 화면 제목이 뭉쳐 보여 행간·자간을 푼다(1.25→1.45, -0.065→-0.03em). */
+    --text-landing-title--line-height: 1.45;
+    --text-landing-title--letter-spacing: -0.03em;
     --text-page-hero-title: 1.75rem;
 
-    --text-story-heading: 1.625rem;
-    --text-day-heading: 1.625rem;
-    --text-stage-heading: 1.625rem;
-    --text-latest-heading: 1.625rem;
+    /* #98 메인 섹션 제목은 휴대폰에서 줄을 끊지 않고 한 줄로 읽히게 22px(PL 요청 2026-11-18). */
+    --text-story-heading: 1.375rem;
+    --text-day-heading: 1.375rem;
+    --text-stage-heading: 1.375rem;
+    --text-latest-heading: 1.375rem;
     --text-detail-heading: 1.625rem;
     --text-kit-heading: 1.625rem;
     --text-patent-heading: 1.625rem;

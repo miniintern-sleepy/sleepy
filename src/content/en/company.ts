@@ -14,7 +14,7 @@ export const companyCopy: typeof ko = {
     photo: "/images/company/ceo-portrait-suit.webp",
     photoAlt: "Jeong-Hwa Seo, CEO of Sleepy",
     paragraphs: [
-      "Sleeby, a digital earplug that began with a small question from Sleepy's founder, a father of four and a professor of anesthesiology and pain medicine",
+      "It began with a small question from Sleepy's founder, a father of four and a professor of anesthesiology and pain medicine",
     ],
     quote:
       "“Could we make earplugs that our children can use easily before they fall asleep?”",

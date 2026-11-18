@@ -26,7 +26,7 @@ export const homeCopy: typeof ko = {
     title: "Answering everyday\nquestions with research",
     role: "Professor of Anesthesiology and Pain Medicine, Seoul National University Hospital",
     paragraphs: [
-      "Sleeby, a digital earplug that began with a small question from Sleepy's founder, a father of four and a professor of anesthesiology and pain medicine",
+      "It began with a small question from Sleepy's founder, a father of four and a professor of anesthesiology and pain medicine",
     ],
     description:
       "Rooted in anesthesiology research, we build technology that helps you sleep well without medication",

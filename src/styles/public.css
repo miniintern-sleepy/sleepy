@@ -395,3 +395,17 @@
     text-align: left;
   }
 }
+
+/*
+ * #98 휴대폰 버튼은 한 단계 작게(PL 요청 2026-11-18). 44px·16px가 22px 제목 옆에서 제목보다 무거워 보였다.
+ * 높이 36px도 터치 최소(24px, WCAG 2.5.8)를 넘는다.
+ */
+@media (max-width: 520px) {
+  .public-button,
+  .public-button-small {
+    min-height: 36px;
+    gap: 6px;
+    padding: 6px 16px;
+    font-size: var(--text-ui-button);
+  }
+}
