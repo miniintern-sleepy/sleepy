@@ -33,7 +33,12 @@ export default function HeroSection({
           <p className="home-hero-description text-copy-large">
             {copy.description}
           </p>
-          <ButtonLink href={`/${lang}/product`} variant="primary">
+          <ButtonLink
+            href={`/${lang}/product`}
+            variant="primary"
+            arrow={false}
+            className="home-hero-cta"
+          >
             {copy.link}
           </ButtonLink>
         </div>

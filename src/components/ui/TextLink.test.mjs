@@ -128,6 +128,7 @@ test("LINK-006 버튼 링크(#98)는 기본이 보조(테두리)이고 primary�
     button({ href: "/ko/product", variant: "primary", className: "mt-8" }),
     /class="public-button public-button-primary mt-8"/,
   );
+  assert.doesNotMatch(button({ href: "/ko/product", arrow: false }), /↗/);
   const external = button({ href: "https://example.com", external: true });
   assert.match(external, /target="_blank"/);
   assert.match(external, /<span class="sr-only"> \(새 창\)<\/span><\/a>$/);

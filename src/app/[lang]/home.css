@@ -53,6 +53,28 @@
   gap: 20px;
   margin-top: 40px;
 }
+/*
+ * #98 제목 아래 오른쪽, 상자 사진 왼쪽 빈 벽으로 내린다(PL 표시 2026-11-18). 1101px 이상만.
+ * 이유: 사진은 가운데 기준 cover라 상자가 화면 가운데에 붙어 움직인다. 글 왼쪽 끝을 본문 여백이 아니라
+ * 화면 가운데에서 340px 왼쪽에 두어야 1110px·영어 설명도 상자와 겹치지 않는다(2026-11-18 측정. 여백 기준은 1110px, 300px은 영어 1440px에서 겹침).
+ */
+@media (min-width: 1101px) {
+  .home-hero-copy {
+    position: static;
+  }
+  .home-hero-product {
+    position: absolute;
+    top: 390px;
+    left: calc(50% - 340px);
+    margin: 0;
+  }
+}
+/* 첫 화면 제품 소개 버튼은 공통 버튼보다 한 단계 작게(PL 요청). */
+.home-hero-cta {
+  min-height: 40px;
+  padding: 8px 22px;
+  font-size: var(--text-ui-button);
+}
 .home-hero-description {
   /* 문구의 줄바꿈(\n)을 "디지털 귀마개, 슬리비" 앞에서 지킨다. */
   white-space: pre-line;

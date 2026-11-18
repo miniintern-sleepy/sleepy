@@ -14,6 +14,7 @@ export default function ButtonLink({
   variant = "secondary",
   className = "",
   external = false,
+  arrow = true,
   newWindow,
 }: {
   href: string;
@@ -23,6 +24,8 @@ export default function ButtonLink({
   className?: string;
   /** 새 창으로 열고 화면 읽기용 "(새 창)"을 붙인다. */
   external?: boolean;
+  /** false면 끝의 ↗를 뺀다(메인 첫 화면 제품 소개, #98). */
+  arrow?: boolean;
   newWindow?: string;
 }) {
   const classes = ["public-button", `public-button-${variant}`, className]
@@ -31,7 +34,7 @@ export default function ButtonLink({
   const body = (
     <>
       {children}
-      <span aria-hidden="true">↗</span>
+      {arrow && <span aria-hidden="true">↗</span>}
     </>
   );
 
