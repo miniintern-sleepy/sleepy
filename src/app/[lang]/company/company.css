@@ -394,16 +394,25 @@
     align-items: flex-start;
     gap: 12px;
   }
+  /*
+   * #98 원 세 개를 고정 폭(84·108·84 + 간격 = 300px) 대신 줄 폭에 맞춰 함께 줄인다.
+   * 이유: 320px 화면은 본문 폭이 276px라 그림이 넘쳐 페이지가 옆으로 2px 밀렸다(2026-11-18 측정).
+   */
   .company-tech-mobile .company-tech-ear {
+    flex: 0 1 84px;
+    min-width: 0;
     text-align: center;
   }
   .company-tech-ear-circle {
-    width: 84px;
-    height: 84px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
   }
   .company-tech-center-circle {
-    width: 108px;
-    height: 108px;
+    flex: 0 1 108px;
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
     margin-top: -12px;
     text-align: center;
   }
