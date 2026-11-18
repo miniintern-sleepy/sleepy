@@ -178,7 +178,8 @@
   width: 100%;
   height: 390px;
   object-fit: contain;
-  border-radius: var(--radius-photo);
+  /* #98 메인 사진은 모서리 없이 직사각형(PL 요청 2026-11-18). */
+  border-radius: 0;
 }
 .home-days figure:last-child img {
   height: 290px;
@@ -262,7 +263,7 @@
   aspect-ratio: 1.2;
   height: auto;
   object-fit: contain;
-  border-radius: var(--radius-stage);
+  border-radius: 0;
 }
 .home-section-top {
   display: flex;
@@ -572,7 +573,8 @@
 }
 
 /*
- * #98 휴대폰 메인은 가운데 정렬로 읽는다(PL 결정 2026-11-18): 첫 화면·이야기·하루 사진·대표·제품 구간.
+ * #98 휴대폰 메인은 가운데 정렬로 읽는다(PL 결정 2026-11-18): 첫 화면·이야기·하루 사진·대표 인용과 아래 줄·제품 구간.
+ * 대표 사진·이름·소속·소개 묶음은 사진 옆 가로 배치를 유지한다(PL 요청).
  * 소식·FAQ 목록은 줄마다 읽는 목록이라 왼쪽 정렬을 유지한다.
  */
 @media (max-width: 520px) {
@@ -599,31 +601,10 @@
   .home-days figure {
     grid-row: 2;
   }
-  /* 대표: 인용 → 사진 → 이름·소속 → 소개, 모두 가운데. */
+  /* 대표 인용은 가운데. 사진·이름·소속·소개 묶음은 위 규칙(사진 옆 이름·소속, 아래 소개)대로 왼쪽. */
   .home-founder-quote {
     text-align: center;
     text-wrap: balance;
-  }
-  .home-founder-detail {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 0;
-    text-align: center;
-  }
-  .home-founder-photo {
-    grid-row: auto;
-  }
-  .home-founder-detail h2,
-  .home-founder-role,
-  .home-founder-description {
-    grid-column: 1;
-    align-self: auto;
-  }
-  .home-founder-detail h2 {
-    margin-top: 20px;
-  }
-  .home-founder-description {
-    margin-top: 16px;
   }
   .home-founder-context {
     justify-items: center;

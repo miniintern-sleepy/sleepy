@@ -189,7 +189,8 @@
   display: block;
   width: 150px;
   aspect-ratio: 1.5;
-  border-radius: var(--radius-media);
+  /* #98 소식 사진도 직사각형. */
+  border-radius: 0;
   overflow: hidden;
   background: var(--color-panel);
 }
