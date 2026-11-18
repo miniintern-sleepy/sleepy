@@ -532,7 +532,8 @@
  */
 @media (max-width: 520px) {
   :root {
-    --text-landing-title: 1.625rem;
+    /* #98 휴대폰 첫 화면 제목은 줄을 길게 흘려 3줄로(26→22px, PL 요청 2026-11-18). */
+    --text-landing-title: 1.375rem;
     --text-page-hero-title: 1.75rem;
 
     --text-story-heading: 1.625rem;

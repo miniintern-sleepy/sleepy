@@ -348,14 +348,28 @@
   }
   .home-hero-copy {
     align-self: auto;
-    margin: 40px var(--layout-gutter) 32px;
+    margin: 40px var(--layout-gutter) 8px;
   }
   .home-hero > img {
     position: static !important;
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 1024 / 577;
+    /*
+     * #98 사진은 4:3으로 제품 쪽(오른쪽)만 잘라 상자·케이스를 크게 보이고,
+     * 윗부분은 바탕색으로 서서히 이어지게 해 글 영역과 한 화면으로 읽히게 한다(PL 요청 2026-11-18).
+     */
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 88% 60%;
+    mask-image: linear-gradient(to bottom, transparent, var(--color-ink) 24%);
     order: 1;
+  }
+  /* #98 줄마다 끊지 않고 가로로 흘려 읽게 한다(제목 4줄 → 3줄, 설명 1~2줄). */
+  .home-hero h1 span {
+    display: inline;
+  }
+  .home-hero-description {
+    white-space: normal;
   }
   .home-hero h1 span + span {
     margin-top: 0;
