@@ -1,5 +1,6 @@
 import ButtonLink from "@/components/ui/ButtonLink";
 import { getFaqs, type getHomeCopy } from "@/lib/content";
+import type { Locale } from "@/lib/i18n";
 
 /** 메인 소식 아래에 FAQ 앞 질문 최대 4개를 접힌 채 보여 준다. 질문이 없으면 구간을 숨긴다(#81). */
 export default async function HomeFaqSection({
@@ -7,9 +8,9 @@ export default async function HomeFaqSection({
   lang,
 }: {
   copy: Awaited<ReturnType<typeof getHomeCopy>>["faq"];
-  lang: string;
+  lang: Locale;
 }) {
-  const faqs = (await getFaqs()).slice(0, 4);
+  const faqs = (await getFaqs(lang)).slice(0, 4);
   if (!faqs.length) return null;
   return (
     <section className="home-faq home-section">

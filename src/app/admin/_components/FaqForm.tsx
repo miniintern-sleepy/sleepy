@@ -20,6 +20,8 @@ export default function FaqForm({ item }: { item?: FaqItem }) {
   const [values, setValues] = useState({
     question: item?.question ?? "",
     answer: item?.answer ?? "",
+    questionEn: item?.questionEn ?? "",
+    answerEn: item?.answerEn ?? "",
     sortOrder: String(item?.sortOrder ?? 0),
     isPublished: item?.isPublished ?? false,
   });
@@ -30,6 +32,8 @@ export default function FaqForm({ item }: { item?: FaqItem }) {
         setValues({
           question: "",
           answer: "",
+          questionEn: "",
+          answerEn: "",
           sortOrder: "0",
           isPublished: false,
         });
@@ -78,6 +82,53 @@ export default function FaqForm({ item }: { item?: FaqItem }) {
               setValues((current) => ({
                 ...current,
                 answer: event.target.value,
+              }))
+            }
+            disabled={pending}
+          />
+        </Field>
+        <Field
+          name="questionEn"
+          label="영문 질문 (비우면 영문 페이지에 한국어가 나갑니다)"
+          error={state.fieldErrors?.questionEn}
+        >
+          <input
+            className={inputClass}
+            id="questionEn"
+            name="questionEn"
+            lang="en"
+            maxLength={200}
+            aria-invalid={!!state.fieldErrors?.questionEn}
+            aria-describedby="questionEn-error"
+            value={values.questionEn}
+            onChange={(event) =>
+              setValues((current) => ({
+                ...current,
+                questionEn: event.target.value,
+              }))
+            }
+            disabled={pending}
+          />
+        </Field>
+        <Field
+          name="answerEn"
+          label="영문 답변"
+          error={state.fieldErrors?.answerEn}
+        >
+          <textarea
+            className={inputClass}
+            id="answerEn"
+            name="answerEn"
+            lang="en"
+            maxLength={5000}
+            rows={6}
+            aria-invalid={!!state.fieldErrors?.answerEn}
+            aria-describedby="answerEn-error"
+            value={values.answerEn}
+            onChange={(event) =>
+              setValues((current) => ({
+                ...current,
+                answerEn: event.target.value,
               }))
             }
             disabled={pending}

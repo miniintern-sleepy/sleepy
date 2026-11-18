@@ -6,6 +6,8 @@ export type FaqItem = {
   id: number;
   question: string;
   answer: string;
+  questionEn: string;
+  answerEn: string;
   sortOrder: number;
   isPublished: boolean;
 };
@@ -38,6 +40,8 @@ type FaqRow = {
   id: number;
   question: string;
   answer: string;
+  question_en: string | null;
+  answer_en: string | null;
   sort_order: number;
   is_published: boolean;
 };
@@ -68,7 +72,9 @@ export async function readAdminFaqs(): Promise<Result<FaqItem[]>> {
   try {
     const { data, error } = await access.client
       .from("faqs")
-      .select("id, question, answer, sort_order, is_published")
+      .select(
+        "id, question, answer, question_en, answer_en, sort_order, is_published",
+      )
       .order("sort_order")
       .order("id")
       .returns<FaqRow[]>();
@@ -79,6 +85,8 @@ export async function readAdminFaqs(): Promise<Result<FaqItem[]>> {
         id: row.id,
         question: row.question,
         answer: row.answer,
+        questionEn: row.question_en ?? "",
+        answerEn: row.answer_en ?? "",
         sortOrder: row.sort_order,
         isPublished: row.is_published,
       })),

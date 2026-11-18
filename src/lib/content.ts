@@ -28,20 +28,27 @@ import type {
 // 관리 화면(C-01) 전에는 대시보드에서 고쳐도 캐시를 지울 방법이 없어서 한 시간마다 새로 읽는다.
 // 관리 Action은 저장 뒤 같은 태그(테이블 이름)로 캐시를 지운다.
 
-/** 공개된 FAQ를 노출 순서대로 가져온다. 없으면 빈 배열. */
-export async function getFaqs(): Promise<Faq[]> {
+/**
+ * 공개된 FAQ를 노출 순서대로 가져온다. 없으면 빈 배열.
+ * 영문 페이지는 영문 열을 쓰고, 영문이 비어 있으면 한국어 원문을 대신 보여 준다(#98).
+ */
+export async function getFaqs(lang: Locale = defaultLocale): Promise<Faq[]> {
   "use cache";
   cacheLife("hours");
   cacheTag("faqs");
 
   const { data, error } = await createReadClient()
     .from("faqs")
-    .select("id, question, answer")
+    .select("id, question, answer, question_en, answer_en")
     .eq("is_published", true)
     .order("sort_order")
     .order("id");
   if (error) throw error;
-  return data;
+  return data.map((row) => ({
+    id: row.id,
+    question: (lang === "en" && row.question_en?.trim()) || row.question,
+    answer: (lang === "en" && row.answer_en?.trim()) || row.answer,
+  }));
 }
 
 /** 공개된 제품 사양을 노출 순서대로 가져온다. */

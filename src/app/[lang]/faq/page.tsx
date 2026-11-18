@@ -26,7 +26,7 @@ async function Questions({
   lang: Locale;
   contact: ReactNode;
 }) {
-  const [items, copy] = await Promise.all([getFaqs(), getFaqCopy(lang)]);
+  const [items, copy] = await Promise.all([getFaqs(lang), getFaqCopy(lang)]);
   return (
     <FaqSearch
       items={items}
