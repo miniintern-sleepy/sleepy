@@ -131,42 +131,42 @@ Pretendard 1.3.9 공식 축소판(woff2-subset, 한글 2,350자·영문)의 Regu
 
 ### 활자
 
-| 새 이름            | 값·반응형                                                        | B 근거 / 대상                                    |
-| ------------------ | ---------------------------------------------------------------- | ------------------------------------------------ |
-| `landing-title`    | `52px / 500 / 1.28 / -.045em`; S 45px·420·1.25·-.065em, XXS 41px | #81 PC 시안·모바일 기존 값 유지(2026-11-15 승인) |
-| `story-heading`    | `43px / 450 / 1.5 / -.045em`; S 38px, XS 34px                    | 메인 생활 이야기                                 |
-| `day-heading`      | `33px / 450 / 1.6 / -.045em`; S 35px                             | 메인 세 장면 제목 (`dimension.css`)              |
-| `founder-quote`    | `clamp(28px,3.5vw,50px) / 400 / 1.7 / -.052em`; XS 27px·1.75     | 메인 대표 인용문                                 |
-| `founder-name`     | `28px / 450 / 1.5 / -.045em`; S 25px, XS 23px                    | 메인 대표 이름                                   |
-| `context-heading`  | `22px / 450 / 1.65 / -.045em`                                    | 메인 연구 소개                                   |
-| `stage-heading`    | `38px / 450 / 1.5 / -.045em`; S 34px, XS 32px                    | 메인 제품 소개                                   |
-| `latest-heading`   | `38px / 450 / 1.5 / -.045em`; S 31px                             | 메인 소식 구간                                   |
-| `latest-title`     | `20px / 500 / 1.55 / -.045em`; S 17px                            | 메인 뉴스 항목                                   |
-| `science-subtitle` | `24px / 400 / 1.9`; S 20px, XS 18px                              | 회사 본문 보조 활자                              |
-| `science-intro`    | `20px / 400 / 1.9`; L 18px, S 16px, XS 15px                      | 회사 본문 설명                                   |
-| `device-word`      | `18px / 400 / 1.9`; S 16px                                       | 기술 Sleeby                                      |
-| `science-note`     | `13px / 400 / 1.8`; S 12px                                       | 기술 각주                                        |
-| `metric-label`     | `18px / 500 / 1.5`; S 14px                                       | 기술 임상 지표 이름                              |
-| `research-heading` | `30px / 450 / 1.65 / -.045em`; L 26px, S 26px, XS 24px           | 기술 연구 제목                                   |
-| `metric-number`    | `64px / 450 / 1.3 / -.04em`; L 54px, S 50px, XS 45px             | 기술 임상 수치                                   |
-| `study-title`      | `17px / 400 / 1.7`; S 15px, XS 14px                              | 연구 목록                                        |
-| `study-state`      | `15px / 400 / normal`; S 13px                                    | 연구·등록 상태                                   |
-| `patent-heading`   | `44px / 450 / 1.4 / -.045em`; L 40px, S 34px, XS 29px            | 지식재산 제목                                    |
-| `patent-number`    | `62px / 450 / 1.3 / -.04em`; S 48px, XS 51px                     | 지식재산 수치. B의 비단조 반응형 값도 유지       |
-| `patent-item`      | `21px / 400 / 1.65`; S 18px, XS 16px                             | 특허 목록                                        |
-| `patent-key`       | `15px / 400 / normal`; S 13px, XS 14px                           | 지식재산 항목명                                  |
-| `patent-note`      | `12px / 400 / 1.8`; S 11px, XS 12px                              | 지식재산 각주                                    |
-| `feature-heading`  | `32px / 450 / 1.4 / -.045em`; L 27px, M 25px, S 24px, XS 25px    | 제품 특징 소제목                                 |
-| `scene-caption`    | `18px / 400 / 1.6`; S 15px, XS 16px                              | 제품 생활 장면                                   |
-| `guide-caption`    | `25px / 400 / 1.55`; M 20px, XS 22px                             | 제품 사용 순서                                   |
-| `guide-heading`    | `22px / 450 / 1.65 / -.045em`; M 19px, S 18px, XS 19px           | 제품 사용 안내                                   |
-| `kit-heading`      | `40px / 450 / 1.35 / -.045em`; M 34px, S 31px                    | 제품 구성 제목                                   |
-| `kit-item`         | `20px / 400 / 1.6`; M 17px, XS 18px                              | 제품 구성품                                      |
-| `news-title`       | `21px / 500 / 1.55 / -.045em`; S 16px                            | 뉴스룸 행 제목                                   |
-| `news-meta`        | `12px / 400 / normal / .02em`; XS 11px                           | 뉴스 날짜·언론사                                 |
-| `faq-question`     | `18px / 500 / 1.7`; S 16px                                       | FAQ summary                                      |
-| `faq-answer`       | `16px / 400 / 1.9`; S 15px                                       | FAQ 답변                                         |
-| `filter`           | `16px / 400 / normal`; XS 14px                                   | B 뉴스 분류. 선택 시 동일 크기·600 굵기          |
+| 새 이름            | 값·반응형                                                                 | B 근거 / 대상                              |
+| ------------------ | ------------------------------------------------------------------------- | ------------------------------------------ |
+| `landing-title`    | `44px / 500 / 1.28 / -.045em`; 38·32px, S 30px·420·1.25·-.065em, XXS 26px | #98 두 줄 문장으로 축소(2026-11-18 PL)     |
+| `story-heading`    | `43px / 450 / 1.5 / -.045em`; S 38px, XS 34px                             | 메인 생활 이야기                           |
+| `day-heading`      | `33px / 450 / 1.6 / -.045em`; S 35px                                      | 메인 세 장면 제목 (`dimension.css`)        |
+| `founder-quote`    | `clamp(28px,3.5vw,50px) / 400 / 1.7 / -.052em`; XS 27px·1.75              | 메인 대표 인용문                           |
+| `founder-name`     | `28px / 450 / 1.5 / -.045em`; S 25px, XS 23px                             | 메인 대표 이름                             |
+| `context-heading`  | `22px / 450 / 1.65 / -.045em`                                             | 메인 연구 소개                             |
+| `stage-heading`    | `38px / 450 / 1.5 / -.045em`; S 34px, XS 32px                             | 메인 제품 소개                             |
+| `latest-heading`   | `38px / 450 / 1.5 / -.045em`; S 31px                                      | 메인 소식 구간                             |
+| `latest-title`     | `20px / 500 / 1.55 / -.045em`; S 17px                                     | 메인 뉴스 항목                             |
+| `science-subtitle` | `24px / 400 / 1.9`; S 20px, XS 18px                                       | 회사 본문 보조 활자                        |
+| `science-intro`    | `20px / 400 / 1.9`; L 18px, S 16px, XS 15px                               | 회사 본문 설명                             |
+| `device-word`      | `18px / 400 / 1.9`; S 16px                                                | 기술 Sleeby                                |
+| `science-note`     | `13px / 400 / 1.8`; S 12px                                                | 기술 각주                                  |
+| `metric-label`     | `18px / 500 / 1.5`; S 14px                                                | 기술 임상 지표 이름                        |
+| `research-heading` | `30px / 450 / 1.65 / -.045em`; L 26px, S 26px, XS 24px                    | 기술 연구 제목                             |
+| `metric-number`    | `64px / 450 / 1.3 / -.04em`; L 54px, S 50px, XS 45px                      | 기술 임상 수치                             |
+| `study-title`      | `17px / 400 / 1.7`; S 15px, XS 14px                                       | 연구 목록                                  |
+| `study-state`      | `15px / 400 / normal`; S 13px                                             | 연구·등록 상태                             |
+| `patent-heading`   | `44px / 450 / 1.4 / -.045em`; L 40px, S 34px, XS 29px                     | 지식재산 제목                              |
+| `patent-number`    | `62px / 450 / 1.3 / -.04em`; S 48px, XS 51px                              | 지식재산 수치. B의 비단조 반응형 값도 유지 |
+| `patent-item`      | `21px / 400 / 1.65`; S 18px, XS 16px                                      | 특허 목록                                  |
+| `patent-key`       | `15px / 400 / normal`; S 13px, XS 14px                                    | 지식재산 항목명                            |
+| `patent-note`      | `12px / 400 / 1.8`; S 11px, XS 12px                                       | 지식재산 각주                              |
+| `feature-heading`  | `32px / 450 / 1.4 / -.045em`; L 27px, M 25px, S 24px, XS 25px             | 제품 특징 소제목                           |
+| `scene-caption`    | `18px / 400 / 1.6`; S 15px, XS 16px                                       | 제품 생활 장면                             |
+| `guide-caption`    | `25px / 400 / 1.55`; M 20px, XS 22px                                      | 제품 사용 순서                             |
+| `guide-heading`    | `22px / 450 / 1.65 / -.045em`; M 19px, S 18px, XS 19px                    | 제품 사용 안내                             |
+| `kit-heading`      | `40px / 450 / 1.35 / -.045em`; M 34px, S 31px                             | 제품 구성 제목                             |
+| `kit-item`         | `20px / 400 / 1.6`; M 17px, XS 18px                                       | 제품 구성품                                |
+| `news-title`       | `21px / 500 / 1.55 / -.045em`; S 16px                                     | 뉴스룸 행 제목                             |
+| `news-meta`        | `12px / 400 / normal / .02em`; XS 11px                                    | 뉴스 날짜·언론사                           |
+| `faq-question`     | `18px / 500 / 1.7`; S 16px                                                | FAQ summary                                |
+| `faq-answer`       | `16px / 400 / 1.9`; S 15px                                                | FAQ 답변                                   |
+| `filter`           | `16px / 400 / normal`; XS 14px                                            | B 뉴스 분류. 선택 시 동일 크기·600 굵기    |
 
 제품 히어로는 공통 page-hero 활자를 쓴다. 이전 히어로 전용 활자와 점무늬 마스크는 제거했다(#61).
 
@@ -522,3 +522,11 @@ PC 화살표는 진행 선 오른쪽24px 간격에44×44px 버튼 두 개로 배
 
 - 901px 이상에서 "제품" 메뉴의 가운데가 화면 가운데와 같다. 머리말은 로고 | 메뉴 | 오른쪽 묶음 3칸(양옆 같은 폭), 메뉴는 앞 2개 | 제품 | 뒤 2개 3칸이다.
 - 761~900px은 영어 메뉴가 대칭 여백까지 들어갈 자리가 없어 기존 양끝 정렬을 쓴다(제품이 가운데보다 약 25px 왼쪽).
+
+### 메인 첫 화면 문구·배치 (#98, 2026-11-18 PL 결정)
+
+- 제목: "비약물적 기술로 중추신경계를 조절하여 / 수면부터 마취까지 돕는 디지털 솔루션을 개발합니다." 두 줄(뜻 단위 줄바꿈). 사진 위에 걸쳐도 된다.
+- landing-title: PC 52px → 44px, 1200px 이하 38px, 1023px 이하 32px, 760px 이하 30px, 520px 이하 26px. 좁은 화면은 자연 줄바꿈.
+- 제목 아래에 제품 설명("양이성 음향으로 편한 수면을 돕는 / 디지털 귀마개, 슬리비")과 주 버튼 "제품 소개 ↗"를 세로로 쌓는다. 기존 설명 문장과 "제품 보기" 버튼(`.home-hero-button`)은 없앴다.
+- 사진 위 글자를 위해 왼쪽 위 paper 옅은 막(55%→22%→투명)을 깐다. 등장: 사진 1.04배→1배(1.6초), 제목 두 줄과 설명·버튼이 차례로 18px 떠오름. 움직임 줄이기 설정에서는 끈다.
+- 메인 대표 구간의 "회사 소개" 버튼은 대표 소개 오른쪽 끝, 구분선 위로 옮겼다.

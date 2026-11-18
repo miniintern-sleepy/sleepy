@@ -43,14 +43,15 @@ export default function FounderStorySection({
             ))}
           </div>
         </div>
+        {/* #98 회사 소개 버튼은 대표 소개 오른쪽 끝, 구분선 위에 둔다(PL 요청 2026-11-18). */}
+        <div className="home-founder-more">
+          <ButtonLink href={`/${lang}/company`}>{copy.link}</ButtonLink>
+        </div>
         <div className="home-founder-context">
           <h2 className="text-context-heading whitespace-pre-line">
             {copy.title}
           </h2>
-          <div>
-            <p className="text-helper text-muted">{copy.description}</p>
-            <ButtonLink href={`/${lang}/company`}>{copy.link}</ButtonLink>
-          </div>
+          <p className="text-helper text-muted">{copy.description}</p>
         </div>
       </div>
     </section>

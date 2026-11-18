@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { getHomeCopy } from "@/lib/content";
 import Image from "next/image";
 import heroBox from "../../../../public/images/home/hero-box.webp";
@@ -28,12 +28,15 @@ export default function HeroSection({
             </span>
           ))}
         </h1>
-        <p className="home-hero-description text-copy-large">
-          {copy.description}
-        </p>
-        <Link href={`/${lang}/product`} className="home-hero-button">
-          {copy.link}
-        </Link>
+        {/* #98 제품 설명과 제품 소개 버튼을 제목 아래에 세로로 쌓는다. */}
+        <div className="home-hero-product">
+          <p className="home-hero-description text-copy-large">
+            {copy.description}
+          </p>
+          <ButtonLink href={`/${lang}/product`} variant="primary">
+            {copy.link}
+          </ButtonLink>
+        </div>
       </div>
     </section>
   );

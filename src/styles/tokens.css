@@ -147,7 +147,8 @@
   --text-cta-heading--letter-spacing: -0.045em;
 
   /* 페이지 전용 글자: home·dimension·details·heroes·components.css. */
-  --text-landing-title: 3.25rem;
+  /* #98 두 줄 45자 문장으로 바뀌어 52px → 44px. 1440px에서 둘째 줄(28자)이 본문 폭 안에 든다. */
+  --text-landing-title: 2.75rem;
   --text-landing-title--font-weight: 500;
   --text-landing-title--line-height: 1.28;
   --text-landing-title--letter-spacing: -0.045em;
@@ -396,6 +397,7 @@
 
 @media (max-width: 1200px) {
   :root {
+    --text-landing-title: 2.375rem;
     --text-science-intro: 1.125rem;
     --text-research-heading: 1.625rem;
     --text-metric-number: 3.375rem;
@@ -406,6 +408,7 @@
 
 @media (max-width: 1023px) {
   :root {
+    --text-landing-title: 2rem;
     --text-guide-copy: 0.9375rem;
     --text-feature-heading: 1.5625rem;
     --text-guide-caption: 1.25rem;
@@ -418,7 +421,7 @@
 @media (max-width: 760px) {
   :root {
     --text-detail-heading: 2.125rem;
-    --text-landing-title: 2.8125rem;
+    --text-landing-title: 1.875rem;
     --text-landing-title--font-weight: 420;
     --text-landing-title--line-height: 1.25;
     --text-landing-title--letter-spacing: -0.065em;
@@ -496,7 +499,7 @@
 
 @media (max-width: 400px) {
   :root {
-    --text-landing-title: 2.5625rem;
+    --text-landing-title: 1.625rem;
   }
 }
 
@@ -528,7 +531,7 @@
  */
 @media (max-width: 520px) {
   :root {
-    --text-landing-title: 2rem;
+    --text-landing-title: 1.625rem;
     --text-page-hero-title: 1.75rem;
 
     --text-story-heading: 1.625rem;
