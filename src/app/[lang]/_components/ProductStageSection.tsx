@@ -18,7 +18,7 @@ export default function ProductStageSection({
 }) {
   return (
     <section className="home-product home-section">
-      <div className="public-wide home-product-grid">
+      <div className="public-wide home-product-grid" data-reveal>
         <div>
           <h2 className="text-stage-heading whitespace-pre-line">
             {copy.title}

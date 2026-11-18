@@ -16,6 +16,7 @@ import FounderStorySection from "./_components/FounderStorySection";
 import ProductStageSection from "./_components/ProductStageSection";
 import LatestNewsSection from "./_components/LatestNewsSection";
 import HomeFaqSection from "./_components/HomeFaqSection";
+import HomeReveal from "./_components/HomeReveal";
 import "./home.css";
 export async function generateMetadata({
   params,
@@ -34,6 +35,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
   const ui = getUiCopy(lang);
   return (
     <main className="home-page" id="main">
+      <HomeReveal />
       <HeroSection copy={copy.hero} lang={lang} />
       <EverydayStorySection copy={copy.everyday} />
       <DayTriptychSection copy={copy.day} lang={lang} ui={ui.home} />

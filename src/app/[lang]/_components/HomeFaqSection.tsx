@@ -13,7 +13,7 @@ export default async function HomeFaqSection({
   if (!faqs.length) return null;
   return (
     <section className="home-faq home-section">
-      <div className="public-wide">
+      <div className="public-wide" data-reveal>
         <div className="home-section-top">
           <h2 className="text-latest-heading">{copy.title}</h2>
           <ButtonLink href={`/${lang}/faq`}>{copy.link}</ButtonLink>

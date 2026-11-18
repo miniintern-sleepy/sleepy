@@ -13,7 +13,7 @@ export default function DayTriptychSection({
 }) {
   return (
     <section className="home-days">
-      <div className="public-wide">
+      <div className="public-wide" data-reveal>
         <figure>
           <Image
             src="/images/home/rest-day.jpg"

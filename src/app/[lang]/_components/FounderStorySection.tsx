@@ -12,7 +12,7 @@ export default function FounderStorySection({
 }) {
   return (
     <section className="home-founder">
-      <div className="public-wide">
+      <div className="public-wide" data-reveal>
         <blockquote className="home-founder-quote text-founder-quote">
           {company.ceo.quote}
         </blockquote>

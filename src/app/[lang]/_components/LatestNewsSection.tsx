@@ -14,7 +14,7 @@ export default async function LatestNewsSection({
   if (!articles.length) return null;
   return (
     <section className="home-latest home-section">
-      <div className="public-wide">
+      <div className="public-wide" data-reveal>
         <div className="home-section-top">
           <h2 className="text-latest-heading">{ui.home.latestTitle}</h2>
           <ButtonLink href={`/${lang}/newsroom`}>
