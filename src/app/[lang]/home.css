@@ -19,8 +19,7 @@
 }
 /*
  * #98 첫 화면: 두 줄 제목이 사진(상자 윗부분) 위로 걸친다(PL 요청 2026-11-18).
- * 글자가 사진 위에서도 읽히도록 왼쪽 위에 paper빛 옅은 막을 깔고,
- * 사진은 살짝 확대된 상태에서 제자리로, 글자는 줄마다 차례로 떠오르게 한다.
+ * 글자가 사진 위에서도 읽히도록 왼쪽 위에 paper빛 옅은 막을 깐다.
  */
 .home-hero::before {
   content: "";
@@ -80,42 +79,33 @@
   color: var(--color-home-hero-description);
   line-height: var(--text-page-hero-description--line-height);
 }
+/*
+ * #98 첫 화면 등장: 사진과 받침 막은 움직이지 않고, 글자만 차례로 떠오른다.
+ * 이유: 사진 확대(1.04→1, 1600ms)가 첫 렌더(약 170ms)·하이드레이션(약 180ms)과 겹치고,
+ * 느린 망에서는 사진이 확대 도중(1.3초)에 도착해 튀어 보였다(2026-11-18 운영 빌드, CPU 4배 감속 측정).
+ * 주의: 글자 등장 시작은 하이드레이션이 끝나는 600ms 무렵 뒤로 미루지 않는다. 첫 글자가 늦게 보인다.
+ */
 @media (prefers-reduced-motion: no-preference) {
-  .home-hero > img {
-    animation: home-hero-settle 1600ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .home-hero::before {
-    animation: home-hero-fade 1200ms ease-out both;
-  }
   .home-hero h1 span,
   .home-hero-product {
-    animation: home-hero-rise var(--motion-reveal)
-      cubic-bezier(0.22, 1, 0.36, 1) both;
+    /* 등장 시작 때 층을 새로 만들지 않도록 미리 분리해 둔다. */
+    will-change: opacity, transform;
+    animation: home-hero-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .home-hero h1 span:nth-child(1) {
-    animation-delay: 200ms;
+    animation-delay: 120ms;
   }
   .home-hero h1 span:nth-child(2) {
-    animation-delay: 380ms;
+    animation-delay: 240ms;
   }
   .home-hero-product {
-    animation-delay: 620ms;
-  }
-}
-@keyframes home-hero-settle {
-  from {
-    transform: scale(1.04);
-  }
-}
-@keyframes home-hero-fade {
-  from {
-    opacity: 0;
+    animation-delay: 420ms;
   }
 }
 @keyframes home-hero-rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(12px);
   }
 }
 /* 사진이 머리말 아래에 오므로 #68의 전체 창 높이에서 머리말 높이를 뺀다.
@@ -212,21 +202,19 @@
 .home-founder-description {
   margin-top: 25px;
 }
-.home-founder-more {
-  display: flex;
-  max-width: 1000px;
-  /* #98 버튼을 아래 구분선 가까이로 내린다. */
-  margin: 64px auto 0;
-  justify-content: flex-end;
-}
 .home-founder-context {
   display: grid;
   max-width: 1000px;
-  margin: 12px auto 0;
+  /* #98 대표 소개와 너무 떨어져 보여 70px → 48px. */
+  margin: 48px auto 0;
   padding-top: 32px;
   border-top: 1px solid var(--color-rule);
-  grid-template-columns: 230px minmax(0, 1fr);
+  grid-template-columns: 230px minmax(0, 1fr) auto;
   gap: 75px;
+  align-items: center;
+}
+.home-founder-link {
+  justify-self: end;
 }
 .home-founder-context p {
   max-width: 550px;
@@ -311,10 +299,6 @@
   .home-days figcaption {
     text-align: center;
   }
-  .home-founder-context > p {
-    position: relative;
-    top: 18px;
-  }
 }
 @media (max-width: 1200px) {
   .home-product-grid {
@@ -384,6 +368,9 @@
     grid-template-columns: 150px minmax(0, 1fr);
     gap: 30px;
   }
+  .home-founder-context {
+    grid-template-columns: 150px minmax(0, 1fr) auto;
+  }
   .home-founder-photo {
     width: 150px;
   }
@@ -393,11 +380,8 @@
   .home-founder-role {
     line-height: var(--text-science-note--line-height);
   }
-  .home-founder-more {
-    margin-top: 28px;
-  }
   .home-founder-context {
-    margin-top: 20px;
+    margin-top: 32px;
   }
   .home-product-grid {
     grid-template-columns: 1fr;
@@ -437,6 +421,9 @@
   }
   .home-founder-context h2 {
     white-space: normal;
+  }
+  .home-founder-link {
+    justify-self: start;
   }
   .home-section-top {
     flex-direction: column;

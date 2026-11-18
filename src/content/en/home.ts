@@ -33,8 +33,7 @@ export const homeCopy: typeof ko = {
     link: "About us",
   },
   product: {
-    title: "Making the time before sleep\na little simpler",
-    description: "Sleeby, a digital earplug that works without a smartphone",
+    title: "Sleeby, a digital earplug\nfor falling asleep easily",
     link: "Product",
   },
   faq: {

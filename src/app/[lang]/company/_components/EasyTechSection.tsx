@@ -49,9 +49,6 @@ export default function EasyTechSection({
             <div className="company-tech-ear company-tech-desktop-ear text-study-state">
               {copy.right}
             </div>
-            <p className="company-tech-caption text-helper text-muted">
-              {copy.caption}
-            </p>
           </div>
           <div className="company-tech-mobile" aria-hidden="true">
             {[copy.left, copy.right].map((label) => (

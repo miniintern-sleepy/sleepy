@@ -31,8 +31,8 @@ export const homeCopy = {
     link: "회사 소개",
   },
   product: {
-    title: "잠을 준비하는 시간을\n조금 더 간편하게",
-    description: "스마트폰 연결 없이 쓰는 디지털 귀마개, 슬리비",
+    // #98 PL 확정 문구(2026-11-18). 작은 설명 문장은 뺐다.
+    title: "편한 잠듦을 위한\n디지털 귀마개, 슬리비",
     link: "제품 소개",
   },
   faq: {

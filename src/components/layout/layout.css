@@ -211,7 +211,8 @@
 .site-footer {
   flex-shrink: 0;
   background: var(--color-paper);
-  padding-block: 56px 48px;
+  /* #98 로고를 24px 내리고 큰 문장 자리는 그대로 둔다(위 56→80, 문장 위 60→36). */
+  padding-block: 80px 48px;
 }
 .footer-top {
   display: flex;
@@ -227,7 +228,7 @@
 }
 .footer-tagline {
   /* #98 작은 문장을 빼고 큰 문장을 그 자리(한 줄 아래)로 내린다. */
-  margin-top: 60px;
+  margin-top: 36px;
   color: var(--color-ink);
   font-size: var(--text-context-heading);
   font-weight: var(--font-weight-ui-selected);
@@ -373,13 +374,13 @@
 /* #96 휴대폰 꼬리말은 위아래 여백과 큰 문구를 줄인다. */
 @media (max-width: 520px) {
   .site-footer {
-    padding-block: 40px 32px;
+    padding-block: 56px 32px;
   }
   .footer-intro .site-logo {
     width: 88px;
   }
   .footer-tagline {
-    margin-top: 40px;
+    margin-top: 24px;
     font-size: var(--text-copy-large);
   }
   .footer-navigation {

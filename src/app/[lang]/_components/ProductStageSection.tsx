@@ -23,7 +23,6 @@ export default function ProductStageSection({
           <h2 className="text-stage-heading whitespace-pre-line">
             {copy.title}
           </h2>
-          <p className="text-copy text-muted">{copy.description}</p>
           <div className="home-product-actions">
             <ButtonLink href={`/${lang}/product`} variant="primary">
               {copy.link}

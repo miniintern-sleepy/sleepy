@@ -228,11 +228,6 @@
   border-radius: 50%;
   background: var(--color-violet);
 }
-.company-tech-caption {
-  flex-basis: 100%;
-  text-align: center;
-  margin-top: 40px;
-}
 .company-history {
   margin-top: var(--space-section);
 }

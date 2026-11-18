@@ -55,7 +55,7 @@ export default async function FaqPage({ params }: PageProps<"/[lang]/faq">) {
                 <p className="text-helper whitespace-pre-line text-muted">
                   {copy.contact}
                 </p>
-                <ButtonLink href={`/${lang}/contact`}>
+                <ButtonLink href={`/${lang}/contact`} size="small">
                   {ui.header.contact}
                 </ButtonLink>
               </aside>
