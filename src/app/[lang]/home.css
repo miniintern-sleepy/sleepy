@@ -4,9 +4,6 @@
 .home-hero {
   position: relative;
   isolation: isolate;
-  /* 제품 설명 위치 계산(cqw)에 히어로 폭을 쓴다. */
-  container-type: inline-size;
-  width: 100%;
   display: flex;
   align-items: center;
   text-align: left;
@@ -67,13 +64,7 @@
   }
   .home-hero-product {
     position: absolute;
-    /*
-     * #98 사진의 흰 바닥과 회색 벽 경계 바로 위(20px)에 둔다.
-     * 경계는 사진 높이의 76.8% 지점이다(2026-11-18 측정). 사진은 가운데 기준 cover라
-     * 창이 납작하면(가로/세로 > 1.775) 위아래가 잘려 경계가 히어로의 50% + 사진폭/1.775×26.8% = 50% + 15.1cqw 지점으로 내려온다.
-     * 이유: 23%로만 두면 창 높이가 다른 Chrome(탭·북마크 줄)과 Safari에서 버튼과 경계 사이가 달랐다.
-     */
-    bottom: calc(min(23%, 50% - 15.1cqw) + 20px);
+
     left: calc(50% - 340px);
     width: max-content;
     margin: 0;
@@ -134,6 +125,22 @@
           var(--header-height)
       );
     }
+  }
+}
+/*
+ * #98 데스크톱 히어로는 창 높이가 아니라 사진 비율(1024:577)로 높이를 정한다(PL 요청 2026-11-18).
+ * 이유: 창 높이 기준이면 탭·북마크 줄이 있는 Chrome과 Safari에서 사진이 잘리는 양이 달라
+ * 상자 크기와 글 위치가 달라 보였다. 사진 비율로 두면 어느 창에서도 사진 전체가 같은 구도로 보인다.
+ * 주의: 위 @supports 확대 분기의 height보다 뒤에 있어야 이긴다.
+ */
+@media (min-width: 1101px) {
+  .home-hero {
+    height: auto;
+    aspect-ratio: 1024 / 577;
+  }
+  .home-hero-product {
+    /* 사진이 잘리지 않으므로 경계(사진 높이 76.8%)는 히어로 높이 76.8%다. */
+    bottom: calc(23.2% + 20px);
   }
 }
 .home-everyday {
