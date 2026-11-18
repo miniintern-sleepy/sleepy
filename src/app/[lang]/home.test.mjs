@@ -36,7 +36,7 @@ test("HOME-003 첫 화면 높이: 기본은 창 높이, 1101px 이상과 휴대�
   assert.match(mobile[1], /flex-direction:\s*column;/);
   assert.match(
     home,
-    /@media\s*\(max-width: 760px\)\s*\{[\s\S]*?\.home-hero > img\s*\{[^}]*aspect-ratio:\s*1024 \/ 577;/,
+    /@media\s*\(max-width: 760px\)\s*\{[\s\S]*?\.home-hero > img\s*\{[^}]*aspect-ratio:\s*4 \/ 3;/,
   );
   // #98: 1101px 이상은 사진 비율로 높이를 정한다.
   assert.match(
