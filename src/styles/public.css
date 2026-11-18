@@ -54,6 +54,11 @@
   font-weight: var(--font-weight-ui-medium);
   line-height: var(--text-text-link--line-height);
 }
+.public-button-small {
+  min-height: 40px;
+  padding: 8px 20px;
+  font-size: var(--text-ui-button);
+}
 .public-button-primary {
   background: var(--color-violet);
   color: var(--color-white);

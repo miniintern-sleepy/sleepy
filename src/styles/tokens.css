@@ -149,7 +149,8 @@
   /* 페이지 전용 글자: home·dimension·details·heroes·components.css. */
   /* #98 두 줄 45자 문장으로 바뀌어 52px → 44px. 1440px에서 둘째 줄(28자)이 본문 폭 안에 든다. */
   --text-landing-title: 2.75rem;
-  --text-landing-title--font-weight: 500;
+  /* #98 PL 요청: 참고 사이트처럼 단단해 보이게 500 → 600 */
+  --text-landing-title--font-weight: 600;
   --text-landing-title--line-height: 1.28;
   --text-landing-title--letter-spacing: -0.045em;
   --text-story-heading: 2.6875rem;
@@ -422,7 +423,7 @@
   :root {
     --text-detail-heading: 2.125rem;
     --text-landing-title: 1.875rem;
-    --text-landing-title--font-weight: 420;
+    --text-landing-title--font-weight: 600;
     --text-landing-title--line-height: 1.25;
     --text-landing-title--letter-spacing: -0.065em;
     --text-story-heading: 2.375rem;

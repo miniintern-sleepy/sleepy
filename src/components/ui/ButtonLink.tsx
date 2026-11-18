@@ -15,6 +15,7 @@ export default function ButtonLink({
   className = "",
   external = false,
   arrow = true,
+  size = "default",
   newWindow,
 }: {
   href: string;
@@ -26,9 +27,16 @@ export default function ButtonLink({
   external?: boolean;
   /** false면 끝의 ↗를 뺀다(메인 첫 화면 제품 소개, #98). */
   arrow?: boolean;
+  /** small: 한 단계 작은 버튼(40px·14px). 첫 화면 제품 소개·메인 회사 소개(#98). */
+  size?: "default" | "small";
   newWindow?: string;
 }) {
-  const classes = ["public-button", `public-button-${variant}`, className]
+  const classes = [
+    "public-button",
+    `public-button-${variant}`,
+    size === "small" && "public-button-small",
+    className,
+  ]
     .filter(Boolean)
     .join(" ");
   const body = (

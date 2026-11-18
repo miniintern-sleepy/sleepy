@@ -37,7 +37,7 @@ export default function HeroSection({
             href={`/${lang}/product`}
             variant="primary"
             arrow={false}
-            className="home-hero-cta"
+            size="small"
           >
             {copy.link}
           </ButtonLink>

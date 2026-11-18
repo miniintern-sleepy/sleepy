@@ -66,14 +66,13 @@
     position: absolute;
     top: 390px;
     left: calc(50% - 340px);
+    width: max-content;
     margin: 0;
   }
-}
-/* 첫 화면 제품 소개 버튼은 공통 버튼보다 한 단계 작게(PL 요청). */
-.home-hero-cta {
-  min-height: 40px;
-  padding: 8px 22px;
-  font-size: var(--text-ui-button);
+  /* WebKit은 절대 위치 칸 폭을 좁게 잡아 설명이 세 줄로 접혔다(2026-11-18 Safari 엔진 측정). 줄은 \n에서만 바꾼다. */
+  .home-hero-product .home-hero-description {
+    white-space: pre;
+  }
 }
 .home-hero-description {
   /* 문구의 줄바꿈(\n)을 "디지털 귀마개, 슬리비" 앞에서 지킨다. */
@@ -216,13 +215,14 @@
 .home-founder-more {
   display: flex;
   max-width: 1000px;
-  margin: 40px auto 0;
+  /* #98 버튼을 아래 구분선 가까이로 내린다. */
+  margin: 64px auto 0;
   justify-content: flex-end;
 }
 .home-founder-context {
   display: grid;
   max-width: 1000px;
-  margin: 24px auto 0;
+  margin: 12px auto 0;
   padding-top: 32px;
   border-top: 1px solid var(--color-rule);
   grid-template-columns: 230px minmax(0, 1fr);
@@ -264,7 +264,8 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 32px;
-  margin-bottom: 48px;
+  /* #98 제목·버튼을 아래 굵은 선에 가깝게(48px → 20px). */
+  margin-bottom: 20px;
 }
 .home-section-top .public-button {
   flex-shrink: 0;
@@ -274,8 +275,14 @@
   line-height: var(--text-latest-title--line-height);
   font-weight: var(--text-latest-title--font-weight);
 }
-.home-faq-more {
-  margin-top: 32px;
+/* #98 소식 글이 선 끝에 붙어 보여 좌우로 24px 안쪽에 둔다(선은 그대로 끝까지). */
+.home-latest .public-news-item {
+  padding-inline: 24px;
+}
+@media (max-width: 520px) {
+  .home-latest .public-news-item {
+    padding-inline: 8px;
+  }
 }
 @media (min-width: 761px) {
   .home-product-grid {
@@ -399,7 +406,7 @@
     max-height: 370px;
   }
   .home-section-top {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 }
 @media (max-width: 520px) {

@@ -16,6 +16,7 @@ export default async function HomeFaqSection({
       <div className="public-wide">
         <div className="home-section-top">
           <h2 className="text-latest-heading">{copy.title}</h2>
+          <ButtonLink href={`/${lang}/faq`}>{copy.link}</ButtonLink>
         </div>
         <div className="public-faq-list">
           {faqs.map((item) => (
@@ -26,9 +27,6 @@ export default async function HomeFaqSection({
               </p>
             </details>
           ))}
-        </div>
-        <div className="home-faq-more">
-          <ButtonLink href={`/${lang}/faq`}>{copy.link}</ButtonLink>
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@ import type { homeCopy as ko } from "../ko/home";
 export const homeCopy: typeof ko = {
   hero: {
     title:
-      "Regulating the central nervous system without drugs,\nwe build digital solutions that help from sleep to anesthesia.",
+      "Regulating the central nervous system without drugs,\nwe build digital solutions that help from sleep to anesthesia",
     description:
       "Sleeby, a digital earplug that helps\nyou sleep with binaural beats",
     link: "Product",

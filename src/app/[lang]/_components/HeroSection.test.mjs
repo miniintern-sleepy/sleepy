@@ -90,7 +90,7 @@ test("HOME-002 메인 히어로는 두 줄 제목·제품 설명·제품 소개 
   assert.match(html, /fetchPriority="high"/);
   assert.match(
     html,
-    /<div class="home-hero-product"><p[^>]*>[^<]+<\/p><a href="\/ko\/product" class="public-button public-button-primary home-hero-cta">제품 소개<\/a>/,
+    /<div class="home-hero-product"><p[^>]*>[^<]+<\/p><a href="\/ko\/product" class="public-button public-button-primary public-button-small">제품 소개<\/a>/,
   );
   assert.ok(html.includes(homeCopy.hero.description));
   assert.doesNotMatch(html, /<canvas\b/);

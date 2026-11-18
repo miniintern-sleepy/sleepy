@@ -226,17 +226,12 @@
   width: 104px;
 }
 .footer-tagline {
-  margin-top: 28px;
+  /* #98 작은 문장을 빼고 큰 문장을 그 자리(한 줄 아래)로 내린다. */
+  margin-top: 60px;
   color: var(--color-ink);
   font-size: var(--text-context-heading);
   font-weight: var(--font-weight-ui-selected);
   line-height: var(--text-detail-heading--line-height);
-}
-.footer-tagline-sub {
-  margin-top: 8px;
-  color: var(--color-ink);
-  font-size: var(--text-copy);
-  line-height: var(--text-form-title--line-height);
 }
 .footer-navigation {
   display: flex;
@@ -384,11 +379,8 @@
     width: 88px;
   }
   .footer-tagline {
-    margin-top: 20px;
+    margin-top: 40px;
     font-size: var(--text-copy-large);
-  }
-  .footer-tagline-sub {
-    font-size: var(--text-meta);
   }
   .footer-navigation {
     gap: 20px;
