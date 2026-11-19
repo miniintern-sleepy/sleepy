@@ -1,53 +1,75 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { getUiCopy } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 
 const company = {
-  name: "주식회사 슬리피",
-  representative: "서정화",
-  address: "서울특별시 성북구 화랑로 211, 105호",
   phone: "010-5502-0551",
   email: "sleeby00@gmail.com",
 };
 
+/**
+ * 꼬리말(#96, PL이 준 참고 사진 배치).
+ * 위: 로고 · 큰 문구 두 줄 | 오른쪽 링크. 구분선 아래: "이름 : 값" 회사 정보 두 줄, 맨 아래 저작권.
+ * 참고 사진의 SNS 아이콘·사업자 등록번호 자리는 정보가 없어 링크로 대신했다.
+ */
 export default function Footer({ lang }: { lang: Locale }) {
+  const ui = getUiCopy(lang);
+  const t = ui.footer;
   return (
     <footer className="site-footer">
       <div className="site-wrap">
         <div className="footer-top">
-          <Link href={`/${lang}`} aria-label="슬리피 홈" className="site-brand">
-            <Image
-              src="/images/layout/footer-logo.svg"
-              alt="SLEEPY"
-              width={76}
-              height={17}
-              className="site-logo"
-            />
-          </Link>
-          <nav aria-label="하단 메뉴" className="footer-navigation">
+          <div className="footer-intro">
+            <Link
+              href={`/${lang}`}
+              aria-label={ui.header.home}
+              className="site-brand"
+            >
+              <Image
+                src="/images/layout/footer-logo.svg"
+                alt="SLEEPY"
+                width={76}
+                height={17}
+                className="site-logo"
+              />
+            </Link>
+            <p className="footer-tagline">{t.tagline}</p>
+          </div>
+          <nav aria-label={t.menu} className="footer-navigation">
             <Link href={`/${lang}/faq`}>FAQ</Link>
             <Link href={`/${lang}/contact`}>
-              일반 문의 <span aria-hidden="true">↗</span>
+              {t.general} <span aria-hidden="true">↗</span>
             </Link>
             <Link href={`/${lang}/contact`}>
-              제휴 문의 <span aria-hidden="true">↗</span>
+              {t.partnership} <span aria-hidden="true">↗</span>
             </Link>
           </nav>
         </div>
-        <div className="footer-bottom">
-          <address>
-            {company.name} · 대표 {company.representative}
-            <br />
-            {company.address} · 고객센터 {company.phone}
-            <br />
-            <a href={`mailto:${company.email}`}>{company.email}</a>
-          </address>
-          <small>
-            이 사이트는 쿠키 없이 방문 통계를 수집합니다.
-            <br />© Sleepy Inc. All rights reserved.
-          </small>
-        </div>
+        <address className="footer-info">
+          <p>
+            <strong>{t.company}</strong>
+            <span>
+              {t.representativeLabel} : {t.representative}
+            </span>
+            <span>
+              {t.addressLabel} : {t.address}
+            </span>
+          </p>
+          <p>
+            <span>
+              {t.phoneLabel} : {company.phone}
+            </span>
+            <span>
+              {t.emailLabel} :{" "}
+              <a href={`mailto:${company.email}`}>{company.email}</a>
+            </span>
+          </p>
+        </address>
+        <small className="footer-legal">
+          © Sleepy Inc. All rights reserved. {t.analytics}
+        </small>
       </div>
     </footer>
   );

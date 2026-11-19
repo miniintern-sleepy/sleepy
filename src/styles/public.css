@@ -36,6 +36,46 @@
 .public-text-link:hover {
   color: var(--color-violet);
 }
+/*
+ * 알약 버튼 링크 공통 모양(#98, ButtonLink). 페이지에서는 margin·flex-shrink 같은 바깥 배치만 덮어쓴다.
+ * primary는 메인 첫 화면 "제품 보기", secondary는 머리말 "문의하기"와 같은 모양이다.
+ */
+.public-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  min-height: var(--size-touch);
+  padding: 11px 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-ui-input);
+  font-weight: var(--font-weight-ui-medium);
+  line-height: var(--text-text-link--line-height);
+}
+.public-button-small {
+  min-height: 40px;
+  padding: 8px 20px;
+  font-size: var(--text-ui-button);
+}
+.public-button-primary {
+  background: var(--color-violet);
+  color: var(--color-white);
+}
+.public-button-primary:hover {
+  background: var(--color-violet-strong);
+}
+.public-button-secondary {
+  border-color: var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+.public-button-secondary:hover {
+  border-color: var(--color-violet);
+  background: var(--color-panel);
+  color: var(--color-violet-strong);
+}
 .public-purchase {
   display: inline-flex;
   min-height: var(--size-touch);
@@ -64,7 +104,7 @@
 .public-contact-banner p {
   margin-top: 18px;
 }
-.public-contact-banner .public-text-link {
+.public-contact-banner .public-button {
   margin-top: 28px;
 }
 .public-search {
@@ -149,7 +189,8 @@
   display: block;
   width: 150px;
   aspect-ratio: 1.5;
-  border-radius: var(--radius-media);
+  /* #98 소식 사진도 직사각형. */
+  border-radius: 0;
   overflow: hidden;
   background: var(--color-panel);
 }
@@ -166,7 +207,7 @@
   margin-bottom: 56px;
   border-block: 1px solid var(--color-rule);
 }
-.public-faq-contact .public-text-link {
+.public-faq-contact .public-button {
   flex-shrink: 0;
 }
 .public-faq-list {
@@ -182,7 +223,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
-  padding-block: 24px;
+  /* #98 소식 목록처럼 글을 선 끝에서 24px 안쪽에 둔다(메인·FAQ 페이지 공통). */
+  padding: 24px;
   cursor: pointer;
   list-style: none;
 }
@@ -211,8 +253,8 @@
   color: var(--color-violet);
 }
 .public-faq-list details p {
-  max-width: 900px;
-  padding: 0 48px 28px 0;
+  max-width: 924px;
+  padding: 0 72px 28px 24px;
 }
 .public-skip {
   position: absolute;
@@ -249,10 +291,10 @@
     gap: 24px;
   }
   .public-faq-list summary {
-    padding-block: 20px;
+    padding: 20px 8px;
   }
   .public-faq-list details p {
-    padding: 0 0 24px;
+    padding: 0 8px 24px;
   }
 }
 @media (max-width: 520px) {
@@ -280,6 +322,7 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .public-text-link,
+  .public-button,
   .public-news-item {
     transition:
       color var(--motion-state),
@@ -311,5 +354,59 @@
     .public-body > * {
       zoom: min(1.7778, tan(atan2(var(--public-vw), 1440px)));
     }
+  }
+}
+
+/*
+ * #96 휴대폰에서 같은 종류 카드 여러 장(제품 쓰임새 4장·사용법 3단계, 기술 영상 2개)을 세로로 쌓지 않고
+ * 가로 한 줄로 놓아 옆으로 넘긴다. 다음 카드가 18% 보여 넘길 수 있다는 것을 알린다.
+ * 이유: 폭 가득 사진이 세로로 이어져 제품·기술 화면이 6000px를 넘었다(2026-11-16 운영 375px 캡처).
+ * 주의: :root를 붙인 것은 각 페이지 CSS의 grid 규칙(클래스 하나)을 이기기 위해서다. 기술·제품 main에는 public-page가 없다.
+ * 주의: overflow-y: hidden을 빼면 안 된다. overflow-x만 주면 세로도 auto가 되는데, 화면 밖 카드가 등장 효과로
+ *       16px 아래에 대기해 줄이 세로로 16px 넘친다. 그러면 사진을 잡고 위아래로 밀 때 페이지 대신 줄만 흔들렸다
+ *       (2026-11-17 375px에서 scrollHeight 177 > clientHeight 161 확인).
+ */
+@media (max-width: 520px) {
+  :root .mobile-swipe {
+    display: flex;
+    gap: 12px;
+    margin-inline: calc(var(--layout-gutter) * -1);
+    padding-inline: var(--layout-gutter);
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--layout-gutter);
+    scrollbar-width: none;
+  }
+  :root .mobile-swipe::-webkit-scrollbar {
+    display: none;
+  }
+  :root .mobile-swipe > * {
+    flex: 0 0 82%;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+}
+
+/* #96 휴대폰 문의 배너도 왼쪽 정렬로 본문과 맞춘다. */
+@media (max-width: 520px) {
+  .public-contact-banner {
+    padding-block: 64px;
+    text-align: left;
+  }
+}
+
+/*
+ * #98 휴대폰 버튼은 한 단계 작게(PL 요청 2026-11-18). 44px·16px가 22px 제목 옆에서 제목보다 무거워 보였다.
+ * 높이 36px도 터치 최소(24px, WCAG 2.5.8)를 넘는다.
+ */
+@media (max-width: 520px) {
+  .public-button,
+  .public-button-small {
+    min-height: 36px;
+    gap: 6px;
+    padding: 6px 16px;
+    font-size: var(--text-ui-button);
   }
 }

@@ -4,10 +4,13 @@ export default function ExternalLink({
   href,
   className,
   children,
+  newWindow = " (새 창)",
 }: {
   href: string;
   className?: string;
   children: ReactNode;
+  /** 화면 읽기용 새 창 안내. 언어에 맞게 넘긴다. */
+  newWindow?: string;
 }) {
   return (
     <a
@@ -17,7 +20,7 @@ export default function ExternalLink({
       className={className}
     >
       {children}
-      <span className="sr-only"> (새 창)</span>
+      <span className="sr-only">{newWindow}</span>
     </a>
   );
 }

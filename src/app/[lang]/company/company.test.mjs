@@ -6,6 +6,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { after, test } from "node:test";
 import ts from "typescript";
 import { companyCopy } from "../../../content/ko/company.ts";
+import { uiCopy } from "../../../content/ko/ui.ts";
 const stubs = {
   "next/link":
     'import{createElement as h}from"react";export default function Link({children,...p}){return h("a",p,children)}',
@@ -50,7 +51,8 @@ const { default: History } = await import("./_components/HistorySection.tsx");
 const { default: Ceo } = await import("./_components/CeoSection.tsx");
 const { default: Contact } = await import("./_components/ContactSection.tsx");
 after(() => hook.deregister());
-const render = (C, copy) => renderToStaticMarkup(createElement(C, { copy }));
+const render = (C, copy) =>
+  renderToStaticMarkup(createElement(C, { copy, ui: uiCopy }));
 test("CMP-001 회사 소개는 h2와 dl8행·확정 라벨 순서로 회사 기본 정보를 보여 준다", () => {
   const html = render(About, companyCopy.about);
   assert.match(html, /<h2 id="company-about-title"/);
@@ -89,12 +91,12 @@ test("CMP-004 CEO 표지는 이름과 같은 부모에서 이름 뒤에 나온�
   );
   assert.equal("facts" in companyCopy, false);
 });
-test("CMP-005 문의는 FAQ와 같은 문의 배너(글자 링크)이고 유형 일반을 미리 고른다", () => {
+test("CMP-005 문의는 FAQ와 같은 문의 배너(보라 채움 버튼, #98)이고 유형 일반을 미리 고른다", () => {
   const html = renderToStaticMarkup(
     createElement(Contact, { copy: companyCopy.contact, lang: "ko" }),
   );
   assert.match(html, /class="public-contact-banner company-contact"/);
   assert.match(html, /href="\/ko\/contact\?type=general"/);
-  assert.match(html, /public-text-link/);
-  assert.doesNotMatch(html, /rounded-full|bg-violet-strong/);
+  assert.match(html, /class="public-button public-button-primary"/);
+  assert.doesNotMatch(html, /public-text-link|rounded-full|bg-violet-strong/);
 });

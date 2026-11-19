@@ -1,15 +1,20 @@
 import { newsroomThumbnail } from "./newsroom-thumbnail";
 import NewsroomImage from "./NewsroomImage";
 import TextLinkBody from "@/components/ui/TextLinkBody";
-import { categoryLabels, formatDate, sourceUrl } from "@/lib/news";
+import type { UiCopy } from "@/content/ko/ui";
+import { formatDate, sourceUrl } from "@/lib/news";
 import type { NewsArticle } from "@/types/content";
 
 export default function NewsCard({
   article,
   featured = false,
+  ui,
+  newWindow,
 }: {
   article: NewsArticle;
   featured?: boolean;
+  ui: UiCopy["newsroom"];
+  newWindow: string;
 }) {
   const href = sourceUrl(article.sourceUrl);
   const thumbnail = newsroomThumbnail(article);
@@ -19,7 +24,7 @@ export default function NewsCard({
       <div className="newsroom-card-copy">
         <div className="newsroom-source-line">
           <span className="text-newsroom-source text-violet-strong">
-            {article.sourceName || categoryLabels[article.category]}
+            {article.sourceName || ui.categories[article.category]}
           </span>
           <time
             className="text-newsroom-date text-muted"
@@ -45,7 +50,7 @@ export default function NewsCard({
         {featured && href && (
           // 상자 전체가 이미 원문 링크라 링크를 겹치지 않고 글자 링크 모양만 쓴다(#88).
           <span className="public-text-link newsroom-original">
-            <TextLinkBody>기사 원문 보기</TextLinkBody>
+            <TextLinkBody>{ui.readOriginal}</TextLinkBody>
           </span>
         )}
       </div>
@@ -60,7 +65,7 @@ export default function NewsCard({
       className={className}
     >
       {body}
-      <span className="sr-only"> (새 창)</span>
+      <span className="sr-only">{newWindow}</span>
     </a>
   ) : (
     <article className={className}>{body}</article>

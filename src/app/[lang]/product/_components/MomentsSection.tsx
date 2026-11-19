@@ -1,11 +1,15 @@
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
+import ProductPhotoStrip from "./ProductPhotoStrip";
 import type { ProductCopy } from "./types";
 const images = ["scene-bedtime.png", "scene-nap.png", "scene-break.png"];
 export default function MomentsSection({
   copy,
+  label,
 }: {
   copy: ProductCopy["moments"];
+  /** 넘기는 사진 묶음의 화면 읽기 이름 */
+  label: string;
 }) {
   return (
     <section
@@ -23,7 +27,7 @@ export default function MomentsSection({
           {copy.description}
         </p>
       </Reveal>
-      <div className="product-moments-photos">
+      <ProductPhotoStrip className="product-moments-photos" label={label}>
         {copy.labels.map((label, index) => (
           <Reveal key={label}>
             <figure className="product-hover-card">
@@ -38,7 +42,7 @@ export default function MomentsSection({
             </figure>
           </Reveal>
         ))}
-      </div>
+      </ProductPhotoStrip>
     </section>
   );
 }

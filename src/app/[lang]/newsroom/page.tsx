@@ -1,26 +1,43 @@
 import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getNewsroomCopy } from "@/lib/content";
+import { getNewsroomCopy, getUiCopy, pageMetadata } from "@/lib/content";
+import { toLocale } from "@/lib/i18n";
 import Newsroom from "./_components/Newsroom";
 import { loadNewsroom } from "./_components/load-news";
 import "./newsroom.css";
 
-export const metadata: Metadata = {
-  title: "뉴스룸",
-  description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 뉴스룸",
-};
-type SearchParams = Promise<{ page?: string | string[] }>;
-async function Articles({ searchParams }: { searchParams: SearchParams }) {
-  const [articles, query] = await Promise.all([loadNewsroom(), searchParams]);
-  return <Newsroom articles={articles} requestedPage={query.page} />;
+export async function generateMetadata({
+  params,
+}: PageProps<"/[lang]/newsroom">): Promise<Metadata> {
+  return pageMetadata((await params).lang, "newsroom");
 }
-export default async function NewsroomPage({
+type SearchParams = Promise<{ page?: string | string[] }>;
+type Ui = ReturnType<typeof getUiCopy>;
+async function Articles({
   searchParams,
+  ui,
 }: {
   searchParams: SearchParams;
+  ui: Ui;
 }) {
-  const copy = await getNewsroomCopy();
+  const [articles, query] = await Promise.all([loadNewsroom(), searchParams]);
+  return (
+    <Newsroom
+      articles={articles}
+      requestedPage={query.page}
+      ui={ui.newsroom}
+      newWindow={ui.newWindow}
+    />
+  );
+}
+export default async function NewsroomPage({
+  params,
+  searchParams,
+}: PageProps<"/[lang]/newsroom">) {
+  const lang = toLocale((await params).lang);
+  const ui = getUiCopy(lang);
+  const copy = await getNewsroomCopy(lang);
   return (
     <main className="public-page" id="main">
       <PageHero
@@ -29,8 +46,8 @@ export default async function NewsroomPage({
         wave="newsroom"
       />
       <section className="public-wrap public-list-section">
-        <Suspense fallback={<p role="status">소식을 불러오고 있습니다.</p>}>
-          <Articles searchParams={searchParams} />
+        <Suspense fallback={<p role="status">{ui.newsroom.loading}</p>}>
+          <Articles searchParams={searchParams} ui={ui} />
         </Suspense>
       </section>
     </main>

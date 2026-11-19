@@ -1,43 +1,57 @@
 import Image from "next/image";
 
 import Reveal from "@/components/ui/Reveal";
+import type { UiCopy } from "@/content/ko/ui";
 import type { getCompanyCopy } from "@/lib/content";
 
 import ExternalLinks from "@/components/ui/ExternalLinks";
 
 type Copy = Awaited<ReturnType<typeof getCompanyCopy>>["ceo"];
 
-export default function CeoSection({ copy }: { copy: Copy }) {
+export default function CeoSection({
+  copy,
+  ui,
+}: {
+  copy: Copy;
+  ui: Pick<UiCopy, "company" | "newWindow">;
+}) {
   return (
-    <section aria-label="대표 소개" className="company-content company-section">
+    <section
+      aria-label={ui.company.ceoSection}
+      className="company-content company-section"
+    >
       <div
-        className={`grid items-center gap-10 ${
+        className={`company-ceo-layout grid items-center gap-10 ${
           copy.photo
-            ? "md:grid-cols-[320px_1fr] md:gap-12 lg:grid-cols-[minmax(0,544px)_1fr] lg:gap-24"
+            ? "company-ceo-layout-with-photo md:grid-cols-[320px_1fr] md:gap-12 lg:grid-cols-[minmax(0,544px)_1fr] lg:gap-24"
             : ""
         }`}
       >
         {/* 대표 사진이 없으면 사진 칸을 숨긴다(F-02). */}
         {copy.photo && (
-          <Reveal>
+          <Reveal className="company-ceo-photo-wrap">
             <Image
               src={copy.photo}
               alt={copy.photoAlt}
               width={1088}
               height={1156}
               sizes="(min-width: 1441px) 37.78vw, (min-width: 1024px) 544px, (min-width: 768px) 320px, 100vw"
-              className="aspect-square w-full object-cover object-top"
+              className="company-ceo-photo aspect-square w-full object-cover object-top"
             />
           </Reveal>
         )}
-        <Reveal>
+        <Reveal className="company-ceo-copy">
           <div className="flex items-baseline gap-3">
-            <h2 className="text-detail-heading text-ink md:text-detail-heading">
+            <h2 className="text-detail-heading text-ink max-[520px]:text-founder-name md:text-detail-heading">
               {copy.name}
             </h2>
-            <p className="text-kicker text-violet">CEO</p>
+            <p className="text-kicker text-violet max-[520px]:text-meta max-[520px]:text-muted">
+              CEO
+            </p>
           </div>
-          <p className="mt-3 text-copy-large text-muted">{copy.role}</p>
+          <p className="mt-3 text-copy-large text-muted max-[520px]:mt-2 max-[520px]:text-meta">
+            {copy.role}
+          </p>
           {/* 기술 화면의 세로선 모티프를 따라 가는 보라 선을 옆에 둔다. */}
           <blockquote className="mt-8 max-w-160 border-l-2 border-violet pl-6 text-science-subtitle text-ink md:mt-10 lg:text-research-heading">
             {copy.quote}
@@ -47,7 +61,11 @@ export default function CeoSection({ copy }: { copy: Copy }) {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <ExternalLinks links={copy.links} className="mt-7" />
+          <ExternalLinks
+            links={copy.links}
+            className="mt-7"
+            newWindow={ui.newWindow}
+          />
         </Reveal>
       </div>
     </section>

@@ -429,3 +429,61 @@
     scroll-behavior: auto;
   }
 }
+
+/* #96 전체 사양 접기. 다섯 줄(약 380px)만 보이고 아래를 흐리게 덮는다. 버튼은 휴대폰에서만 보인다. */
+.product-specs-more {
+  display: none;
+}
+@media (max-width: 520px) {
+  .product-specs[data-open="false"] {
+    position: relative;
+    max-height: 380px;
+    overflow: hidden;
+  }
+  .product-specs[data-open="false"]::after {
+    position: absolute;
+    inset: auto 0 0;
+    height: 96px;
+    background: linear-gradient(transparent, var(--color-paper));
+    content: "";
+  }
+  .product-specs-more {
+    display: flex;
+    width: 100%;
+    min-height: var(--size-touch);
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-pill);
+    color: var(--color-ink);
+  }
+}
+
+/*
+ * #96 아래 사진 묶음의 진행 선. 갤러리 휴대폰 진행 선과 같은 모양·간격(사진 아래 20px)이다.
+ * PC는 3칸 격자라 넘길 것이 없어 숨긴다.
+ */
+.product-strip-progress {
+  display: none;
+}
+@media (max-width: 520px) {
+  .product-strip-progress {
+    display: block;
+    margin-top: 20px;
+  }
+}
+
+/*
+ * #96 휴대폰 히어로의 "출시 예정"과 알고리즘 구간의 "원리 보기" 버튼을 49px → 44px, 글자 14px → 13px로 줄인다
+ * (2026-11-17 PL 요청). 두 버튼은 같은 알약 모양을 함께 쓰므로 크기도 같이 맞춘다.
+ * 44px는 손가락으로 누르는 최소 높이(--size-touch)라 그 아래로는 줄이지 않는다.
+ */
+@media (max-width: 520px) {
+  .product-page .page-hero-actions .public-purchase,
+  .product-algorithm-copy a {
+    min-height: var(--size-touch);
+    padding: 8px 22px;
+    font-size: var(--text-meta);
+  }
+}

@@ -81,3 +81,43 @@
     background-position: calc(50% + 14.5px) 62px;
   }
 }
+/*
+ * #96 휴대폰 첫머리: 글자는 가운데 정렬, 물결은 PC처럼 글자 뒤에 겹친다.
+ * 이유: PC는 물결이 맨 위(0px)부터 깔려 제목·설명과 겹치는데, 760px 구간은 물결을 글자 아래로 따로 내려
+ *       첫머리가 360~440px로 길고 PC와 모양이 달랐다(2026-11-17 PL 요청).
+ * 크기: 760px 구간 물결(900×300)의 0.8배인 720×240. 가로 위치도 760px 구간 값에 0.8을 곱했다.
+ * 높이: 물결 끝(16 + 240) + 8 = 264px. 두 줄 제목 + 두 줄 설명(약 170px), 제품 버튼(약 250px)까지 들어간다.
+ */
+@media (max-width: 520px) {
+  .page-hero,
+  .page-hero-company,
+  .page-hero-technology,
+  .page-hero-product {
+    min-height: 264px;
+    padding-bottom: 32px;
+    text-align: center;
+    background-size: 720px 240px;
+  }
+  .page-hero .text-page-hero-title,
+  .page-hero-description {
+    text-wrap: balance;
+  }
+  .page-hero-newsroom {
+    background-position: calc(50% + 32px) 16px;
+  }
+  .page-hero-faq {
+    background-position: calc(50% - 40px) 16px;
+  }
+  .page-hero-contact {
+    background-position: calc(50% + 12px) 16px;
+  }
+  .page-hero-company {
+    background-position: 50% 16px;
+  }
+  .page-hero-technology {
+    background-position: calc(50% - 24px) 16px;
+  }
+  .page-hero-product {
+    background-position: calc(50% + 8px) 16px;
+  }
+}

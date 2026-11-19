@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { track } from "@/lib/analytics";
+import type { UiCopy } from "@/content/ko/ui";
 import type { getFaqCopy } from "@/lib/content";
 import type { Faq } from "@/types/content";
 import { searchFaqs } from "./search";
@@ -9,10 +10,12 @@ import { searchFaqs } from "./search";
 export default function FaqSearch({
   items,
   copy,
+  ui,
   contact,
 }: {
   items: Faq[];
   copy: Awaited<ReturnType<typeof getFaqCopy>>;
+  ui: UiCopy["faq"];
   /** 검색 아래에 두는 문의 안내. 넓은 화면에서는 검색과 함께 왼쪽에 고정된다. */
   contact: ReactNode;
 }) {
@@ -45,8 +48,8 @@ export default function FaqSearch({
           hidden={items.length === 0}
         >
           {query.trim()
-            ? `${matches.length}개의 질문을 찾았습니다.`
-            : `질문 ${items.length}개`}
+            ? ui.found.replace("{count}", String(matches.length))
+            : ui.total.replace("{count}", String(items.length))}
         </p>
         <div className="public-faq-list">
           {items.map((item, index) => (
@@ -74,9 +77,7 @@ export default function FaqSearch({
         </div>
         {matches.length === 0 && (
           <p className="public-empty text-copy text-muted">
-            {items.length === 0 && !query.trim()
-              ? "자주 묻는 질문을 곧 준비하겠습니다."
-              : "검색 결과가 없습니다."}
+            {items.length === 0 && !query.trim() ? ui.empty : ui.noResults}
           </p>
         )}
       </div>

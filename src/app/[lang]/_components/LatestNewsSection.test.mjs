@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { registerHooks } from "node:module";
 import { renderToStaticMarkup } from "react-dom/server";
 import ts from "typescript";
+import { uiCopy } from "../../../content/ko/ui.ts";
 import test from "node:test";
 
 const stubs = {
@@ -10,7 +11,7 @@ const stubs = {
     "export async function getNewsList(){return globalThis.__sleepyLatest54;}",
   "@/components/ui/NewsItem":
     "export default function Item({article}){return article.title;}",
-  "@/components/ui/TextLink":
+  "@/components/ui/ButtonLink":
     "export default function Link({children}){return children;}",
 };
 const hook = registerHooks({
@@ -50,7 +51,7 @@ test("NEWS-011 공개 기사 0건이면 메인 소식 구간 전체를 숨기고
   ];
   for (const count of [2, 5]) {
     globalThis.__sleepyLatest54 = articles.slice(0, count);
-    const html = renderToStaticMarkup(await Latest({ lang: "ko" }));
+    const html = renderToStaticMarkup(await Latest({ lang: "ko", ui: uiCopy }));
     assert.ok(html.includes("슬리피의 소식"));
     for (const [index, article] of articles.entries())
       assert.equal(html.includes(article.title), index < Math.min(count, 4));

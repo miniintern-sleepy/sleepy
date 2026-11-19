@@ -1,8 +1,15 @@
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
+import type { UiCopy } from "@/content/ko/ui";
 import type { getTechnologyCopy } from "@/lib/content";
 type Copy = Awaited<ReturnType<typeof getTechnologyCopy>>["patents"];
-export default function PatentsSection({ copy }: { copy: Copy }) {
+export default function PatentsSection({
+  copy,
+  ui,
+}: {
+  copy: Copy;
+  ui: UiCopy["technology"];
+}) {
   return (
     <section className="tech-patents">
       <div className="public-wrap tech-patents-grid">
@@ -44,7 +51,7 @@ export default function PatentsSection({ copy }: { copy: Copy }) {
         <Reveal>
           <Image
             src="/images/technology/certificates.png"
-            alt="특허와 상표 등록증 5장"
+            alt={ui.patentsAlt}
             width={560}
             height={640}
             sizes="(min-width: 1441px) 38.89vw, (max-width:560px) 100vw,560px"

@@ -2,8 +2,8 @@ import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import "./company.css";
 
-import { getCompanyCopy } from "@/lib/content";
-import { isLocale } from "@/lib/i18n";
+import { getCompanyCopy, getUiCopy, pageMetadata } from "@/lib/content";
+import { toLocale } from "@/lib/i18n";
 
 import AboutSection from "./_components/AboutSection";
 import BeliefsSection from "./_components/BeliefsSection";
@@ -12,18 +12,19 @@ import ContactSection from "./_components/ContactSection";
 import EasyTechSection from "./_components/EasyTechSection";
 import HistorySection from "./_components/HistorySection";
 
-export const metadata: Metadata = {
-  title: "회사 소개",
-  description: "슬리피 · 비약물적 수면 기술과 디지털 귀마개 슬리비 · 회사 소개",
-};
+export async function generateMetadata({
+  params,
+}: PageProps<"/[lang]/company">): Promise<Metadata> {
+  return pageMetadata((await params).lang, "company");
+}
 
 // 회사 소개 구간으로 검색 사용자가 회사 기본 정보를 바로 확인하게 한다(#90, F-02).
 // 섹션: 히어로 → 대표 → 회사 소개 → 지향하는 것 → 기술을 쉬운 말로 → 걸음 → 문의
 export default async function CompanyPage({
   params,
 }: PageProps<"/[lang]/company">) {
-  const [copy, { lang }] = await Promise.all([getCompanyCopy(), params]);
-  if (!isLocale(lang)) return null;
+  const lang = toLocale((await params).lang);
+  const copy = await getCompanyCopy(lang);
 
   return (
     <main className="company-page break-keep" id="main">
@@ -38,7 +39,7 @@ export default async function CompanyPage({
         description={copy.intro.description}
         wave="company"
       />
-      <CeoSection copy={copy.ceo} />
+      <CeoSection copy={copy.ceo} ui={getUiCopy(lang)} />
       <AboutSection copy={copy.about} />
       <BeliefsSection copy={copy.beliefs} />
       <EasyTechSection copy={copy.easyTech} lang={lang} />

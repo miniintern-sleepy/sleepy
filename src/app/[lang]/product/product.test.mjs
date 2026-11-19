@@ -6,10 +6,11 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { after, beforeEach, test } from "node:test";
 import ts from "typescript";
 import { productCopy } from "../../../content/ko/product.ts";
+import { uiCopy } from "../../../content/ko/ui.ts";
 
+const uiUrl = new URL("../../../content/ko/ui.ts", import.meta.url).href;
 const stubs = {
-  "@/lib/content":
-    "export async function getProductCopy(){return globalThis.__product79.copy} export async function getProductSpecs(){return globalThis.__product79.specs} export async function getPurchaseUrl(){return globalThis.__product79.url}",
+  "@/lib/content": `import{uiCopy}from${JSON.stringify(uiUrl)};export function getUiCopy(){return uiCopy} export function pageMetadata(){return {}} export async function getProductCopy(){return globalThis.__product79.copy} export async function getProductSpecs(){return globalThis.__product79.specs} export async function getPurchaseUrl(){return globalThis.__product79.url}`,
   "@/lib/analytics": "export function track(){}",
   "@/components/ui/Reveal":
     "import{createElement as h}from'react';export default function Reveal({children,className}){return h('div',{className},children)}",
@@ -39,7 +40,13 @@ const hook = registerHooks({
         shortCircuit: true,
       };
     if (s.startsWith("@/"))
-      return n(new URL(`../../../${s.slice(2)}.tsx`, import.meta.url).href, c);
+      return n(
+        new URL(
+          `../../../${s.slice(2)}.${s.startsWith("@/lib/") ? "ts" : "tsx"}`,
+          import.meta.url,
+        ).href,
+        c,
+      );
     if (s.startsWith("./") && !/\.[a-z]+$/.test(s))
       return n(new URL(`${s}.tsx`, c.parentURL).href, c);
     return n(s, c);
@@ -103,7 +110,9 @@ test("PRD-001 DB 사양이 없거나 긴 소비전력 문장이 있어도 구성
 });
 test("PRD-002 사양이 0줄이면 표만 숨기고 입력된 전체 사양과 줄바꿈은 보존한다", () => {
   assert.equal(
-    renderToStaticMarkup(createElement(SpecsSection, { specs: [] })),
+    renderToStaticMarkup(
+      createElement(SpecsSection, { specs: [], ui: uiCopy.product }),
+    ),
     "",
   );
   const specs = Array.from({ length: 11 }, (_, i) => ({
@@ -111,7 +120,9 @@ test("PRD-002 사양이 0줄이면 표만 숨기고 입력된 전체 사양과 �
     label: `사양 ${i}`,
     value: `첫 줄 ${i}\n둘째 줄`,
   }));
-  const html = renderToStaticMarkup(createElement(SpecsSection, { specs }));
+  const html = renderToStaticMarkup(
+    createElement(SpecsSection, { specs, ui: uiCopy.product }),
+  );
   assert.equal((html.match(/<dt/g) ?? []).length, 11);
   assert.ok(
     html.includes("첫 줄 0\n둘째 줄") && html.includes("첫 줄 10\n둘째 줄"),
@@ -141,7 +152,10 @@ test("PRD-003 제품 히어로는 설명 대신 구매 버튼을 넣고 주소 �
   }
 });
 test("PRD-004 사진 띠는 네 사진을 순서대로 표시하고 제목·조작부 접근성을 유지한다", async () => {
-  const tree = ProductGallery({ photos: productCopy.features.photos });
+  const tree = ProductGallery({
+    photos: productCopy.features.photos,
+    ui: uiCopy.product,
+  });
   const nodes = elements(tree);
   const images = nodes.filter((e) => e.props?.loading === "eager");
   assert.deepEqual(
@@ -241,7 +255,11 @@ test("PRD-005 스크롤 갱신은 프레임으로 묶고 한 장씩 이동하며
     frames.clear();
     callbacks.forEach((fn) => fn());
   };
-  const render = () => ProductGallery({ photos: productCopy.features.photos });
+  const render = () =>
+    ProductGallery({
+      photos: productCopy.features.photos,
+      ui: uiCopy.product,
+    });
   const buttons = () => elements(render()).filter((e) => e.type === "button");
   try {
     render();

@@ -1,4 +1,4 @@
-import TextLink from "./TextLink";
+import ButtonLink from "./ButtonLink";
 
 export default function ContactBanner({
   lang,
@@ -23,7 +23,9 @@ export default function ContactBanner({
       <div className="public-wide">
         <h2 className="text-cta-heading">{copy.title}</h2>
         <p className="text-copy text-muted">{copy.description}</p>
-        <TextLink href={href}>{copy.button}</TextLink>
+        <ButtonLink href={href} variant="primary">
+          {copy.button}
+        </ButtonLink>
       </div>
     </section>
   );

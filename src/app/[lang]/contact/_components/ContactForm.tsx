@@ -9,16 +9,14 @@ import {
   type FormEvent,
 } from "react";
 
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
+import type { UiCopy } from "@/content/ko/ui";
 import { track } from "@/lib/analytics";
 import { submitInquiry } from "../actions";
 import { validateInquiry, type FieldErrors, type InquiryValues } from "./form";
 import Turnstile from "./Turnstile";
 
-const inquiryTypes = [
-  { value: "general", label: "일반 문의" },
-  { value: "product", label: "제품 문의" },
-] as const;
+const inquiryTypes = ["general", "product"] as const;
 
 export default function ContactForm({
   initialType,
@@ -26,6 +24,7 @@ export default function ContactForm({
   enabled,
   lang,
   email,
+  t,
 }: {
   initialType: "product" | "general";
   siteKey: string;
@@ -33,6 +32,8 @@ export default function ContactForm({
   lang: string;
   /** 접수가 안 될 때 대신 안내하는 회사 이메일 */
   email: string;
+  /** 폼 문구. 오류 문장도 여기서 언어에 맞게 고른다. */
+  t: UiCopy["contact"]["form"];
 }) {
   const initialValues: InquiryValues = {
     name: "",
@@ -50,7 +51,13 @@ export default function ContactForm({
   const [token, setToken] = useState("");
   const [captchaMessage, setCaptchaMessage] = useState("");
   const [dismissed, setDismissed] = useState(-1);
-  const errors = { ...state.fieldErrors, ...clientErrors };
+  // 검증은 서버와 같은 함수(한국어 문장)를 쓰고, 화면에는 항목별로 언어에 맞는 문장을 보여 준다.
+  const found = { ...state.fieldErrors, ...clientErrors };
+  const errors: FieldErrors = Object.fromEntries(
+    Object.entries(found)
+      .filter(([, message]) => message)
+      .map(([field]) => [field, t.errors[field as keyof FieldErrors]]),
+  );
   const inputClass = "contact-input";
 
   function change<K extends keyof InquiryValues>(
@@ -72,7 +79,7 @@ export default function ContactForm({
       if (element instanceof HTMLElement) element.focus();
     } else if (!token) {
       event.preventDefault();
-      setCaptchaMessage("보안 확인을 완료한 후 다시 보내주세요.");
+      setCaptchaMessage(t.captchaRequired);
     }
   }
 
@@ -96,19 +103,19 @@ export default function ContactForm({
           }}
           className="text-form-title"
         >
-          문의가 접수되었습니다.
+          {t.successTitle}
         </h2>
         <p role="status" className="text-copy text-muted">
-          남겨주신 내용을 확인한 뒤 이메일로 답변드리겠습니다.
+          {t.successBody}
           <br />
-          슬리피에 관심을 가져주셔서 감사합니다.
+          {t.successThanks}
         </p>
         {/* 이메일을 잘못 적었으면 바로 알아차리도록 받을 주소를 다시 보여 준다(#77). */}
         <p className="contact-success-email text-copy">
-          답변 받을 이메일 <strong>{values.email}</strong>
+          {t.successEmail} <strong>{values.email}</strong>
         </p>
         <div className="contact-success-links">
-          <TextLink href={`/${lang}`}>홈으로</TextLink>
+          <ButtonLink href={`/${lang}`}>{t.home}</ButtonLink>
           <button
             type="button"
             className="contact-button"
@@ -119,7 +126,7 @@ export default function ContactForm({
               setDismissed(state.attempt);
             }}
           >
-            새 문의 작성
+            {t.again}
           </button>
         </div>
       </section>
@@ -128,11 +135,12 @@ export default function ContactForm({
   const mailLink = <a href={`mailto:${email}`}>{email}</a>;
   const serverMessage =
     state.reason === "captcha" ? (
-      "보안 확인을 다시 완료한 후 보내주세요."
+      t.captchaRetry
     ) : state.reason === "server" ? (
       <>
-        문의를 접수하지 못했습니다. 잠시 후 다시 시도하거나 {mailLink}으로
-        문의해 주세요.
+        {t.serverBefore}
+        {mailLink}
+        {t.mailAfter}
       </>
     ) : null;
   return (
@@ -144,17 +152,17 @@ export default function ContactForm({
       className="contact-form"
     >
       <h2 id="contact-form-title" className="text-form-title">
-        문의 내용 작성
+        {t.title}
       </h2>
       {!enabled && (
         <p role="status" className="contact-unavailable text-helper">
-          <strong>온라인 문의 접수를 준비하고 있습니다.</strong>
+          <strong>{t.unavailable}</strong> {t.mailBefore}
           {mailLink}
-          으로 문의해 주세요.
+          {t.mailAfter}
         </p>
       )}
       <fieldset disabled={pending} className="contact-fields">
-        <legend className="sr-only">문의 정보</legend>
+        <legend className="sr-only">{t.fields}</legend>
         <fieldset
           className="contact-field contact-type"
           aria-describedby={errors.type ? "type-error" : undefined}
@@ -163,10 +171,11 @@ export default function ContactForm({
             <span className="contact-required" aria-hidden="true">
               *
             </span>
-            문의 유형<span className="sr-only"> (필수)</span>
+            {t.type}
+            <span className="sr-only">{t.required}</span>
           </legend>
           <div className="contact-type-options">
-            {inquiryTypes.map(({ value, label }) => (
+            {inquiryTypes.map((value) => (
               <label key={value} className="contact-type-option">
                 <input
                   type="radio"
@@ -176,7 +185,7 @@ export default function ContactForm({
                   onChange={() => change("type", value)}
                   className="sr-only"
                 />
-                {label}
+                {t.types[value]}
               </label>
             ))}
           </div>
@@ -192,7 +201,7 @@ export default function ContactForm({
               <span className="contact-required" aria-hidden="true">
                 *
               </span>
-              이름
+              {t.name}
             </label>
             <input
               id="name"
@@ -202,7 +211,7 @@ export default function ContactForm({
               autoComplete="name"
               maxLength={50}
               required
-              placeholder="이름을 입력해 주세요"
+              placeholder={t.namePlaceholder}
               className={inputClass}
               aria-invalid={Boolean(errors.name)}
               aria-describedby={errors.name ? "name-error" : undefined}
@@ -218,7 +227,7 @@ export default function ContactForm({
               <span className="contact-required" aria-hidden="true">
                 *
               </span>
-              이메일
+              {t.email}
             </label>
             <input
               id="email"
@@ -229,7 +238,7 @@ export default function ContactForm({
               autoComplete="email"
               maxLength={254}
               required
-              placeholder="이메일을 입력해 주세요"
+              placeholder={t.emailPlaceholder}
               className={inputClass}
               aria-invalid={Boolean(errors.email)}
               aria-describedby={errors.email ? "email-error" : undefined}
@@ -246,7 +255,7 @@ export default function ContactForm({
             <span className="contact-required" aria-hidden="true">
               *
             </span>
-            문의 내용
+            {t.message}
           </label>
           <textarea
             id="message"
@@ -255,13 +264,13 @@ export default function ContactForm({
             onChange={(e) => change("message", e.target.value)}
             maxLength={2000}
             required
-            placeholder="문의 내용을 입력해 주세요"
+            placeholder={t.messagePlaceholder}
             className={`${inputClass} resize-y`}
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? "message-error" : undefined}
           />
           <p className="mt-1 text-right text-micro text-muted">
-            {values.message.length}/2,000자
+            {t.count.replace("{count}", String(values.message.length))}
           </p>
           {errors.message && (
             <p id="message-error" className="contact-field-error text-helper">
@@ -283,10 +292,7 @@ export default function ContactForm({
                 errors.consent ? "consent-error" : "consent-description"
               }
             />
-            <span id="consent-description">
-              개인정보 수집·이용에 동의합니다. (이름, 이메일, 문의 내용 / 문의
-              답변 목적 / 답변 후 1년 보관)
-            </span>
+            <span id="consent-description">{t.consent}</span>
           </label>
           {errors.consent && (
             <p id="consent-error" className="contact-field-error text-helper">
@@ -295,7 +301,7 @@ export default function ContactForm({
           )}
         </div>
         <div className="sr-only" aria-hidden="true">
-          <label htmlFor="company_website">회사 웹사이트</label>
+          <label htmlFor="company_website">{t.honeypot}</label>
           <input
             id="company_website"
             name="company_website"
@@ -310,6 +316,7 @@ export default function ContactForm({
               siteKey={siteKey}
               email={email}
               onToken={setToken}
+              text={t}
             />
           </div>
         )}
@@ -321,7 +328,7 @@ export default function ContactForm({
         )}
         {Object.values(errors).some(Boolean) && (
           <p role="alert" className="contact-field-error text-helper">
-            입력 항목의 안내를 확인해 주세요.
+            {t.checkFields}
           </p>
         )}
         <button
@@ -329,7 +336,7 @@ export default function ContactForm({
           disabled={pending || !enabled}
           className="contact-button"
         >
-          {pending ? "보내는 중…" : "문의 보내기"}
+          {pending ? t.sending : t.submit}
         </button>
       </fieldset>
     </form>
