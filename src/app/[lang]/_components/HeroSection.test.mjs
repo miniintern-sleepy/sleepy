@@ -26,16 +26,16 @@ const hook = registerHooks({
         ),
         shortCircuit: true,
       };
-    if (s === "@/components/ui/TextLink")
+    if (s === "@/components/ui/ButtonLink")
       return {
-        url: new URL("../../../components/ui/TextLink.tsx", import.meta.url)
+        url: new URL("../../../components/ui/ButtonLink.tsx", import.meta.url)
           .href,
         shortCircuit: true,
       };
-    // TextLink가 같은 폴더의 ExternalLink·TextLinkBody를 확장자 없이 불러온다(#88).
+    // ButtonLink가 같은 폴더의 ExternalLink를 확장자 없이 불러온다(#88).
     if (
       s.startsWith("./") &&
-      c.parentURL?.endsWith("/components/ui/TextLink.tsx")
+      c.parentURL?.endsWith("/components/ui/ButtonLink.tsx")
     )
       return { url: new URL(`${s}.tsx`, c.parentURL).href, shortCircuit: true };
     if (s.endsWith(".webp"))
@@ -68,7 +68,7 @@ const { default: FounderStorySection } =
 const { default: DayTriptychSection } =
   await import("./DayTriptychSection.tsx");
 hook.deregister();
-test("HOME-002 메인 히어로는 세 줄 제목·제품 보기 버튼·상자 사진을 표시하고 문의 배너는 없다", () => {
+test("HOME-002 메인 히어로는 두 줄 제목·제품 설명·제품 소개 버튼·상자 사진을 표시하고 문의 배너는 없다(#98)", () => {
   const html = renderToStaticMarkup(
     createElement(HeroSection, {
       lang: "ko",
@@ -82,13 +82,16 @@ test("HOME-002 메인 히어로는 세 줄 제목·제품 보기 버튼·상자 
     .match(/<h1[^>]*>([\s\S]*?)<\/h1>/)[1]
     .replace(/<[^>]+>/g, "");
   assert.equal(titleText, homeCopy.hero.title.replaceAll("\n", " "));
-  assert.equal(homeCopy.hero.title.split("\n").length, 3);
+  assert.equal(homeCopy.hero.title.split("\n").length, 2);
   assert.match(html, /alt=""/);
   assert.match(html, /src="\/images\/home\/hero-box.webp"/);
   assert.match(html, /sizes="100vw"/);
   assert.match(html, /loading="eager"/);
   assert.match(html, /fetchPriority="high"/);
-  assert.match(html, /href="\/ko\/product" class="home-hero-button">제품 보기/);
+  assert.match(
+    html,
+    /<div class="home-hero-product"><p[^>]*>[^<]+<\/p><a href="\/ko\/product" class="public-button public-button-primary public-button-small">제품 소개<\/a>/,
+  );
   assert.ok(html.includes(homeCopy.hero.description));
   assert.doesNotMatch(html, /<canvas\b/);
   const page = readFileSync(new URL("../page.tsx", import.meta.url), "utf8");

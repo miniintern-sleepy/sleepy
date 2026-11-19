@@ -3,9 +3,11 @@ import type { homeCopy as ko } from "../ko/home";
 
 export const homeCopy: typeof ko = {
   hero: {
-    title: "From everyday life\nto restful sleep,\nSleepy is with you",
-    description: "Helping you sleep well, without medication",
-    link: "View product",
+    title:
+      "Regulating the central nervous system without drugs,\nwe build digital solutions that help from sleep to anesthesia",
+    description:
+      "Sleeby, a digital earplug that helps\nyou sleep with binaural beats",
+    link: "Product",
   },
   everyday: {
     title: "Because sleep is\npart of your day",
@@ -24,15 +26,14 @@ export const homeCopy: typeof ko = {
     title: "Answering everyday\nquestions with research",
     role: "Professor of Anesthesiology and Pain Medicine, Seoul National University Hospital",
     paragraphs: [
-      "Sleeby, a digital earplug that began with a small question from Sleepy's founder, a father of four and a professor of anesthesiology and pain medicine",
+      "It began with a small question from Sleepy's founder, a father of four and a professor of anesthesiology and pain medicine",
     ],
     description:
       "Rooted in anesthesiology research, we build technology that helps you sleep well without medication",
     link: "About us",
   },
   product: {
-    title: "Making the time before sleep\na little simpler",
-    description: "Sleeby, a digital earplug that works without a smartphone",
+    title: "Sleeby, a digital earplug\nfor falling asleep easily",
     link: "Product",
   },
   faq: {

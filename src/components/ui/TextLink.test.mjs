@@ -37,6 +37,7 @@ const hook = registerHooks({
 });
 const { default: TextLink } = await import("./TextLink.tsx");
 const { default: ExternalLinks } = await import("./ExternalLinks.tsx");
+const { default: ButtonLink } = await import("./ButtonLink.tsx");
 hook.deregister();
 const render = (props) =>
   renderToStaticMarkup(createElement(TextLink, props, "문의하기"));
@@ -71,7 +72,7 @@ test("LINK-003 size=compact는 작은 글자 클래스를 붙이고 바깥 class
   assert.match(html, /class="public-text-link public-text-link-compact mt-4"/);
 });
 
-test("LINK-004 외부 링크 목록은 https 주소만 TextLink external로 그린다", () => {
+test("LINK-004 외부 링크 목록은 https 주소만 보조 버튼(ButtonLink external)으로 그린다", () => {
   const html = renderToStaticMarkup(
     createElement(ExternalLinks, {
       links: [
@@ -82,7 +83,7 @@ test("LINK-004 외부 링크 목록은 https 주소만 TextLink external로 그�
   );
   assert.equal(html.match(/<a /g).length, 1);
   assert.match(html, /target="_blank"/);
-  assert.match(html, /public-text-link-body">논문/);
+  assert.match(html, /class="public-button public-button-secondary">논문/);
 });
 
 test("LINK-005 글자 링크 모양은 공통 CSS 한 곳에서만 정하고 직접 클래스를 쓰지 않는다", () => {
@@ -111,13 +112,64 @@ test("LINK-005 글자 링크 모양은 공통 CSS 한 곳에서만 정하고 직
         rule[1],
         /gap|width|justify-content|border|color|font-size/,
       );
+});
+
+const button = (props) =>
+  renderToStaticMarkup(createElement(ButtonLink, props, "기술 원리"));
+
+test("LINK-006 버튼 링크(#98)는 기본이 보조(테두리)이고 primary는 보라 채움 클래스를 쓴다", () => {
+  const html = button({ href: "/ko/technology" });
+  assert.match(html, /^<a [^>]*data-next-link/);
+  assert.match(
+    html,
+    /class="public-button public-button-secondary"[^>]*>기술 원리<span aria-hidden="true">↗<\/span><\/a>$/,
+  );
+  assert.match(
+    button({ href: "/ko/product", variant: "primary", className: "mt-8" }),
+    /class="public-button public-button-primary mt-8"/,
+  );
+  assert.doesNotMatch(button({ href: "/ko/product", arrow: false }), /↗/);
+  const external = button({ href: "https://example.com", external: true });
+  assert.match(external, /target="_blank"/);
+  assert.match(external, /<span class="sr-only"> \(새 창\)<\/span><\/a>$/);
+});
+
+test("LINK-007 버튼 모양은 공통 CSS 한 곳에서 정하고, 이동 링크는 글자 링크 대신 버튼을 쓴다", () => {
+  const css = read("../../styles/public.css");
+  const base = css.match(/\.public-button \{[^}]*\}/)[0];
+  assert.match(base, /min-height: var\(--size-touch\)/);
+  assert.match(base, /border-radius: var\(--radius-pill\)/);
+  assert.match(
+    css.match(/\.public-button-primary \{[^}]*\}/)[0],
+    /background: var\(--color-violet\)/,
+  );
+  assert.match(
+    css.match(/\.public-button-secondary \{[^}]*\}/)[0],
+    /border-color: var\(--color-rule\)/,
+  );
   for (const path of [
+    "../../app/[lang]/_components/ProductStageSection.tsx",
+    "../../app/[lang]/_components/DayTriptychSection.tsx",
+    "../../app/[lang]/_components/FounderStorySection.tsx",
+    "../../app/[lang]/_components/HomeFaqSection.tsx",
+    "../../app/[lang]/_components/LatestNewsSection.tsx",
     "../../app/[lang]/company/_components/EasyTechSection.tsx",
     "../../app/[lang]/contact/_components/ContactForm.tsx",
+    "../../app/[lang]/faq/page.tsx",
     "./ExternalLinks.tsx",
+    "./ContactBanner.tsx",
   ]) {
     const source = read(path);
-    assert.match(source, /<TextLink/);
-    assert.doesNotMatch(source, /className="public-text-link/);
+    assert.match(source, /<ButtonLink/);
+    assert.doesNotMatch(
+      source,
+      /<TextLink|className="public-(text-link|button)/,
+    );
   }
+  // 주 버튼은 제품·문의 두 곳에만 둔다.
+  assert.match(
+    read("../../app/[lang]/_components/ProductStageSection.tsx"),
+    /variant="primary"/,
+  );
+  assert.match(read("./ContactBanner.tsx"), /variant="primary"/);
 });

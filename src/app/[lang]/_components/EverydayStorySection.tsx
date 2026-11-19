@@ -6,7 +6,7 @@ export default function EverydayStorySection({
 }) {
   return (
     <section className="home-everyday home-section">
-      <div className="public-wide">
+      <div className="public-wide" data-reveal>
         <h2 className="text-story-heading whitespace-pre-line">{copy.title}</h2>
         <div className="home-story-columns">
           {copy.paragraphs.map((p) => (

@@ -228,11 +228,6 @@
   border-radius: 50%;
   background: var(--color-violet);
 }
-.company-tech-caption {
-  flex-basis: 100%;
-  text-align: center;
-  margin-top: 40px;
-}
 .company-history {
   margin-top: var(--space-section);
 }
@@ -383,8 +378,37 @@
  * - 걸음 제목: 아래 연표가 왼쪽 정렬이라 제목도 왼쪽에 맞춘다.
  */
 @media (max-width: 520px) {
+  .company-ceo-layout-with-photo {
+    grid-template-columns: 105px minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto;
+    gap: 0 22px;
+    align-items: start;
+  }
+  .company-ceo-photo-wrap {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
   .company-ceo-photo {
-    max-width: 240px;
+    width: 105px;
+    max-width: none;
+    height: auto;
+    aspect-ratio: auto;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy {
+    display: contents;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy > div:first-child {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy > p {
+    grid-column: 2;
+    grid-row: 3;
+  }
+  .company-ceo-layout-with-photo .company-ceo-copy > blockquote,
+  .company-ceo-layout-with-photo .company-ceo-copy > div:not(:first-child),
+  .company-ceo-layout-with-photo .company-ceo-copy > ul {
+    grid-column: 1 / -1;
   }
   .company-about-table > div {
     grid-template-columns: 72px minmax(0, 1fr);
@@ -399,16 +423,25 @@
     align-items: flex-start;
     gap: 12px;
   }
+  /*
+   * #98 원 세 개를 고정 폭(84·108·84 + 간격 = 300px) 대신 줄 폭에 맞춰 함께 줄인다.
+   * 이유: 320px 화면은 본문 폭이 276px라 그림이 넘쳐 페이지가 옆으로 2px 밀렸다(2026-11-18 측정).
+   */
   .company-tech-mobile .company-tech-ear {
+    flex: 0 1 84px;
+    min-width: 0;
     text-align: center;
   }
   .company-tech-ear-circle {
-    width: 84px;
-    height: 84px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
   }
   .company-tech-center-circle {
-    width: 108px;
-    height: 108px;
+    flex: 0 1 108px;
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
     margin-top: -12px;
     text-align: center;
   }

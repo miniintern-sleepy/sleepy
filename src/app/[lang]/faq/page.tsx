@@ -2,7 +2,7 @@ import PageHero from "@/components/ui/PageHero";
 import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import ContactBanner from "@/components/ui/ContactBanner";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import {
   getCompanyCopy,
   getFaqCopy,
@@ -26,7 +26,7 @@ async function Questions({
   lang: Locale;
   contact: ReactNode;
 }) {
-  const [items, copy] = await Promise.all([getFaqs(), getFaqCopy(lang)]);
+  const [items, copy] = await Promise.all([getFaqs(lang), getFaqCopy(lang)]);
   return (
     <FaqSearch
       items={items}
@@ -55,9 +55,9 @@ export default async function FaqPage({ params }: PageProps<"/[lang]/faq">) {
                 <p className="text-helper whitespace-pre-line text-muted">
                   {copy.contact}
                 </p>
-                <TextLink href={`/${lang}/contact`}>
+                <ButtonLink href={`/${lang}/contact`} size="small">
                   {ui.header.contact}
-                </TextLink>
+                </ButtonLink>
               </aside>
             }
           />

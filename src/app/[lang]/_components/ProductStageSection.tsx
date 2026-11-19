@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PurchaseButton from "@/components/ui/PurchaseButton";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { UiCopy } from "@/content/ko/ui";
 import type { getHomeCopy, getProductCopy } from "@/lib/content";
 export default function ProductStageSection({
@@ -18,14 +18,15 @@ export default function ProductStageSection({
 }) {
   return (
     <section className="home-product home-section">
-      <div className="public-wide home-product-grid">
+      <div className="public-wide home-product-grid" data-reveal>
         <div>
           <h2 className="text-stage-heading whitespace-pre-line">
             {copy.title}
           </h2>
-          <p className="text-copy text-muted">{copy.description}</p>
           <div className="home-product-actions">
-            <TextLink href={`/${lang}/product`}>{copy.link}</TextLink>
+            <ButtonLink href={`/${lang}/product`} variant="primary">
+              {copy.link}
+            </ButtonLink>
             <PurchaseButton
               url={purchaseUrl}
               copy={purchaseCopy}

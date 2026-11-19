@@ -41,7 +41,6 @@ export const uiCopy: UiCopy = {
   },
   footer: {
     tagline: "Helping you sleep well, without medication",
-    taglineSub: "Sleeby, a digital earplug that works without a smartphone",
     menu: "Footer menu",
     general: "General inquiry",
     partnership: "Partnerships",

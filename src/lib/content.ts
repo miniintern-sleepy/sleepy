@@ -28,21 +28,39 @@ import type {
 // 관리 화면(C-01) 전에는 대시보드에서 고쳐도 캐시를 지울 방법이 없어서 한 시간마다 새로 읽는다.
 // 관리 Action은 저장 뒤 같은 태그(테이블 이름)로 캐시를 지운다.
 
-/** 공개된 FAQ를 노출 순서대로 가져온다. 없으면 빈 배열. */
-export async function getFaqs(): Promise<Faq[]> {
+/**
+ * 공개된 FAQ를 노출 순서대로 가져온다. 없으면 빈 배열.
+ * 영문 페이지는 영문 열을 쓰고, 영문이 비어 있으면 한국어 원문을 대신 보여 준다(#98).
+ */
+export async function getFaqs(lang: Locale = defaultLocale): Promise<Faq[]> {
   "use cache";
   cacheLife("hours");
   cacheTag("faqs");
 
-  const { data, error } = await createReadClient()
-    .from("faqs")
-    .select("id, question, answer")
-    .eq("is_published", true)
-    .order("sort_order")
-    .order("id");
+  const read = (columns: string) =>
+    createReadClient()
+      .from("faqs")
+      .select(columns)
+      .eq("is_published", true)
+      .order("sort_order")
+      .order("id")
+      .returns<FaqRow[]>();
+  let { data, error } = await read(
+    "id, question, answer, question_en, answer_en",
+  );
+  // 이유: CI 빌드용 DB에는 영문 열 마이그레이션(20261118090000)이 아직 없어 빌드가 멈췄다(2026-11-19, PR #99).
+  // 주의: 열이 없을 때(42703)만 한국어 열로 다시 읽는다. 다른 오류는 그대로 던진다.
+  if (error?.code === "42703")
+    ({ data, error } = await read("id, question, answer"));
   if (error) throw error;
-  return data;
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    question: (lang === "en" && row.question_en?.trim()) || row.question,
+    answer: (lang === "en" && row.answer_en?.trim()) || row.answer,
+  }));
 }
+
+type FaqRow = Faq & { question_en?: string | null; answer_en?: string | null };
 
 /** 공개된 제품 사양을 노출 순서대로 가져온다. */
 export async function getProductSpecs(): Promise<ProductSpec[]> {

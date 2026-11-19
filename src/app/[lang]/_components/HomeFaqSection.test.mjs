@@ -8,7 +8,7 @@ import test from "node:test";
 const stubs = {
   "@/lib/content":
     "export async function getFaqs(){return globalThis.__sleepyHomeFaq81;}",
-  "@/components/ui/TextLink":
+  "@/components/ui/ButtonLink":
     "export default function Link({href,children}){return '[' + href + '|' + children + ']';}",
 };
 const hook = registerHooks({

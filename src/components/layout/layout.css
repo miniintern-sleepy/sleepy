@@ -104,6 +104,40 @@
   background: var(--color-panel);
 }
 
+/*
+ * #98 메뉴를 화면 가운데에 둔다(PL 요청 2026-11-18).
+ * 이유: flex 양끝 정렬은 오른쪽 묶음(177px)이 로고(106px)보다 넓어 메뉴가 28px 왼쪽으로 밀렸다(1440px 측정).
+ * 양옆 칸을 같은 1fr로 두면 가운데 칸이 화면 가운데에 온다.
+ * 주의: 900px 이하는 영어 메뉴가 양옆 대칭 여백까지 들어갈 자리가 없어 기존 양끝 정렬을 쓴다.
+ */
+.site-navigation-group {
+  display: contents;
+}
+@media (min-width: 901px) {
+  .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  /* 로고 링크가 왼쪽 칸 전체로 늘어나 누르는 곳이 넓어지지 않게 한다. */
+  .site-brand {
+    justify-self: start;
+  }
+  .header-actions {
+    justify-self: end;
+  }
+  /* 제품 양옆 묶음을 같은 1fr로 두어 제품이 메뉴 가운데, 메뉴가 화면 가운데에 온다. */
+  .site-navigation {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  .site-navigation-group {
+    display: flex;
+    gap: inherit;
+  }
+  .site-navigation-group:first-child {
+    justify-content: flex-end;
+  }
+}
 /* #96 머리말 오른쪽: 언어 선택 + 문의하기 */
 .header-actions {
   display: flex;
@@ -177,7 +211,8 @@
 .site-footer {
   flex-shrink: 0;
   background: var(--color-paper);
-  padding-block: 56px 48px;
+  /* #98 로고를 24px 내리고 큰 문장 자리는 그대로 둔다(위 56→80, 문장 위 60→36). */
+  padding-block: 80px 48px;
 }
 .footer-top {
   display: flex;
@@ -192,17 +227,12 @@
   width: 104px;
 }
 .footer-tagline {
-  margin-top: 28px;
+  /* #98 작은 문장을 빼고 큰 문장을 그 자리(한 줄 아래)로 내린다. */
+  margin-top: 36px;
   color: var(--color-ink);
   font-size: var(--text-context-heading);
   font-weight: var(--font-weight-ui-selected);
   line-height: var(--text-detail-heading--line-height);
-}
-.footer-tagline-sub {
-  margin-top: 8px;
-  color: var(--color-ink);
-  font-size: var(--text-copy);
-  line-height: var(--text-form-title--line-height);
 }
 .footer-navigation {
   display: flex;
@@ -344,17 +374,14 @@
 /* #96 휴대폰 꼬리말은 위아래 여백과 큰 문구를 줄인다. */
 @media (max-width: 520px) {
   .site-footer {
-    padding-block: 40px 32px;
+    padding-block: 56px 32px;
   }
   .footer-intro .site-logo {
     width: 88px;
   }
   .footer-tagline {
-    margin-top: 20px;
+    margin-top: 24px;
     font-size: var(--text-copy-large);
-  }
-  .footer-tagline-sub {
-    font-size: var(--text-meta);
   }
   .footer-navigation {
     gap: 20px;

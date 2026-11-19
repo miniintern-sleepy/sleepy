@@ -1,5 +1,5 @@
 import Image from "next/image";
-import TextLink from "@/components/ui/TextLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import type { getHomeCopy, getCompanyCopy } from "@/lib/content";
 export default function FounderStorySection({
   copy,
@@ -12,7 +12,7 @@ export default function FounderStorySection({
 }) {
   return (
     <section className="home-founder">
-      <div className="public-wide">
+      <div className="public-wide" data-reveal>
         <blockquote className="home-founder-quote text-founder-quote">
           {company.ceo.quote}
         </blockquote>
@@ -47,12 +47,15 @@ export default function FounderStorySection({
           <h2 className="text-context-heading whitespace-pre-line">
             {copy.title}
           </h2>
-          <div>
-            <p className="text-helper text-muted">{copy.description}</p>
-            <TextLink href={`/${lang}/company`} size="compact">
-              {copy.link}
-            </TextLink>
-          </div>
+          <p className="text-helper text-muted">{copy.description}</p>
+          {/* #98 회사 소개 버튼은 왼쪽 제목과 마주 보게 이 줄 오른쪽 끝에 둔다(PL 요청 2026-11-18). */}
+          <ButtonLink
+            href={`/${lang}/company`}
+            size="small"
+            className="home-founder-link"
+          >
+            {copy.link}
+          </ButtonLink>
         </div>
       </div>
     </section>

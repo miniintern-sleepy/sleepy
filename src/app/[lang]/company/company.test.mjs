@@ -91,12 +91,12 @@ test("CMP-004 CEO 표지는 이름과 같은 부모에서 이름 뒤에 나온�
   );
   assert.equal("facts" in companyCopy, false);
 });
-test("CMP-005 문의는 FAQ와 같은 문의 배너(글자 링크)이고 유형 일반을 미리 고른다", () => {
+test("CMP-005 문의는 FAQ와 같은 문의 배너(보라 채움 버튼, #98)이고 유형 일반을 미리 고른다", () => {
   const html = renderToStaticMarkup(
     createElement(Contact, { copy: companyCopy.contact, lang: "ko" }),
   );
   assert.match(html, /class="public-contact-banner company-contact"/);
   assert.match(html, /href="\/ko\/contact\?type=general"/);
-  assert.match(html, /public-text-link/);
-  assert.doesNotMatch(html, /rounded-full|bg-violet-strong/);
+  assert.match(html, /class="public-button public-button-primary"/);
+  assert.doesNotMatch(html, /public-text-link|rounded-full|bg-violet-strong/);
 });

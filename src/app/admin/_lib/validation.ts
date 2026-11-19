@@ -93,9 +93,25 @@ export function validateFaq(form: FormData) {
   const errors: Record<string, string> = { ...idErrors };
   const question = limitedText(form, "question", "질문", 200, errors);
   const answer = limitedText(form, "answer", "답변", 5000, errors);
+  // 영문은 비워 둘 수 있다. 비면 영문 페이지에 한국어 원문이 나간다(#98).
+  const question_en =
+    limitedText(form, "questionEn", "영문 질문", 200, errors, false) || null;
+  const answer_en =
+    limitedText(form, "answerEn", "영문 답변", 5000, errors, false) || null;
   const sort_order = order(form, errors);
   const is_published = flag(form, "isPublished", errors);
-  return { id, errors, values: { question, answer, sort_order, is_published } };
+  return {
+    id,
+    errors,
+    values: {
+      question,
+      answer,
+      question_en,
+      answer_en,
+      sort_order,
+      is_published,
+    },
+  };
 }
 
 export function validateSpec(form: FormData) {

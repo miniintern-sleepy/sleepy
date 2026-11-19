@@ -36,7 +36,6 @@ export default function Footer({ lang }: { lang: Locale }) {
               />
             </Link>
             <p className="footer-tagline">{t.tagline}</p>
-            <p className="footer-tagline-sub">{t.taglineSub}</p>
           </div>
           <nav aria-label={t.menu} className="footer-navigation">
             <Link href={`/${lang}/faq`}>FAQ</Link>

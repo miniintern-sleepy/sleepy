@@ -7,12 +7,10 @@ import type { UiCopy } from "@/content/ko/ui";
 import type { Locale } from "@/lib/i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const menuItems = [
-  "company",
-  "technology",
-  "product",
-  "newsroom",
-  "faq",
+const menuGroups = [
+  ["company", "technology"],
+  ["product"],
+  ["newsroom", "faq"],
 ] as const;
 
 export function Navigation({
@@ -69,20 +67,26 @@ export function Navigation({
         className="site-navigation"
         data-open={isOpen}
       >
-        {menuItems.map((path) => {
-          const href = `/${lang}/${path}`;
-          const current = pathname === href || pathname?.startsWith(`${href}/`);
-          return (
-            <Link
-              key={path}
-              href={href}
-              aria-current={current ? "page" : undefined}
-              onClick={closeMenu}
-            >
-              {copy.nav[path]}
-            </Link>
-          );
-        })}
+        {/* #98 제품을 화면 가운데에 두려고 앞 2개·제품·뒤 2개로 나눈다. 휴대폰에서는 묶음을 풀어(display: contents) 한 줄씩 쌓는다. */}
+        {menuGroups.map((group) => (
+          <span key={group.join()} className="site-navigation-group">
+            {group.map((path) => {
+              const href = `/${lang}/${path}`;
+              const current =
+                pathname === href || pathname?.startsWith(`${href}/`);
+              return (
+                <Link
+                  key={path}
+                  href={href}
+                  aria-current={current ? "page" : undefined}
+                  onClick={closeMenu}
+                >
+                  {copy.nav[path]}
+                </Link>
+              );
+            })}
+          </span>
+        ))}
         <Link
           href={contactHref}
           className="mobile-contact"
