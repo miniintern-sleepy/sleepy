@@ -37,19 +37,30 @@ export async function getFaqs(lang: Locale = defaultLocale): Promise<Faq[]> {
   cacheLife("hours");
   cacheTag("faqs");
 
-  const { data, error } = await createReadClient()
-    .from("faqs")
-    .select("id, question, answer, question_en, answer_en")
-    .eq("is_published", true)
-    .order("sort_order")
-    .order("id");
+  const read = (columns: string) =>
+    createReadClient()
+      .from("faqs")
+      .select(columns)
+      .eq("is_published", true)
+      .order("sort_order")
+      .order("id")
+      .returns<FaqRow[]>();
+  let { data, error } = await read(
+    "id, question, answer, question_en, answer_en",
+  );
+  // 이유: CI 빌드용 DB에는 영문 열 마이그레이션(20261118090000)이 아직 없어 빌드가 멈췄다(2026-11-19, PR #99).
+  // 주의: 열이 없을 때(42703)만 한국어 열로 다시 읽는다. 다른 오류는 그대로 던진다.
+  if (error?.code === "42703")
+    ({ data, error } = await read("id, question, answer"));
   if (error) throw error;
-  return data.map((row) => ({
+  return (data ?? []).map((row) => ({
     id: row.id,
     question: (lang === "en" && row.question_en?.trim()) || row.question,
     answer: (lang === "en" && row.answer_en?.trim()) || row.answer,
   }));
 }
+
+type FaqRow = Faq & { question_en?: string | null; answer_en?: string | null };
 
 /** 공개된 제품 사양을 노출 순서대로 가져온다. */
 export async function getProductSpecs(): Promise<ProductSpec[]> {
